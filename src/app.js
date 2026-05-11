@@ -627,7 +627,7 @@ function render() {
   app.innerHTML = `
     <header class="topbar">
       <div class="brand-block">
-        <img src="assets/logos/OpenEconomics-LOGO BLACK.svg" alt="OpenEconomics" />
+        <img src="assets/logos/OpenEconomics-LOGO WHITE.svg" alt="OpenEconomics" />
         <div>
           <p class="eyebrow">Frontend-only POC</p>
           <h1>Innovation Dealroom</h1>
