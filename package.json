@@ -1,0 +1,12 @@
+{
+  "name": "innovation-dealroom-poc",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Frontend-only Innovation Dealroom POC for explainable startup screening.",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/check-static.mjs"
+  }
+}
