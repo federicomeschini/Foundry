@@ -161,7 +161,7 @@ a:focus-visible {
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 4;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -253,7 +253,7 @@ h3 {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(200px, 260px);
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 240px);
   gap: var(--space-xl);
   align-items: end;
   min-height: 280px;
@@ -263,6 +263,7 @@ h3 {
   color: var(--bluette-ink);
   overflow: hidden;
   position: relative;
+  isolation: isolate;
 }
 
 .hero::before {
@@ -277,7 +278,6 @@ h3 {
 
 .hero > * {
   position: relative;
-  z-index: 1;
 }
 
 .hero h2 {
@@ -383,6 +383,7 @@ h3 {
 .dealroom {
   position: sticky;
   top: 80px;
+  z-index: 2;
   display: grid;
   gap: var(--space-md);
   max-height: calc(100vh - 96px);
@@ -908,6 +909,8 @@ input[type="search"]:focus-visible {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.09em;
+  overflow-wrap: break-word;
+  min-width: 0;
 }
 
 .info-card p,
@@ -935,18 +938,23 @@ input[type="search"]:focus-visible {
    ============================================================ */
 
 .scorecard {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.scorecard > .gauge:last-child {
+  grid-column: 1 / -1;
 }
 
 .gauge {
   display: grid;
   gap: var(--space-xs);
   min-width: 0;
+  overflow: hidden;
 }
 
 .gauge strong {
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 400;
   line-height: 1;
 }
@@ -954,6 +962,9 @@ input[type="search"]:focus-visible {
 .gauge small {
   color: var(--muted);
   font-size: 0.68rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .gauge__track {
