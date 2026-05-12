@@ -1133,15 +1133,10 @@ function renderHero(filtered) {
     <section class="hero">
       <div class="hero__copy">
         <p class="eyebrow">Screening view</p>
-        <h2>Which opportunities deserve a closer look?</h2>
+        <h2>Which opportunities deserve attention, and why?</h2>
         <p class="hero-copy">
-          This room turns mandate preferences into explainable screening signals. Select a company to open its summary in the right rail, then jump to the full detail page when you need the complete record.
+          This room turns mandate preferences into explainable first-level screening signals. Select a company to inspect the summary on the right, then open the full detail page when the case deserves deeper review.
         </p>
-        <div class="hero-guidance" aria-label="How to use this view">
-          <span>Scan the queue</span>
-          <span>Open on the right</span>
-          <span>Drill into detail</span>
-        </div>
       </div>
       <div class="hero-ledger" aria-label="Screening summary">
         <div class="hero-ledger__item">
