@@ -1337,12 +1337,18 @@ function renderTab(startup, fit) {
 
 function renderOverview(startup, fit) {
   return `
+    <section class="scorecard-note">
+      <p>
+        These are screening signals, not a valuation or recommendation. The score cards explain how the current mandate reads the company:
+        higher fit, evidence, and confidence are better; higher risk means more caution; higher diligence completeness means fewer open gaps.
+      </p>
+    </section>
     <section class="scorecard" aria-label="Explainability scorecard">
-      ${renderGauge("Investment fit", fit.score, fit.label)}
-      ${renderGauge("Evidence strength", fit.evidence, fit.evidenceLabel)}
-      ${renderGauge("Risk severity", fit.riskSeverity, "First-level signal")}
-      ${renderGauge("Data confidence", fit.dataConfidence, "Requires confirmation")}
-      ${renderGauge("Diligence completeness", fit.diligence, "Open items remain")}
+      ${renderGauge("Estimated fit", fit.score, "How closely the company matches the current screen.", fit.label)}
+      ${renderGauge("Evidence available", fit.evidence, "How much usable evidence is already visible.", fit.evidenceLabel)}
+      ${renderGauge("First-level risk signal", fit.riskSeverity, "How much caution the screening view is flagging.", "Screening caution")}
+      ${renderGauge("Data confidence", fit.dataConfidence, "How complete and consistent the current information appears.", "Requires confirmation")}
+      ${renderGauge("Diligence completeness", fit.diligence, "How many open diligence items still need to be checked.", "Open items remain")}
     </section>
     <section class="next-step">
       <span>Screening state</span>
@@ -1366,13 +1372,14 @@ function renderOverview(startup, fit) {
   `;
 }
 
-function renderGauge(label, value, description) {
+function renderGauge(label, value, description, footer) {
   return `
     <div class="gauge">
       <span>${label}</span>
       <strong>${value}</strong>
       <div class="gauge__track" aria-hidden="true"><i style="width:${value}%"></i></div>
-      <small>${description}</small>
+      <p>${description}</p>
+      <small>${footer}</small>
     </div>
   `;
 }

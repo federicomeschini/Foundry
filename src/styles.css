@@ -196,10 +196,19 @@ a:focus-visible {
   height: auto;
 }
 
-.topbar-back {
+.button.topbar-back {
   flex: 0 0 auto;
-  border-color: oklch(45% 0.16 296);
-  color: var(--bluette-ink);
+  border-color: var(--paper);
+  color: var(--bluette);
+  background: var(--paper);
+  box-shadow: 0 1px 0 oklch(15% 0.05 292 / 10%);
+}
+
+.button.topbar-back:hover {
+  opacity: 1;
+  background: var(--lime);
+  border-color: var(--lime);
+  color: var(--lime-ink);
 }
 
 /* ============================================================
@@ -1139,6 +1148,20 @@ input[type="search"]:focus-visible {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.scorecard-note {
+  padding: var(--space-md);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.scorecard-note p {
+  margin-bottom: 0;
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
 .scorecard > .gauge:last-child {
   grid-column: 1 / -1;
 }
@@ -1157,12 +1180,17 @@ input[type="search"]:focus-visible {
   line-height: 1;
 }
 
+.gauge p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.81rem;
+  line-height: 1.45;
+}
+
 .gauge small {
   color: var(--muted);
   font-size: 0.68rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .gauge__track {
