@@ -1868,34 +1868,24 @@ function renderDetailPage(startup, fit) {
         <div class="detail-main">
           <article class="detail-panel panel">
             <div class="panel-heading">
-              <p class="eyebrow">Evidence</p>
-              <h2>Visible evidence</h2>
+              <p class="eyebrow">Signals</p>
+              <h2>Evidence and risk</h2>
             </div>
-            ${renderEvidence(startup)}
+            <div class="detail-panel__split">
+              ${renderEvidence(startup)}
+              ${renderRisk(startup)}
+            </div>
           </article>
 
           <article class="detail-panel panel">
             <div class="panel-heading">
-              <p class="eyebrow">Risk</p>
-              <h2>Risk and exposure</h2>
+              <p class="eyebrow">Actionables</p>
+              <h2>Diligence and brief</h2>
             </div>
-            ${renderRisk(startup)}
-          </article>
-
-          <article class="detail-panel panel">
-            <div class="panel-heading">
-              <p class="eyebrow">Diligence</p>
-              <h2>Open diligence items</h2>
+            <div class="detail-panel__split">
+              ${renderDiligence(startup)}
+              ${renderBrief(startup, fit)}
             </div>
-            ${renderDiligence(startup)}
-          </article>
-
-          <article class="detail-panel panel">
-            <div class="panel-heading">
-              <p class="eyebrow">Brief</p>
-              <h2>Investor brief</h2>
-            </div>
-            ${renderBrief(startup, fit)}
           </article>
         </div>
 
@@ -2471,12 +2461,23 @@ function renderCompare(compare) {
     ${
       compare.length
         ? `<div class="compare-panel__body">
-            <div class="compare-table" role="table" aria-label="Selected startup comparison">
-              ${["Company", "Fit", "Ask", "Stage / TRL", "Evidence", "Regulatory", "Transition", "Top diligence gap"]
-                .map((header) => `<div class="compare-cell compare-cell--head" role="columnheader">${header}</div>`)
+            <section class="compare-matrix" role="table" aria-label="Selected startup comparison" style="--compare-columns:${compare.length}">
+              <div class="compare-matrix__head" role="row">
+                <div class="compare-matrix__label" role="columnheader">Company</div>
+                ${compare.map((startup) => renderCompareHeadCell(startup)).join("")}
+              </div>
+              ${[
+                ["Fit", (startup) => `<strong>${startup.fit.score}</strong><span>${startup.fit.label}</span>`],
+                ["Ask", (startup) => startup.ask],
+                ["Stage / TRL", (startup) => `${startup.stage}<span>TRL ${startup.trl}</span>`],
+                ["Evidence", (startup) => startup.evidence[0]],
+                ["Regulatory", (startup) => `${startup.regulatory.level}<span>${startup.regulatory.character}</span>`],
+                ["Transition", (startup) => `${startup.transition.level}<span>${startup.transition.character}</span>`],
+                ["Top diligence gap", (startup) => startup.missing[0]],
+              ]
+                .map(([label, formatter]) => renderCompareMatrixRow(label, compare, formatter))
                 .join("")}
-              ${compare.map((startup) => renderCompareRow(startup)).join("")}
-            </div>
+            </section>
             ${aiSummaryHTML}
           </div>`
         : `<div class="empty-state empty-state--compact"><p>Select at least two opportunities from the screening list to start comparing.</p></div>`
@@ -2484,30 +2485,25 @@ function renderCompare(compare) {
   `;
 }
 
-function renderCompareCard(startup) {
+function renderCompareHeadCell(startup) {
   const fit = assessStartup(startup);
   return `
-    <article class="compare-card panel">
-      <div class="compare-card__head">
+    <div class="compare-matrix__company" role="columnheader">
+      <div class="compare-matrix__company-head">
         <div>
-          <p class="eyebrow">Selected</p>
-          <h3>${startup.name}</h3>
+          <span class="eyebrow">Selected</span>
+          <strong>${startup.name}</strong>
           <p>${startup.sector} / ${startup.stage} / ${startup.geography}</p>
         </div>
-        <div class="compare-card__score">
+        <div class="compare-matrix__score">
           <strong>${fit.score}</strong>
           <span>${fit.label}</span>
         </div>
       </div>
-      <div class="compare-card__facts">
-        <span>${startup.ask}</span>
-        <span>TRL ${startup.trl}</span>
-        <span>${startup.regulatory.level} regulatory</span>
-      </div>
-      <div class="compare-card__actions">
+      <div class="compare-matrix__company-actions">
         <button class="button button--ghost button--small" type="button" data-action="open-detail" data-id="${startup.id}">Open detail</button>
       </div>
-    </article>
+    </div>
   `;
 }
 
@@ -2550,17 +2546,47 @@ function renderComparePage(compare) {
   `;
 }
 
-function renderCompareRow(startup) {
+function renderCompareCard(startup) {
   const fit = assessStartup(startup);
   return `
-    <div class="compare-cell" role="cell"><strong>${startup.name}</strong><span>${startup.sector}</span></div>
-    <div class="compare-cell" role="cell">${fit.score}<span>${fit.label}</span></div>
-    <div class="compare-cell" role="cell">${startup.ask}</div>
-    <div class="compare-cell" role="cell">${startup.stage}<span>TRL ${startup.trl}</span></div>
-    <div class="compare-cell" role="cell">${startup.evidence[0]}</div>
-    <div class="compare-cell" role="cell">${startup.regulatory.level}<span>${startup.regulatory.character}</span></div>
-    <div class="compare-cell" role="cell">${startup.transition.level}<span>${startup.transition.character}</span></div>
-    <div class="compare-cell" role="cell">${startup.missing[0]}</div>
+    <article class="compare-card panel">
+      <div class="compare-card__head">
+        <div>
+          <p class="eyebrow">Selected</p>
+          <h3>${startup.name}</h3>
+          <p>${startup.sector} / ${startup.stage} / ${startup.geography}</p>
+        </div>
+        <div class="compare-card__score">
+          <strong>${fit.score}</strong>
+          <span>${fit.label}</span>
+        </div>
+      </div>
+      <div class="compare-card__facts">
+        <span>${startup.ask}</span>
+        <span>TRL ${startup.trl}</span>
+        <span>${startup.regulatory.level} regulatory</span>
+      </div>
+      <div class="compare-card__actions">
+        <button class="button button--ghost button--small" type="button" data-action="open-detail" data-id="${startup.id}">Open detail</button>
+      </div>
+    </article>
+  `;
+}
+
+function renderCompareMatrixRow(label, compare, formatter) {
+  return `
+    <div class="compare-matrix__row" role="row">
+      <div class="compare-matrix__label" role="rowheader">${label}</div>
+      ${compare
+        .map(
+          (startup) => `
+            <div class="compare-matrix__cell" role="cell">
+              ${formatter(startup)}
+            </div>
+          `
+        )
+        .join("")}
+    </div>
   `;
 }
 
