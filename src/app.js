@@ -1244,7 +1244,7 @@ function closeDetailView() {
 }
 
 function openCompareView() {
-  if (state.compareIds.length < 2) return;
+  if (state.compareIds.length < 1) return;
   markWorkspaceEntered();
   location.hash = `compare/${state.compareIds.join(",")}`;
   syncRouteFromHash();
@@ -1727,7 +1727,7 @@ function render() {
       ? `<button class="button button--ghost button--small topbar-back" type="button" data-action="close-compare">Back to screening room</button>`
     : "";
   const topbarCompare = !detailMode && !compareMode && compare.length
-    ? `<button class="button button--ghost button--small topbar-compare" type="button" data-action="open-compare" ${compare.length < 2 ? "disabled title=\"Select at least two companies to compare\"" : ""}>Compare (${compare.length})</button>`
+    ? `<button class="button button--ghost button--small topbar-compare" type="button" data-action="open-compare" ${compare.length < 1 ? "disabled title=\"Select at least one company to compare\"" : ""}>Compare (${compare.length})</button>`
     : "";
 
   app.innerHTML = `
