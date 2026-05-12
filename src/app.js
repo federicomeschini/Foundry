@@ -447,6 +447,7 @@ const state = {
   compareIds: ["aerolith", "vectorlane"],
   briefId: "aerolith",
   activeTab: "overview",
+  view: "browse",
   showAdvanced: false,
   aiResults: {},
   compareAI: null,
@@ -468,6 +469,50 @@ const tabs = [
 ];
 
 const app = document.querySelector("#app");
+
+function startupById(id) {
+  return startups.find((startup) => startup.id === id);
+}
+
+function parseHash() {
+  const raw = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+  if (!raw) return null;
+  if (raw.startsWith("startup/")) return raw.slice("startup/".length);
+  if (raw.startsWith("company/")) return raw.slice("company/".length);
+  return null;
+}
+
+function syncRouteFromHash() {
+  const id = parseHash();
+  const startup = id ? startupById(id) : null;
+
+  if (startup) {
+    state.view = "detail";
+    state.selectedId = startup.id;
+    state.briefId = startup.id;
+    state.activeTab = "overview";
+    return;
+  }
+
+  state.view = "browse";
+}
+
+function openDetailView(id) {
+  const startup = startupById(id);
+  if (!startup) return;
+  state.selectedId = startup.id;
+  state.briefId = startup.id;
+  state.activeTab = "overview";
+  location.hash = `startup/${startup.id}`;
+  syncRouteFromHash();
+  render();
+}
+
+function closeDetailView() {
+  location.hash = "";
+  syncRouteFromHash();
+  render();
+}
 
 function normalizeTicket(value) {
   return Number.parseFloat(value).toFixed(value % 1 === 0 ? 0 : 1);
@@ -899,6 +944,10 @@ function render() {
   const filtered = getFilteredStartups();
   const compare = state.compareIds.map((id) => startups.find((startup) => startup.id === id)).filter(Boolean);
   const selectedFit = assessStartup(selected);
+  const detailMode = state.view === "detail";
+  const topbarStatus = detailMode
+    ? `<span class="status-pill">Detail view</span><span class="status-pill status-pill--accent">${selected.name}</span>`
+    : `<span class="status-pill">Static screening room</span><span class="status-pill status-pill--accent">${filtered.length} visible opportunities</span>`;
 
   app.innerHTML = `
     <header class="topbar">
@@ -910,11 +959,18 @@ function render() {
         </div>
       </div>
       <div class="topbar__right">
-        <span class="status-pill">Static screening room</span>
-        <span class="status-pill status-pill--accent">${filtered.length} visible opportunities</span>
+        ${topbarStatus}
       </div>
     </header>
 
+    ${detailMode ? renderDetailPage(selected, selectedFit) : renderBrowsePage(selected, selectedFit, filtered, compare)}
+  `;
+
+  bindEvents();
+}
+
+function renderBrowsePage(selected, selectedFit, filtered, compare) {
+  return `
     <main id="main" class="workspace">
       <aside class="mandate panel" aria-label="Investor preferences">
         ${renderMandatePanel()}
@@ -937,8 +993,106 @@ function render() {
       ${renderCompare(compare)}
     </section>
   `;
+}
 
-  bindEvents();
+function renderDetailPage(startup, fit) {
+  const inCompare = state.compareIds.includes(startup.id);
+  return `
+    <main id="main" class="detail-page">
+      <section class="detail-hero panel">
+        <div class="detail-hero__copy">
+          <p class="eyebrow">Company detail</p>
+          <h2>${startup.name}</h2>
+          <p class="detail-hero__summary">${startup.sector} / ${startup.stage} / ${startup.geography} / TRL ${startup.trl}</p>
+          <p class="detail-hero__decision">${fit.decision}. This page surfaces the full screening context and remains a diligence lead, not a conclusion.</p>
+          <div class="detail-hero__chips" aria-label="Company tags">
+            <span class="detail-chip">${startup.ask}</span>
+            <span class="detail-chip">${startup.maturity}</span>
+            <span class="detail-chip">${startup.metrics.revenue}</span>
+            <span class="detail-chip">${startup.metrics.runway} runway</span>
+            <span class="detail-chip">${startup.tags.join(" / ")}</span>
+          </div>
+        </div>
+        <div class="detail-hero__actions">
+          <button class="button button--ghost" type="button" data-action="close-detail">Back to screening room</button>
+          <button class="button button--small ${inCompare ? "button--active" : "button--ghost"}" type="button" data-action="toggle-compare" data-id="${startup.id}">
+            ${inCompare ? "In compare" : "Compare"}
+          </button>
+        </div>
+      </section>
+
+      <section class="detail-grid" aria-label="Company detail sections">
+        <article class="detail-panel panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Snapshot</p>
+            <h2>Company profile</h2>
+          </div>
+          <section class="info-grid">
+            ${renderInfo("Sector", startup.sector)}
+            ${renderInfo("Stage", startup.stage)}
+            ${renderInfo("Geography", startup.geography)}
+            ${renderInfo("TRL", `TRL ${startup.trl}`)}
+            ${renderInfo("Ask", startup.ask)}
+            ${renderInfo("Use of funds", startup.useOfFunds)}
+            ${renderInfo("Business model", startup.model)}
+            ${renderInfo("IP status", startup.ip)}
+          </section>
+          <section class="deal-section">
+            <h3>Investment rationale</h3>
+            <ul class="clean-list">${startup.rationale.map((item) => `<li>${item}</li>`).join("")}</ul>
+          </section>
+        </article>
+
+        <article class="detail-panel panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Screening</p>
+            <h2>Explainable fit</h2>
+          </div>
+          ${renderOverview(startup, fit)}
+        </article>
+
+        <article class="detail-panel panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Evidence</p>
+            <h2>Evidence available</h2>
+          </div>
+          ${renderEvidence(startup)}
+        </article>
+
+        <article class="detail-panel panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Risk</p>
+            <h2>Exposure and first-level signals</h2>
+          </div>
+          ${renderRisk(startup)}
+        </article>
+
+        <article class="detail-panel panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Diligence</p>
+            <h2>Missing information</h2>
+          </div>
+          ${renderDiligence(startup)}
+        </article>
+
+        <article class="detail-panel detail-panel--wide panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Brief</p>
+            <h2>Mock investor brief</h2>
+          </div>
+          ${renderBrief(startup, fit)}
+        </article>
+
+        <article class="detail-panel detail-panel--wide panel">
+          <div class="panel-heading">
+            <p class="eyebrow">AI Analyst</p>
+            <h2>Deterministic screening note</h2>
+          </div>
+          ${renderAITab(startup, fit)}
+        </article>
+      </section>
+    </main>
+  `;
 }
 
 function renderHero(filtered) {
@@ -1074,7 +1228,7 @@ function renderOpportunityCard(startup) {
   const inCompare = state.compareIds.includes(startup.id);
   return `
     <article class="opportunity ${isSelected ? "opportunity--selected" : ""}">
-      <button class="opportunity__main" type="button" data-action="select-startup" data-id="${startup.id}" aria-pressed="${isSelected}">
+      <button class="opportunity__main" type="button" data-action="open-detail" data-id="${startup.id}" aria-pressed="${isSelected}">
         <span class="score-dial" style="--score:${startup.fit.score}%">
           <strong>${startup.fit.score}</strong>
           <span>fit</span>
@@ -1094,7 +1248,7 @@ function renderOpportunityCard(startup) {
         <span>${startup.transition.level} transition</span>
       </div>
       <div class="opportunity__actions">
-        <button class="button button--small" type="button" data-action="select-startup" data-id="${startup.id}">Open dealroom</button>
+        <button class="button button--small" type="button" data-action="open-detail" data-id="${startup.id}">Open detail page</button>
         <button class="button button--small ${inCompare ? "button--active" : "button--ghost"}" type="button" data-action="toggle-compare" data-id="${startup.id}">
           ${inCompare ? "In compare" : "Compare"}
         </button>
@@ -1359,10 +1513,14 @@ function handleAction(event) {
   const action = event.currentTarget.dataset.action;
   const id = event.currentTarget.dataset.id;
 
-  if (action === "select-startup") {
-    state.selectedId = id;
-    state.briefId = id;
-    state.activeTab = "overview";
+  if (action === "open-detail" || action === "select-startup") {
+    openDetailView(id);
+    return;
+  }
+
+  if (action === "close-detail") {
+    closeDetailView();
+    return;
   }
 
   if (action === "toggle-compare") {
@@ -1443,4 +1601,10 @@ async function copyBrief() {
   }
 }
 
+window.addEventListener("hashchange", () => {
+  syncRouteFromHash();
+  render();
+});
+
+syncRouteFromHash();
 render();

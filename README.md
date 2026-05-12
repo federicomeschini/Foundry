@@ -12,6 +12,7 @@ The app is static and uses embedded fictional startup data. It is not a backend 
 - A curated opportunity queue of fictional startups across climate tech, health tech, AI/data infrastructure, energy, circular economy, agritech, mobility, deep tech materials, water tech, cybersecurity, medtech, and industrial automation.
 - Explainable estimated fit signals that show why an opportunity appears relevant and what still requires diligence.
 - Structured first-level dealroom tabs for screening rationale, evidence, risk exposure, missing diligence, and a mock investor brief.
+- Standalone company detail pages opened by clicking a startup card, with a shareable hash route and the full structured dossier on one screen.
 - Side-by-side comparison for up to three startups.
 - Cautious investor-facing language throughout: screening view, estimated fit, first-level risk signal, evidence available, requires diligence, and suggested next step.
 
