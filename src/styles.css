@@ -196,7 +196,8 @@ a:focus-visible {
   height: auto;
 }
 
-.button.topbar-back {
+.button.topbar-back,
+.button.topbar-compare {
   flex: 0 0 auto;
   border-color: var(--paper);
   color: var(--bluette);
@@ -204,11 +205,17 @@ a:focus-visible {
   box-shadow: 0 1px 0 oklch(15% 0.05 292 / 10%);
 }
 
-.button.topbar-back:hover {
+.button.topbar-back:hover,
+.button.topbar-compare:hover {
   opacity: 1;
   background: var(--lime);
   border-color: var(--lime);
   color: var(--lime-ink);
+}
+
+.button.topbar-compare:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
 }
 
 /* ============================================================
