@@ -510,7 +510,7 @@ function syncRouteFromHash() {
   if (route.kind === "compare") {
     const ids = route.ids.length ? route.ids : state.compareIds;
     const compareIds = ids.map((id) => startupById(id)?.id).filter(Boolean);
-    state.compareIds = compareIds.slice(-3);
+    state.compareIds = compareIds;
     if (state.compareIds.length) {
       state.selectedId = state.compareIds[0];
       state.briefId = state.compareIds[0];
@@ -1830,7 +1830,7 @@ function handleAction(event) {
     if (state.compareIds.includes(id)) {
       state.compareIds = state.compareIds.filter((item) => item !== id);
     } else {
-      state.compareIds = [...state.compareIds.slice(-2), id];
+      state.compareIds = [...state.compareIds, id];
     }
   }
 
