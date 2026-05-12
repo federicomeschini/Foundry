@@ -177,3 +177,10 @@ git push -u origin main
 - Translate investment concepts into refined, investor-facing product logic.
 - Prefer `apply_patch` for manual edits.
 - Do not remove brand assets or knowledge-base files unless the user explicitly asks.
+
+## Commit Message Style
+
+- Match the existing repo history rather than using bare, dry summaries.
+- Prefer a scoped subject plus a short explanatory tail when the change benefits from context, for example: `feat(tentative): add AI analyst layer — frontend-only, no API`.
+- Keep the first words informative and specific about the user-facing or technical effect.
+- Use the longer form for meaningful feature work, UX changes, and docs that explain behavior; reserve terse subjects for tiny mechanical fixes.
