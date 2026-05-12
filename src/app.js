@@ -948,14 +948,20 @@ function render() {
   const topbarStatus = detailMode
     ? `<span class="status-pill">Detail view</span><span class="status-pill status-pill--accent">${selected.name}</span>`
     : `<span class="status-pill">Static screening room</span><span class="status-pill status-pill--accent">${filtered.length} visible opportunities</span>`;
+  const topbarBack = detailMode
+    ? `<button class="button button--ghost button--small topbar-back" type="button" data-action="close-detail">Back to screening room</button>`
+    : "";
 
   app.innerHTML = `
     <header class="topbar">
-      <div class="brand-block">
-        <img src="assets/logos/OpenEconomics-LOGO WHITE.svg" alt="OpenEconomics" />
-        <div>
-          <p class="eyebrow">Frontend-only POC</p>
-          <h1>Innovation Dealroom</h1>
+      <div class="topbar__left">
+        ${topbarBack}
+        <div class="brand-block">
+          <img src="assets/logos/OpenEconomics-LOGO WHITE.svg" alt="OpenEconomics" />
+          <div>
+            <p class="eyebrow">Frontend-only POC</p>
+            <h1>Innovation Dealroom</h1>
+          </div>
         </div>
       </div>
       <div class="topbar__right">
@@ -1001,10 +1007,7 @@ function renderDetailPage(startup, fit) {
     <main id="main" class="detail-page">
       <section class="detail-hero panel">
         <div class="detail-hero__copy">
-          <div class="detail-hero__toolbar">
-            <button class="button button--ghost button--small detail-back" type="button" data-action="close-detail">Back to screening room</button>
-            <p class="eyebrow">Company detail</p>
-          </div>
+          <p class="eyebrow">Company detail</p>
           <h2>${startup.name}</h2>
           <p class="detail-hero__summary">${startup.sector} / ${startup.stage} / ${startup.geography} / TRL ${startup.trl}</p>
           <p class="detail-hero__decision">${fit.decision}. This page surfaces the full screening context and remains a diligence lead, not a conclusion.</p>
