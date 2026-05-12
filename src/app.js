@@ -883,9 +883,9 @@ function generateCompareSummary(compareList) {
   return [para1, para2, para3, para4];
 }
 
-function renderAITab(startup, fit) {
+function renderAITab(startup, fit, overrideResult = null) {
   const key = startup.id;
-  const result = state.aiResults[key];
+  const result = overrideResult || state.aiResults[key];
 
   const flagLevelLabel = { high: "High signal", medium: "Medium signal", low: "Note" };
 
@@ -1001,7 +1001,10 @@ function renderDetailPage(startup, fit) {
     <main id="main" class="detail-page">
       <section class="detail-hero panel">
         <div class="detail-hero__copy">
-          <p class="eyebrow">Company detail</p>
+          <div class="detail-hero__toolbar">
+            <button class="button button--ghost button--small detail-back" type="button" data-action="close-detail">Back to screening room</button>
+            <p class="eyebrow">Company detail</p>
+          </div>
           <h2>${startup.name}</h2>
           <p class="detail-hero__summary">${startup.sector} / ${startup.stage} / ${startup.geography} / TRL ${startup.trl}</p>
           <p class="detail-hero__decision">${fit.decision}. This page surfaces the full screening context and remains a diligence lead, not a conclusion.</p>
@@ -1013,83 +1016,106 @@ function renderDetailPage(startup, fit) {
             <span class="detail-chip">${startup.tags.join(" / ")}</span>
           </div>
         </div>
-        <div class="detail-hero__actions">
-          <button class="button button--ghost" type="button" data-action="close-detail">Back to screening room</button>
-          <button class="button button--small ${inCompare ? "button--active" : "button--ghost"}" type="button" data-action="toggle-compare" data-id="${startup.id}">
-            ${inCompare ? "In compare" : "Compare"}
-          </button>
+        <div class="detail-hero__rail">
+          ${renderDetailStat("Investment fit", `${fit.score}/100`, fit.label)}
+          ${renderDetailStat("Evidence strength", `${fit.evidence}/100`, fit.evidenceLabel)}
+          ${renderDetailStat("Risk severity", `${fit.riskSeverity}/100`, "First-level signal")}
+          ${renderDetailStat("Diligence completeness", `${fit.diligence}/100`, "Open items remain")}
         </div>
       </section>
 
-      <section class="detail-grid" aria-label="Company detail sections">
-        <article class="detail-panel panel">
-          <div class="panel-heading">
-            <p class="eyebrow">Snapshot</p>
-            <h2>Company profile</h2>
-          </div>
-          <section class="info-grid">
-            ${renderInfo("Sector", startup.sector)}
-            ${renderInfo("Stage", startup.stage)}
-            ${renderInfo("Geography", startup.geography)}
-            ${renderInfo("TRL", `TRL ${startup.trl}`)}
-            ${renderInfo("Ask", startup.ask)}
-            ${renderInfo("Use of funds", startup.useOfFunds)}
-            ${renderInfo("Business model", startup.model)}
-            ${renderInfo("IP status", startup.ip)}
-          </section>
-          <section class="deal-section">
-            <h3>Investment rationale</h3>
-            <ul class="clean-list">${startup.rationale.map((item) => `<li>${item}</li>`).join("")}</ul>
-          </section>
-        </article>
+      <section class="detail-layout" aria-label="Company detail sections">
+        <div class="detail-main">
+          <article class="detail-panel panel">
+            <div class="panel-heading">
+              <p class="eyebrow">Snapshot</p>
+              <h2>Company profile</h2>
+            </div>
+            <section class="info-grid">
+              ${renderInfo("Sector", startup.sector)}
+              ${renderInfo("Stage", startup.stage)}
+              ${renderInfo("Geography", startup.geography)}
+              ${renderInfo("TRL", `TRL ${startup.trl}`)}
+              ${renderInfo("Ask", startup.ask)}
+              ${renderInfo("Use of funds", startup.useOfFunds)}
+              ${renderInfo("Business model", startup.model)}
+              ${renderInfo("IP status", startup.ip)}
+            </section>
+            <section class="detail-summary-block">
+              <h3>What this page is saying</h3>
+              <ul class="clean-list clean-list--tight">
+                ${fit.reasons.map((item) => `<li>${item}</li>`).join("")}
+                ${fit.cautions.map((item) => `<li>${item}</li>`).join("")}
+              </ul>
+            </section>
+          </article>
 
-        <article class="detail-panel panel">
-          <div class="panel-heading">
-            <p class="eyebrow">Screening</p>
-            <h2>Explainable fit</h2>
-          </div>
-          ${renderOverview(startup, fit)}
-        </article>
+          <article class="detail-panel panel">
+            <div class="panel-heading">
+              <p class="eyebrow">Evidence</p>
+              <h2>Evidence available</h2>
+            </div>
+            ${renderEvidence(startup)}
+          </article>
 
-        <article class="detail-panel panel">
-          <div class="panel-heading">
-            <p class="eyebrow">Evidence</p>
-            <h2>Evidence available</h2>
-          </div>
-          ${renderEvidence(startup)}
-        </article>
+          <article class="detail-panel panel">
+            <div class="panel-heading">
+              <p class="eyebrow">Risk</p>
+              <h2>Exposure and first-level signals</h2>
+            </div>
+            ${renderRisk(startup)}
+          </article>
 
-        <article class="detail-panel panel">
-          <div class="panel-heading">
-            <p class="eyebrow">Risk</p>
-            <h2>Exposure and first-level signals</h2>
-          </div>
-          ${renderRisk(startup)}
-        </article>
+          <article class="detail-panel panel">
+            <div class="panel-heading">
+              <p class="eyebrow">Diligence</p>
+              <h2>Missing information</h2>
+            </div>
+            ${renderDiligence(startup)}
+          </article>
 
-        <article class="detail-panel panel">
-          <div class="panel-heading">
-            <p class="eyebrow">Diligence</p>
-            <h2>Missing information</h2>
-          </div>
-          ${renderDiligence(startup)}
-        </article>
+          <article class="detail-panel detail-panel--wide panel">
+            <div class="panel-heading">
+              <p class="eyebrow">Brief</p>
+              <h2>Mock investor brief</h2>
+            </div>
+            ${renderBrief(startup, fit)}
+          </article>
+        </div>
 
-        <article class="detail-panel detail-panel--wide panel">
-          <div class="panel-heading">
-            <p class="eyebrow">Brief</p>
-            <h2>Mock investor brief</h2>
-          </div>
-          ${renderBrief(startup, fit)}
-        </article>
+        <aside class="detail-rail">
+          <article class="detail-panel panel">
+            <div class="panel-heading">
+              <p class="eyebrow">Screening</p>
+              <h2>Explainable fit</h2>
+            </div>
+            ${renderOverview(startup, fit)}
+          </article>
 
-        <article class="detail-panel detail-panel--wide panel">
-          <div class="panel-heading">
-            <p class="eyebrow">AI Analyst</p>
-            <h2>Deterministic screening note</h2>
-          </div>
-          ${renderAITab(startup, fit)}
-        </article>
+          <article class="detail-panel panel">
+            <div class="panel-heading">
+              <p class="eyebrow">Actions</p>
+              <h2>Next steps</h2>
+            </div>
+            <div class="detail-actions">
+              <button class="button button--small ${inCompare ? "button--active" : "button--ghost"}" type="button" data-action="toggle-compare" data-id="${startup.id}">
+                ${inCompare ? "In compare" : "Compare"}
+              </button>
+            </div>
+            <section class="next-step">
+              <span>Suggested next step</span>
+              <p>${startup.nextStep}</p>
+            </section>
+          </article>
+
+          <article class="detail-panel panel">
+            <div class="panel-heading">
+              <p class="eyebrow">AI Analyst</p>
+              <h2>Deterministic screening note</h2>
+            </div>
+            ${renderAITab(startup, fit)}
+          </article>
+        </aside>
       </section>
     </main>
   `;
@@ -1483,6 +1509,16 @@ function renderCompareRow(startup) {
 
 function renderInfo(label, value) {
   return `<div class="info-card"><span>${label}</span><p>${value}</p></div>`;
+}
+
+function renderDetailStat(label, value, caption) {
+  return `
+    <div class="detail-stat">
+      <span>${label}</span>
+      <strong>${value}</strong>
+      <small>${caption}</small>
+    </div>
+  `;
 }
 
 function renderMetric(label, value) {
