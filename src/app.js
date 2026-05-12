@@ -419,16 +419,716 @@ const startups = [
     metrics: { revenue: "EUR 68k MRR", runway: "9 months", grossMargin: "61%", traction: "5 factories" },
     tags: ["industrial", "ai", "saas"],
   },
+  {
+    id: "heliochain",
+    name: "HelioChain Storage",
+    sector: "Energy",
+    stage: "Series A",
+    geography: "Portugal",
+    trl: 8,
+    ticket: 3.4,
+    ask: "EUR 3.4M Series A",
+    useOfFunds: "Battery pilot deployments, grid software, and utility certification.",
+    model: "Battery storage orchestration software with shared savings on flexibility revenue.",
+    maturity: "Commercial pilot",
+    regulatory: {
+      level: "High",
+      character: "Market access and operating burden",
+      note: "Grid connection and market participation rules matter, but they also create switching barriers.",
+    },
+    transition: {
+      level: "High",
+      character: "Strong tailwind",
+      note: "Renewables intermittency and peak-price volatility support storage demand.",
+    },
+    evidence: ["Two utility pilots", "16MW under management", "Revenue share signed with one aggregator"],
+    ip: "Dispatch optimizer and site models proprietary; hardware sourced from certified suppliers.",
+    risks: ["Grid rule changes", "Capital intensity", "Asset performance guarantees"],
+    rationale: [
+      "Clear transition tailwind with visible utility engagement.",
+      "Evidence is pilot-level but commercial in nature.",
+      "Regulatory burden is a market-entry barrier as much as an execution risk.",
+    ],
+    missing: ["Annualized revenue per site", "Warranty exposure", "Grid-code approval path by market"],
+    nextStep: "Review utility economics and the bankability of the storage model.",
+    metrics: { revenue: "Pilot revenue", runway: "10 months", grossMargin: "54%", traction: "16MW pilots" },
+    tags: ["energy", "storage", "grid"],
+  },
+  {
+    id: "rostera",
+    name: "Rostera Robotics",
+    sector: "Mobility",
+    stage: "Seed",
+    geography: "Netherlands",
+    trl: 7,
+    ticket: 1.9,
+    ask: "EUR 1.9M seed",
+    useOfFunds: "Dockside trials, navigation hardware, and service engineers.",
+    model: "Robotics-as-a-service for port and warehouse tugs.",
+    maturity: "Dockside pilot",
+    regulatory: {
+      level: "Medium",
+      character: "Operational burden",
+      note: "Safety and labor coordination slow rollout, but approved systems are hard to displace.",
+    },
+    transition: {
+      level: "Medium",
+      character: "Efficiency tailwind",
+      note: "Electrification and logistics efficiency are supportive but not the only demand driver.",
+    },
+    evidence: ["One dockside pilot", "98% navigation uptime", "Letter of intent from logistics operator"],
+    ip: "Control stack proprietary; hardware integration remains partially outsourced.",
+    risks: ["Site deployment complexity", "Maintenance load", "Customer concentration"],
+    rationale: [
+      "Real-world deployment gives better signal than a pure lab-stage robotics deal.",
+      "Operational diligence is more important than a pure tech diligence frame.",
+      "Transition exposure supports the productivity thesis.",
+    ],
+    missing: ["Service cost by site", "Pilot-to-contract conversion terms", "Fleet expansion roadmap"],
+    nextStep: "Assess deployment economics and site readiness before scaling assumptions.",
+    metrics: { revenue: "EUR 90k pilot ARR", runway: "8 months", grossMargin: "39%", traction: "1 pilot" },
+    tags: ["robotics", "logistics", "industrial"],
+  },
+  {
+    id: "lumenloop",
+    name: "LumenLoop Lighting",
+    sector: "Circular economy",
+    stage: "Series A",
+    geography: "France",
+    trl: 8,
+    ticket: 2.8,
+    ask: "EUR 2.8M Series A",
+    useOfFunds: "Retail rollout, refurbishment operations, and supply agreements.",
+    model: "Refurbish-and-lease lighting hardware to commercial property owners.",
+    maturity: "Commercial rollout",
+    regulatory: {
+      level: "Low",
+      character: "Light burden",
+      note: "Low direct regulation, but municipal and building standards can affect procurement.",
+    },
+    transition: {
+      level: "High",
+      character: "Tailwind",
+      note: "Circular procurement targets and energy-efficiency mandates increase buyer interest.",
+    },
+    evidence: ["EUR 410k ARR", "12 building contracts", "Refurbishment cycle time under 9 days"],
+    ip: "Refurbishment workflow and remanufacturing process proprietary.",
+    risks: ["Reverse logistics", "Inventory management", "Contract duration"],
+    rationale: [
+      "Commercial traction is tangible and recurring.",
+      "Transition exposure is a budget driver rather than a penalty.",
+      "The model sits between hardware operations and recurring services.",
+    ],
+    missing: ["Return rate by cohort", "Service margin after logistics", "Building-owner renewal history"],
+    nextStep: "Check logistics discipline and retention across contract renewals.",
+    metrics: { revenue: "EUR 410k ARR", runway: "11 months", grossMargin: "67%", traction: "12 contracts" },
+    tags: ["circular", "lighting", "property"],
+  },
+  {
+    id: "northstack",
+    name: "NorthStack Compute",
+    sector: "AI/data infrastructure",
+    stage: "Seed",
+    geography: "Ireland",
+    trl: 8,
+    ticket: 4.1,
+    ask: "EUR 4.1M seed extension",
+    useOfFunds: "Data-center partnerships, customer onboarding, and compliance.",
+    model: "Private inference and secure vector search for regulated enterprises.",
+    maturity: "Live infrastructure",
+    regulatory: {
+      level: "High",
+      character: "Demand tailwind",
+      note: "Data sovereignty and AI governance rules support private deployment demand.",
+    },
+    transition: {
+      level: "Low",
+      character: "Limited exposure",
+      note: "Energy intensity should still be monitored as compute scales.",
+    },
+    evidence: ["EUR 58k MRR", "19 customers", "Private cloud deployment with two banks"],
+    ip: "Orchestration layer proprietary; defensibility increases with integration depth.",
+    risks: ["Platform dependency", "Security proof burden", "Capacity planning"],
+    rationale: [
+      "Evidence is commercial and directly tied to regulated customers.",
+      "Regulatory exposure is more of a demand tailwind than a drag.",
+      "The main diligence question is differentiation versus hyperscaler-native alternatives.",
+    ],
+    missing: ["Net revenue retention", "Data-center contract terms", "Customer concentration by vertical"],
+    nextStep: "Inspect customer retention and infrastructure economics by deployment type.",
+    metrics: { revenue: "EUR 58k MRR", runway: "12 months", grossMargin: "73%", traction: "19 customers" },
+    tags: ["ai", "infra", "regulated"],
+  },
+  {
+    id: "marinaos",
+    name: "MarinaOS",
+    sector: "Maritime",
+    stage: "Series A",
+    geography: "Spain",
+    trl: 7,
+    ticket: 2.4,
+    ask: "EUR 2.4M Series A",
+    useOfFunds: "Port integrations, emissions reporting, and enterprise sales.",
+    model: "Operational software for port scheduling and vessel turnaround optimization.",
+    maturity: "Operational pilot",
+    regulatory: {
+      level: "Medium",
+      character: "Demand support with procurement burden",
+      note: "Port sustainability reporting supports need, but procurement cycles are slow.",
+    },
+    transition: {
+      level: "High",
+      character: "Tailwind",
+      note: "Shipping decarbonization and port efficiency initiatives increase urgency.",
+    },
+    evidence: ["Three port pilots", "Vessel turnaround reduced 11%", "One national port authority LOI"],
+    ip: "Optimization engine proprietary; integrations with port systems are a moat candidate.",
+    risks: ["Long procurement cycles", "Integration complexity", "Seasonality in shipping volumes"],
+    rationale: [
+      "Clear operational value with transition-related demand pull.",
+      "Evidence is strong enough to justify deeper diligence.",
+      "The route to scale depends on procurement conversion, not just product strength.",
+    ],
+    missing: ["Pilot conversion rate", "Integration effort per port", "Emission reporting accuracy review"],
+    nextStep: "Validate procurement timing and customer expansion after pilot success.",
+    metrics: { revenue: "EUR 120k ARR", runway: "9 months", grossMargin: "63%", traction: "3 ports" },
+    tags: ["maritime", "software", "operations"],
+  },
+  {
+    id: "eoncrop",
+    name: "EonCrop Systems",
+    sector: "Agritech",
+    stage: "Seed",
+    geography: "Italy",
+    trl: 6,
+    ticket: 1.1,
+    ask: "EUR 1.1M seed",
+    useOfFunds: "Greenhouse sensors, farmer support, and agronomy validation.",
+    model: "Crop optimization subscription sold with field hardware bundles.",
+    maturity: "Field trials",
+    regulatory: {
+      level: "Low",
+      character: "Light burden",
+      note: "Regulation is not a major barrier, though water policy can support demand.",
+    },
+    transition: {
+      level: "High",
+      character: "Tailwind",
+      note: "Climate stress and water scarcity drive stronger demand for optimization tools.",
+    },
+    evidence: ["84 deployed sensors", "Yield uplift in pilot plots", "Distributor interest in two regions"],
+    ip: "Sensor workflow and crop models proprietary; hardware components are off-the-shelf.",
+    risks: ["Seasonality", "Farmer adoption friction", "Support intensity"],
+    rationale: [
+      "Strong climate need with evidence that touches real field usage.",
+      "Good fit for investors comfortable with agritech operating complexity.",
+      "Transition exposure provides a demand tailwind, not a simple risk penalty.",
+    ],
+    missing: ["Cohort retention", "Gross margin after agronomy support", "Distributor economics"],
+    nextStep: "Review cohort retention and contract conversion after one full season.",
+    metrics: { revenue: "EUR 18k MRR seasonal", runway: "7 months", grossMargin: "46%", traction: "84 sensors" },
+    tags: ["agritech", "climate", "hardware"],
+  },
+  {
+    id: "pulseforge",
+    name: "PulseForge Med",
+    sector: "Medtech",
+    stage: "Series A",
+    geography: "Germany",
+    trl: 8,
+    ticket: 3.9,
+    ask: "EUR 3.9M Series A",
+    useOfFunds: "Clinical studies, MDR submissions, and commercial operations.",
+    model: "Hospital planning software plus single-use adjunct device.",
+    maturity: "Clinical pilot",
+    regulatory: {
+      level: "High",
+      character: "Burden and defensibility",
+      note: "MDR approval is demanding, but clearance can support strong buyer trust and defensibility.",
+    },
+    transition: {
+      level: "Low",
+      character: "Limited exposure",
+      note: "Transition policy is not central to the thesis.",
+    },
+    evidence: ["220 patient pilot", "Two hospital procurement conversations", "Clinical advisory board"],
+    ip: "Device workflow and software stack partly proprietary; patent family pending.",
+    risks: ["Clinical endpoint sufficiency", "Procurement timelines", "Regulatory cost"],
+    rationale: [
+      "Clinical evidence is more advanced than typical pre-seed medtech.",
+      "The key issue is reimbursement and approval pathway clarity.",
+      "Regulation is a moat question as much as a burden question.",
+    ],
+    missing: ["MDR timeline", "Unit economics at scale", "Health-economic model"],
+    nextStep: "Review clinical endpoints and reimbursement assumptions before prioritization.",
+    metrics: { revenue: "Pilot contracts", runway: "10 months", grossMargin: "Modeled 71%", traction: "2 hospitals" },
+    tags: ["medtech", "regulated", "clinical"],
+  },
+  {
+    id: "optishelf",
+    name: "OptiShelf Commerce",
+    sector: "Retail tech",
+    stage: "Seed",
+    geography: "France",
+    trl: 9,
+    ticket: 1.7,
+    ask: "EUR 1.7M seed",
+    useOfFunds: "Sales expansion, integrations, and customer success.",
+    model: "Shelf analytics and pricing optimization sold as SaaS to mid-market retailers.",
+    maturity: "Scaling SaaS",
+    regulatory: {
+      level: "Low",
+      character: "Limited burden",
+      note: "Regulation is not the main driver, but data handling remains relevant.",
+    },
+    transition: {
+      level: "Low",
+      character: "Limited exposure",
+      note: "Transition exposure is not central to the thesis.",
+    },
+    evidence: ["EUR 96k MRR", "41 stores live", "Net retention 114%"],
+    ip: "Pricing and shelf optimization engine proprietary; switching cost builds with data history.",
+    risks: ["Retail churn", "Integration load", "Price compression"],
+    rationale: [
+      "One of the stronger commercial SaaS cases in the set.",
+      "Evidence is tangible and recurring.",
+      "The diligence focus should be retention and scaling economics.",
+    ],
+    missing: ["Cohort retention by retailer size", "Implementation hours", "Churn by region"],
+    nextStep: "Validate retention quality and implementation efficiency across cohorts.",
+    metrics: { revenue: "EUR 96k MRR", runway: "13 months", grossMargin: "79%", traction: "41 stores" },
+    tags: ["retail", "saas", "analytics"],
+  },
+  {
+    id: "cirruscan",
+    name: "CirrusCan Diagnostics",
+    sector: "Health tech",
+    stage: "Seed",
+    geography: "Denmark",
+    trl: 7,
+    ticket: 1.5,
+    ask: "EUR 1.5M seed",
+    useOfFunds: "Data collection, clinical workflow integration, and reimbursement studies.",
+    model: "AI-assisted diagnostics workflow for outpatient clinics.",
+    maturity: "Clinical deployment",
+    regulatory: {
+      level: "High",
+      character: "Burden with credibility upside",
+      note: "Clinical requirements are material, but approval would support trust and adoption.",
+    },
+    transition: {
+      level: "Low",
+      character: "Limited exposure",
+      note: "Transition exposure is not a core thesis element.",
+    },
+    evidence: ["1800 scans processed", "Two clinic deployments", "Clinician reference panel"],
+    ip: "Model tuning and workflow integration proprietary; clinical data rights are critical.",
+    risks: ["Clinical validation", "Data access", "Workflow adoption"],
+    rationale: [
+      "Evidence is closer to real usage than typical seed medtech.",
+      "Main diligence concern is the robustness of validation and data rights.",
+      "Regulation is a key part of the moat story.",
+    ],
+    missing: ["Bias audit", "Workflow adoption metrics", "Reimbursement path"],
+    nextStep: "Review data governance and clinic utilization before deeper diligence.",
+    metrics: { revenue: "EUR 24k MRR", runway: "8 months", grossMargin: "74%", traction: "2 clinics" },
+    tags: ["health", "ai", "diagnostics"],
+  },
+  {
+    id: "tidalgrid",
+    name: "TidalGrid Flex",
+    sector: "Energy",
+    stage: "Seed",
+    geography: "Belgium",
+    trl: 7,
+    ticket: 2.1,
+    ask: "EUR 2.1M seed",
+    useOfFunds: "Utility integrations, market access, and commercial pilots.",
+    model: "Flexibility market software for aggregated industrial loads.",
+    maturity: "Utility pilot",
+    regulatory: {
+      level: "High",
+      character: "Market access and defensibility",
+      note: "Energy-market rules shape revenue capture and can create a barrier to weak entrants.",
+    },
+    transition: {
+      level: "High",
+      character: "Tailwind",
+      note: "Renewables volatility and demand response economics support the use case.",
+    },
+    evidence: ["Two utility pilots", "32 industrial loads connected", "Dispatch simulation completed"],
+    ip: "Optimization algorithms proprietary; market access relationships are important.",
+    risks: ["Rule changes", "Partner dependence", "Revenue timing"],
+    rationale: [
+      "Clear transition logic and a useful utility-driven buyer case.",
+      "Operational diligence should focus on market design exposure.",
+      "The opportunity depends on repeatable dispatch economics.",
+    ],
+    missing: ["Revenue by dispatch event", "Utility contract terms", "Load aggregation economics"],
+    nextStep: "Validate revenue capture and regulatory dependence by geography.",
+    metrics: { revenue: "Pilot revenue", runway: "9 months", grossMargin: "56%", traction: "32 loads" },
+    tags: ["energy", "grid", "software"],
+  },
+  {
+    id: "biobrick",
+    name: "BioBrick Materials",
+    sector: "Deep tech materials",
+    stage: "Pre-seed",
+    geography: "Switzerland",
+    trl: 4,
+    ticket: 1.0,
+    ask: "EUR 1.0M pre-seed",
+    useOfFunds: "Lab validation, prototype tooling, and IP prosecution.",
+    model: "Bio-based structural materials for industrial applications.",
+    maturity: "Lab prototype",
+    regulatory: {
+      level: "Low",
+      character: "Limited burden",
+      note: "Compliance matters but is not the key market-access hurdle.",
+    },
+    transition: {
+      level: "High",
+      character: "Tailwind",
+      note: "Materials decarbonization and substitution pressure support the thesis.",
+    },
+    evidence: ["Lab tensile tests", "One industrial design partner", "Grant-funded validation"],
+    ip: "Early patent filing on composite formulation; FTO not yet complete.",
+    risks: ["Low TRL", "Scale-up yield", "FTO uncertainty"],
+    rationale: [
+      "High optionality but still at an early technical stage.",
+      "Good fit only for investors with deep-tech patience.",
+      "Transition tailwind is credible if scale-up works.",
+    ],
+    missing: ["FTO review", "Pilot production economics", "Industrial partner commitment"],
+    nextStep: "Route to technical diligence and IP review before commercial screening.",
+    metrics: { revenue: "Pre-revenue", runway: "6 months", grossMargin: "Not proven", traction: "1 partner" },
+    tags: ["materials", "deep tech", "bio-based"],
+  },
+  {
+    id: "spherelab",
+    name: "SphereLab Compute",
+    sector: "AI/data infrastructure",
+    stage: "Series A",
+    geography: "Germany",
+    trl: 9,
+    ticket: 5.0,
+    ask: "EUR 5.0M Series A",
+    useOfFunds: "Sales expansion, infrastructure capacity, and compliance certifications.",
+    model: "Enterprise AI orchestration with private deployment options.",
+    maturity: "Scaling SaaS",
+    regulatory: {
+      level: "High",
+      character: "Demand tailwind",
+      note: "Data sovereignty and AI governance rules support private deployment demand.",
+    },
+    transition: {
+      level: "Low",
+      character: "Limited exposure",
+      note: "Energy intensity should be monitored but is not the primary thesis driver.",
+    },
+    evidence: ["EUR 1.4M ARR", "26 customers", "Two bank deployments"],
+    ip: "Workflow orchestration and security posture proprietary; integration depth matters.",
+    risks: ["Crowded market", "Infrastructure cost", "Customer concentration"],
+    rationale: [
+      "Commercial evidence is strong and the product addresses a real enterprise constraint.",
+      "The challenge is differentiation and capital intensity.",
+      "Regulatory demand is a genuine tailwind in the current market.",
+    ],
+    missing: ["CAC payback by segment", "Security audit details", "Customer cohort concentration"],
+    nextStep: "Pressure-test market differentiation and infra economics before scaling.",
+    metrics: { revenue: "EUR 1.4M ARR", runway: "15 months", grossMargin: "80%", traction: "26 customers" },
+    tags: ["ai", "enterprise", "cloud"],
+  },
+  {
+    id: "greenharbor",
+    name: "GreenHarbor Systems",
+    sector: "Maritime",
+    stage: "Seed",
+    geography: "Greece",
+    trl: 6,
+    ticket: 1.6,
+    ask: "EUR 1.6M seed",
+    useOfFunds: "Port pilots, emissions dashboards, and channel partners.",
+    model: "Port emissions and scheduling software for coastal logistics operators.",
+    maturity: "Pilot",
+    regulatory: {
+      level: "Medium",
+      character: "Demand support and procurement burden",
+      note: "Reporting rules and port efficiency targets can create demand, while procurement stays slow.",
+    },
+    transition: {
+      level: "High",
+      character: "Tailwind",
+      note: "Shipping decarbonization and port efficiency programs support adoption.",
+    },
+    evidence: ["Two port pilots", "Dock turnaround reduced 9%", "One shipping operator LOI"],
+    ip: "Optimization logic proprietary; integration depth and domain workflow matter.",
+    risks: ["Long procurement cycles", "Integration effort", "Seasonal shipping volumes"],
+    rationale: [
+      "A credible port-tech thesis with visible pilot usage.",
+      "Transition demand is clear, but the sales motion is slow.",
+      "Evidence is sufficient to justify diligence, not just watchlisting.",
+    ],
+    missing: ["Paid pilot conversion", "Integration budget by site", "Emission reporting validation"],
+    nextStep: "Review procurement path and pilot conversion mechanics by port authority.",
+    metrics: { revenue: "Pilot revenue", runway: "7 months", grossMargin: "58%", traction: "2 pilots" },
+    tags: ["maritime", "climate", "software"],
+  },
+  {
+    id: "nanocore",
+    name: "NanoCore Films",
+    sector: "Deep tech materials",
+    stage: "Series A",
+    geography: "Austria",
+    trl: 7,
+    ticket: 2.7,
+    ask: "EUR 2.7M Series A",
+    useOfFunds: "Pilot production, materials certification, and customer sampling.",
+    model: "High-performance films for thermal management in electronics.",
+    maturity: "Pilot production",
+    regulatory: {
+      level: "Low",
+      character: "Limited burden",
+      note: "Product compliance matters, but the main hurdles are scale and qualification.",
+    },
+    transition: {
+      level: "Medium",
+      character: "Efficiency tailwind",
+      note: "Lower cooling energy usage can support adoption if performance is proven at scale.",
+    },
+    evidence: ["Two OEM evaluations", "Independent lab validation", "Pilot production batch completed"],
+    ip: "Two patent families filed; FTO partial and ongoing.",
+    risks: ["Manufacturing yield", "OEM qualification", "Materials scale-up"],
+    rationale: [
+      "Technical evidence is stronger than pure research-stage materials deals.",
+      "The key diligence question is scale-up and qualification.",
+      "Intellectual property appears meaningful but needs review.",
+    ],
+    missing: ["Pilot yield at volume", "FTO completion", "OEM qualification timeline"],
+    nextStep: "Route to technical diligence before commercial prioritization.",
+    metrics: { revenue: "Pre-revenue", runway: "10 months", grossMargin: "Not proven", traction: "2 evals" },
+    tags: ["materials", "deep tech", "electronics"],
+  },
+  {
+    id: "releaf",
+    name: "Releaf Packaging",
+    sector: "Circular economy",
+    stage: "Seed",
+    geography: "Italy",
+    trl: 7,
+    ticket: 1.3,
+    ask: "EUR 1.3M seed",
+    useOfFunds: "Pilot line expansion, customer sampling, and certification.",
+    model: "Recycled packaging compounds sold to consumer brands.",
+    maturity: "Pilot line",
+    regulatory: {
+      level: "Medium",
+      character: "Demand tailwind",
+      note: "Packaging regulation and brand sustainability targets support demand, while certification remains relevant.",
+    },
+    transition: {
+      level: "High",
+      character: "Tailwind",
+      note: "Circularity mandates and plastic reduction targets are a clear market driver.",
+    },
+    evidence: ["One brand pilot", "Pilot line completed", "Third-party material test"],
+    ip: "Process know-how proprietary; product differentiation depends on feedstock quality and consistency.",
+    risks: ["Feedstock variability", "Certification timing", "Brand switching costs"],
+    rationale: [
+      "Good thematic alignment with circular procurement pressure.",
+      "Proof of repeatability is still needed.",
+      "The regulatory context is supportive rather than purely restrictive.",
+    ],
+    missing: ["Pilot economics", "Brand renewal intent", "Feedstock contract terms"],
+    nextStep: "Review production consistency and brand conversion before scaling.",
+    metrics: { revenue: "Pilot revenue", runway: "7 months", grossMargin: "52%", traction: "1 brand pilot" },
+    tags: ["circular", "packaging", "consumer"],
+  },
+  {
+    id: "voltpath",
+    name: "VoltPath Charging",
+    sector: "Energy",
+    stage: "Series A",
+    geography: "Spain",
+    trl: 8,
+    ticket: 4.8,
+    ask: "EUR 4.8M Series A",
+    useOfFunds: "Site rollouts, hardware procurement, and software improvements.",
+    model: "EV fleet charging management with recurring platform fees.",
+    maturity: "Commercial rollout",
+    regulatory: {
+      level: "Medium",
+      character: "Operational burden",
+      note: "Grid and permitting issues can delay deployment but also limit weaker competition.",
+    },
+    transition: {
+      level: "High",
+      character: "Tailwind",
+      note: "Fleet electrification and charging infrastructure buildout underpin demand.",
+    },
+    evidence: ["EUR 520k ARR", "13 fleet customers", "78 charging sites under management"],
+    ip: "Charging orchestration software and fleet analytics proprietary.",
+    risks: ["Capex timing", "Site deployment", "Grid connection"],
+    rationale: [
+      "Commercial traction is meaningful and aligned with fleet electrification.",
+      "Deployment and permitting remain the main execution risks.",
+      "A useful case for investors comfortable with infrastructure operations.",
+    ],
+    missing: ["Site-level economics", "Permitting timeline by region", "Fleet churn by cohort"],
+    nextStep: "Validate site economics and customer retention across fleet cohorts.",
+    metrics: { revenue: "EUR 520k ARR", runway: "11 months", grossMargin: "59%", traction: "13 fleets" },
+    tags: ["energy", "mobility", "charging"],
+  },
+  {
+    id: "cargovera",
+    name: "CargoVera Logistics",
+    sector: "Mobility",
+    stage: "Seed",
+    geography: "France",
+    trl: 8,
+    ticket: 2.2,
+    ask: "EUR 2.2M seed",
+    useOfFunds: "Sales expansion, route optimization, and customer onboarding.",
+    model: "SaaS for freight forwarding optimization and emissions reporting.",
+    maturity: "Scaling SaaS",
+    regulatory: {
+      level: "Medium",
+      character: "Demand support",
+      note: "Emissions reporting and logistics compliance support the product thesis.",
+    },
+    transition: {
+      level: "High",
+      character: "Tailwind",
+      note: "Decarbonization pressure and efficiency mandates drive buyer interest.",
+    },
+    evidence: ["EUR 76k MRR", "24 freight customers", "Average route cost down 7%"],
+    ip: "Optimization rules and workflow integration proprietary; data moat still emerging.",
+    risks: ["Commoditized category", "Customer churn", "Data quality"],
+    rationale: [
+      "Commercial evidence is solid and the use case is clear.",
+      "The question is whether the product has enough differentiation.",
+      "Transition exposure helps the demand story.",
+    ],
+    missing: ["Churn by cohort", "Implementation hours", "Sales cycle by customer type"],
+    nextStep: "Review retention and differentiation against freight SaaS peers.",
+    metrics: { revenue: "EUR 76k MRR", runway: "12 months", grossMargin: "77%", traction: "24 customers" },
+    tags: ["logistics", "software", "emissions"],
+  },
+  {
+    id: "proteanx",
+    name: "ProteanX Biologics",
+    sector: "Health tech",
+    stage: "Pre-seed",
+    geography: "Belgium",
+    trl: 4,
+    ticket: 0.8,
+    ask: "EUR 800k pre-seed",
+    useOfFunds: "Lab validation, assay development, and IP filing.",
+    model: "Diagnostics reagent platform licensed to laboratories.",
+    maturity: "Lab prototype",
+    regulatory: {
+      level: "High",
+      character: "Burden and credibility",
+      note: "Clinical and lab standards are demanding, but successful clearance would materially support adoption.",
+    },
+    transition: {
+      level: "Low",
+      character: "Limited exposure",
+      note: "Transition exposure is not a thesis driver.",
+    },
+    evidence: ["University assay study", "One lab pilot", "Scientific advisory board"],
+    ip: "Early patent application on reagent chemistry; FTO not yet complete.",
+    risks: ["Low TRL", "Regulatory pathway", "Lab reproducibility"],
+    rationale: [
+      "The science is promising, but still early.",
+      "The issue is not market demand alone; it's execution and validation.",
+      "Best suited to deep diligence or specialist seed investors.",
+    ],
+    missing: ["Assay reproducibility", "Regulatory classification", "Commercial pilot design"],
+    nextStep: "Hold pending assay robustness and regulatory pathway clarity.",
+    metrics: { revenue: "Pre-revenue", runway: "4 months", grossMargin: "Not proven", traction: "1 lab pilot" },
+    tags: ["biotech", "diagnostics", "deep tech"],
+  },
+  {
+    id: "maplory",
+    name: "Maplory Earth",
+    sector: "Climate tech",
+    stage: "Seed",
+    geography: "Germany",
+    trl: 7,
+    ticket: 1.7,
+    ask: "EUR 1.7M seed",
+    useOfFunds: "Remote sensing integrations, sales expansion, and model validation.",
+    model: "Geospatial analytics for environmental monitoring and reporting.",
+    maturity: "Commercial pilots",
+    regulatory: {
+      level: "Medium",
+      character: "Demand tailwind",
+      note: "Reporting and compliance needs can support buyer urgency.",
+    },
+    transition: {
+      level: "High",
+      character: "Tailwind",
+      note: "Climate disclosure and land-use monitoring increase demand for the product.",
+    },
+    evidence: ["Four pilot customers", "Forest monitoring accuracy validation", "One government procurement pathway"],
+    ip: "Model tuning and geospatial workflow proprietary; satellite data is third-party.",
+    risks: ["Public sector sales cycle", "Data-source dependency", "Model drift"],
+    rationale: [
+      "A solid climate-adjacent software case with multiple pilots.",
+      "The question is commercialization speed, not product plausibility.",
+      "Demand can be supported by compliance and reporting needs.",
+    ],
+    missing: ["Pilot conversion rate", "Data-source contracts", "Customer retention history"],
+    nextStep: "Review government procurement path and pilot-to-paid conversion.",
+    metrics: { revenue: "EUR 22k MRR", runway: "8 months", grossMargin: "75%", traction: "4 pilots" },
+    tags: ["climate", "geospatial", "software"],
+  },
+  {
+    id: "avernode",
+    name: "AverNode Manufacturing",
+    sector: "Industrial automation",
+    stage: "Series A",
+    geography: "Austria",
+    trl: 8,
+    ticket: 3.1,
+    ask: "EUR 3.1M Series A",
+    useOfFunds: "Channel partnerships, implementation engineers, and product hardening.",
+    model: "Factory planning and predictive maintenance platform.",
+    maturity: "Live product",
+    regulatory: {
+      level: "Low",
+      character: "Operational standards",
+      note: "Safety and data governance matter, but regulation is not the core adoption driver.",
+    },
+    transition: {
+      level: "Medium",
+      character: "Productivity tailwind",
+      note: "Reshoring and efficiency pressure support automation spend.",
+    },
+    evidence: ["EUR 74k MRR", "Eight factories live", "Downtime reduction 12%"],
+    ip: "Optimization engine and deployment playbooks proprietary.",
+    risks: ["Implementation effort", "Incumbent competition", "Customer support load"],
+    rationale: [
+      "Commercial evidence is solid and operational outcomes are measurable.",
+      "The main diligence issue is implementation scalability.",
+      "The product fits a productivity-driven transition case.",
+    ],
+    missing: ["Implementation hours by customer", "Reference calls", "CAC payback by segment"],
+    nextStep: "Check whether services load stays bounded as factory count scales.",
+    metrics: { revenue: "EUR 74k MRR", runway: "10 months", grossMargin: "63%", traction: "8 factories" },
+    tags: ["industrial", "automation", "software"],
+  },
 ];
 
 const defaultPreferences = {
-  sectors: ["Climate tech", "Energy", "AI/data infrastructure", "Cybersecurity", "Industrial automation"],
-  stages: ["Seed", "Series A"],
-  maxTicket: 4.0,
-  minTrl: 6,
-  risk: "Balanced",
-  geographies: ["Italy", "Germany", "France", "Spain", "Ireland", "Austria"],
-  evidence: "Commercial",
+  sectors: [],
+  stages: [],
+  maxTicket: 7,
+  minTrl: 3,
+  risk: "Open",
+  geographies: [],
+  evidence: "Any",
   regulatory: "Open",
   transition: "Open",
 };
@@ -447,7 +1147,8 @@ const state = {
   compareIds: ["aerolith", "vectorlane"],
   briefId: "aerolith",
   activeTab: "overview",
-  view: "browse",
+  view: "landing",
+  workspaceEntered: typeof sessionStorage !== "undefined" && sessionStorage.getItem("workspaceEntered") === "1",
   showAdvanced: false,
   aiResults: {},
   compareAI: null,
@@ -457,8 +1158,8 @@ const sectors = [...new Set(startups.map((startup) => startup.sector))];
 const stages = [...new Set(startups.map((startup) => startup.stage))];
 const geographies = [...new Set(startups.map((startup) => startup.geography))];
 const exposureLevels = ["All", "Low", "Medium", "High"];
-const riskProfiles = ["Conservative", "Balanced", "High uncertainty"];
-const evidenceProfiles = ["Research", "Pilot", "Commercial"];
+const riskProfiles = ["Open", "Conservative", "Balanced", "High uncertainty"];
+const evidenceProfiles = ["Any", "Research", "Pilot", "Commercial"];
 const tabs = [
   ["overview", "Screening"],
   ["evidence", "Evidence"],
@@ -504,6 +1205,7 @@ function syncRouteFromHash() {
     state.selectedId = startup.id;
     state.briefId = startup.id;
     state.activeTab = "overview";
+    markWorkspaceEntered();
     return;
   }
 
@@ -516,15 +1218,17 @@ function syncRouteFromHash() {
       state.briefId = state.compareIds[0];
     }
     state.view = "compare";
+    markWorkspaceEntered();
     return;
   }
 
-  state.view = "browse";
+  state.view = state.workspaceEntered ? "browse" : "landing";
 }
 
 function openDetailView(id) {
   const startup = startupById(id);
   if (!startup) return;
+  markWorkspaceEntered();
   state.selectedId = startup.id;
   state.briefId = startup.id;
   state.activeTab = "overview";
@@ -541,6 +1245,7 @@ function closeDetailView() {
 
 function openCompareView() {
   if (state.compareIds.length < 2) return;
+  markWorkspaceEntered();
   location.hash = `compare/${state.compareIds.join(",")}`;
   syncRouteFromHash();
   render();
@@ -552,6 +1257,11 @@ function closeCompareView() {
   render();
 }
 
+function markWorkspaceEntered() {
+  state.workspaceEntered = true;
+  if (typeof sessionStorage !== "undefined") sessionStorage.setItem("workspaceEntered", "1");
+}
+
 function normalizeTicket(value) {
   return Number.parseFloat(value).toFixed(value % 1 === 0 ? 0 : 1);
 }
@@ -561,52 +1271,68 @@ function scoreStartup(startup, preferences = state.preferences) {
   const reasons = [];
   const cautions = [];
 
-  if (preferences.sectors.includes(startup.sector)) {
-    score += 16;
-    reasons.push(`Sector matches the current mandate (${startup.sector}).`);
-  } else {
-    cautions.push(`Sector sits outside the selected mandate.`);
+  if (preferences.sectors?.length) {
+    if (preferences.sectors.includes(startup.sector)) {
+      score += 16;
+      reasons.push(`Sector matches the current mandate (${startup.sector}).`);
+    } else {
+      cautions.push(`Sector sits outside the selected mandate.`);
+    }
   }
 
-  if (preferences.stages.includes(startup.stage)) {
-    score += 12;
-    reasons.push(`Stage is within the selected round focus.`);
-  } else {
-    cautions.push(`Stage differs from the selected round focus.`);
+  if (preferences.stages?.length) {
+    if (preferences.stages.includes(startup.stage)) {
+      score += 12;
+      reasons.push(`Stage is within the selected round focus.`);
+    } else {
+      cautions.push(`Stage differs from the selected round focus.`);
+    }
   }
 
-  if (startup.ticket <= preferences.maxTicket) {
-    score += 12;
-    reasons.push(`Funding ask fits the current ticket ceiling.`);
-  } else {
-    const gap = (startup.ticket - preferences.maxTicket).toFixed(1);
-    cautions.push(`Ask is EUR ${gap}M above the preferred ticket ceiling.`);
+  if (typeof preferences.maxTicket === "number") {
+    if (startup.ticket <= preferences.maxTicket) {
+      score += 12;
+      reasons.push(`Funding ask fits the current ticket ceiling.`);
+    } else {
+      const gap = (startup.ticket - preferences.maxTicket).toFixed(1);
+      cautions.push(`Ask is EUR ${gap}M above the preferred ticket ceiling.`);
+    }
   }
 
-  if (startup.trl >= preferences.minTrl) {
-    score += 10;
-    reasons.push(`Maturity is at or above the selected TRL floor.`);
-  } else {
-    cautions.push(`Maturity is below the selected TRL floor.`);
+  if (typeof preferences.minTrl === "number") {
+    if (startup.trl >= preferences.minTrl) {
+      score += 10;
+      reasons.push(`Maturity is at or above the selected TRL floor.`);
+    } else {
+      cautions.push(`Maturity is below the selected TRL floor.`);
+    }
   }
 
-  if (preferences.geographies.includes(startup.geography)) {
-    score += 6;
-  } else {
-    cautions.push(`Geography is outside the current focus list.`);
+  if (preferences.geographies?.length) {
+    if (preferences.geographies.includes(startup.geography)) {
+      score += 6;
+    } else {
+      cautions.push(`Geography is outside the current focus list.`);
+    }
   }
 
   const evidenceDepth = evidenceScore(startup);
-  if (preferences.evidence === "Commercial" && evidenceDepth >= 3) {
-    score += 10;
-    reasons.push("Evidence includes commercial traction or paying customers.");
-  } else if (preferences.evidence === "Pilot" && evidenceDepth >= 2) {
-    score += 8;
-    reasons.push("Evidence includes pilots or externally visible validation.");
+  if (preferences.evidence === "Commercial") {
+    if (evidenceDepth >= 3) {
+      score += 10;
+      reasons.push("Evidence includes commercial traction or paying customers.");
+    } else {
+      cautions.push("Evidence may be lighter than the current evidence preference.");
+    }
+  } else if (preferences.evidence === "Pilot") {
+    if (evidenceDepth >= 2) {
+      score += 8;
+      reasons.push("Evidence includes pilots or externally visible validation.");
+    } else {
+      cautions.push("Evidence may be lighter than the current evidence preference.");
+    }
   } else if (preferences.evidence === "Research") {
     score += 5;
-  } else {
-    cautions.push("Evidence may be lighter than the current evidence preference.");
   }
 
   if (preferences.risk === "Conservative") {
@@ -982,8 +1708,14 @@ function render() {
   const filtered = getFilteredStartups();
   const compare = state.compareIds.map((id) => startups.find((startup) => startup.id === id)).filter(Boolean);
   const selectedFit = assessStartup(selected);
+  const landingMode = state.view === "landing";
   const detailMode = state.view === "detail";
   const compareMode = state.view === "compare";
+  if (landingMode) {
+    app.innerHTML = renderLandingPage();
+    bindEvents();
+    return;
+  }
   const topbarStatus = detailMode
     ? `<span class="status-pill">Detail view</span><span class="status-pill status-pill--accent">${selected.name}</span>`
     : compareMode
@@ -1019,6 +1751,33 @@ function render() {
   `;
 
   bindEvents();
+}
+
+function renderLandingPage() {
+  return `
+    <main id="main" class="landing-page">
+      <section class="landing-hero panel">
+        <div class="landing-hero__copy">
+          <p class="eyebrow">Screening setup</p>
+          <h2>Start with your mandate, not ours.</h2>
+          <p class="hero-copy">
+            Set only the criteria you want to use. Nothing is preselected. When you continue, the screening room opens with the mandate on the left, ready to be adjusted at any time.
+          </p>
+          <div class="landing-hero__notes">
+            <span>No preset sector list</span>
+            <span>No preset stage filter</span>
+            <span>Open by default</span>
+          </div>
+        </div>
+        <div class="landing-hero__panel">
+          ${renderMandatePanel()}
+          <div class="landing-hero__actions">
+            <button class="button" type="button" data-action="start-workspace">Enter screening room</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  `;
 }
 
 function renderBrowsePage(selected, selectedFit, filtered) {
@@ -1333,18 +2092,57 @@ function renderProprietaryMeasures(startup, fit, variant = "detail") {
 }
 
 function renderMandatePanel() {
+  const openMandate =
+    state.preferences.sectors.length === 0 &&
+    state.preferences.stages.length === 0 &&
+    state.preferences.geographies.length === 0 &&
+    state.preferences.maxTicket === 7 &&
+    state.preferences.minTrl === 3 &&
+    state.preferences.risk === "Open" &&
+    state.preferences.evidence === "Any" &&
+    state.preferences.regulatory === "Open" &&
+    state.preferences.transition === "Open";
+  const ticketLabel = openMandate ? "Any" : formatMoney(state.preferences.maxTicket);
+  const trlLabel = openMandate ? "Any" : state.preferences.minTrl;
+
   return `
     <div class="panel-heading">
       <p class="eyebrow">Mandate</p>
       <h2>Investor preferences</h2>
     </div>
     <div class="field">
-      <label for="ticket">Max initial ticket <strong>${formatMoney(state.preferences.maxTicket)}</strong></label>
-      <input id="ticket" type="range" min="0.5" max="7" step="0.1" value="${state.preferences.maxTicket}" data-pref="maxTicket" />
+      <label for="ticket">Max initial ticket <strong>${ticketLabel}</strong></label>
+      <div class="field__control">
+        <input id="ticket" type="range" min="0.5" max="7" step="0.1" value="${state.preferences.maxTicket}" data-pref="maxTicket" />
+        <input
+          class="field__number"
+          type="number"
+          min="0.5"
+          max="7"
+          step="0.1"
+          inputmode="decimal"
+          value="${state.preferences.maxTicket}"
+          aria-label="Max initial ticket value"
+          data-pref="maxTicket"
+        />
+      </div>
     </div>
     <div class="field">
-      <label for="trl">Minimum maturity / TRL <strong>${state.preferences.minTrl}</strong></label>
-      <input id="trl" type="range" min="3" max="9" step="1" value="${state.preferences.minTrl}" data-pref="minTrl" />
+      <label for="trl">Minimum maturity / TRL <strong>${trlLabel}</strong></label>
+      <div class="field__control">
+        <input id="trl" type="range" min="3" max="9" step="1" value="${state.preferences.minTrl}" data-pref="minTrl" />
+        <input
+          class="field__number"
+          type="number"
+          min="3"
+          max="9"
+          step="1"
+          inputmode="numeric"
+          value="${state.preferences.minTrl}"
+          aria-label="Minimum maturity TRL value"
+          data-pref="minTrl"
+        />
+      </div>
     </div>
     <fieldset class="segmented" aria-label="Risk appetite">
       <legend>Risk appetite</legend>
@@ -1813,6 +2611,18 @@ function handleAction(event) {
     state.briefId = id;
     state.activeTab = "overview";
     state.view = "browse";
+    markWorkspaceEntered();
+    render();
+    return;
+  }
+
+  if (action === "start-workspace") {
+    markWorkspaceEntered();
+    state.selectedId = getFilteredStartups()[0]?.id || state.selectedId;
+    state.briefId = state.selectedId;
+    state.activeTab = "overview";
+    state.view = "browse";
+    location.hash = "";
     render();
     return;
   }
@@ -1877,8 +2687,13 @@ function handleAction(event) {
 function handlePreference(event) {
   const key = event.currentTarget.dataset.pref;
   if (!key) return;
-  if (key === "maxTicket") state.preferences.maxTicket = Number(event.currentTarget.value);
-  else if (key === "minTrl") state.preferences.minTrl = Number(event.currentTarget.value);
+  if (key === "maxTicket") {
+    const value = event.currentTarget.valueAsNumber;
+    if (Number.isFinite(value)) state.preferences.maxTicket = Math.max(0.5, Math.min(7, value));
+  } else if (key === "minTrl") {
+    const value = event.currentTarget.valueAsNumber;
+    if (Number.isFinite(value)) state.preferences.minTrl = Math.max(3, Math.min(9, Math.round(value)));
+  }
   else state.preferences[key] = event.currentTarget.value;
   render();
 }
