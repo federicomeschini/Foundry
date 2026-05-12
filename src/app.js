@@ -476,21 +476,46 @@ function startupById(id) {
 
 function parseHash() {
   const raw = decodeURIComponent((location.hash || "").replace(/^#/, ""));
-  if (!raw) return null;
-  if (raw.startsWith("startup/")) return raw.slice("startup/".length);
-  if (raw.startsWith("company/")) return raw.slice("company/".length);
-  return null;
+  if (!raw) return { kind: null };
+  if (raw.startsWith("startup/")) return { kind: "detail", id: raw.slice("startup/".length) };
+  if (raw.startsWith("company/")) return { kind: "detail", id: raw.slice("company/".length) };
+  if (raw.startsWith("compare/")) {
+    const ids = raw
+      .slice("compare/".length)
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+    return { kind: "compare", ids };
+  }
+  if (raw === "compare") return { kind: "compare", ids: [] };
+  return { kind: null };
 }
 
 function syncRouteFromHash() {
-  const id = parseHash();
-  const startup = id ? startupById(id) : null;
+  const route = parseHash();
 
-  if (startup) {
+  if (route.kind === "detail") {
+    const startup = startupById(route.id);
+    if (!startup) {
+      state.view = "browse";
+      return;
+    }
     state.view = "detail";
     state.selectedId = startup.id;
     state.briefId = startup.id;
     state.activeTab = "overview";
+    return;
+  }
+
+  if (route.kind === "compare") {
+    const ids = route.ids.length ? route.ids : state.compareIds;
+    const compareIds = ids.map((id) => startupById(id)?.id).filter(Boolean);
+    state.compareIds = compareIds.slice(-3);
+    if (state.compareIds.length) {
+      state.selectedId = state.compareIds[0];
+      state.briefId = state.compareIds[0];
+    }
+    state.view = "compare";
     return;
   }
 
@@ -509,6 +534,19 @@ function openDetailView(id) {
 }
 
 function closeDetailView() {
+  location.hash = "";
+  syncRouteFromHash();
+  render();
+}
+
+function openCompareView() {
+  if (state.compareIds.length < 2) return;
+  location.hash = `compare/${state.compareIds.join(",")}`;
+  syncRouteFromHash();
+  render();
+}
+
+function closeCompareView() {
   location.hash = "";
   syncRouteFromHash();
   render();
@@ -945,11 +983,19 @@ function render() {
   const compare = state.compareIds.map((id) => startups.find((startup) => startup.id === id)).filter(Boolean);
   const selectedFit = assessStartup(selected);
   const detailMode = state.view === "detail";
+  const compareMode = state.view === "compare";
   const topbarStatus = detailMode
     ? `<span class="status-pill">Detail view</span><span class="status-pill status-pill--accent">${selected.name}</span>`
-    : `<span class="status-pill">Screening room</span><span class="status-pill status-pill--accent">${filtered.length} opportunities in scope</span>`;
+    : compareMode
+      ? `<span class="status-pill">Comparison view</span><span class="status-pill status-pill--accent">${compare.length} companies selected</span>`
+      : `<span class="status-pill">Screening room</span><span class="status-pill status-pill--accent">${filtered.length} opportunities in scope</span>`;
   const topbarBack = detailMode
-    ? `<button class="button button--ghost button--small topbar-back" type="button" data-action="close-detail">Back to Meridian</button>`
+    ? `<button class="button button--ghost button--small topbar-back" type="button" data-action="close-detail">Back to screening room</button>`
+    : compareMode
+      ? `<button class="button button--ghost button--small topbar-back" type="button" data-action="close-compare">Back to screening room</button>`
+    : "";
+  const topbarCompare = !detailMode && !compareMode && compare.length
+    ? `<button class="button button--ghost button--small topbar-compare" type="button" data-action="open-compare" ${compare.length < 2 ? "disabled title=\"Select at least two companies to compare\"" : ""}>Compare (${compare.length})</button>`
     : "";
 
   app.innerHTML = `
@@ -964,17 +1010,18 @@ function render() {
         </div>
       </div>
       <div class="topbar__right">
+        ${topbarCompare}
         ${topbarStatus}
       </div>
     </header>
 
-    ${detailMode ? renderDetailPage(selected, selectedFit) : renderBrowsePage(selected, selectedFit, filtered, compare)}
+    ${detailMode ? renderDetailPage(selected, selectedFit) : compareMode ? renderComparePage(compare) : renderBrowsePage(selected, selectedFit, filtered)}
   `;
 
   bindEvents();
 }
 
-function renderBrowsePage(selected, selectedFit, filtered, compare) {
+function renderBrowsePage(selected, selectedFit, filtered) {
   return `
     <main id="main" class="workspace">
       <aside class="mandate panel" aria-label="Investor preferences">
@@ -993,10 +1040,6 @@ function renderBrowsePage(selected, selectedFit, filtered, compare) {
         ${renderDealroom(selected, selectedFit)}
       </aside>
     </main>
-
-    <section class="compare-strip" aria-label="Startup comparison workspace">
-      ${renderCompare(compare)}
-    </section>
   `;
 }
 
@@ -1616,27 +1659,85 @@ function renderCompare(compare) {
     : "";
 
   return `
-    <div class="compare-strip__header">
-      <div>
-        <p class="eyebrow">Comparison workspace</p>
-        <h2>First-pass comparison</h2>
-      </div>
-      <div class="compare-strip__actions">
-        ${compare.length && state.compareAI ? `<button class="button button--ghost" type="button" data-action="generate-compare-ai">Regenerate summary</button>` : ""}
-        <button class="button button--ghost" type="button" data-action="clear-compare">Clear comparison</button>
-      </div>
-    </div>
     ${
       compare.length
-        ? `<div class="compare-table" role="table" aria-label="Selected startup comparison">
-            ${["Company", "Fit", "Ask", "Stage / TRL", "Evidence", "Regulatory", "Transition", "Top diligence gap"]
-              .map((header) => `<div class="compare-cell compare-cell--head" role="columnheader">${header}</div>`)
-              .join("")}
-            ${compare.map((startup) => renderCompareRow(startup)).join("")}
-          </div>
-          ${aiSummaryHTML}`
-        : `<div class="empty-state empty-state--compact"><p>Select up to three opportunities to compare evidence, risk exposure, and missing diligence.</p></div>`
+        ? `<div class="compare-panel__body">
+            <div class="compare-table" role="table" aria-label="Selected startup comparison">
+              ${["Company", "Fit", "Ask", "Stage / TRL", "Evidence", "Regulatory", "Transition", "Top diligence gap"]
+                .map((header) => `<div class="compare-cell compare-cell--head" role="columnheader">${header}</div>`)
+                .join("")}
+              ${compare.map((startup) => renderCompareRow(startup)).join("")}
+            </div>
+            ${aiSummaryHTML}
+          </div>`
+        : `<div class="empty-state empty-state--compact"><p>Select at least two opportunities from the screening list to start comparing.</p></div>`
     }
+  `;
+}
+
+function renderCompareCard(startup) {
+  const fit = assessStartup(startup);
+  return `
+    <article class="compare-card panel">
+      <div class="compare-card__head">
+        <div>
+          <p class="eyebrow">Selected</p>
+          <h3>${startup.name}</h3>
+          <p>${startup.sector} / ${startup.stage} / ${startup.geography}</p>
+        </div>
+        <div class="compare-card__score">
+          <strong>${fit.score}</strong>
+          <span>${fit.label}</span>
+        </div>
+      </div>
+      <div class="compare-card__facts">
+        <span>${startup.ask}</span>
+        <span>TRL ${startup.trl}</span>
+        <span>${startup.regulatory.level} regulatory</span>
+      </div>
+      <div class="compare-card__actions">
+        <button class="button button--ghost button--small" type="button" data-action="open-detail" data-id="${startup.id}">Open detail</button>
+      </div>
+    </article>
+  `;
+}
+
+function renderComparePage(compare) {
+  return `
+    <main id="main" class="compare-page">
+      <section class="compare-page__hero panel">
+        <div class="compare-page__copy">
+          <p class="eyebrow">Comparison view</p>
+          <h2>Compare selected companies side by side</h2>
+          <p class="hero-copy">
+            The shortlist shows the items you chose from the screening room. Use this page when you have two or three similar opportunities and need a direct read on fit, evidence, risk, and diligence.
+          </p>
+        </div>
+        <div class="compare-page__actions">
+          <button class="button button--ghost button--small" type="button" data-action="close-compare">Back to screening room</button>
+          <button class="button button--ghost button--small" type="button" data-action="clear-compare">Clear comparison</button>
+        </div>
+      </section>
+
+      ${
+        compare.length
+          ? `
+            <section class="compare-cards" aria-label="Selected companies">
+              ${compare.map((startup) => renderCompareCard(startup)).join("")}
+            </section>
+            <section class="compare-panel panel" aria-label="Comparison details">
+              <div class="compare-panel__header">
+                <p class="eyebrow">Comparison details</p>
+                <div class="compare-panel__toolbar">
+                  ${state.compareAI ? `<button class="button button--ghost" type="button" data-action="generate-compare-ai">Regenerate summary</button>` : `<button class="button button--ghost" type="button" data-action="generate-compare-ai">Generate comparison summary</button>`}
+                </div>
+              </div>
+              ${renderCompare(compare)}
+            </section>
+          `
+          : `<section class="empty-state panel"><h3>Select two companies to compare</h3><p>Use the screening list to mark at least two similar opportunities, then return here for a side-by-side read.</p></section>`
+      }
+    </main>
   `;
 }
 
@@ -1710,8 +1811,18 @@ function handleAction(event) {
     return;
   }
 
+  if (action === "open-compare") {
+    openCompareView();
+    return;
+  }
+
   if (action === "close-detail") {
     closeDetailView();
+    return;
+  }
+
+  if (action === "close-compare") {
+    closeCompareView();
     return;
   }
 
