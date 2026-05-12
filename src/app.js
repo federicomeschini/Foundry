@@ -573,7 +573,7 @@ function scoreStartup(startup, preferences = state.preferences) {
 
   if (preferences.risk === "Conservative") {
     if (startup.trl >= 8 && evidenceDepth >= 3 && startup.regulatory.level !== "High") score += 8;
-    if (startup.trl < 6 || startup.regulatory.level === "High") cautions.push("Conservative profile flags this for deeper diligence.");
+    if (startup.trl < 6 || startup.regulatory.level === "High") cautions.push("Conservative profile flags this for additional diligence.");
   }
 
   if (preferences.risk === "High uncertainty") {
@@ -594,7 +594,7 @@ function scoreStartup(startup, preferences = state.preferences) {
   const bounded = Math.max(8, Math.min(96, score));
   return {
     score: bounded,
-    label: bounded >= 78 ? "Strong screening fit" : bounded >= 60 ? "Relevant to inspect" : bounded >= 42 ? "Watchlist fit" : "Low current fit",
+    label: bounded >= 78 ? "Strong mandate fit" : bounded >= 60 ? "Inspect further" : bounded >= 42 ? "Watchlist" : "Outside mandate",
     reasons: reasons.slice(0, 4),
     cautions: cautions.slice(0, 4),
   };
@@ -610,7 +610,7 @@ function assessStartup(startup) {
   const dataConfidence = Math.max(30, Math.min(88, evidence + (startup.trl - 6) * 6));
   const decision =
     fit.score >= 78 && evidenceDepth >= 2
-      ? "Proceed to deeper diligence"
+      ? "Proceed to diligence"
       : fit.score >= 60
         ? "Proceed with conditions"
         : fit.score >= 42
@@ -766,15 +766,15 @@ function generateBriefText(startup, fit, preferences) {
     `${startup.name} brings a ${startup.stage.toLowerCase()} proposition in ${startup.sector.toLowerCase()} from ${startup.geography}.`,
   ];
 
-  const para1 = `${pick(openers, rng)} This AI-style brief assigns a first-level fit of ${fit.score}/100 under the active mandate. Current screening state: ${fit.decision}. This note is a structured first-pass signal and is not an investment recommendation.`;
+  const para1 = `${pick(openers, rng)} First-level mandate fit: ${fit.score}/100. Screening recommendation: ${fit.decision}. This note is a first-pass signal and does not constitute investment advice.`;
 
-  const para2 = `The opportunity shows ${fitAdj} mandate alignment. ${secMatch ? `Sector match (${startup.sector}) contributes positively to the fit score.` : `The sector (${startup.sector}) is outside the stated preference list, which limits mandate fit.`} ${geoMatch ? `Geographic exposure (${startup.geography}) is within the target footprint.` : `Geographic exposure (${startup.geography}) falls outside the preferred footprint.`} ${fit.reasons.length ? `Additional signals: ${fit.reasons[0].toLowerCase()}.` : ""}`;
+  const para2 = `Mandate alignment is ${fitAdj}. ${secMatch ? `Sector (${startup.sector}) is within the stated mandate.` : `Sector (${startup.sector}) falls outside the stated preference list, limiting mandate fit.`} ${geoMatch ? `Geography (${startup.geography}) is within the target footprint.` : `Geography (${startup.geography}) falls outside the preferred footprint.`} ${fit.reasons.length ? fit.reasons[0] : ""}`;
 
-  const para3 = `Evidence depth is assessed as ${evidAdj} (score: ${fit.evidence}/100). Available evidence includes: ${startup.evidence.slice(0, 3).join("; ")}. ${fit.cautions.length ? `The following items flag caution at this stage: ${fit.cautions[0].toLowerCase()}.` : "No immediate mandate cautions were detected, though diligence remains essential."}`;
+  const para3 = `Evidence depth: ${evidAdj} (score: ${fit.evidence}/100). Visible evidence: ${startup.evidence.slice(0, 3).join("; ")}. ${fit.cautions.length ? `Caution: ${fit.cautions[0].toLowerCase()}.` : "No immediate mandate cautions flagged, though diligence remains essential."}`;
 
-  const para4 = `Open diligence topics at this stage: ${startup.missing.slice(0, 3).join("; ")}. Regulatory exposure is rated ${startup.regulatory.level.toLowerCase()} (${startup.regulatory.character.toLowerCase()}). Transition exposure is ${startup.transition.level.toLowerCase()} (${startup.transition.character.toLowerCase()}).`;
+  const para4 = `Open diligence items: ${startup.missing.slice(0, 3).join("; ")}. Regulatory exposure: ${startup.regulatory.level.toLowerCase()} — ${startup.regulatory.character.toLowerCase()}. Transition exposure: ${startup.transition.level.toLowerCase()} — ${startup.transition.character.toLowerCase()}.`;
 
-  const para5 = `Suggested next step: ${startup.nextStep} Risk signals surfaced at screening level: ${startup.risks[0] ? startup.risks[0].toLowerCase() : "no explicit first-level risks flagged"}. All conclusions in this note are first-level signals and require independent verification.`;
+  const para5 = `Suggested next step: ${startup.nextStep} Primary risk signal: ${startup.risks[0] ? startup.risks[0].toLowerCase() : "none flagged at screening level"}. All findings require independent verification.`;
 
   return [para1, para2, para3, para4, para5];
 }
@@ -838,7 +838,7 @@ function generateFlagItems(startup) {
   if (startup.risks && startup.risks.length)
     flags.push({ level: "medium", text: startup.risks[0] });
 
-  flags.push({ level: "low", text: "This note is a deterministic first-level signal. All flags require independent verification before any investment decision." });
+  flags.push({ level: "low", text: "These are first-level screening signals only. All flags require independent verification before any investment decision." });
 
   return flags.slice(0, 8);
 }
@@ -867,7 +867,7 @@ function generateCompareSummary(compareList) {
   const best = sorted[0];
   const names = sorted.map((item) => item.s.name).join(", ");
 
-  const para1 = `Across the ${compareList.length} selected opportunities (${names}), this AI-assisted first pass identifies ${best.s.name} as carrying the strongest mandate alignment under current preferences (fit score: ${best.fit.score}/100).`;
+  const para1 = `Across the ${compareList.length} selected opportunities (${names}), this first-pass analysis identifies ${best.s.name} as carrying the strongest mandate alignment under current preferences (fit score: ${best.fit.score}/100).`;
 
   const para2 = sorted.map(({ s, fit }) =>
     `${s.name}: ${fit.score}/100 fit, TRL ${s.trl}, ${s.regulatory.level.toLowerCase()} regulatory exposure, ${s.missing.length} open diligence items.`
@@ -893,19 +893,19 @@ function renderAITab(startup, fit, overrideResult = null) {
     ? `
       <div class="ai-output ai-animate">
         <div class="ai-section">
-          <h3>AI-style investor brief</h3>
+          <h3>Investor brief</h3>
           <div class="ai-paragraphs">
             ${result.brief.map((p) => `<p>${p}</p>`).join("")}
           </div>
         </div>
         <div class="ai-section">
-          <h3>Why it matches your mandate</h3>
+          <h3>Mandate alignment</h3>
           <ul class="ai-list">
             ${result.fitLines.map((line) => `<li>${line}</li>`).join("")}
           </ul>
         </div>
         <div class="ai-section">
-          <h3>Potential red flags — first-level signals</h3>
+          <h3>Red flags — first-level signals</h3>
           <ul class="ai-flags">
             ${result.flags.map((f) => `<li class="ai-flag ai-flag--${f.level}"><span>${flagLevelLabel[f.level]}</span>${f.text}</li>`).join("")}
           </ul>
@@ -920,7 +920,7 @@ function renderAITab(startup, fit, overrideResult = null) {
       <p class="ai-disclaimer">AI-assisted screening · first-level signal only · requires diligence · not investment advice</p>
     `
     : `<div class="ai-idle">
-        <p>Run the AI analyst to generate a structured brief, mandate fit explanation, potential red flags, and suggested diligence questions for <strong>${startup.name}</strong>.</p>
+        <p>Generate a structured screening brief, mandate alignment rationale, red flags, and diligence questions for <strong>${startup.name}</strong>.</p>
       </div>`;
 
   return `
@@ -928,7 +928,7 @@ function renderAITab(startup, fit, overrideResult = null) {
       <div class="ai-panel__header">
         <div>
           <span class="ai-badge">AI Analyst</span>
-          <p>Deterministic, frontend-only · no API · no backend</p>
+          <p>Client-side analysis · no data transmitted · runs in your browser</p>
         </div>
         <button class="button button--small" type="button" data-action="generate-ai" data-id="${startup.id}">
           ${result ? "Regenerate" : "Generate analysis"}
@@ -947,9 +947,9 @@ function render() {
   const detailMode = state.view === "detail";
   const topbarStatus = detailMode
     ? `<span class="status-pill">Detail view</span><span class="status-pill status-pill--accent">${selected.name}</span>`
-    : `<span class="status-pill">Static screening room</span><span class="status-pill status-pill--accent">${filtered.length} visible opportunities</span>`;
+    : `<span class="status-pill">Screening room</span><span class="status-pill status-pill--accent">${filtered.length} opportunities in scope</span>`;
   const topbarBack = detailMode
-    ? `<button class="button button--ghost button--small topbar-back" type="button" data-action="close-detail">Back to screening room</button>`
+    ? `<button class="button button--ghost button--small topbar-back" type="button" data-action="close-detail">Back to Meridian</button>`
     : "";
 
   app.innerHTML = `
@@ -959,8 +959,7 @@ function render() {
         <div class="brand-block">
           <img src="assets/logos/OpenEconomics-LOGO WHITE.svg" alt="OpenEconomics" />
           <div>
-            <p class="eyebrow">Frontend-only POC</p>
-            <h1>Innovation Dealroom</h1>
+            <h1>Meridian</h1>
           </div>
         </div>
       </div>
@@ -990,7 +989,7 @@ function renderBrowsePage(selected, selectedFit, filtered, compare) {
         </div>
       </section>
 
-      <aside class="dealroom panel" aria-label="Structured dealroom for selected startup">
+      <aside class="dealroom panel" aria-label="Screening analysis panel">
         ${renderDealroom(selected, selectedFit)}
       </aside>
     </main>
@@ -1007,10 +1006,10 @@ function renderDetailPage(startup, fit) {
     <main id="main" class="detail-page">
       <section class="detail-hero panel">
         <div class="detail-hero__copy">
-          <p class="eyebrow">Company detail</p>
+          <p class="eyebrow">Company</p>
           <h2>${startup.name}</h2>
           <p class="detail-hero__summary">${startup.sector} / ${startup.stage} / ${startup.geography} / TRL ${startup.trl}</p>
-          <p class="detail-hero__decision">${fit.decision}. This page surfaces the full screening context and remains a diligence lead, not a conclusion.</p>
+          <p class="detail-hero__decision">${fit.decision}. Full screening context — treat as a diligence lead, not a final recommendation.</p>
           <div class="detail-hero__chips" aria-label="Company tags">
             <span class="detail-chip">${startup.ask}</span>
             <span class="detail-chip">${startup.maturity}</span>
@@ -1020,9 +1019,9 @@ function renderDetailPage(startup, fit) {
           </div>
         </div>
         <div class="detail-hero__rail">
-          ${renderDetailStat("Investment fit", `${fit.score}/100`, fit.label)}
-          ${renderDetailStat("Evidence strength", `${fit.evidence}/100`, fit.evidenceLabel)}
-          ${renderDetailStat("Risk severity", `${fit.riskSeverity}/100`, "First-level signal")}
+          ${renderDetailStat("Mandate fit", `${fit.score}/100`, fit.label)}
+          ${renderDetailStat("Evidence score", `${fit.evidence}/100`, fit.evidenceLabel)}
+          ${renderDetailStat("Risk signal", `${fit.riskSeverity}/100`, "First-level signal")}
           ${renderDetailStat("Diligence completeness", `${fit.diligence}/100`, "Open items remain")}
         </div>
       </section>
@@ -1046,7 +1045,7 @@ function renderDetailPage(startup, fit) {
             </section>
             ${renderProprietaryMeasures(startup, fit, "detail")}
             <section class="detail-summary-block">
-              <h3>What this page is saying</h3>
+              <h3>Mandate read</h3>
               <ul class="clean-list clean-list--tight">
                 ${fit.reasons.map((item) => `<li>${item}</li>`).join("")}
                 ${fit.cautions.map((item) => `<li>${item}</li>`).join("")}
@@ -1057,7 +1056,7 @@ function renderDetailPage(startup, fit) {
           <article class="detail-panel panel">
             <div class="panel-heading">
               <p class="eyebrow">Evidence</p>
-              <h2>Evidence available</h2>
+              <h2>Visible evidence</h2>
             </div>
             ${renderEvidence(startup)}
           </article>
@@ -1065,7 +1064,7 @@ function renderDetailPage(startup, fit) {
           <article class="detail-panel panel">
             <div class="panel-heading">
               <p class="eyebrow">Risk</p>
-              <h2>Exposure and first-level signals</h2>
+              <h2>Risk and exposure</h2>
             </div>
             ${renderRisk(startup)}
           </article>
@@ -1073,7 +1072,7 @@ function renderDetailPage(startup, fit) {
           <article class="detail-panel panel">
             <div class="panel-heading">
               <p class="eyebrow">Diligence</p>
-              <h2>Missing information</h2>
+              <h2>Open diligence items</h2>
             </div>
             ${renderDiligence(startup)}
           </article>
@@ -1081,7 +1080,7 @@ function renderDetailPage(startup, fit) {
           <article class="detail-panel detail-panel--wide panel">
             <div class="panel-heading">
               <p class="eyebrow">Brief</p>
-              <h2>Mock investor brief</h2>
+              <h2>Investor brief</h2>
             </div>
             ${renderBrief(startup, fit)}
           </article>
@@ -1091,7 +1090,7 @@ function renderDetailPage(startup, fit) {
           <article class="detail-panel panel">
             <div class="panel-heading">
               <p class="eyebrow">Screening</p>
-              <h2>Explainable fit</h2>
+              <h2>Mandate fit rationale</h2>
             </div>
             ${renderOverview(startup, fit)}
           </article>
@@ -1115,7 +1114,7 @@ function renderDetailPage(startup, fit) {
           <article class="detail-panel panel">
             <div class="panel-heading">
               <p class="eyebrow">AI Analyst</p>
-              <h2>Deterministic screening note</h2>
+              <h2>Screening note</h2>
             </div>
             ${renderAITab(startup, fit)}
           </article>
@@ -1133,16 +1132,14 @@ function renderHero(filtered) {
   return `
     <section class="hero">
       <div>
-        <p class="eyebrow">Screening view</p>
-        <h2>Which opportunities deserve attention, and why?</h2>
+        <h2>First-level signals, shaped by your mandate.</h2>
         <p class="hero-copy">
-          This room converts mandate preferences into explainable first-level screening signals.
-          Fit, evidence, regulatory exposure, and transition exposure are shown as diligence prompts, not investment advice.
+          Fit, evidence, regulatory exposure, and transition risk — scored, ranked, and explained for every opportunity in scope.
         </p>
       </div>
       <div class="hero-ledger" aria-label="Screening summary">
-        <div><strong>${strong}</strong><span>strong fits</span></div>
-        <div><strong>${diligence}</strong><span>with diligence gaps</span></div>
+        <div><strong>${strong}</strong><span>strong mandate fits</span></div>
+        <div><strong>${diligence}</strong><span>with open diligence items</span></div>
         <div><strong>${regulated}</strong><span>high regulatory exposure</span></div>
       </div>
     </section>
@@ -1386,7 +1383,7 @@ function renderOpportunityCard(startup) {
           <span class="opportunity__title">${startup.name}</span>
           <span class="meta-row">${startup.sector} / ${startup.stage} / ${startup.geography} / TRL ${startup.trl}</span>
           <span class="fit-label">${startup.fit.label}</span>
-          <span class="why-line">${startup.fit.reasons[0] || startup.fit.cautions[0] || "Requires first-level screening."}</span>
+          <span class="why-line">${startup.fit.reasons[0] || startup.fit.cautions[0] || "Pending mandate screen."}</span>
         </span>
       </button>
       <div class="opportunity__facts">
@@ -1398,7 +1395,7 @@ function renderOpportunityCard(startup) {
       </div>
       ${renderProprietaryMeasures(startup, startup.fit, "list")}
       <div class="opportunity__actions">
-        <button class="button button--small" type="button" data-action="select-startup" data-id="${startup.id}">Show on right</button>
+        <button class="button button--small" type="button" data-action="select-startup" data-id="${startup.id}">Analyse</button>
         <button class="button button--small ${inCompare ? "button--active" : "button--ghost"}" type="button" data-action="toggle-compare" data-id="${startup.id}">
           ${inCompare ? "In compare" : "Compare"}
         </button>
@@ -1410,8 +1407,8 @@ function renderOpportunityCard(startup) {
 function renderEmptyState() {
   return `
     <div class="empty-state">
-      <h3>No opportunities match this screen.</h3>
-      <p>Loosen a filter or adjust the mandate. The room is designed to show why an opportunity is screened in or out.</p>
+      <h3>No opportunities in scope.</h3>
+      <p>Adjust the filters or broaden the mandate parameters to expand the view.</p>
       <button class="button" type="button" data-action="clear-filters">Clear filters</button>
     </div>
   `;
@@ -1421,7 +1418,7 @@ function renderDealroom(startup, fit) {
   return `
     <div class="dealroom__mast">
       <div>
-        <p class="eyebrow">Virtual dealroom</p>
+        <p class="eyebrow">Analysis</p>
         <h2>${startup.name}</h2>
         <p>${startup.sector} / ${startup.stage} / ${startup.geography}</p>
       </div>
@@ -1436,7 +1433,7 @@ function renderDealroom(startup, fit) {
         Open full detail page
       </button>
     </div>
-    <nav class="tabs" aria-label="Dealroom sections">
+    <nav class="tabs" aria-label="Analysis sections">
       ${tabs
         .map(
           ([id, label]) => `
@@ -1466,25 +1463,25 @@ function renderOverview(startup, fit) {
   return `
     <section class="scorecard-note">
       <p>
-        These are screening signals, not a valuation or recommendation. The score cards explain how the current mandate reads the company:
-        higher fit, evidence, and confidence are better; higher risk means more caution; higher diligence completeness means fewer open gaps.
+        The scores reflect how the current mandate reads this opportunity. Higher fit, evidence, and confidence indicate stronger alignment;
+        higher risk and lower diligence completeness indicate open questions. These are screening signals — not valuations or recommendations.
       </p>
     </section>
     <section class="scorecard" aria-label="Explainability scorecard">
-      ${renderGauge("Estimated fit", fit.score, "How closely the company matches the current screen.", fit.label)}
-      ${renderGauge("Evidence available", fit.evidence, "How much usable evidence is already visible.", fit.evidenceLabel)}
-      ${renderGauge("First-level risk signal", fit.riskSeverity, "How much caution the screening view is flagging.", "Screening caution")}
-      ${renderGauge("Data confidence", fit.dataConfidence, "How complete and consistent the current information appears.", "Requires confirmation")}
-      ${renderGauge("Diligence completeness", fit.diligence, "How many open diligence items still need to be checked.", "Open items remain")}
+      ${renderGauge("Mandate fit", fit.score, "Alignment with the active mandate parameters.", fit.label)}
+      ${renderGauge("Evidence available", fit.evidence, "Volume and quality of evidence currently visible.", fit.evidenceLabel)}
+      ${renderGauge("Risk signal", fit.riskSeverity, "Aggregate regulatory and transition exposure.", "Screening caution")}
+      ${renderGauge("Data confidence", fit.dataConfidence, "Consistency and completeness of available information.", "Requires confirmation")}
+      ${renderGauge("Diligence completeness", fit.diligence, "Share of diligence topics addressed to date.", "Open items remain")}
     </section>
     <section class="next-step">
-      <span>Screening state</span>
-      <p>${fit.decision}. This should be treated as a diligence lead, not a conclusion.</p>
+      <span>Current recommendation</span>
+      <p>${fit.decision}. Treat as a diligence lead — not a final recommendation.</p>
     </section>
     <section class="deal-section">
-      <h3>Why it appears relevant</h3>
+      <h3>Mandate alignment</h3>
       <ul class="clean-list">${fit.reasons.map((item) => `<li>${item}</li>`).join("")}</ul>
-      ${fit.cautions.length ? `<h3>Why it still needs care</h3><ul class="clean-list muted-list">${fit.cautions.map((item) => `<li>${item}</li>`).join("")}</ul>` : ""}
+      ${fit.cautions.length ? `<h3>Screening cautions</h3><ul class="clean-list muted-list">${fit.cautions.map((item) => `<li>${item}</li>`).join("")}</ul>` : ""}
     </section>
     <section class="info-grid">
       ${renderInfo("Ask", startup.ask)}
@@ -1517,7 +1514,7 @@ function renderEvidence(startup) {
       ${Object.entries(startup.metrics).map(([key, value]) => renderMetric(key, value)).join("")}
     </section>
     <section class="deal-section">
-      <h3>Evidence available</h3>
+      <h3>Visible evidence</h3>
       <ul class="evidence-list">${startup.evidence.map((item) => `<li>${item}</li>`).join("")}</ul>
     </section>
   `;
@@ -1540,7 +1537,7 @@ function renderRisk(startup) {
       </div>
     </section>
     <section class="deal-section">
-      <h3>First-level risk signals</h3>
+      <h3>Risk signals</h3>
       <ul class="clean-list">${startup.risks.map((item) => `<li>${item}</li>`).join("")}</ul>
     </section>
   `;
@@ -1549,7 +1546,7 @@ function renderRisk(startup) {
 function renderDiligence(startup) {
   return `
     <section class="deal-section">
-      <h3>Missing diligence</h3>
+      <h3>Open diligence items</h3>
       <ul class="diligence-list">${startup.missing.map((item) => `<li>${item}</li>`).join("")}</ul>
     </section>
     <section class="next-step">
@@ -1557,7 +1554,7 @@ function renderDiligence(startup) {
       <p>${startup.nextStep}</p>
     </section>
     <section class="deal-section">
-      <h3>Deal structuring watchpoints</h3>
+      <h3>Structuring notes</h3>
       <ul class="clean-list">
         <li>Confirm whether future capital needs make milestone tranching appropriate.</li>
         <li>Review information rights, IP assignment, and conditions precedent before any term-sheet discussion.</li>
@@ -1571,7 +1568,7 @@ function renderBrief(startup, fit) {
   return `
     <section class="brief">
       <div class="brief__header">
-        <p class="eyebrow">Mock investor brief</p>
+        <p class="eyebrow">Investor brief</p>
         <button class="button button--small" type="button" data-action="copy-brief">Copy text</button>
       </div>
       <div class="brief__body" id="brief-text">
@@ -1586,10 +1583,10 @@ function renderBrief(startup, fit) {
 
 function briefText(startup, fit) {
   return [
-    `${startup.name} is a ${startup.stage.toLowerCase()} ${startup.sector.toLowerCase()} opportunity in ${startup.geography} with an estimated first-level fit of ${fit.score}/100 under the current mandate. Current screening state: ${fit.decision}.`,
-    `The opportunity appears relevant because ${fit.reasons[0] ? fit.reasons[0].toLowerCase() : "it has some alignment with the selected mandate."} Evidence currently includes: ${startup.evidence.join("; ")}.`,
-    `Key diligence topics are ${startup.missing.join("; ")}. Regulatory exposure is ${startup.regulatory.level.toLowerCase()} and should be read as ${startup.regulatory.character.toLowerCase()}, not as an automatic negative signal.`,
-    `Suggested next step: ${startup.nextStep} This brief is a mock screening note and is not an investment recommendation.`,
+    `${startup.name} is a ${startup.stage.toLowerCase()} ${startup.sector.toLowerCase()} company in ${startup.geography}. First-level mandate fit: ${fit.score}/100. Screening recommendation: ${fit.decision}.`,
+    `Mandate alignment: ${fit.reasons[0] || "Some alignment with the active mandate."}. Visible evidence: ${startup.evidence.join("; ")}.`,
+    `Open diligence items: ${startup.missing.join("; ")}. Regulatory exposure: ${startup.regulatory.level.toLowerCase()} — ${startup.regulatory.character.toLowerCase()}.`,
+    `Suggested next step: ${startup.nextStep} This brief is a first-level screening note and does not constitute investment advice.`,
   ].join("\n");
 }
 
@@ -1601,7 +1598,7 @@ function renderCompare(compare) {
           <p class="ai-disclaimer">AI-assisted comparison · first-level signal only · requires diligence · not investment advice</p>
         </div>`
       : `<div class="compare-ai-prompt">
-          <button class="button button--ghost" type="button" data-action="generate-compare-ai">AI comparison summary</button>
+          <button class="button button--ghost" type="button" data-action="generate-compare-ai">Generate comparison summary</button>
         </div>`
     : "";
 
@@ -1609,17 +1606,17 @@ function renderCompare(compare) {
     <div class="compare-strip__header">
       <div>
         <p class="eyebrow">Comparison workspace</p>
-        <h2>Side-by-side first pass</h2>
+        <h2>First-pass comparison</h2>
       </div>
       <div class="compare-strip__actions">
-        ${compare.length && state.compareAI ? `<button class="button button--ghost" type="button" data-action="generate-compare-ai">Regenerate AI summary</button>` : ""}
+        ${compare.length && state.compareAI ? `<button class="button button--ghost" type="button" data-action="generate-compare-ai">Regenerate summary</button>` : ""}
         <button class="button button--ghost" type="button" data-action="clear-compare">Clear comparison</button>
       </div>
     </div>
     ${
       compare.length
         ? `<div class="compare-table" role="table" aria-label="Selected startup comparison">
-            ${["Company", "Fit", "Ask", "Stage / TRL", "Evidence", "Regulatory", "Transition", "Main diligence gap"]
+            ${["Company", "Fit", "Ask", "Stage / TRL", "Evidence", "Regulatory", "Transition", "Top diligence gap"]
               .map((header) => `<div class="compare-cell compare-cell--head" role="columnheader">${header}</div>`)
               .join("")}
             ${compare.map((startup) => renderCompareRow(startup)).join("")}
