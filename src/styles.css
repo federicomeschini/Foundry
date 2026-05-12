@@ -787,6 +787,11 @@ input[type="search"]:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 
+.dealroom__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .dealroom__mast .eyebrow {
   color: var(--bluette);
 }

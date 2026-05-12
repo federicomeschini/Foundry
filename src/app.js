@@ -1257,7 +1257,7 @@ function renderOpportunityCard(startup) {
   const inCompare = state.compareIds.includes(startup.id);
   return `
     <article class="opportunity ${isSelected ? "opportunity--selected" : ""}">
-      <button class="opportunity__main" type="button" data-action="open-detail" data-id="${startup.id}" aria-pressed="${isSelected}">
+      <button class="opportunity__main" type="button" data-action="select-startup" data-id="${startup.id}" aria-pressed="${isSelected}">
         <span class="score-dial" style="--score:${startup.fit.score}%">
           <strong>${startup.fit.score}</strong>
           <span>fit</span>
@@ -1277,7 +1277,7 @@ function renderOpportunityCard(startup) {
         <span>${startup.transition.level} transition</span>
       </div>
       <div class="opportunity__actions">
-        <button class="button button--small" type="button" data-action="open-detail" data-id="${startup.id}">Open detail page</button>
+        <button class="button button--small" type="button" data-action="select-startup" data-id="${startup.id}">Show on right</button>
         <button class="button button--small ${inCompare ? "button--active" : "button--ghost"}" type="button" data-action="toggle-compare" data-id="${startup.id}">
           ${inCompare ? "In compare" : "Compare"}
         </button>
@@ -1308,6 +1308,11 @@ function renderDealroom(startup, fit) {
         <strong>${fit.score}</strong>
         <span>${fit.label}</span>
       </div>
+    </div>
+    <div class="dealroom__actions">
+      <button class="button button--ghost button--small" type="button" data-action="open-detail" data-id="${startup.id}">
+        Open full detail page
+      </button>
     </div>
     <nav class="tabs" aria-label="Dealroom sections">
       ${tabs
@@ -1559,7 +1564,16 @@ function handleAction(event) {
   const action = event.currentTarget.dataset.action;
   const id = event.currentTarget.dataset.id;
 
-  if (action === "open-detail" || action === "select-startup") {
+  if (action === "select-startup") {
+    state.selectedId = id;
+    state.briefId = id;
+    state.activeTab = "overview";
+    state.view = "browse";
+    render();
+    return;
+  }
+
+  if (action === "open-detail") {
     openDetailView(id);
     return;
   }
