@@ -1131,16 +1131,34 @@ function renderHero(filtered) {
 
   return `
     <section class="hero">
-      <div>
-        <h2>First-level signals, shaped by your mandate.</h2>
+      <div class="hero__copy">
+        <p class="eyebrow">Screening view</p>
+        <h2>Which opportunities deserve a closer look?</h2>
         <p class="hero-copy">
-          Fit, evidence, regulatory exposure, and transition risk — scored, ranked, and explained for every opportunity in scope.
+          This room turns mandate preferences into explainable screening signals. Select a company to open its summary in the right rail, then jump to the full detail page when you need the complete record.
         </p>
+        <div class="hero-guidance" aria-label="How to use this view">
+          <span>Scan the queue</span>
+          <span>Open on the right</span>
+          <span>Drill into detail</span>
+        </div>
       </div>
       <div class="hero-ledger" aria-label="Screening summary">
-        <div><strong>${strong}</strong><span>strong mandate fits</span></div>
-        <div><strong>${diligence}</strong><span>with open diligence items</span></div>
-        <div><strong>${regulated}</strong><span>high regulatory exposure</span></div>
+        <div class="hero-ledger__item">
+          <span>Queue read</span>
+          <strong>${strong}</strong>
+          <small>screened-in opportunities</small>
+        </div>
+        <div class="hero-ledger__item">
+          <span>Diligence load</span>
+          <strong>${diligence}</strong>
+          <small>need more review</small>
+        </div>
+        <div class="hero-ledger__item">
+          <span>Regulatory exposure</span>
+          <strong>${regulated}</strong>
+          <small>high exposure cases</small>
+        </div>
       </div>
     </section>
   `;
