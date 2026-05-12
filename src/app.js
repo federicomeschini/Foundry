@@ -1044,6 +1044,7 @@ function renderDetailPage(startup, fit) {
               ${renderInfo("Business model", startup.model)}
               ${renderInfo("IP status", startup.ip)}
             </section>
+            ${renderProprietaryMeasures(startup, fit, "detail")}
             <section class="detail-summary-block">
               <h3>What this page is saying</h3>
               <ul class="clean-list clean-list--tight">
@@ -1143,6 +1144,125 @@ function renderHero(filtered) {
         <div><strong>${strong}</strong><span>strong fits</span></div>
         <div><strong>${diligence}</strong><span>with diligence gaps</span></div>
         <div><strong>${regulated}</strong><span>high regulatory exposure</span></div>
+      </div>
+    </section>
+  `;
+}
+
+function calculateProprietaryMeasures(startup, fit) {
+  const evidenceBoost = fit.evidence / 180;
+  const fitBoost = fit.score / 42;
+  const transitionBoost =
+    startup.transition.level === "High" ? 0.4 : startup.transition.level === "Medium" ? 0.22 : 0.08;
+  const regulatoryBoost = startup.regulatory.level === "High" ? 0.16 : startup.regulatory.level === "Medium" ? 0.08 : 0.04;
+  const expectedSroi = Math.max(1.3, Math.min(5.8, 1.1 + fitBoost + transitionBoost + regulatoryBoost + evidenceBoost));
+  const transitionBaseline = startup.transition.level === "High" ? 10 : startup.transition.level === "Medium" ? 6 : 2;
+  const baseRisk = Math.max(14, Math.min(92, Math.round(fit.riskSeverity * 0.72 + transitionBaseline)));
+
+  return {
+    expectedSroi: expectedSroi.toFixed(1),
+    esgScore: calculateEsgScore(startup, fit),
+    physicalRisk: calculatePhysicalRiskExposure(startup, fit),
+    scenarios: [
+      { label: "Policy stress", value: Math.min(95, baseRisk + 12) },
+      { label: "Base case", value: baseRisk },
+      { label: "Accelerated shift", value: Math.max(8, baseRisk - 10) },
+    ],
+  };
+}
+
+function calculateEsgScore(startup, fit) {
+  const sectorBase = {
+    "Climate tech": 86,
+    "Circular economy": 84,
+    Agritech: 80,
+    "Water tech": 83,
+    Energy: 77,
+    "Health tech": 72,
+    Medtech: 70,
+    Mobility: 68,
+    "AI/data infrastructure": 64,
+    Cybersecurity: 67,
+    "Deep tech materials": 61,
+    "Industrial automation": 65,
+  };
+  const evidenceBoost = Math.min(8, fit.evidence / 12);
+  const transitionBoost = startup.transition.level === "High" ? 4 : startup.transition.level === "Medium" ? 2 : -1;
+  const regulatoryBoost = startup.regulatory.level === "High" ? 1 : startup.regulatory.level === "Medium" ? 0 : -1;
+  return Math.max(35, Math.min(96, Math.round((sectorBase[startup.sector] || 66) + evidenceBoost + transitionBoost + regulatoryBoost)));
+}
+
+function calculatePhysicalRiskExposure(startup, fit) {
+  const geographyBase = {
+    Italy: 58,
+    Spain: 64,
+    Portugal: 55,
+    Netherlands: 42,
+    Germany: 46,
+    France: 49,
+    Denmark: 34,
+    Switzerland: 38,
+  };
+  const sectorBase = {
+    "Water tech": 11,
+    Agritech: 10,
+    "Climate tech": 6,
+    Energy: 7,
+    Mobility: 4,
+    "Industrial automation": 3,
+    "Circular economy": 5,
+    "Deep tech materials": 2,
+    "Health tech": 1,
+    Medtech: 1,
+    "AI/data infrastructure": -2,
+    Cybersecurity: -4,
+  };
+  const diligenceOffset = fit.diligence >= 70 ? -2 : fit.diligence <= 45 ? 3 : 0;
+  return Math.max(
+    18,
+    Math.min(92, Math.round((geographyBase[startup.geography] || 45) + (sectorBase[startup.sector] || 0) + diligenceOffset))
+  );
+}
+
+function renderProprietaryMeasures(startup, fit, variant = "detail") {
+  const proprietary = calculateProprietaryMeasures(startup, fit);
+  return `
+    <section class="proprietary-card proprietary-card--${variant}" aria-label="Proprietary measures">
+      <div class="proprietary-card__header">
+        <p class="eyebrow">Proprietary lens</p>
+        <h3>Expected SROI, ESG, and transition scenarios</h3>
+      </div>
+      <div class="proprietary-card__metrics">
+        <div class="proprietary-card__metric">
+          <span>Expected SROI</span>
+          <strong>${proprietary.expectedSroi}x</strong>
+          <small>Innovation spillover estimate</small>
+        </div>
+        <div class="proprietary-card__metric">
+          <span>ESG score</span>
+          <strong>${proprietary.esgScore}/100</strong>
+          <small>Sustainability proxy estimate</small>
+        </div>
+        <div class="proprietary-card__metric">
+          <span>Physical risk exposure</span>
+          <strong>${proprietary.physicalRisk}/100</strong>
+          <small>Location and asset proxy estimate</small>
+        </div>
+      </div>
+      <div class="proprietary-card__scenario">
+        <span>Transition risk across scenarios</span>
+        <div class="scenario-strip">
+          ${proprietary.scenarios
+            .map(
+              (scenario) => `
+                <div class="scenario-chip">
+                  <strong>${scenario.value}</strong>
+                  <span>${scenario.label}</span>
+                </div>
+              `
+            )
+            .join("")}
+        </div>
       </div>
     </section>
   `;
@@ -1276,6 +1396,7 @@ function renderOpportunityCard(startup) {
         <span>${startup.regulatory.level} regulatory</span>
         <span>${startup.transition.level} transition</span>
       </div>
+      ${renderProprietaryMeasures(startup, startup.fit, "list")}
       <div class="opportunity__actions">
         <button class="button button--small" type="button" data-action="select-startup" data-id="${startup.id}">Show on right</button>
         <button class="button button--small ${inCompare ? "button--active" : "button--ghost"}" type="button" data-action="toggle-compare" data-id="${startup.id}">
@@ -1309,6 +1430,7 @@ function renderDealroom(startup, fit) {
         <span>${fit.label}</span>
       </div>
     </div>
+    ${renderProprietaryMeasures(startup, fit, "compact")}
     <div class="dealroom__actions">
       <button class="button button--ghost button--small" type="button" data-action="open-detail" data-id="${startup.id}">
         Open full detail page

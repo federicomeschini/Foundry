@@ -774,6 +774,39 @@ input[type="search"]:focus-visible {
   gap: var(--space-xs);
 }
 
+.opportunity .proprietary-card {
+  margin-top: var(--space-xs);
+  padding: 8px 10px;
+}
+
+.opportunity .proprietary-card__header h3 {
+  font-size: 0.8rem;
+}
+
+.opportunity .proprietary-card__metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.opportunity .proprietary-card__metric,
+.opportunity .proprietary-card__scenario {
+  padding: 7px 8px;
+}
+
+.opportunity .proprietary-card__metric strong {
+  font-size: 1.12rem;
+}
+
+.opportunity .proprietary-card__metric small,
+.opportunity .scenario-chip span {
+  font-size: 0.6rem;
+}
+
+.opportunity .scenario-strip {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+}
+
 /* ============================================================
    DEALROOM PANEL
    ============================================================ */
@@ -790,6 +823,107 @@ input[type="search"]:focus-visible {
 .dealroom__actions {
   display: flex;
   justify-content: flex-end;
+}
+
+.proprietary-card {
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.proprietary-card__header {
+  display: grid;
+  gap: 2px;
+}
+
+.proprietary-card__header h3 {
+  margin-bottom: 0;
+  font-size: 0.86rem;
+  font-weight: 820;
+  line-height: 1.2;
+}
+
+.proprietary-card__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xs);
+}
+
+.proprietary-card__metric,
+.proprietary-card__scenario {
+  display: grid;
+  gap: 3px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.proprietary-card__metric span,
+.proprietary-card__scenario > span {
+  color: var(--bluette);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.proprietary-card__metric strong {
+  font-family: var(--font-display);
+  font-size: 1.42rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--bluette);
+}
+
+.proprietary-card__metric small {
+  color: var(--ink-soft);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.proprietary-card__scenario {
+  grid-column: 1 / -1;
+}
+
+.scenario-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xs);
+}
+
+.scenario-chip {
+  display: grid;
+  gap: 2px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.scenario-chip strong {
+  color: var(--bluette);
+  font-size: 0.9rem;
+  font-weight: 820;
+  line-height: 1;
+}
+
+.scenario-chip span {
+  color: var(--ink-soft);
+  font-size: 0.64rem;
+  line-height: 1.25;
+}
+
+.proprietary-card--compact,
+.proprietary-card--list {
+  padding: 8px 10px;
+}
+
+.proprietary-card--list .proprietary-card__metric strong {
+  font-size: 1.08rem;
 }
 
 .dealroom__mast .eyebrow {
@@ -1059,6 +1193,10 @@ input[type="search"]:focus-visible {
 
 .detail-panel .ai-idle {
   background: var(--surface);
+}
+
+.detail-panel .proprietary-card {
+  margin-top: var(--space-xs);
 }
 
 .clean-list,
@@ -1453,6 +1591,13 @@ input[type="search"]:focus-visible {
   .info-grid,
   .metric-grid,
   .scorecard {
+    grid-template-columns: 1fr;
+  }
+
+  .proprietary-card__metrics,
+  .scenario-strip,
+  .opportunity .proprietary-card__metrics,
+  .opportunity .scenario-strip {
     grid-template-columns: 1fr;
   }
 }
