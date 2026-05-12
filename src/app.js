@@ -1049,10 +1049,10 @@ function renderDetailPage(startup, fit) {
     <main id="main" class="detail-page">
       <section class="detail-hero panel">
         <div class="detail-hero__copy">
-          <p class="eyebrow">Company</p>
+          <p class="eyebrow">Company dossier</p>
           <h2>${startup.name}</h2>
           <p class="detail-hero__summary">${startup.sector} / ${startup.stage} / ${startup.geography} / TRL ${startup.trl}</p>
-          <p class="detail-hero__decision">${fit.decision}. Full screening context — treat as a diligence lead, not a final recommendation.</p>
+          <p class="detail-hero__decision">${fit.decision}. Use this page to read the screening lead, verify the evidence trail, and decide whether the case deserves deeper diligence.</p>
           <div class="detail-hero__chips" aria-label="Company tags">
             <span class="detail-chip">${startup.ask}</span>
             <span class="detail-chip">${startup.maturity}</span>
@@ -1062,20 +1062,25 @@ function renderDetailPage(startup, fit) {
           </div>
         </div>
         <div class="detail-hero__rail">
-          ${renderDetailStat("Mandate fit", `${fit.score}/100`, fit.label)}
-          ${renderDetailStat("Evidence score", `${fit.evidence}/100`, fit.evidenceLabel)}
+          ${renderDetailStat("Screening fit", `${fit.score}/100`, fit.label)}
+          ${renderDetailStat("Evidence strength", `${fit.evidence}/100`, fit.evidenceLabel)}
           ${renderDetailStat("Risk signal", `${fit.riskSeverity}/100`, "First-level signal")}
           ${renderDetailStat("Diligence completeness", `${fit.diligence}/100`, "Open items remain")}
         </div>
       </section>
 
-      <section class="detail-layout" aria-label="Company detail sections">
-        <div class="detail-main">
-          <article class="detail-panel panel">
-            <div class="panel-heading">
-              <p class="eyebrow">Snapshot</p>
-              <h2>Company profile</h2>
-            </div>
+      <section class="detail-snapshot panel" aria-label="Company snapshot">
+        <div class="detail-snapshot__head">
+          <div class="panel-heading">
+            <p class="eyebrow">Snapshot</p>
+            <h2>What this company is</h2>
+          </div>
+          <p class="detail-snapshot__lede">
+            The snapshot pairs the structured company record with the screening rationale and the proprietary measures used in this POC.
+          </p>
+        </div>
+        <div class="detail-snapshot__layout">
+          <div class="detail-snapshot__facts">
             <section class="info-grid">
               ${renderInfo("Sector", startup.sector)}
               ${renderInfo("Stage", startup.stage)}
@@ -1086,16 +1091,22 @@ function renderDetailPage(startup, fit) {
               ${renderInfo("Business model", startup.model)}
               ${renderInfo("IP status", startup.ip)}
             </section>
-            ${renderProprietaryMeasures(startup, fit, "detail")}
             <section class="detail-summary-block">
-              <h3>Mandate read</h3>
+              <h3>Screening read</h3>
               <ul class="clean-list clean-list--tight">
                 ${fit.reasons.map((item) => `<li>${item}</li>`).join("")}
                 ${fit.cautions.map((item) => `<li>${item}</li>`).join("")}
               </ul>
             </section>
-          </article>
+          </div>
+          <div class="detail-snapshot__lens">
+            ${renderProprietaryMeasures(startup, fit, "detail")}
+          </div>
+        </div>
+      </section>
 
+      <section class="detail-layout" aria-label="Company detail sections">
+        <div class="detail-main">
           <article class="detail-panel panel">
             <div class="panel-heading">
               <p class="eyebrow">Evidence</p>
@@ -1120,7 +1131,7 @@ function renderDetailPage(startup, fit) {
             ${renderDiligence(startup)}
           </article>
 
-          <article class="detail-panel detail-panel--wide panel">
+          <article class="detail-panel panel">
             <div class="panel-heading">
               <p class="eyebrow">Brief</p>
               <h2>Investor brief</h2>
@@ -1133,7 +1144,7 @@ function renderDetailPage(startup, fit) {
           <article class="detail-panel panel">
             <div class="panel-heading">
               <p class="eyebrow">Screening</p>
-              <h2>Mandate fit rationale</h2>
+              <h2>Why it is in scope</h2>
             </div>
             ${renderOverview(startup, fit)}
           </article>
@@ -1911,3 +1922,4 @@ window.addEventListener("hashchange", () => {
 
 syncRouteFromHash();
 render();
+
