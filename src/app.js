@@ -1758,21 +1758,21 @@ function renderLandingPage() {
     <main id="main" class="landing-page">
       <section class="landing-hero panel">
         <div class="landing-hero__copy">
-          <p class="eyebrow">Screening setup</p>
-          <h2>Start with your mandate, not ours.</h2>
+          <p class="eyebrow">Workspace</p>
+          <h2>Set the screen, then review the queue.</h2>
           <p class="hero-copy">
-            Set only the criteria you want to use. Nothing is preselected. When you continue, the screening room opens with the mandate on the left, ready to be adjusted at any time.
+            Filter the queue, open dossiers, and compare companies without leaving the workspace.
           </p>
           <div class="landing-hero__notes">
-            <span>No preset sector list</span>
-            <span>No preset stage filter</span>
-            <span>Open by default</span>
+            <span>Live filters</span>
+            <span>Queue view</span>
+            <span>Company dossiers</span>
           </div>
         </div>
         <div class="landing-hero__panel">
           ${renderMandatePanel()}
           <div class="landing-hero__actions">
-            <button class="button" type="button" data-action="start-workspace">Enter screening room</button>
+            <button class="button" type="button" data-action="start-workspace">Open workspace</button>
           </div>
         </div>
       </section>
