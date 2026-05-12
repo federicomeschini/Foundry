@@ -448,6 +448,8 @@ const state = {
   briefId: "aerolith",
   activeTab: "overview",
   showAdvanced: false,
+  aiResults: {},
+  compareAI: null,
 };
 
 const sectors = [...new Set(startups.map((startup) => startup.sector))];
@@ -462,6 +464,7 @@ const tabs = [
   ["risk", "Risk"],
   ["diligence", "Diligence"],
   ["brief", "Brief"],
+  ["ai", "AI Analyst"],
 ];
 
 const app = document.querySelector("#app");
@@ -616,6 +619,279 @@ function selectedStartup() {
 
 function formatMoney(value) {
   return `EUR ${normalizeTicket(value)}M`;
+}
+
+// ── AI-analyst layer (deterministic, no API, no backend) ──────────────────────
+
+function seededRng(seed) {
+  let s = seed | 0;
+  return () => {
+    s = (Math.imul(48271, s) + 2147483647) | 0;
+    return (s >>> 0) / 4294967296;
+  };
+}
+
+function pick(arr, rng) {
+  return arr[Math.floor(rng() * arr.length)];
+}
+
+function aiSeed(startup) {
+  let h = 0;
+  for (const ch of startup.id + startup.name) h = (Math.imul(31, h) + ch.charCodeAt(0)) | 0;
+  return h;
+}
+
+const sectorQs = {
+  "Clean Energy": [
+    "What is the levelised cost of energy versus grid parity in the target market?",
+    "How does the technology behave under curtailment or intermittency conditions?",
+    "Has any independent energy yield assessment been completed?",
+    "What is the degradation curve over a 20-year asset life?",
+  ],
+  "Mobility & Logistics": [
+    "What is the total cost of ownership versus incumbent ICE or diesel alternatives?",
+    "How does range, payload, and charging infrastructure interact in the target use case?",
+    "Are there binding offtake agreements or fleet commitments from operators?",
+    "How does the unit economics model change at 1×, 10×, and 100× fleet size?",
+  ],
+  "Climate Tech": [
+    "What is the marginal abatement cost relative to current carbon credit benchmarks?",
+    "Has the measurement, reporting, and verification methodology been validated externally?",
+    "How is additionality established and what is the permanence risk?",
+    "Are there co-benefits (biodiversity, water, employment) that have been quantified?",
+  ],
+  "Deep Tech": [
+    "What is the IP protection strategy and what would a freedom-to-operate analysis reveal?",
+    "What are the manufacturing scale-up constraints and key material dependencies?",
+    "How has the technology been stress-tested outside controlled lab conditions?",
+    "Who are the 2-3 most credible potential acquirers and what would drive strategic interest?",
+  ],
+  "AgriFood": [
+    "How does the product perform in head-to-head taste or functionality tests versus incumbents?",
+    "What is the current shelf life, cold-chain requirement, and logistics cost?",
+    "Which regulatory approval pathways apply and what is the expected timeline?",
+    "Have any large food manufacturers conducted pilot integration or commercial pilots?",
+  ],
+  "Digital Infrastructure": [
+    "What is the customer acquisition cost and how does payback period evolve with scale?",
+    "How does the product differentiate technically from AWS, Azure, or GCP native offerings?",
+    "What is the data residency and sovereignty posture for EU customers?",
+    "Has any SOC 2 Type II or ISO 27001 audit been completed?",
+  ],
+};
+
+const stageQs = {
+  "Pre-Seed": [
+    "Can the founding team demonstrate domain expertise through publication, patents, or prior exits?",
+    "What assumptions must hold for the MVP to reach a commercially useful performance threshold?",
+    "How is the team financed through to the next meaningful milestone?",
+  ],
+  Seed: [
+    "What is the conversion rate from pilot to paid contract and what is driving attrition?",
+    "Has any third-party validation (academic, certification, or industry body) been obtained?",
+    "What is the runway and what triggers the Series A fundraise?",
+  ],
+  "Series A": [
+    "Is the unit economics model proven at current scale and how does it improve with volume?",
+    "What is the net revenue retention and what is driving expansion or churn?",
+    "How defensible is the go-to-market motion and what would it cost a well-funded competitor to replicate?",
+  ],
+  "Series B": [
+    "What is the path to EBITDA positivity and what are the key operating leverage points?",
+    "How does the company's market share trajectory compare to the total addressable market forecast?",
+    "Are there any regulatory, procurement, or partnership dependencies that could gate growth?",
+  ],
+  "Growth": [
+    "Is there a clear secondary market or liquidity pathway within a 5-7 year investment horizon?",
+    "What is the geographic or vertical expansion roadmap and what is the capital intensity?",
+    "How is the management team structured for a potential exit process?",
+  ],
+};
+
+function generateBriefText(startup, fit, preferences) {
+  const rng = seededRng(aiSeed(startup) ^ 0xdeadbeef);
+  const fitAdj = fit.score >= 78 ? "strong" : fit.score >= 55 ? "moderate" : "limited";
+  const evidAdj = fit.evidence >= 70 ? "substantive" : fit.evidence >= 45 ? "early-stage" : "thin";
+  const geoMatch = preferences.geographies.includes(startup.geography);
+  const secMatch = preferences.sectors.includes(startup.sector);
+
+  const openers = [
+    `${startup.name} is a ${startup.stage.toLowerCase()} company operating in ${startup.sector.toLowerCase()}, headquartered in ${startup.geography}.`,
+    `Operating at ${startup.stage.toLowerCase()} in ${startup.geography}, ${startup.name} addresses the ${startup.sector.toLowerCase()} space.`,
+    `${startup.name} brings a ${startup.stage.toLowerCase()} proposition in ${startup.sector.toLowerCase()} from ${startup.geography}.`,
+  ];
+
+  const para1 = `${pick(openers, rng)} This AI-style brief assigns a first-level fit of ${fit.score}/100 under the active mandate. Current screening state: ${fit.decision}. This note is a structured first-pass signal and is not an investment recommendation.`;
+
+  const para2 = `The opportunity shows ${fitAdj} mandate alignment. ${secMatch ? `Sector match (${startup.sector}) contributes positively to the fit score.` : `The sector (${startup.sector}) is outside the stated preference list, which limits mandate fit.`} ${geoMatch ? `Geographic exposure (${startup.geography}) is within the target footprint.` : `Geographic exposure (${startup.geography}) falls outside the preferred footprint.`} ${fit.reasons.length ? `Additional signals: ${fit.reasons[0].toLowerCase()}.` : ""}`;
+
+  const para3 = `Evidence depth is assessed as ${evidAdj} (score: ${fit.evidence}/100). Available evidence includes: ${startup.evidence.slice(0, 3).join("; ")}. ${fit.cautions.length ? `The following items flag caution at this stage: ${fit.cautions[0].toLowerCase()}.` : "No immediate mandate cautions were detected, though diligence remains essential."}`;
+
+  const para4 = `Open diligence topics at this stage: ${startup.missing.slice(0, 3).join("; ")}. Regulatory exposure is rated ${startup.regulatory.level.toLowerCase()} (${startup.regulatory.character.toLowerCase()}). Transition exposure is ${startup.transition.level.toLowerCase()} (${startup.transition.character.toLowerCase()}).`;
+
+  const para5 = `Suggested next step: ${startup.nextStep} Risk signals surfaced at screening level: ${startup.risks[0] ? startup.risks[0].toLowerCase() : "no explicit first-level risks flagged"}. All conclusions in this note are first-level signals and require independent verification.`;
+
+  return [para1, para2, para3, para4, para5];
+}
+
+function generateFitLines(startup, fit, preferences) {
+  const lines = [];
+  if (preferences.sectors.includes(startup.sector))
+    lines.push(`Sector match — ${startup.sector} is within the stated investment mandate.`);
+  else
+    lines.push(`Sector gap — ${startup.sector} is not in the current mandate; fit is penalised accordingly.`);
+
+  if (preferences.geographies.includes(startup.geography))
+    lines.push(`Geographic fit — ${startup.geography} is within the target footprint.`);
+  else
+    lines.push(`Geographic mismatch — ${startup.geography} is outside the preferred footprint.`);
+
+  if (startup.ticket <= preferences.maxTicket)
+    lines.push(`Ticket size — EUR ${normalizeTicket(startup.ticket)}M fits within the maximum initial ticket of EUR ${normalizeTicket(preferences.maxTicket)}M.`);
+  else
+    lines.push(`Ticket stretch — EUR ${normalizeTicket(startup.ticket)}M exceeds the current max ticket (EUR ${normalizeTicket(preferences.maxTicket)}M).`);
+
+  if (startup.trl >= preferences.minTrl)
+    lines.push(`Technology readiness — TRL ${startup.trl} meets or exceeds the minimum threshold (TRL ${preferences.minTrl}).`);
+  else
+    lines.push(`TRL gap — TRL ${startup.trl} is below the minimum threshold (TRL ${preferences.minTrl}).`);
+
+  if (fit.evidence >= 60)
+    lines.push(`Evidence quality — ${fit.evidenceLabel.toLowerCase()} evidence base is a positive signal for the current stage.`);
+  else
+    lines.push(`Evidence thin — the evidence base at ${fit.evidenceLabel.toLowerCase()} level may not support the current ask.`);
+
+  if (fit.reasons.length) lines.push(...fit.reasons.slice(0, 2).map((r) => r));
+  if (fit.cautions.length) lines.push(...fit.cautions.slice(0, 2).map((c) => `Caution: ${c}`));
+
+  return lines.slice(0, 7);
+}
+
+function generateFlagItems(startup) {
+  const flags = [];
+
+  if (startup.missing.length >= 4)
+    flags.push({ level: "high", text: `Diligence gaps are broad (${startup.missing.length} open items). The information base at this stage may not support advanced deal structuring.` });
+  else if (startup.missing.length >= 2)
+    flags.push({ level: "medium", text: `${startup.missing.length} open diligence items. Key gaps: ${startup.missing.slice(0, 2).join("; ")}.` });
+
+  if (startup.regulatory.level === "High")
+    flags.push({ level: "high", text: `Regulatory exposure is high (${startup.regulatory.character}). This typically extends deal timelines and may increase compliance cost materially.` });
+  else if (startup.regulatory.level === "Medium")
+    flags.push({ level: "medium", text: `Moderate regulatory exposure (${startup.regulatory.character}). Monitor for changes in the applicable approval landscape.` });
+
+  if (startup.transition.level === "High")
+    flags.push({ level: "high", text: `High transition exposure (${startup.transition.character}). Policy or market shifts in this area could affect the commercial thesis.` });
+  else if (startup.transition.level === "Medium")
+    flags.push({ level: "medium", text: `Transition exposure flagged at medium level — confirm sensitivity to carbon pricing or energy policy changes.` });
+
+  if (startup.trl <= 4)
+    flags.push({ level: "high", text: `TRL ${startup.trl} indicates early-stage technical development. Commercial risk is elevated and proof-of-concept results may not translate to production.` });
+  else if (startup.trl <= 6)
+    flags.push({ level: "medium", text: `TRL ${startup.trl} — technology is validated at pilot scale. Scale-up risk has not been resolved.` });
+
+  if (startup.risks && startup.risks.length)
+    flags.push({ level: "medium", text: startup.risks[0] });
+
+  flags.push({ level: "low", text: "This note is a deterministic first-level signal. All flags require independent verification before any investment decision." });
+
+  return flags.slice(0, 8);
+}
+
+function generateQuestions(startup) {
+  const rng = seededRng(aiSeed(startup) ^ 0xcafebabe);
+  const sector = startup.sector;
+  const stage = startup.stage;
+
+  const pool = [
+    ...(sectorQs[sector] || sectorQs["Deep Tech"]),
+    ...(stageQs[stage] || stageQs["Seed"]),
+    "What is the composition of the founding team and what critical skills are missing?",
+    "Are there any existing side letters, preference stacks, or anti-dilution provisions that would affect a new investor?",
+    "What does the cap table look like and are there any problematic shareholder agreements?",
+  ];
+
+  const shuffled = [...pool].sort(() => rng() - 0.5);
+  return [...new Set(shuffled)].slice(0, 9);
+}
+
+function generateCompareSummary(compareList) {
+  if (!compareList.length) return [];
+
+  const sorted = [...compareList].map((s) => ({ s, fit: assessStartup(s) })).sort((a, b) => b.fit.score - a.fit.score);
+  const best = sorted[0];
+  const names = sorted.map((item) => item.s.name).join(", ");
+
+  const para1 = `Across the ${compareList.length} selected opportunities (${names}), this AI-assisted first pass identifies ${best.s.name} as carrying the strongest mandate alignment under current preferences (fit score: ${best.fit.score}/100).`;
+
+  const para2 = sorted.map(({ s, fit }) =>
+    `${s.name}: ${fit.score}/100 fit, TRL ${s.trl}, ${s.regulatory.level.toLowerCase()} regulatory exposure, ${s.missing.length} open diligence items.`
+  ).join(" ");
+
+  const highestTrl = sorted.reduce((a, b) => (a.s.trl > b.s.trl ? a : b));
+  const lowestMissing = sorted.reduce((a, b) => (a.s.missing.length <= b.s.missing.length ? a : b));
+
+  const para3 = `On technical readiness, ${highestTrl.s.name} leads with TRL ${highestTrl.s.trl}. On diligence completeness, ${lowestMissing.s.name} has the fewest open items (${lowestMissing.s.missing.length}). These metrics should be read as screening prompts, not conclusions.`;
+
+  const para4 = "This comparison is a structured first-pass signal generated from the current mandate settings and startup structured data. It does not constitute investment advice. All findings require independent diligence before any term-sheet discussion.";
+
+  return [para1, para2, para3, para4];
+}
+
+function renderAITab(startup, fit) {
+  const key = startup.id;
+  const result = state.aiResults[key];
+
+  const flagLevelLabel = { high: "High signal", medium: "Medium signal", low: "Note" };
+
+  const resultsHTML = result
+    ? `
+      <div class="ai-output ai-animate">
+        <div class="ai-section">
+          <h3>AI-style investor brief</h3>
+          <div class="ai-paragraphs">
+            ${result.brief.map((p) => `<p>${p}</p>`).join("")}
+          </div>
+        </div>
+        <div class="ai-section">
+          <h3>Why it matches your mandate</h3>
+          <ul class="ai-list">
+            ${result.fitLines.map((line) => `<li>${line}</li>`).join("")}
+          </ul>
+        </div>
+        <div class="ai-section">
+          <h3>Potential red flags — first-level signals</h3>
+          <ul class="ai-flags">
+            ${result.flags.map((f) => `<li class="ai-flag ai-flag--${f.level}"><span>${flagLevelLabel[f.level]}</span>${f.text}</li>`).join("")}
+          </ul>
+        </div>
+        <div class="ai-section">
+          <h3>Suggested diligence questions</h3>
+          <ol class="ai-questions">
+            ${result.questions.map((q) => `<li>${q}</li>`).join("")}
+          </ol>
+        </div>
+      </div>
+      <p class="ai-disclaimer">AI-assisted screening · first-level signal only · requires diligence · not investment advice</p>
+    `
+    : `<div class="ai-idle">
+        <p>Run the AI analyst to generate a structured brief, mandate fit explanation, potential red flags, and suggested diligence questions for <strong>${startup.name}</strong>.</p>
+      </div>`;
+
+  return `
+    <div class="ai-panel">
+      <div class="ai-panel__header">
+        <div>
+          <span class="ai-badge">AI Analyst</span>
+          <p>Deterministic, frontend-only · no API · no backend</p>
+        </div>
+        <button class="button button--small" type="button" data-action="generate-ai" data-id="${startup.id}">
+          ${result ? "Regenerate" : "Generate analysis"}
+        </button>
+      </div>
+      ${resultsHTML}
+    </div>
+  `;
 }
 
 function render() {
@@ -872,6 +1148,7 @@ function renderTab(startup, fit) {
   if (state.activeTab === "risk") return renderRisk(startup);
   if (state.activeTab === "diligence") return renderDiligence(startup);
   if (state.activeTab === "brief") return renderBrief(startup, fit);
+  if (state.activeTab === "ai") return renderAITab(startup, fit);
   return renderOverview(startup, fit);
 }
 
@@ -1000,13 +1277,27 @@ function briefText(startup, fit) {
 }
 
 function renderCompare(compare) {
+  const aiSummaryHTML = compare.length
+    ? state.compareAI
+      ? `<div class="compare-ai-output ai-animate">
+          ${state.compareAI.map((p) => `<p>${p}</p>`).join("")}
+          <p class="ai-disclaimer">AI-assisted comparison · first-level signal only · requires diligence · not investment advice</p>
+        </div>`
+      : `<div class="compare-ai-prompt">
+          <button class="button button--ghost" type="button" data-action="generate-compare-ai">AI comparison summary</button>
+        </div>`
+    : "";
+
   return `
     <div class="compare-strip__header">
       <div>
         <p class="eyebrow">Comparison workspace</p>
         <h2>Side-by-side first pass</h2>
       </div>
-      <button class="button button--ghost" type="button" data-action="clear-compare">Clear comparison</button>
+      <div class="compare-strip__actions">
+        ${compare.length && state.compareAI ? `<button class="button button--ghost" type="button" data-action="generate-compare-ai">Regenerate AI summary</button>` : ""}
+        <button class="button button--ghost" type="button" data-action="clear-compare">Clear comparison</button>
+      </div>
     </div>
     ${
       compare.length
@@ -1015,7 +1306,8 @@ function renderCompare(compare) {
               .map((header) => `<div class="compare-cell compare-cell--head" role="columnheader">${header}</div>`)
               .join("")}
             ${compare.map((startup) => renderCompareRow(startup)).join("")}
-          </div>`
+          </div>
+          ${aiSummaryHTML}`
         : `<div class="empty-state empty-state--compact"><p>Select up to three opportunities to compare evidence, risk exposure, and missing diligence.</p></div>`
     }
   `;
@@ -1087,8 +1379,25 @@ function handleAction(event) {
   if (action === "clear-filters") {
     state.filters = { query: "", sector: "All", stage: "All", geography: "All", regulatory: "All", transition: "All" };
   }
-  if (action === "clear-compare") state.compareIds = [];
+  if (action === "clear-compare") { state.compareIds = []; state.compareAI = null; }
   if (action === "copy-brief") copyBrief();
+
+  if (action === "generate-ai") {
+    const startup = startups.find((s) => s.id === id) || selectedStartup();
+    const fit = assessStartup(startup);
+    state.aiResults[startup.id] = {
+      brief: generateBriefText(startup, fit, state.preferences),
+      fitLines: generateFitLines(startup, fit, state.preferences),
+      flags: generateFlagItems(startup),
+      questions: generateQuestions(startup),
+    };
+    state.activeTab = "ai";
+  }
+
+  if (action === "generate-compare-ai") {
+    const compare = state.compareIds.map((cid) => startups.find((s) => s.id === cid)).filter(Boolean);
+    state.compareAI = generateCompareSummary(compare);
+  }
 
   render();
 }
