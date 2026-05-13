@@ -54,3 +54,4 @@ launch.command
 
 # Project-specific
 gitdata.git/
+.gstack/
