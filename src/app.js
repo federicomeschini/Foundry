@@ -1144,14 +1144,12 @@ const state = {
     transition: "All",
   },
   selectedId: "aerolith",
-  compareIds: ["aerolith", "vectorlane"],
   briefId: "aerolith",
   activeTab: "overview",
   view: "landing",
   workspaceEntered: typeof sessionStorage !== "undefined" && sessionStorage.getItem("workspaceEntered") === "1",
   showAdvanced: false,
   aiResults: {},
-  compareAI: null,
 };
 
 const sectors = [...new Set(startups.map((startup) => startup.sector))];
@@ -1180,15 +1178,6 @@ function parseHash() {
   if (!raw) return { kind: null };
   if (raw.startsWith("startup/")) return { kind: "detail", id: raw.slice("startup/".length) };
   if (raw.startsWith("company/")) return { kind: "detail", id: raw.slice("company/".length) };
-  if (raw.startsWith("compare/")) {
-    const ids = raw
-      .slice("compare/".length)
-      .split(",")
-      .map((item) => item.trim())
-      .filter(Boolean);
-    return { kind: "compare", ids };
-  }
-  if (raw === "compare") return { kind: "compare", ids: [] };
   return { kind: null };
 }
 
@@ -1209,19 +1198,6 @@ function syncRouteFromHash() {
     return;
   }
 
-  if (route.kind === "compare") {
-    const ids = route.ids.length ? route.ids : state.compareIds;
-    const compareIds = ids.map((id) => startupById(id)?.id).filter(Boolean);
-    state.compareIds = compareIds;
-    if (state.compareIds.length) {
-      state.selectedId = state.compareIds[0];
-      state.briefId = state.compareIds[0];
-    }
-    state.view = "compare";
-    markWorkspaceEntered();
-    return;
-  }
-
   state.view = state.workspaceEntered ? "browse" : "landing";
 }
 
@@ -1238,20 +1214,6 @@ function openDetailView(id) {
 }
 
 function closeDetailView() {
-  location.hash = "";
-  syncRouteFromHash();
-  render();
-}
-
-function openCompareView() {
-  if (state.compareIds.length < 1) return;
-  markWorkspaceEntered();
-  location.hash = `compare/${state.compareIds.join(",")}`;
-  syncRouteFromHash();
-  render();
-}
-
-function closeCompareView() {
   location.hash = "";
   syncRouteFromHash();
   render();
@@ -1430,7 +1392,7 @@ function formatMoney(value) {
   return `EUR ${normalizeTicket(value)}M`;
 }
 
-// ── AI-analyst layer (deterministic, no API, no backend) ──────────────────────
+// â”€â”€ AI-analyst layer (deterministic, no API, no backend) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function seededRng(seed) {
   let s = seed | 0;
@@ -1461,7 +1423,7 @@ const sectorQs = {
     "What is the total cost of ownership versus incumbent ICE or diesel alternatives?",
     "How does range, payload, and charging infrastructure interact in the target use case?",
     "Are there binding offtake agreements or fleet commitments from operators?",
-    "How does the unit economics model change at 1×, 10×, and 100× fleet size?",
+    "How does the unit economics model change at 1Ã—, 10Ã—, and 100Ã— fleet size?",
   ],
   "Climate Tech": [
     "What is the marginal abatement cost relative to current carbon credit benchmarks?",
@@ -1536,7 +1498,7 @@ function generateBriefText(startup, fit, preferences) {
 
   const para3 = `Evidence depth: ${evidAdj} (score: ${fit.evidence}/100). Visible evidence: ${startup.evidence.slice(0, 3).join("; ")}. ${fit.cautions.length ? `Caution: ${fit.cautions[0].toLowerCase()}.` : "No immediate mandate cautions flagged, though diligence remains essential."}`;
 
-  const para4 = `Open diligence items: ${startup.missing.slice(0, 3).join("; ")}. Regulatory exposure: ${startup.regulatory.level.toLowerCase()} — ${startup.regulatory.character.toLowerCase()}. Transition exposure: ${startup.transition.level.toLowerCase()} — ${startup.transition.character.toLowerCase()}.`;
+  const para4 = `Open diligence items: ${startup.missing.slice(0, 3).join("; ")}. Regulatory exposure: ${startup.regulatory.level.toLowerCase()} â€” ${startup.regulatory.character.toLowerCase()}. Transition exposure: ${startup.transition.level.toLowerCase()} â€” ${startup.transition.character.toLowerCase()}.`;
 
   const para5 = `Suggested next step: ${startup.nextStep} Primary risk signal: ${startup.risks[0] ? startup.risks[0].toLowerCase() : "none flagged at screening level"}. All findings require independent verification.`;
 
@@ -1546,29 +1508,29 @@ function generateBriefText(startup, fit, preferences) {
 function generateFitLines(startup, fit, preferences) {
   const lines = [];
   if (preferences.sectors.includes(startup.sector))
-    lines.push(`Sector match — ${startup.sector} is within the stated investment mandate.`);
+    lines.push(`Sector match â€” ${startup.sector} is within the stated investment mandate.`);
   else
-    lines.push(`Sector gap — ${startup.sector} is not in the current mandate; fit is penalised accordingly.`);
+    lines.push(`Sector gap â€” ${startup.sector} is not in the current mandate; fit is penalised accordingly.`);
 
   if (preferences.geographies.includes(startup.geography))
-    lines.push(`Geographic fit — ${startup.geography} is within the target footprint.`);
+    lines.push(`Geographic fit â€” ${startup.geography} is within the target footprint.`);
   else
-    lines.push(`Geographic mismatch — ${startup.geography} is outside the preferred footprint.`);
+    lines.push(`Geographic mismatch â€” ${startup.geography} is outside the preferred footprint.`);
 
   if (startup.ticket <= preferences.maxTicket)
-    lines.push(`Ticket size — EUR ${normalizeTicket(startup.ticket)}M fits within the maximum initial ticket of EUR ${normalizeTicket(preferences.maxTicket)}M.`);
+    lines.push(`Ticket size â€” EUR ${normalizeTicket(startup.ticket)}M fits within the maximum initial ticket of EUR ${normalizeTicket(preferences.maxTicket)}M.`);
   else
-    lines.push(`Ticket stretch — EUR ${normalizeTicket(startup.ticket)}M exceeds the current max ticket (EUR ${normalizeTicket(preferences.maxTicket)}M).`);
+    lines.push(`Ticket stretch â€” EUR ${normalizeTicket(startup.ticket)}M exceeds the current max ticket (EUR ${normalizeTicket(preferences.maxTicket)}M).`);
 
   if (startup.trl >= preferences.minTrl)
-    lines.push(`Technology readiness — TRL ${startup.trl} meets or exceeds the minimum threshold (TRL ${preferences.minTrl}).`);
+    lines.push(`Technology readiness â€” TRL ${startup.trl} meets or exceeds the minimum threshold (TRL ${preferences.minTrl}).`);
   else
-    lines.push(`TRL gap — TRL ${startup.trl} is below the minimum threshold (TRL ${preferences.minTrl}).`);
+    lines.push(`TRL gap â€” TRL ${startup.trl} is below the minimum threshold (TRL ${preferences.minTrl}).`);
 
   if (fit.evidence >= 60)
-    lines.push(`Evidence quality — ${fit.evidenceLabel.toLowerCase()} evidence base is a positive signal for the current stage.`);
+    lines.push(`Evidence quality â€” ${fit.evidenceLabel.toLowerCase()} evidence base is a positive signal for the current stage.`);
   else
-    lines.push(`Evidence thin — the evidence base at ${fit.evidenceLabel.toLowerCase()} level may not support the current ask.`);
+    lines.push(`Evidence thin â€” the evidence base at ${fit.evidenceLabel.toLowerCase()} level may not support the current ask.`);
 
   if (fit.reasons.length) lines.push(...fit.reasons.slice(0, 2).map((r) => r));
   if (fit.cautions.length) lines.push(...fit.cautions.slice(0, 2).map((c) => `Caution: ${c}`));
@@ -1592,12 +1554,12 @@ function generateFlagItems(startup) {
   if (startup.transition.level === "High")
     flags.push({ level: "high", text: `High transition exposure (${startup.transition.character}). Policy or market shifts in this area could affect the commercial thesis.` });
   else if (startup.transition.level === "Medium")
-    flags.push({ level: "medium", text: `Transition exposure flagged at medium level — confirm sensitivity to carbon pricing or energy policy changes.` });
+    flags.push({ level: "medium", text: `Transition exposure flagged at medium level â€” confirm sensitivity to carbon pricing or energy policy changes.` });
 
   if (startup.trl <= 4)
     flags.push({ level: "high", text: `TRL ${startup.trl} indicates early-stage technical development. Commercial risk is elevated and proof-of-concept results may not translate to production.` });
   else if (startup.trl <= 6)
-    flags.push({ level: "medium", text: `TRL ${startup.trl} — technology is validated at pilot scale. Scale-up risk has not been resolved.` });
+    flags.push({ level: "medium", text: `TRL ${startup.trl} â€” technology is validated at pilot scale. Scale-up risk has not been resolved.` });
 
   if (startup.risks && startup.risks.length)
     flags.push({ level: "medium", text: startup.risks[0] });
@@ -1669,7 +1631,7 @@ function renderAITab(startup, fit, overrideResult = null) {
           </ul>
         </div>
         <div class="ai-section">
-          <h3>Red flags — first-level signals</h3>
+          <h3>Red flags â€” first-level signals</h3>
           <ul class="ai-flags">
             ${result.flags.map((f) => `<li class="ai-flag ai-flag--${f.level}"><span>${flagLevelLabel[f.level]}</span>${f.text}</li>`).join("")}
           </ul>
@@ -1681,7 +1643,7 @@ function renderAITab(startup, fit, overrideResult = null) {
           </ol>
         </div>
       </div>
-      <p class="ai-disclaimer">AI-assisted screening · first-level signal only · requires diligence · not investment advice</p>
+      <p class="ai-disclaimer">AI-assisted screening Â· first-level signal only Â· requires diligence Â· not investment advice</p>
     `
     : `<div class="ai-idle">
         <p>Generate a structured screening brief, mandate alignment rationale, red flags, and diligence questions for <strong>${startup.name}</strong>.</p>
@@ -1692,7 +1654,7 @@ function renderAITab(startup, fit, overrideResult = null) {
       <div class="ai-panel__header">
         <div>
           <span class="ai-badge">AI Analyst</span>
-          <p>Client-side analysis · no data transmitted · runs in your browser</p>
+          <p>Client-side analysis Â· no data transmitted Â· runs in your browser</p>
         </div>
         <button class="button button--small" type="button" data-action="generate-ai" data-id="${startup.id}">
           ${result ? "Regenerate" : "Generate analysis"}
@@ -1706,11 +1668,9 @@ function renderAITab(startup, fit, overrideResult = null) {
 function render() {
   const selected = selectedStartup();
   const filtered = getFilteredStartups();
-  const compare = state.compareIds.map((id) => startups.find((startup) => startup.id === id)).filter(Boolean);
   const selectedFit = assessStartup(selected);
   const landingMode = state.view === "landing";
   const detailMode = state.view === "detail";
-  const compareMode = state.view === "compare";
   if (landingMode) {
     app.innerHTML = renderLandingPage();
     bindEvents();
@@ -1718,16 +1678,9 @@ function render() {
   }
   const topbarStatus = detailMode
     ? `<span class="status-pill">Detail view</span><span class="status-pill status-pill--accent">${selected.name}</span>`
-    : compareMode
-      ? `<span class="status-pill">Comparison view</span><span class="status-pill status-pill--accent">${compare.length} companies selected</span>`
-      : `<span class="status-pill">Screening room</span><span class="status-pill status-pill--accent">${filtered.length} opportunities in scope</span>`;
+    : `<span class="status-pill">Screening room</span><span class="status-pill status-pill--accent">${filtered.length} opportunities in scope</span>`;
   const topbarBack = detailMode
     ? `<button class="button button--ghost button--small topbar-back" type="button" data-action="close-detail">Back to screening room</button>`
-    : compareMode
-      ? `<button class="button button--ghost button--small topbar-back" type="button" data-action="close-compare">Back to screening room</button>`
-    : "";
-  const topbarCompare = !detailMode && !compareMode && compare.length
-    ? `<button class="button button--ghost button--small topbar-compare" type="button" data-action="open-compare" ${compare.length < 1 ? "disabled title=\"Select at least one company to compare\"" : ""}>Compare (${compare.length})</button>`
     : "";
 
   app.innerHTML = `
@@ -1742,12 +1695,11 @@ function render() {
         </div>
       </div>
       <div class="topbar__right">
-        ${topbarCompare}
         ${topbarStatus}
       </div>
     </header>
 
-    ${detailMode ? renderDetailPage(selected, selectedFit) : compareMode ? renderComparePage(compare) : renderBrowsePage(selected, selectedFit, filtered)}
+    ${detailMode ? renderDetailPage(selected, selectedFit) : renderBrowsePage(selected, selectedFit, filtered)}
   `;
 
   bindEvents();
@@ -1803,7 +1755,6 @@ function renderBrowsePage(selected, selectedFit, filtered) {
 }
 
 function renderDetailPage(startup, fit) {
-  const inCompare = state.compareIds.includes(startup.id);
   return `
     <main id="main" class="detail-page">
       <section class="detail-hero panel">
@@ -1868,24 +1819,34 @@ function renderDetailPage(startup, fit) {
         <div class="detail-main">
           <article class="detail-panel panel">
             <div class="panel-heading">
-              <p class="eyebrow">Signals</p>
-              <h2>Evidence and risk</h2>
+              <p class="eyebrow">Evidence</p>
+              <h2>Visible evidence</h2>
             </div>
-            <div class="detail-panel__split">
-              ${renderEvidence(startup)}
-              ${renderRisk(startup)}
-            </div>
+            ${renderEvidence(startup)}
           </article>
 
           <article class="detail-panel panel">
             <div class="panel-heading">
-              <p class="eyebrow">Actionables</p>
-              <h2>Diligence and brief</h2>
+              <p class="eyebrow">Risk</p>
+              <h2>Risk and exposure</h2>
             </div>
-            <div class="detail-panel__split">
-              ${renderDiligence(startup)}
-              ${renderBrief(startup, fit)}
+            ${renderRisk(startup)}
+          </article>
+
+          <article class="detail-panel panel">
+            <div class="panel-heading">
+              <p class="eyebrow">Diligence</p>
+              <h2>Open diligence items</h2>
             </div>
+            ${renderDiligence(startup)}
+          </article>
+
+          <article class="detail-panel panel">
+            <div class="panel-heading">
+              <p class="eyebrow">Brief</p>
+              <h2>Investor brief</h2>
+            </div>
+            ${renderBrief(startup, fit)}
           </article>
         </div>
 
@@ -1903,11 +1864,7 @@ function renderDetailPage(startup, fit) {
               <p class="eyebrow">Actions</p>
               <h2>Next steps</h2>
             </div>
-            <div class="detail-actions">
-              <button class="button button--small ${inCompare ? "button--active" : "button--ghost"}" type="button" data-action="toggle-compare" data-id="${startup.id}">
-                ${inCompare ? "In compare" : "Compare"}
-              </button>
-            </div>
+            <div class="detail-actions"></div>
             <section class="next-step">
               <span>Suggested next step</span>
               <p>${startup.nextStep}</p>
@@ -2226,7 +2183,6 @@ function renderSelectFilter(name, options, label) {
 
 function renderOpportunityCard(startup) {
   const isSelected = startup.id === state.selectedId;
-  const inCompare = state.compareIds.includes(startup.id);
   return `
     <article class="opportunity ${isSelected ? "opportunity--selected" : ""}">
       <button class="opportunity__main" type="button" data-action="select-startup" data-id="${startup.id}" aria-pressed="${isSelected}">
@@ -2251,9 +2207,6 @@ function renderOpportunityCard(startup) {
       ${renderProprietaryMeasures(startup, startup.fit, "list")}
       <div class="opportunity__actions">
         <button class="button button--small" type="button" data-action="select-startup" data-id="${startup.id}">Analyse</button>
-        <button class="button button--small ${inCompare ? "button--active" : "button--ghost"}" type="button" data-action="toggle-compare" data-id="${startup.id}">
-          ${inCompare ? "In compare" : "Compare"}
-        </button>
       </div>
     </article>
   `;
@@ -2319,7 +2272,7 @@ function renderOverview(startup, fit) {
     <section class="scorecard-note">
       <p>
         The scores reflect how the current mandate reads this opportunity. Higher fit, evidence, and confidence indicate stronger alignment;
-        higher risk and lower diligence completeness indicate open questions. These are screening signals — not valuations or recommendations.
+        higher risk and lower diligence completeness indicate open questions. These are screening signals â€” not valuations or recommendations.
       </p>
     </section>
     <section class="scorecard" aria-label="Explainability scorecard">
@@ -2331,7 +2284,7 @@ function renderOverview(startup, fit) {
     </section>
     <section class="next-step">
       <span>Current recommendation</span>
-      <p>${fit.decision}. Treat as a diligence lead — not a final recommendation.</p>
+      <p>${fit.decision}. Treat as a diligence lead â€” not a final recommendation.</p>
     </section>
     <section class="deal-section">
       <h3>Mandate alignment</h3>
@@ -2440,154 +2393,9 @@ function briefText(startup, fit) {
   return [
     `${startup.name} is a ${startup.stage.toLowerCase()} ${startup.sector.toLowerCase()} company in ${startup.geography}. First-level mandate fit: ${fit.score}/100. Screening recommendation: ${fit.decision}.`,
     `Mandate alignment: ${fit.reasons[0] || "Some alignment with the active mandate."}. Visible evidence: ${startup.evidence.join("; ")}.`,
-    `Open diligence items: ${startup.missing.join("; ")}. Regulatory exposure: ${startup.regulatory.level.toLowerCase()} — ${startup.regulatory.character.toLowerCase()}.`,
+    `Open diligence items: ${startup.missing.join("; ")}. Regulatory exposure: ${startup.regulatory.level.toLowerCase()} â€” ${startup.regulatory.character.toLowerCase()}.`,
     `Suggested next step: ${startup.nextStep} This brief is a first-level screening note and does not constitute investment advice.`,
   ].join("\n");
-}
-
-function renderCompare(compare) {
-  const aiSummaryHTML = compare.length
-    ? state.compareAI
-      ? `<div class="compare-ai-output ai-animate">
-          ${state.compareAI.map((p) => `<p>${p}</p>`).join("")}
-          <p class="ai-disclaimer">AI-assisted comparison · first-level signal only · requires diligence · not investment advice</p>
-        </div>`
-      : `<div class="compare-ai-prompt">
-          <button class="button button--ghost" type="button" data-action="generate-compare-ai">Generate comparison summary</button>
-        </div>`
-    : "";
-
-  return `
-    ${
-      compare.length
-        ? `<div class="compare-panel__body">
-            <section class="compare-matrix" role="table" aria-label="Selected startup comparison" style="--compare-columns:${compare.length}">
-              <div class="compare-matrix__head" role="row">
-                <div class="compare-matrix__label" role="columnheader">Company</div>
-                ${compare.map((startup) => renderCompareHeadCell(startup)).join("")}
-              </div>
-              ${[
-                ["Fit", (startup) => `<strong>${startup.fit.score}</strong><span>${startup.fit.label}</span>`],
-                ["Ask", (startup) => startup.ask],
-                ["Stage / TRL", (startup) => `${startup.stage}<span>TRL ${startup.trl}</span>`],
-                ["Evidence", (startup) => startup.evidence[0]],
-                ["Regulatory", (startup) => `${startup.regulatory.level}<span>${startup.regulatory.character}</span>`],
-                ["Transition", (startup) => `${startup.transition.level}<span>${startup.transition.character}</span>`],
-                ["Top diligence gap", (startup) => startup.missing[0]],
-              ]
-                .map(([label, formatter]) => renderCompareMatrixRow(label, compare, formatter))
-                .join("")}
-            </section>
-            ${aiSummaryHTML}
-          </div>`
-        : `<div class="empty-state empty-state--compact"><p>Select at least two opportunities from the screening list to start comparing.</p></div>`
-    }
-  `;
-}
-
-function renderCompareHeadCell(startup) {
-  const fit = assessStartup(startup);
-  return `
-    <div class="compare-matrix__company" role="columnheader">
-      <div class="compare-matrix__company-head">
-        <div>
-          <span class="eyebrow">Selected</span>
-          <strong>${startup.name}</strong>
-          <p>${startup.sector} / ${startup.stage} / ${startup.geography}</p>
-        </div>
-        <div class="compare-matrix__score">
-          <strong>${fit.score}</strong>
-          <span>${fit.label}</span>
-        </div>
-      </div>
-      <div class="compare-matrix__company-actions">
-        <button class="button button--ghost button--small" type="button" data-action="open-detail" data-id="${startup.id}">Open detail</button>
-      </div>
-    </div>
-  `;
-}
-
-function renderComparePage(compare) {
-  return `
-    <main id="main" class="compare-page">
-      <section class="compare-page__hero panel">
-        <div class="compare-page__copy">
-          <p class="eyebrow">Comparison view</p>
-          <h2>Compare selected companies side by side</h2>
-          <p class="hero-copy">
-            The shortlist shows the items you chose from the screening room. Use this page when you have two or three similar opportunities and need a direct read on fit, evidence, risk, and diligence.
-          </p>
-        </div>
-        <div class="compare-page__actions">
-          <button class="button button--ghost button--small" type="button" data-action="close-compare">Back to screening room</button>
-          <button class="button button--ghost button--small" type="button" data-action="clear-compare">Clear comparison</button>
-        </div>
-      </section>
-
-      ${
-        compare.length
-          ? `
-            <section class="compare-cards" aria-label="Selected companies">
-              ${compare.map((startup) => renderCompareCard(startup)).join("")}
-            </section>
-            <section class="compare-panel panel" aria-label="Comparison details">
-              <div class="compare-panel__header">
-                <p class="eyebrow">Comparison details</p>
-                <div class="compare-panel__toolbar">
-                  ${state.compareAI ? `<button class="button button--ghost" type="button" data-action="generate-compare-ai">Regenerate summary</button>` : `<button class="button button--ghost" type="button" data-action="generate-compare-ai">Generate comparison summary</button>`}
-                </div>
-              </div>
-              ${renderCompare(compare)}
-            </section>
-          `
-          : `<section class="empty-state panel"><h3>Select two companies to compare</h3><p>Use the screening list to mark at least two similar opportunities, then return here for a side-by-side read.</p></section>`
-      }
-    </main>
-  `;
-}
-
-function renderCompareCard(startup) {
-  const fit = assessStartup(startup);
-  return `
-    <article class="compare-card panel">
-      <div class="compare-card__head">
-        <div>
-          <p class="eyebrow">Selected</p>
-          <h3>${startup.name}</h3>
-          <p>${startup.sector} / ${startup.stage} / ${startup.geography}</p>
-        </div>
-        <div class="compare-card__score">
-          <strong>${fit.score}</strong>
-          <span>${fit.label}</span>
-        </div>
-      </div>
-      <div class="compare-card__facts">
-        <span>${startup.ask}</span>
-        <span>TRL ${startup.trl}</span>
-        <span>${startup.regulatory.level} regulatory</span>
-      </div>
-      <div class="compare-card__actions">
-        <button class="button button--ghost button--small" type="button" data-action="open-detail" data-id="${startup.id}">Open detail</button>
-      </div>
-    </article>
-  `;
-}
-
-function renderCompareMatrixRow(label, compare, formatter) {
-  return `
-    <div class="compare-matrix__row" role="row">
-      <div class="compare-matrix__label" role="rowheader">${label}</div>
-      ${compare
-        .map(
-          (startup) => `
-            <div class="compare-matrix__cell" role="cell">
-              ${formatter(startup)}
-            </div>
-          `
-        )
-        .join("")}
-    </div>
-  `;
 }
 
 function renderInfo(label, value) {
@@ -2658,27 +2466,9 @@ function handleAction(event) {
     return;
   }
 
-  if (action === "open-compare") {
-    openCompareView();
-    return;
-  }
-
   if (action === "close-detail") {
     closeDetailView();
     return;
-  }
-
-  if (action === "close-compare") {
-    closeCompareView();
-    return;
-  }
-
-  if (action === "toggle-compare") {
-    if (state.compareIds.includes(id)) {
-      state.compareIds = state.compareIds.filter((item) => item !== id);
-    } else {
-      state.compareIds = [...state.compareIds, id];
-    }
   }
 
   if (action === "tab") state.activeTab = event.currentTarget.dataset.tab;
@@ -2687,7 +2477,6 @@ function handleAction(event) {
   if (action === "clear-filters") {
     state.filters = { query: "", sector: "All", stage: "All", geography: "All", regulatory: "All", transition: "All" };
   }
-  if (action === "clear-compare") { state.compareIds = []; state.compareAI = null; }
   if (action === "copy-brief") copyBrief();
 
   if (action === "generate-ai") {
@@ -2702,10 +2491,6 @@ function handleAction(event) {
     state.activeTab = "ai";
   }
 
-  if (action === "generate-compare-ai") {
-    const compare = state.compareIds.map((cid) => startups.find((s) => s.id === cid)).filter(Boolean);
-    state.compareAI = generateCompareSummary(compare);
-  }
 
   render();
 }
@@ -2763,4 +2548,3 @@ window.addEventListener("hashchange", () => {
 
 syncRouteFromHash();
 render();
-
