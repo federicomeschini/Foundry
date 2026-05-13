@@ -2353,3 +2353,143 @@ input[type="search"]:focus-visible {
 .ai-animate > *:nth-child(2) { animation-delay: 100ms; }
 .ai-animate > *:nth-child(3) { animation-delay: 160ms; }
 .ai-animate > *:nth-child(4) { animation-delay: 220ms; }
+
+/* ============================================================
+   COMPARE TRAY
+   ============================================================ */
+
+.compare-tray {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  padding: var(--space-sm) clamp(var(--space-md), 3vw, var(--space-xl));
+  background: var(--bluette);
+  border-top: 1px solid oklch(55% 0.17 296 / 38%);
+  box-shadow: 0 -4px 24px oklch(20% 0.1 296 / 18%);
+}
+
+.compare-tray__items {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.compare-tray__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 4px 12px;
+  background: oklch(34% 0.22 296 / 55%);
+  border: 1px solid oklch(55% 0.17 296 / 38%);
+  border-radius: 999px;
+  color: var(--bluette-ink);
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.compare-tray__item button {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--lime);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+  transition: opacity 120ms;
+}
+
+.compare-tray__item button:hover {
+  opacity: 1;
+}
+
+.compare-tray__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.compare-tray__count {
+  color: oklch(80% 0.03 296);
+  font-size: 0.78rem;
+  font-weight: 720;
+}
+
+.compare-tray__hint {
+  color: oklch(65% 0.03 296);
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+body.tray-active main {
+  padding-bottom: 72px;
+}
+
+/* Compare button: "added to compare" active state on light backgrounds */
+
+.button--compare-active {
+  border-color: var(--lime-vivid) !important;
+  background: var(--lime) !important;
+  color: var(--lime-ink) !important;
+}
+
+/* Outline variant — used for secondary actions on light backgrounds */
+
+.button--outline {
+  border-color: var(--line);
+  color: var(--ink-soft);
+  background: transparent;
+}
+
+/* Buttons sitting on dark bluette surfaces (matrix header, compare tray) */
+
+.compare-matrix__company .button,
+.compare-tray .button {
+  border-color: var(--bluette-ink);
+  background: var(--bluette-ink);
+  color: var(--bluette);
+}
+
+.compare-matrix__company .button--ghost,
+.compare-tray .button--ghost {
+  background: transparent;
+  border-color: oklch(60% 0.15 296 / 50%);
+  color: oklch(82% 0.04 296);
+}
+
+/* Primary CTA in the tray (Compare N) gets lime treatment */
+
+.compare-tray .button:not(.button--ghost) {
+  border-color: var(--lime-vivid);
+  background: var(--lime);
+  color: var(--lime-ink);
+}
+
+/* Detail page compare action row */
+
+.detail-hero__compare-action {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: var(--space-xs);
+}
+
+.detail-hero__compare-full {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  font-style: italic;
+}

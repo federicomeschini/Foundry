@@ -1150,6 +1150,8 @@ const state = {
   workspaceEntered: typeof sessionStorage !== "undefined" && sessionStorage.getItem("workspaceEntered") === "1",
   showAdvanced: false,
   aiResults: {},
+  compareList: [],
+  compareAIGenerated: false,
 };
 
 const sectors = [...new Set(startups.map((startup) => startup.sector))];
@@ -1609,6 +1611,188 @@ function generateCompareSummary(compareList) {
   return [para1, para2, para3, para4];
 }
 
+function renderCompareTray() {
+  if (!state.compareList.length) return "";
+  const companies = state.compareList.map((id) => startupById(id)).filter(Boolean);
+  return `
+    <div class="compare-tray" role="region" aria-label="Comparison tray">
+      <div class="compare-tray__items">
+        ${companies
+          .map(
+            (s) => `
+          <span class="compare-tray__item">
+            ${s.name}
+            <button type="button" data-action="remove-from-compare" data-id="${s.id}" aria-label="Remove ${s.name} from comparison">×</button>
+          </span>`
+          )
+          .join("")}
+      </div>
+      <div class="compare-tray__actions">
+        <span class="compare-tray__count">${companies.length} selected</span>
+        ${
+          companies.length >= 2
+            ? `<button class="button button--small" type="button" data-action="open-compare">Compare ${companies.length}</button>`
+            : `<span class="compare-tray__hint">Select one more to compare</span>`
+        }
+        <button class="button button--ghost button--small" type="button" data-action="clear-compare">Clear</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderComparePage() {
+  const companies = state.compareList.map((id) => startupById(id)).filter(Boolean);
+  const fits = companies.map((s) => assessStartup(s));
+  const summaryParas = state.compareAIGenerated ? generateCompareSummary(companies) : [];
+  const n = companies.length;
+
+  const rows = [
+    {
+      label: "Mandate fit",
+      sub: "Score / label",
+      cells: fits.map((f) => ({ value: `${f.score}/100`, note: f.label })),
+    },
+    {
+      label: "Stage",
+      sub: "Funding stage / geography",
+      cells: companies.map((s) => ({ value: s.stage, note: s.geography })),
+    },
+    {
+      label: "TRL",
+      sub: "Technical readiness",
+      cells: companies.map((s) => ({ value: `TRL ${s.trl}`, note: s.maturity })),
+    },
+    {
+      label: "Ask",
+      sub: "Round size",
+      cells: companies.map((s) => ({ value: s.ask, note: "" })),
+    },
+    {
+      label: "Revenue",
+      sub: "Current / traction",
+      cells: companies.map((s) => ({ value: s.metrics.revenue, note: s.metrics.traction })),
+    },
+    {
+      label: "Gross margin",
+      sub: "Modelled / actual",
+      cells: companies.map((s) => ({ value: s.metrics.grossMargin, note: `${s.metrics.runway} runway` })),
+    },
+    {
+      label: "Regulatory",
+      sub: "Exposure level",
+      cells: companies.map((s) => ({ value: s.regulatory.level, note: s.regulatory.character })),
+    },
+    {
+      label: "Transition",
+      sub: "Exposure level",
+      cells: companies.map((s) => ({ value: s.transition.level, note: s.transition.character })),
+    },
+    {
+      label: "Evidence",
+      sub: "Proof points",
+      cells: companies.map((s) => ({ value: `${s.evidence.length} items`, note: s.evidence[0] || "" })),
+    },
+    {
+      label: "Diligence gaps",
+      sub: "Open items",
+      cells: companies.map((s, i) => ({ value: `${s.missing.length} open`, note: fits[i].decision })),
+    },
+  ];
+
+  return `
+    <main id="main" class="compare-page">
+      <section class="compare-page__hero panel">
+        <div class="compare-page__copy">
+          <p class="eyebrow">Side-by-side</p>
+          <h2>Compare</h2>
+          <p class="hero-copy">Screening fit, evidence, and risk signals across ${n} selected ${n === 1 ? "company" : "companies"}.</p>
+        </div>
+        <div class="compare-page__actions">
+          <button class="button button--ghost button--small" type="button" data-action="clear-compare">Clear all</button>
+          <button class="button button--ghost button--small" type="button" data-action="back-to-browse">← Back to screening room</button>
+        </div>
+      </section>
+
+      <div class="compare-matrix" style="--compare-columns: ${n}">
+        <div class="compare-matrix__head">
+          <div class="compare-matrix__label">
+            <span>Company</span>
+          </div>
+          ${companies
+            .map(
+              (s, i) => `
+            <div class="compare-matrix__company">
+              <div class="compare-matrix__company-head">
+                <div>
+                  <p class="eyebrow">${s.sector}</p>
+                  <strong>${s.name}</strong>
+                  <p>${s.stage} · ${s.geography}</p>
+                </div>
+                <div class="compare-matrix__score">
+                  <strong>${fits[i].score}</strong>
+                  <span>fit</span>
+                </div>
+              </div>
+              <div class="compare-matrix__company-actions">
+                <button class="button button--ghost button--small" type="button" data-action="remove-from-compare" data-id="${s.id}">Remove</button>
+                <button class="button button--small" type="button" data-action="open-detail" data-id="${s.id}">Open dossier</button>
+              </div>
+            </div>`
+            )
+            .join("")}
+        </div>
+
+        ${rows
+          .map(
+            (row) => `
+          <div class="compare-matrix__row">
+            <div class="compare-matrix__label">
+              <span>${row.label}</span>
+              <span>${row.sub}</span>
+            </div>
+            ${row.cells
+              .map(
+                (cell) => `
+              <div class="compare-matrix__cell">
+                <strong>${cell.value}</strong>
+                ${cell.note ? `<span>${cell.note}</span>` : ""}
+              </div>`
+              )
+              .join("")}
+          </div>`
+          )
+          .join("")}
+      </div>
+
+      <section class="compare-panel panel">
+        <div class="compare-panel__header">
+          <div class="panel-heading">
+            <p class="eyebrow">AI Analyst</p>
+            <h2>Comparative analysis</h2>
+          </div>
+          <div class="compare-panel__toolbar">
+            ${
+              !state.compareAIGenerated
+                ? `<button class="button button--small" type="button" data-action="generate-compare-ai">Generate analysis</button>`
+                : `<button class="button button--ghost button--small" type="button" data-action="generate-compare-ai">Regenerate</button>`
+            }
+          </div>
+        </div>
+        <div class="compare-panel__body">
+          ${
+            state.compareAIGenerated
+              ? `<div class="compare-ai-output ai-animate">
+                  ${summaryParas.slice(0, -1).map((p) => `<p>${p}</p>`).join("")}
+                  ${summaryParas.length ? `<p class="ai-disclaimer">${summaryParas[summaryParas.length - 1]}</p>` : ""}
+                </div>`
+              : `<p class="compare-ai-prompt" style="color:var(--ink-soft);font-size:0.84rem;">Generate an AI-assisted comparative analysis across the selected companies based on your current mandate settings.</p>`
+          }
+        </div>
+      </section>
+    </main>
+  `;
+}
+
 function renderAITab(startup, fit, overrideResult = null) {
   const key = startup.id;
   const result = overrideResult || state.aiResults[key];
@@ -1671,17 +1855,29 @@ function render() {
   const selectedFit = assessStartup(selected);
   const landingMode = state.view === "landing";
   const detailMode = state.view === "detail";
+  const compareMode = state.view === "compare";
+
   if (landingMode) {
     app.innerHTML = renderLandingPage();
     bindEvents();
     return;
   }
-  const topbarStatus = detailMode
+
+  const topbarStatus = compareMode
+    ? `<span class="status-pill">Compare</span><span class="status-pill status-pill--accent">${state.compareList.length} companies</span>`
+    : detailMode
     ? `<span class="status-pill">Detail view</span><span class="status-pill status-pill--accent">${selected.name}</span>`
     : `<span class="status-pill">Screening room</span><span class="status-pill status-pill--accent">${filtered.length} opportunities in scope</span>`;
+
   const topbarBack = detailMode
     ? `<button class="button button--ghost button--small topbar-back" type="button" data-action="close-detail">Back to screening room</button>`
+    : compareMode
+    ? `<button class="button button--ghost button--small topbar-back" type="button" data-action="back-to-browse">Back to screening room</button>`
     : "";
+
+  const tray = !compareMode ? renderCompareTray() : "";
+
+  document.body.classList.toggle("tray-active", state.compareList.length > 0 && !compareMode);
 
   app.innerHTML = `
     <header class="topbar">
@@ -1699,7 +1895,8 @@ function render() {
       </div>
     </header>
 
-    ${detailMode ? renderDetailPage(selected, selectedFit) : renderBrowsePage(selected, selectedFit, filtered)}
+    ${compareMode ? renderComparePage() : detailMode ? renderDetailPage(selected, selectedFit) : renderBrowsePage(selected, selectedFit, filtered)}
+    ${tray}
   `;
 
   bindEvents();
@@ -1769,6 +1966,16 @@ function renderDetailPage(startup, fit) {
             <span class="detail-chip">${startup.metrics.revenue}</span>
             <span class="detail-chip">${startup.metrics.runway} runway</span>
             <span class="detail-chip">${startup.tags.join(" / ")}</span>
+          </div>
+          <div class="detail-hero__compare-action">
+            ${(() => {
+              const inCompare = state.compareList.includes(startup.id);
+              const compareFull = state.compareList.length >= 4 && !inCompare;
+              if (inCompare) return `<button class="button button--ghost button--small button--compare-active" type="button" data-action="toggle-compare" data-id="${startup.id}">− Remove from comparison</button>`;
+              if (compareFull) return `<span class="detail-hero__compare-full">Comparison full (4 max)</span>`;
+              return `<button class="button button--small" type="button" data-action="toggle-compare" data-id="${startup.id}">+ Add to comparison</button>`;
+            })()}
+            ${state.compareList.length >= 2 ? `<button class="button button--ghost button--small" type="button" data-action="open-compare">View comparison (${state.compareList.length})</button>` : ""}
           </div>
         </div>
         <div class="detail-hero__rail">
@@ -2183,6 +2390,8 @@ function renderSelectFilter(name, options, label) {
 
 function renderOpportunityCard(startup) {
   const isSelected = startup.id === state.selectedId;
+  const inCompare = state.compareList.includes(startup.id);
+  const compareFull = state.compareList.length >= 4 && !inCompare;
   return `
     <article class="opportunity ${isSelected ? "opportunity--selected" : ""}">
       <button class="opportunity__main" type="button" data-action="select-startup" data-id="${startup.id}" aria-pressed="${isSelected}">
@@ -2207,6 +2416,14 @@ function renderOpportunityCard(startup) {
       ${renderProprietaryMeasures(startup, startup.fit, "list")}
       <div class="opportunity__actions">
         <button class="button button--small" type="button" data-action="select-startup" data-id="${startup.id}">Analyse</button>
+        <button
+          class="button button--small ${inCompare ? "button--ghost button--compare-active" : "button--outline"}"
+          type="button"
+          data-action="toggle-compare"
+          data-id="${startup.id}"
+          ${compareFull ? "disabled" : ""}
+          title="${compareFull ? "Comparison full (4 max)" : inCompare ? "Remove from comparison" : "Add to comparison"}"
+        >${inCompare ? "− Compare" : "+ Compare"}</button>
       </div>
     </article>
   `;
@@ -2491,6 +2708,50 @@ function handleAction(event) {
     state.activeTab = "ai";
   }
 
+  if (action === "toggle-compare") {
+    const idx = state.compareList.indexOf(id);
+    if (idx >= 0) {
+      state.compareList.splice(idx, 1);
+    } else if (state.compareList.length < 4) {
+      state.compareList.push(id);
+    }
+    render();
+    return;
+  }
+
+  if (action === "remove-from-compare") {
+    state.compareList = state.compareList.filter((cid) => cid !== id);
+    if (state.view === "compare" && state.compareList.length === 0) state.view = "browse";
+    render();
+    return;
+  }
+
+  if (action === "clear-compare") {
+    state.compareList = [];
+    state.compareAIGenerated = false;
+    if (state.view === "compare") state.view = "browse";
+    render();
+    return;
+  }
+
+  if (action === "open-compare") {
+    state.view = "compare";
+    state.compareAIGenerated = false;
+    render();
+    return;
+  }
+
+  if (action === "back-to-browse") {
+    state.view = "browse";
+    render();
+    return;
+  }
+
+  if (action === "generate-compare-ai") {
+    state.compareAIGenerated = true;
+    render();
+    return;
+  }
 
   render();
 }
