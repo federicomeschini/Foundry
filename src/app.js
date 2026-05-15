@@ -313,10 +313,10 @@ const profileTemplates = [
 
 const STORAGE_KEY = "openeconomics-foundry-profiles-v1";
 const tabs = [
-  ["workspace", "Workspace"],
-  ["intake", "Data intake"],
+  ["workspace", "Room"],
+  ["intake", "Edit profile"],
   ["evidence", "Evidence room"],
-  ["memo", "Submission memo"],
+  ["memo", "Memo"],
 ];
 
 const marketSignals = [
@@ -340,7 +340,32 @@ const lensConfig = {
     short: "Raise",
     eyebrow: "Founder lens",
     intro: "Frame the company for a financing conversation: clear ask, evidence of demand, and open diligence items stated plainly.",
+    bestFor: "Fundraising conversations where the reader needs to understand the round, proof, and next milestone quickly.",
+    outcome: "A tighter raise narrative with the ask, evidence, risks, and use of funds close together.",
     weights: { completeness: 0.18, evidence: 0.24, narrative: 0.24, diligence: 0.22, exposure: 0.12 },
+    guide: [
+      {
+        label: "Round logic",
+        need: "What is being raised, what it funds, and which milestone should become easier after the round.",
+        destination: "Edit profile: Funding ask and Use of funds",
+        source: "Use the current budget, hiring plan, pilot plan, and milestone roadmap. Replace broad categories with the few spend items that change company risk.",
+        fields: ["ask", "useOfFunds", "nextStep"],
+      },
+      {
+        label: "Demand proof",
+        need: "Evidence that the customer pain is real and that the company has earned attention beyond founder belief.",
+        destination: "Evidence room: Evidence available and Missing diligence items",
+        source: "Look for LOIs, pilots, usage data, paid contracts, retention, reference calls, technical validation, or written customer feedback.",
+        fields: ["evidence", "metrics.traction", "missing"],
+      },
+      {
+        label: "Investor diligence",
+        need: "The open questions an investor will ask before trusting ownership, margin, timing, or execution risk.",
+        destination: "Evidence room: Risks and missing items; Edit profile: IP position",
+        source: "Scan the cap table, IP assignments, FTO notes, unit economics, procurement timeline, and any unresolved legal or technical dependencies.",
+        fields: ["risks", "missing", "ip"],
+      },
+    ],
     checklist: [
       "Define exactly what this round funds and what milestone it should unlock.",
       "Replace broad ambition with proof: pilots, customers, contracts, or hard technical validation.",
@@ -353,7 +378,32 @@ const lensConfig = {
     short: "Partner",
     eyebrow: "Operating lens",
     intro: "Prepare the company for a commercial or deployment partner that wants outcome proof, integration realism, and low confusion.",
+    bestFor: "Pilot, channel, or deployment partner reviews where implementation burden matters as much as the story.",
+    outcome: "A practical partner case with buyer pain, operating proof, integration needs, and risk ownership visible.",
     weights: { completeness: 0.16, evidence: 0.28, narrative: 0.2, diligence: 0.18, exposure: 0.18 },
+    guide: [
+      {
+        label: "Buyer workflow",
+        need: "Who owns the problem, who uses the product, who signs, and what changes in their operation.",
+        destination: "Edit profile: Customer and buyer; Problem statement",
+        source: "Use discovery notes, pilot calls, procurement conversations, and implementation notes. Name roles instead of generic organizations.",
+        fields: ["customer", "problem"],
+      },
+      {
+        label: "Implementation burden",
+        need: "What a partner must connect, approve, train, measure, or maintain to make a pilot work.",
+        destination: "Edit profile: Exposure intake; Evidence room: Risks",
+        source: "Review integration plans, security reviews, site requirements, data access, operational ownership, and support expectations.",
+        fields: ["assessment.exposure.note", "assessment.exposure.certificationsNeeded", "risks"],
+      },
+      {
+        label: "Pilot proof path",
+        need: "A before, during, and after view of what the pilot proves and how success will be measured.",
+        destination: "Evidence room: Evidence available and Missing diligence items",
+        source: "Use pilot KPIs, baseline data, outcome reports, ROI models, deployment logs, and partner feedback.",
+        fields: ["evidence", "metrics.traction", "missing"],
+      },
+    ],
     checklist: [
       "Explain the operational pain point in buyer language, not startup language.",
       "Show implementation load, integration dependencies, and expected ROI by customer type.",
@@ -366,7 +416,32 @@ const lensConfig = {
     short: "KER",
     eyebrow: "Commercialization lens",
     intro: "Useful for spinouts and technical teams that need to move from result to company-grade exploitation logic.",
+    bestFor: "Spinouts, exploitable results, and technical teams translating research assets into a company-grade path.",
+    outcome: "A clearer route from result, TRL, IP, and beachhead into a believable commercialization package.",
     weights: { completeness: 0.18, evidence: 0.18, narrative: 0.2, diligence: 0.18, exposure: 0.26 },
+    guide: [
+      {
+        label: "Exploitable result",
+        need: "The specific technical result, TRL, ownership position, and first beachhead application.",
+        destination: "Edit profile: One-liner, TRL, IP position, and Business model",
+        source: "Use project deliverables, lab validation, invention disclosures, university agreements, patent files, and technical evaluation notes.",
+        fields: ["oneLiner", "trl", "ip", "model"],
+      },
+      {
+        label: "Route to market",
+        need: "Whether the result should become a spinout, licensing case, pilot-led venture, or hybrid commercialization path.",
+        destination: "Edit profile: Customer and buyer; Use of funds; Suggested next prep step",
+        source: "Check partner interest, manufacturing requirements, qualification timelines, license terms, and the shortest credible market-access path.",
+        fields: ["customer", "useOfFunds", "nextStep"],
+      },
+      {
+        label: "Technical-to-commercial proof",
+        need: "Evidence that connects technical strength to buyer value and reduces the gap between research and deployment.",
+        destination: "Evidence room: Evidence available, Risks, and Missing diligence items",
+        source: "Look for external validation, OEM evaluations, prototype results, cost curves, FTO work, certification needs, and qualification milestones.",
+        fields: ["evidence", "risks", "missing", "assessment.exposure.certificationsNeeded"],
+      },
+    ],
     checklist: [
       "Define the key exploitable result, TRL, and initial beachhead with no ambiguity.",
       "Choose the first commercialization route clearly: spin-off, licensing, or hybrid.",
@@ -379,7 +454,32 @@ const lensConfig = {
     short: "Grant",
     eyebrow: "Program lens",
     intro: "Package the company for non-dilutive or impact-led applications where evidence, exploitation logic, and delivery structure matter.",
+    bestFor: "Grant, accelerator, and impact-led submissions where exploitation logic and measurable effect are inspected.",
+    outcome: "A preparation package that connects evidence, delivery structure, downstream effect, and remaining diligence.",
     weights: { completeness: 0.22, evidence: 0.2, narrative: 0.18, diligence: 0.16, exposure: 0.24 },
+    guide: [
+      {
+        label: "Program fit",
+        need: "Why this work matters now, who benefits, and how the project moves beyond research into deployment.",
+        destination: "Edit profile: Problem statement, Transition note, and SROI intake",
+        source: "Use call text, policy priorities, beneficiary evidence, transition context, and customer or stakeholder interviews.",
+        fields: ["problem", "transition.note", "assessment.sroi.beneficiaryGroups", "assessment.sroi.primaryOutcome"],
+      },
+      {
+        label: "Delivery structure",
+        need: "Who must deliver the work, what dependencies exist, and which evidence proves the team can execute.",
+        destination: "Edit profile: Use of funds and Exposure intake; Evidence room: Evidence available",
+        source: "Review work packages, consortium roles, subcontractors, pilot sites, procurement constraints, certifications, and prior delivery proof.",
+        fields: ["useOfFunds", "assessment.exposure.note", "assessment.exposure.certificationsNeeded", "evidence"],
+      },
+      {
+        label: "Impact evidence",
+        need: "The measurable outcome, baseline, time window, evidence quality, and SROI inputs required later.",
+        destination: "Edit profile: SROI intake and ESG questionnaire handoff",
+        source: "Use baseline studies, beneficiary counts, monitoring data, proxy assumptions, ESG forms, and third-party evidence where available.",
+        fields: ["assessment.sroi.baselineAvailable", "assessment.sroi.outcomeEvidence", "assessment.sroi.measurementWindow", "assessment.esg.questionnaireStatus"],
+      },
+    ],
     checklist: [
       "Show why the work matters now and how it moves beyond research into deployment.",
       "Tie impact claims to measurable outcomes, not broad mission language.",
@@ -779,7 +879,7 @@ function renderTopbar(profile, readiness) {
         <span class="status-pill">Local-only edits</span>
       </div>
       <div class="topbar__actions">
-        <button class="button button--ghost" type="button" data-action="reset-profile">Restore active template</button>
+        <button class="button button--ghost" type="button" data-action="reset-profile">Restore example data</button>
         <button class="button" type="button" data-action="copy-memo">Copy memo</button>
       </div>
     </header>
@@ -834,11 +934,12 @@ function renderHero(profile, readiness, bestLens) {
 
 function renderNavigator() {
   const profiles = filteredProfiles();
+  const currentLens = lensConfig[state.lens];
   return `
     <aside class="navigator panel">
       <div class="panel-heading">
-        <p class="eyebrow">Company roster</p>
-        <h2>Profile library</h2>
+        <p class="eyebrow">Company room</p>
+        <h2>Choose the case to prepare</h2>
       </div>
 
       <div class="field">
@@ -866,8 +967,13 @@ function renderNavigator() {
       </div>
 
       <div class="panel-heading panel-heading--compact">
-        <p class="eyebrow">${lensConfig[state.lens].eyebrow}</p>
-        <h2>Submission lens</h2>
+        <p class="eyebrow">${currentLens.eyebrow}</p>
+        <h2>Prepare for</h2>
+      </div>
+
+      <div class="lens-explainer">
+        <strong>${escapeHtml(currentLens.label)}</strong>
+        <p>${escapeHtml(currentLens.outcome)}</p>
       </div>
 
       <div class="lens-list" role="tablist" aria-label="Submission lenses">
@@ -881,7 +987,7 @@ function renderNavigator() {
                 data-lens="${key}"
               >
                 <strong>${lens.label}</strong>
-                <span>${lens.intro}</span>
+                <span>${lens.bestFor}</span>
               </button>
             `
           )
@@ -889,8 +995,8 @@ function renderNavigator() {
       </div>
 
       <div class="panel-heading panel-heading--compact">
-        <p class="eyebrow">Editable templates</p>
-        <h2>${profiles.length} profiles</h2>
+        <p class="eyebrow">Example rooms</p>
+        <h2>${profiles.length} company records</h2>
       </div>
 
       <div class="profile-list" role="list">
@@ -957,8 +1063,48 @@ function renderStudio(profile, readiness) {
             .join("")}
         </div>
         <div class="tabs__body">
+          ${renderTabGuide(profile)}
           ${renderTabContent(profile, readiness)}
         </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderTabGuide(profile) {
+  const lens = lensConfig[state.lens];
+  const guide = lens.guide;
+  const focusedFields = unique(guide.flatMap((step) => step.fields));
+  const filled = focusedFields.filter((field) => hasGuideValue(readPath(profile, field))).length;
+  const tabCopy = {
+    workspace: {
+      label: "Use this room as the operating map.",
+      detail: "Start from the guided process, then jump into the exact fields and evidence areas the lens needs.",
+    },
+    intake: {
+      label: "Only edit what changes the selected submission path.",
+      detail: "Use the field map as a filter: tighten the fields that this lens will actually inspect before outreach.",
+    },
+    evidence: {
+      label: "Stage proof against the reader's questions.",
+      detail: "Evidence should reduce a specific uncertainty, not simply add more material to the room.",
+    },
+    memo: {
+      label: "Generate a concise output from the current room.",
+      detail: "The memo should reflect the selected lens and make remaining uncertainty easy to inspect.",
+    },
+  }[state.tab];
+
+  return `
+    <section class="tab-guide">
+      <div>
+        <p class="eyebrow">${escapeHtml(lens.eyebrow)}</p>
+        <h3>${escapeHtml(tabCopy.label)}</h3>
+        <p>${escapeHtml(tabCopy.detail)}</p>
+      </div>
+      <div class="tab-guide__status">
+        <span>${filled}/${focusedFields.length}</span>
+        <p>Lens-critical fields with usable input</p>
       </div>
     </section>
   `;
@@ -973,34 +1119,74 @@ function renderTabContent(profile, readiness) {
 
 function renderWorkspaceTab(profile, readiness) {
   const collections = buildAssessmentCollections(profile);
+  const insight = buildPreparationInsight(profile, readiness, computeBestLens(profile));
+  const currentLens = lensConfig[state.lens];
   return `
     <div class="content-grid">
-      <section class="section-block section-block--wide cockpit">
+      <section class="section-block section-block--wide room-brief">
         <div class="section-heading">
-          <p class="eyebrow">Assessment workflow</p>
-          <h3>Collect the information that later models will actually need</h3>
+          <p class="eyebrow">Active preparation path</p>
+          <h3>${escapeHtml(currentLens.label)} turns this room into a specific checklist</h3>
         </div>
-        <div class="cockpit-grid">
-          <article class="cockpit-card cockpit-card--primary">
-            <span>1. Regulatory and exposure facts</span>
-            <strong>${collections.exposure.status}</strong>
-            <p>${escapeHtml(collections.exposure.summary)}</p>
+        <div class="room-brief__grid">
+          <article class="room-brief__primary">
+            <span>Reader expectation</span>
+            <strong>${escapeHtml(insight.openQuestion)}</strong>
+            <p>${escapeHtml(insight.openQuestionDetail)}</p>
           </article>
-          <article class="cockpit-card">
-            <span>2. ESG questionnaire</span>
-            <strong>${collections.esg.status}</strong>
-            <p>${escapeHtml(collections.esg.summary)}</p>
+          <article class="room-step">
+            <span>1</span>
+            <strong>Clarify the case</strong>
+            <p>Make the problem, buyer, ask, and use of funds readable without a meeting.</p>
           </article>
-          <article class="cockpit-card">
-            <span>3. SROI calculation inputs</span>
-            <strong>${collections.sroi.status}</strong>
-            <p>${escapeHtml(collections.sroi.summary)}</p>
+          <article class="room-step">
+            <span>2</span>
+            <strong>Stage proof</strong>
+            <p>${escapeHtml(insight.proofTarget)}: ${escapeHtml(insight.proofDetail)}</p>
           </article>
-          <article class="cockpit-card">
-            <span>4. Immediate next step</span>
-            <strong>${escapeHtml(collections.nextStep.title)}</strong>
+          <article class="room-step">
+            <span>3</span>
+            <strong>Name the gaps</strong>
             <p>${escapeHtml(collections.nextStep.detail)}</p>
           </article>
+        </div>
+      </section>
+
+      <section class="section-block section-block--wide lens-panel">
+        <div class="section-heading">
+          <p class="eyebrow">Guided lens process</p>
+          <h3>What to provide, where it goes, and how to find it</h3>
+        </div>
+        <div class="lens-panel__body">
+          <div class="lens-panel__intro">
+            <p>${escapeHtml(currentLens.intro)}</p>
+          </div>
+          <div class="guide-process">
+            ${renderLensGuide(profile, currentLens)}
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block section-block--wide lens-field-map">
+        <div class="section-heading">
+          <p class="eyebrow">Field map</p>
+          <h3>The selected lens is pointing at these parts of the room</h3>
+        </div>
+        <div class="field-map-grid">
+          ${renderLensFieldMap(profile, currentLens)}
+        </div>
+      </section>
+
+      <section class="section-block section-block--wide lens-panel">
+        <div class="section-heading">
+          <p class="eyebrow">Readiness emphasis</p>
+          <h3>Why the score shifts when the lens changes</h3>
+        </div>
+        <div class="lens-panel__body lens-panel__body--compact">
+          <p>${escapeHtml(currentLens.outcome)}</p>
+          <div class="lens-weight-grid">
+            ${renderLensWeights(currentLens)}
+          </div>
         </div>
       </section>
 
@@ -1044,8 +1230,8 @@ function renderWorkspaceTab(profile, readiness) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Assessment collection</p>
-          <h3>What is ready to hand to a model and what is still missing</h3>
+          <p class="eyebrow">Structured inputs</p>
+          <h3>What is ready to hand to a later assessment layer</h3>
         </div>
         <div class="assessment-grid">
           ${renderCollectionCard("Exposure", collections.exposure)}
@@ -1074,11 +1260,11 @@ function renderWorkspaceTab(profile, readiness) {
 
       <section class="section-block section-block--wide">
         <div class="section-heading">
-          <p class="eyebrow">Missing collection items</p>
-          <h3>The raw inputs still needed before assessment work starts</h3>
+          <p class="eyebrow">Next preparation moves</p>
+          <h3>What to clean up before this room is circulated</h3>
         </div>
         <div class="move-list">
-          ${collections.missingActions
+          ${[...insight.nextMoves, ...collections.missingActions.slice(0, 1)]
             .map(
               (move, index) => `
                 <article class="move-item">
@@ -1098,8 +1284,19 @@ function renderIntakeTab(profile) {
   const exposure = computeExposureCollection(profile);
   const esg = computeEsgCollection(profile);
   const sroi = computeSroiCollection(profile);
+  const lens = lensConfig[state.lens];
   return `
     <div class="form-layout">
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">Lens-critical inputs</p>
+          <h3>Start with the fields this submission path needs most</h3>
+        </div>
+        <div class="field-map-grid field-map-grid--compact">
+          ${renderLensFieldMap(profile, lens)}
+        </div>
+      </section>
+
       <section class="section-block">
         <div class="section-heading">
           <p class="eyebrow">Core company record</p>
@@ -1235,8 +1432,19 @@ function renderIntakeTab(profile) {
 function renderEvidenceTab(profile, readiness) {
   const bestLens = computeBestLens(profile);
   const insight = buildPreparationInsight(profile, readiness, bestLens);
+  const lens = lensConfig[state.lens];
   return `
     <div class="content-grid">
+      <section class="section-block section-block--wide">
+        <div class="section-heading">
+          <p class="eyebrow">Evidence plan</p>
+          <h3>The selected lens turns evidence into specific proof jobs</h3>
+        </div>
+        <div class="guide-process">
+          ${renderLensGuide(profile, lens)}
+        </div>
+      </section>
+
       <section class="section-block">
         <div class="section-heading">
           <p class="eyebrow">Evidence room</p>
@@ -1306,8 +1514,19 @@ function renderEvidenceTab(profile, readiness) {
 
 function renderMemoTab(profile, readiness) {
   const memo = generateMemo(profile, readiness);
+  const lens = lensConfig[state.lens];
   return `
     <section class="memo">
+      <div class="memo-prep">
+        <div>
+          <p class="eyebrow">Memo logic</p>
+          <h3>${escapeHtml(lens.outcome)}</h3>
+          <p>${escapeHtml(lens.bestFor)}</p>
+        </div>
+        <div class="lens-weight-grid">
+          ${renderLensWeights(lens)}
+        </div>
+      </div>
       <div class="memo__header">
         <div>
           <p class="eyebrow">Generated output</p>
@@ -1412,6 +1631,76 @@ function renderCollectionCard(label, collection) {
       <small>${escapeHtml(collection.detail)}</small>
     </article>
   `;
+}
+
+function renderLensWeights(lens) {
+  const labels = {
+    completeness: "Profile",
+    evidence: "Evidence",
+    narrative: "Narrative",
+    diligence: "Diligence",
+    exposure: "Exposure",
+  };
+  const maxWeight = Math.max(...Object.values(lens.weights));
+  return Object.entries(lens.weights)
+    .map(([key, value]) => {
+      const width = Math.round((value / maxWeight) * 100);
+      return `
+        <div class="lens-weight">
+          <span>${escapeHtml(labels[key])}</span>
+          <div class="progress" aria-hidden="true"><span style="width:${width}%"></span></div>
+          <strong>${Math.round(value * 100)}%</strong>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function renderLensGuide(profile, lens) {
+  return lens.guide
+    .map((step, index) => {
+      const filled = step.fields.filter((field) => hasGuideValue(readPath(profile, field))).length;
+      const total = step.fields.length;
+      const tab = step.destination.includes("Evidence room") ? "evidence" : "intake";
+      return `
+        <article class="guide-step">
+          <div class="guide-step__index">${index + 1}</div>
+          <div class="guide-step__body">
+            <div>
+              <span>${escapeHtml(step.label)}</span>
+              <strong>${escapeHtml(step.need)}</strong>
+            </div>
+            <div class="guide-step__detail">
+              <p><b>Where to put it:</b> ${escapeHtml(step.destination)}</p>
+              <p><b>How to find it:</b> ${escapeHtml(step.source)}</p>
+            </div>
+            <div class="guide-step__footer">
+              <span>${filled}/${total} related fields already have content</span>
+              <button class="button button--small" type="button" data-action="set-tab" data-tab="${tab}">Open ${tab === "evidence" ? "evidence" : "edit"} area</button>
+            </div>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderLensFieldMap(profile, lens) {
+  const fields = unique(lens.guide.flatMap((step) => step.fields));
+  return fields
+    .map((field) => {
+      const value = readPath(profile, field);
+      const filled = hasGuideValue(value);
+      return `
+        <article class="field-map-card ${filled ? "is-filled" : ""}">
+          <span>${escapeHtml(fieldLabel(field))}</span>
+          <strong>${filled ? "Present" : "Needs input"}</strong>
+          <p>${escapeHtml(fieldPreview(value))}</p>
+          <button class="button button--small button--quiet" type="button" data-action="set-tab" data-tab="${fieldTab(field)}">${fieldTab(field) === "evidence" ? "Evidence room" : "Edit profile"}</button>
+        </article>
+      `;
+    })
+    .join("");
 }
 
 function renderExposureCard(label, exposure) {
@@ -1703,6 +1992,7 @@ function handleClick(event) {
 
   if (action === "set-lens") {
     state.lens = target.dataset.lens;
+    state.tab = "workspace";
     render();
     return;
   }
@@ -1816,6 +2106,61 @@ async function copyMemo() {
     document.execCommand("copy");
     fallback.remove();
   }
+}
+
+function readPath(source, path) {
+  return path.split(".").reduce((cursor, part) => (cursor && cursor[part] !== undefined ? cursor[part] : undefined), source);
+}
+
+function hasGuideValue(value) {
+  if (Array.isArray(value)) return value.some((item) => isPresent(item));
+  return hasCollectionValue(value) || (typeof value === "number" && Number.isFinite(value));
+}
+
+function fieldPreview(value) {
+  if (Array.isArray(value)) {
+    return value.length ? value.slice(0, 2).join("; ") : "No items added yet.";
+  }
+  if (typeof value === "number") return String(value);
+  if (!hasGuideValue(value)) return "No usable input yet.";
+  const text = String(value).trim();
+  return text.length > 130 ? `${text.slice(0, 127)}...` : text;
+}
+
+function fieldTab(field) {
+  return ["evidence", "risks", "missing"].includes(field) ? "evidence" : "intake";
+}
+
+function fieldLabel(field) {
+  const labels = {
+    ask: "Funding ask",
+    useOfFunds: "Use of funds",
+    nextStep: "Suggested next prep step",
+    evidence: "Evidence available",
+    "metrics.traction": "Traction",
+    missing: "Missing diligence items",
+    risks: "Risks to state openly",
+    ip: "IP position",
+    customer: "Customer and buyer",
+    problem: "Problem statement",
+    "assessment.exposure.note": "Exposure notes",
+    "assessment.exposure.certificationsNeeded": "Required certifications or audits",
+    oneLiner: "One-liner",
+    trl: "TRL",
+    model: "Business model",
+    "transition.note": "Transition note",
+    "assessment.sroi.beneficiaryGroups": "Beneficiary groups",
+    "assessment.sroi.primaryOutcome": "Primary outcome to value",
+    "assessment.sroi.baselineAvailable": "Baseline available",
+    "assessment.sroi.outcomeEvidence": "Outcome evidence",
+    "assessment.sroi.measurementWindow": "Measurement window",
+    "assessment.esg.questionnaireStatus": "ESG questionnaire status",
+  };
+  return labels[field] || field;
+}
+
+function unique(values) {
+  return [...new Set(values)];
 }
 
 function metricBonus(text, keywords, points) {
