@@ -14,12 +14,12 @@ const profileTemplates = [
     useOfFunds: "Pilot units, sorbent durability testing, and first industrial partnerships.",
     regulatory: {
       level: "Medium",
-      character: "Demand tailwind with verification burden",
-      note: "Carbon accounting rules can increase demand, but the startup still needs a defensible MRV path before broad circulation.",
+      character: "Creates demand but requires verification",
+      note: "Carbon accounting rules can increase demand, but the company still needs a credible carbon measurement and verification method before broad outreach.",
     },
     transition: {
       level: "High",
-      character: "Tailwind",
+      character: "Clear climate tailwind",
       note: "Industrial decarbonization budgets make the problem urgent, while capex cycles may slow conversion.",
     },
     evidence: ["Two cement plant LOIs", "1,200-hour pilot run", "Preliminary LCA reviewed by university lab"],
@@ -45,12 +45,12 @@ const profileTemplates = [
     useOfFunds: "Clinical validation, MDR documentation, and payer pilots.",
     regulatory: {
       level: "High",
-      character: "Burden and defensibility",
+      character: "Adds compliance burden, creates competitive advantage",
       note: "Medical-device approval slows distribution, but a clean regulatory path can materially strengthen credibility.",
     },
     transition: {
       level: "Low",
-      character: "Limited exposure",
+      character: "Minimal climate exposure",
       note: "Transition policy is not a primary driver; the case depends on clinical and reimbursement proof.",
     },
     evidence: ["Multisite pilot with 340 patients", "Ethics committee approval", "Two insurer evaluation agreements"],
@@ -76,12 +76,12 @@ const profileTemplates = [
     useOfFunds: "Enterprise security certifications, vector database connectors, and sales hires.",
     regulatory: {
       level: "Medium",
-      character: "Demand tailwind",
+      character: "Creates market demand",
       note: "AI governance and data residency rules can support the story if the product can prove security discipline.",
     },
     transition: {
       level: "Low",
-      character: "Limited exposure",
+      character: "Minimal climate exposure",
       note: "Transition exposure is minor, but energy intensity and platform dependency should still be framed honestly.",
     },
     evidence: ["EUR 42k MRR", "14 paying customers", "SOC 2 readiness assessment"],
@@ -107,13 +107,13 @@ const profileTemplates = [
     useOfFunds: "Aggregator licensing, battery partner integrations, and utility sales.",
     regulatory: {
       level: "High",
-      character: "Market access and defensibility",
+      character: "Controls market access, hard to replicate",
       note: "Energy-market rules create real friction, but a company that explains this clearly can show why the space is worth entering.",
     },
     transition: {
       level: "High",
-      character: "Tailwind with market-design risk",
-      note: "Renewables volatility increases need for flexibility, while tariff design can change unit economics.",
+      character: "Climate tailwind, but regulatory uncertainty",
+      note: "Renewables volatility increases the need for flexibility, while tariff design can significantly affect the business economics.",
     },
     evidence: ["Utility pilot covering 18MW", "ISO 27001 audit scheduled", "Two battery OEM partnerships"],
     ip: "Optimization models proprietary; dispatch-history advantage is forming but still early.",
@@ -138,18 +138,18 @@ const profileTemplates = [
     useOfFunds: "Reactor prototype, feedstock contracts, and materials testing.",
     regulatory: {
       level: "Medium",
-      character: "Demand tailwind",
-      note: "Waste and circularity rules can support urgency, but certification and FTO work still need clearer documentation.",
+      character: "Creates market demand",
+        note: "Waste and circularity rules can support urgency, but certifications and IP clearance work still need clearer documentation.",
     },
     transition: {
       level: "High",
-      character: "Tailwind",
+      character: "Clear climate tailwind",
       note: "Corporate circularity targets support attention, though commodity swings may pressure economics.",
     },
     evidence: ["Bench-scale yield data", "One fashion group LOI", "Grant-funded technical validation"],
-    ip: "Provisional patent on catalyst process; FTO not yet completed.",
-    risks: ["TRL gap", "Feedstock variability", "FTO uncertainty"],
-    missing: ["Freedom-to-operate review", "Pilot reactor economics", "Feedstock quality variability tests"],
+    ip: "Provisional patent on catalyst process; IP clearance not yet completed.",
+    risks: ["Technology still at an early development stage", "Feedstock variability", "IP clearance uncertainty"],
+    missing: ["IP clearance review", "Pilot reactor economics", "Feedstock quality variability tests"],
     nextStep: "Recast the deck around one credible pilot path instead of broad circularity ambition.",
     metrics: { revenue: "Pre-revenue", runway: "6 months", grossMargin: "Not proven", traction: "1 LOI" },
     tags: ["materials", "circular", "deep tech"],
@@ -169,12 +169,12 @@ const profileTemplates = [
     useOfFunds: "Sensor manufacturing, agronomist support, and distributor onboarding.",
     regulatory: {
       level: "Low",
-      character: "Light burden",
+      character: "Light compliance requirements",
       note: "Direct regulatory burden is limited, though conservation programs can strengthen the outreach story.",
     },
     transition: {
       level: "High",
-      character: "Tailwind with adoption friction",
+      character: "Climate tailwind, but slow adoption",
       note: "Climate stress increases water-management need, but farm adoption still depends on trust and channel execution.",
     },
     evidence: ["126 deployed sensors", "Water-use reduction study", "Distributor signed in Iberia"],
@@ -200,19 +200,19 @@ const profileTemplates = [
     useOfFunds: "TRL 4 to 6 validation, external lab testing, and IP prosecution.",
     regulatory: {
       level: "Low",
-      character: "Limited burden",
+      character: "Minimal regulatory impact",
       note: "Compliance matters but is not the primary blocker; the bigger issue is how the startup frames technical proof and qualification timing.",
     },
     transition: {
       level: "Medium",
-      character: "Efficiency tailwind",
+      character: "Energy / resource efficiency opportunity",
       note: "Lower cooling-energy demand can support adoption if manufacturing yield is believable.",
     },
     evidence: ["Peer-reviewed thermal performance", "Two OEM technical evaluations", "University spinout agreement"],
-    ip: "Two patent families assigned to company; FTO partially complete.",
-    risks: ["Low TRL", "Manufacturing yield", "Long OEM qualification"],
-    missing: ["Manufacturing scale plan", "Full FTO", "OEM qualification milestones"],
-    nextStep: "Package the company as a commercialization candidate with one narrow beachhead, not as a broad platform.",
+    ip: "Two patent families assigned to company; IP clearance partially complete.",
+    risks: ["Early technology stage", "Manufacturing yield", "Long manufacturer qualification process"],
+    missing: ["Manufacturing scale plan", "Full IP clearance", "Manufacturer qualification milestones"],
+    nextStep: "Package the company as a commercialization candidate focused on one specific first market, not a broad platform.",
     metrics: { revenue: "Pre-revenue", runway: "10 months", grossMargin: "Not proven", traction: "2 evals" },
     tags: ["deep tech", "materials", "spinout"],
   },
@@ -231,12 +231,12 @@ const profileTemplates = [
     useOfFunds: "Municipal pilots, corrosion testing, and channel partnerships.",
     regulatory: {
       level: "Medium",
-      character: "Procurement burden and demand driver",
+      character: "Procurement delays, but drives demand",
       note: "Public procurement slows deals, while leakage-reduction mandates can make the budget easier to defend.",
     },
     transition: {
       level: "High",
-      character: "Tailwind",
+      character: "Clear climate tailwind",
       note: "Water scarcity and resilience programs increase urgency across the target market.",
     },
     evidence: ["Three municipal pilots", "Detected 17 priority leaks", "Distributor conversations in two regions"],
@@ -262,18 +262,18 @@ const profileTemplates = [
     useOfFunds: "Sales expansion, partner marketplace, and compliance certifications.",
     regulatory: {
       level: "High",
-      character: "Demand tailwind",
+      character: "Creates market demand",
       note: "NIS2, DORA, and vendor-risk obligations make the category timely if the company can show sales efficiency and product differentiation.",
     },
     transition: {
       level: "Low",
-      character: "Limited exposure",
+      character: "Minimal climate exposure",
       note: "Transition is not a central angle here; the company should stay disciplined about what makes the case strong.",
     },
     evidence: ["EUR 1.1M ARR", "Net revenue retention 118%", "ISO 27001 certified"],
     ip: "Workflow and scoring engine proprietary; defensibility comes mainly from integrations and switching cost.",
     risks: ["Crowded category", "Enterprise sales efficiency", "Data-source dependency"],
-    missing: ["CAC payback by segment", "Win/loss analysis", "Data-source contracts"],
+    missing: ["Customer acquisition cost payback by segment", "Win/loss analysis", "Data-source contracts"],
     nextStep: "Sharpen the differentiation case and document what the next round unlocks operationally.",
     metrics: { revenue: "EUR 1.1M ARR", runway: "14 months", grossMargin: "82%", traction: "36 customers" },
     tags: ["cybersecurity", "saas", "regulated"],
@@ -293,18 +293,18 @@ const profileTemplates = [
     useOfFunds: "Deployment team, PLC integrations, and channel partnerships.",
     regulatory: {
       level: "Low",
-      character: "Operational standards",
+      character: "Operational compliance standards",
       note: "Safety and data standards matter, but the bigger readiness issue is proving implementation can scale without service creep.",
     },
     transition: {
       level: "Medium",
-      character: "Productivity and energy-efficiency tailwind",
+      character: "Productivity and energy efficiency opportunity",
       note: "Energy prices and reshoring pressure support demand when the ROI case is concrete.",
     },
     evidence: ["EUR 68k MRR", "Five factories live", "Average downtime reduction 14%"],
     ip: "Deployment playbooks and anomaly models proprietary; limited patentability.",
     risks: ["Implementation scalability", "Incumbent automation suites", "Data quality variability"],
-    missing: ["Implementation hours by customer", "CAC payback", "Reference calls with plant managers"],
+    missing: ["Implementation hours by customer", "Customer acquisition cost payback", "Reference calls with plant managers"],
     nextStep: "Package live-factory proof and services-burden discipline into one narrative before the next raise.",
     metrics: { revenue: "EUR 68k MRR", runway: "9 months", grossMargin: "61%", traction: "5 factories" },
     tags: ["industrial", "ai", "saas"],
@@ -313,24 +313,26 @@ const profileTemplates = [
 
 const STORAGE_KEY = "openeconomics-foundry-profiles-v1";
 const tabs = [
-  ["workspace", "Room"],
-  ["intake", "Edit profile"],
-  ["evidence", "Evidence room"],
+  ["workspace", "Overview"],
+  ["intake", "Profile"],
+  ["evidence", "Evidence"],
   ["memo", "Memo"],
 ];
 
 const marketSignals = [
-  "Selective capital rewards evidence, margin discipline, and clear milestone use of funds.",
-  "Pilot partners need implementation realism: owner, integration load, ROI proof, and risk handoff.",
-  "Programs and commercialization operators look for exploitation path, IP clarity, and measurable downstream effect.",
+  "Investors want to see real evidence, financial discipline, and a clear plan for how the money will be used.",
+  "Pilot partners want to know who owns implementation, how much work is involved, and what the expected return looks like.",
+  "Grant programs look for a clear commercialization plan, clean IP ownership, and measurable outcomes.",
 ];
 
 const stageOptions = ["Pre-seed", "Seed", "Series A", "Series B", "Growth"];
 const geographyOptions = ["Austria", "France", "Germany", "Greece", "Ireland", "Italy", "Netherlands", "Portugal", "Spain", "Switzerland", "United Kingdom", "European Union"];
 const trlOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const levelOptions = ["Low", "Medium", "High"];
+const exposureLevelOptions = ["Not sure", "Low", "Medium", "High"];
 const yesNoOptions = ["Unknown", "Yes", "No"];
 const questionnaireStatusOptions = ["Not started", "In progress", "Ready for review", "Completed"];
+const esgQuestionOptions = ["Yes", "Working on it", "No"];
 const timeframeOptions = ["Unknown", "Less than 1 year", "1-3 years", "3-5 years", "More than 5 years"];
 const evidenceOptions = ["Unknown", "Founder estimate", "Internal data", "Third-party evidence"];
 
@@ -338,153 +340,153 @@ const lensConfig = {
   fundraising: {
     label: "Raise preparation",
     short: "Raise",
-    eyebrow: "Founder lens",
-    intro: "Frame the company for a financing conversation: clear ask, evidence of demand, and open diligence items stated plainly.",
-    bestFor: "Fundraising conversations where the reader needs to understand the round, proof, and next milestone quickly.",
-    outcome: "A tighter raise narrative with the ask, evidence, risks, and use of funds close together.",
+    eyebrow: "Fundraising track",
+    intro: "Get ready for a fundraising conversation: clear ask, real evidence, and honest open questions — all in one place.",
+    bestFor: "Fundraising conversations where the reader needs a clear picture of the ask, the proof, and the next milestone.",
+    outcome: "A tighter fundraising narrative with the ask, evidence, risks, and use of funds clearly connected.",
     weights: { completeness: 0.18, evidence: 0.24, narrative: 0.24, diligence: 0.22, exposure: 0.12 },
     guide: [
       {
-        label: "Round logic",
-        need: "What is being raised, what it funds, and which milestone should become easier after the round.",
-        destination: "Edit profile: Funding ask and Use of funds",
-        source: "Use the current budget, hiring plan, pilot plan, and milestone roadmap. Replace broad categories with the few spend items that change company risk.",
+        label: "What the raise is for",
+        need: "What you're raising, what you'll spend it on, and what it should make possible.",
+        destination: "Profile: Funding ask and Use of funds",
+        source: "Start from your budget and hiring plan. Focus on the 2–3 spend items that will most change the company's risk profile.",
         fields: ["ask", "useOfFunds", "nextStep"],
       },
       {
-        label: "Demand proof",
-        need: "Evidence that the customer pain is real and that the company has earned attention beyond founder belief.",
-        destination: "Evidence room: Evidence available and Missing diligence items",
-        source: "Look for LOIs, pilots, usage data, paid contracts, retention, reference calls, technical validation, or written customer feedback.",
+        label: "Proof of customer demand",
+        need: "Proof that the problem is real — not just what you believe, but what customers have confirmed.",
+        destination: "Evidence: Evidence available and Missing items",
+        source: "Look for letters of intent, pilots, usage data, paid contracts, customer references, or written feedback.",
         fields: ["evidence", "metrics.traction", "missing"],
       },
       {
-        label: "Investor diligence",
-        need: "The open questions an investor will ask before trusting ownership, margin, timing, or execution risk.",
-        destination: "Evidence room: Risks and missing items; Edit profile: IP position",
-        source: "Scan the cap table, IP assignments, FTO notes, unit economics, procurement timeline, and any unresolved legal or technical dependencies.",
+        label: "Answering due diligence",
+        need: "The questions an investor will ask before committing — about who owns what, the business model, and what could go wrong.",
+        destination: "Evidence: Risks and missing items; Profile: IP position",
+        source: "Check your ownership structure, IP assignments, freedom-to-operate status, unit economics, and any unresolved legal or technical issues.",
         fields: ["risks", "missing", "ip"],
       },
     ],
     checklist: [
-      "Define exactly what this round funds and what milestone it should unlock.",
-      "Replace broad ambition with proof: pilots, customers, contracts, or hard technical validation.",
-      "Show how the next round becomes easier if this round lands.",
-      "Surface cap table, IP ownership, and regulatory path before someone has to ask twice.",
+      "Define exactly what this round funds and what milestone it unlocks.",
+      "Back up your claims with real proof: pilots, paying customers, signed contracts, or validated results.",
+      "Show how the next round becomes easier if this one lands.",
+      "Be ready to answer questions about ownership, IP, and any regulatory requirements before they come up.",
     ],
   },
   partner: {
     label: "Pilot partner outreach",
     short: "Partner",
-    eyebrow: "Operating lens",
-    intro: "Prepare the company for a commercial or deployment partner that wants outcome proof, integration realism, and low confusion.",
-    bestFor: "Pilot, channel, or deployment partner reviews where implementation burden matters as much as the story.",
-    outcome: "A practical partner case with buyer pain, operating proof, integration needs, and risk ownership visible.",
+    eyebrow: "Partnership track",
+    intro: "Prepare the company for a partner that expects proof, a realistic implementation plan, and clear expectations — not just a good story.",
+    bestFor: "Partner or channel reviews where implementation realism matters as much as the narrative.",
+    outcome: "A clear partner case: buyer problem, proof of results, what deployment involves, and who owns the risk.",
     weights: { completeness: 0.16, evidence: 0.28, narrative: 0.2, diligence: 0.18, exposure: 0.18 },
     guide: [
       {
-        label: "Buyer workflow",
-        need: "Who owns the problem, who uses the product, who signs, and what changes in their operation.",
-        destination: "Edit profile: Customer and buyer; Problem statement",
-        source: "Use discovery notes, pilot calls, procurement conversations, and implementation notes. Name roles instead of generic organizations.",
+        label: "Who buys and how",
+        need: "Who has the problem, who uses the product, who signs the deal, and how their day-to-day changes.",
+        destination: "Profile: Customer and buyer; Problem statement",
+        source: "Use discovery notes, pilot calls, procurement conversations, and implementation notes. Name job roles, not just organizations.",
         fields: ["customer", "problem"],
       },
       {
-        label: "Implementation burden",
-        need: "What a partner must connect, approve, train, measure, or maintain to make a pilot work.",
-        destination: "Edit profile: Exposure intake; Evidence room: Risks",
-        source: "Review integration plans, security reviews, site requirements, data access, operational ownership, and support expectations.",
+        label: "What deployment involves",
+        need: "What a partner needs to set up, approve, train, or manage to make a pilot work.",
+        destination: "Profile: Regulatory exposure; Evidence: Risks",
+        source: "Review your integration requirements, security needs, site setup, data access, and ongoing support expectations.",
         fields: ["assessment.exposure.note", "assessment.exposure.certificationsNeeded", "risks"],
       },
       {
-        label: "Pilot proof path",
-        need: "A before, during, and after view of what the pilot proves and how success will be measured.",
-        destination: "Evidence room: Evidence available and Missing diligence items",
-        source: "Use pilot KPIs, baseline data, outcome reports, ROI models, deployment logs, and partner feedback.",
+        label: "Proving results",
+        need: "A clear before-and-after picture of what the pilot proves and how success will be measured.",
+        destination: "Evidence: Evidence available and Missing items",
+        source: "Use pilot targets, baseline data, outcome reports, ROI models, deployment records, and partner feedback.",
         fields: ["evidence", "metrics.traction", "missing"],
       },
     ],
     checklist: [
-      "Explain the operational pain point in buyer language, not startup language.",
-      "Show implementation load, integration dependencies, and expected ROI by customer type.",
-      "Turn pilots or evals into a simple proof path: before, during, after.",
-      "Clarify who signs, who uses, and who carries operational risk after rollout.",
+      "Describe the problem in the buyer's language, not in startup or technical terms.",
+      "Show what it takes to implement, what needs to be connected, and the expected return for each customer type.",
+      "Turn pilots or evaluations into a simple proof story: what was measured before, during, and after.",
+      "Be clear about who signs the agreement, who uses the product, and who owns the risk once it's deployed.",
     ],
   },
   commercialization: {
     label: "Research commercialization",
-    short: "KER",
-    eyebrow: "Commercialization lens",
-    intro: "Useful for spinouts and technical teams that need to move from result to company-grade exploitation logic.",
-    bestFor: "Spinouts, exploitable results, and technical teams translating research assets into a company-grade path.",
-    outcome: "A clearer route from result, TRL, IP, and beachhead into a believable commercialization package.",
+    short: "R&D",
+    eyebrow: "Commercialization track",
+    intro: "For spinouts and research teams moving from a validated result to a credible commercial path.",
+    bestFor: "Spinouts and research teams translating what they've built into a credible route to market.",
+    outcome: "A clear path from what you've built — technology maturity, ownership, and first target market — to a believable commercial plan.",
     weights: { completeness: 0.18, evidence: 0.18, narrative: 0.2, diligence: 0.18, exposure: 0.26 },
     guide: [
       {
-        label: "Exploitable result",
-        need: "The specific technical result, TRL, ownership position, and first beachhead application.",
-        destination: "Edit profile: One-liner, TRL, IP position, and Business model",
-        source: "Use project deliverables, lab validation, invention disclosures, university agreements, patent files, and technical evaluation notes.",
+        label: "What you've built",
+        need: "The specific result you've developed, how mature it is, who owns it, and which market to target first.",
+        destination: "Profile: One-liner, TRL, IP position, and Business model",
+        source: "Use your project reports, lab results, patent filings, university agreements, and any external technical evaluations.",
         fields: ["oneLiner", "trl", "ip", "model"],
       },
       {
-        label: "Route to market",
-        need: "Whether the result should become a spinout, licensing case, pilot-led venture, or hybrid commercialization path.",
-        destination: "Edit profile: Customer and buyer; Use of funds; Suggested next prep step",
-        source: "Check partner interest, manufacturing requirements, qualification timelines, license terms, and the shortest credible market-access path.",
+        label: "Path to commercialization",
+        need: "Whether to spin out a company, license the technology, or pursue a pilot-led route to market.",
+        destination: "Profile: Customer and buyer; Use of funds; Next step",
+        source: "Consider partner interest, manufacturing requirements, qualification timelines, and the fastest credible path to your first customer.",
         fields: ["customer", "useOfFunds", "nextStep"],
       },
       {
-        label: "Technical-to-commercial proof",
-        need: "Evidence that connects technical strength to buyer value and reduces the gap between research and deployment.",
-        destination: "Evidence room: Evidence available, Risks, and Missing diligence items",
-        source: "Look for external validation, OEM evaluations, prototype results, cost curves, FTO work, certification needs, and qualification milestones.",
+        label: "Bridging tech and business value",
+        need: "Evidence that what you've built has real business value — not just that it works, but that buyers will pay for it.",
+        destination: "Evidence: Evidence available, Risks, and Missing items",
+        source: "Look for external validation, manufacturer evaluations, prototype results, cost models, IP clearance work, and certification requirements.",
         fields: ["evidence", "risks", "missing", "assessment.exposure.certificationsNeeded"],
       },
     ],
     checklist: [
-      "Define the key exploitable result, TRL, and initial beachhead with no ambiguity.",
-      "Choose the first commercialization route clearly: spin-off, licensing, or hybrid.",
-      "Document IP chain-of-title, FTO work, and the shortest believable time-to-market.",
-      "Translate technical strength into one commercial story that a non-specialist can follow.",
+      "Clearly define what you've built, how developed it is, and which market you're targeting first.",
+      "Decide on your commercialization route: spin-off company, licensing, or a mix of both.",
+      "Document who owns the IP, confirm you're free to commercialize it, and map out your most realistic path to market.",
+      "Translate your technical strength into one commercial story that someone outside your field can understand.",
     ],
   },
   grant: {
     label: "Grant and impact packaging",
     short: "Grant",
-    eyebrow: "Program lens",
-    intro: "Package the company for non-dilutive or impact-led applications where evidence, exploitation logic, and delivery structure matter.",
-    bestFor: "Grant, accelerator, and impact-led submissions where exploitation logic and measurable effect are inspected.",
-    outcome: "A preparation package that connects evidence, delivery structure, downstream effect, and remaining diligence.",
+    eyebrow: "Grant track",
+    intro: "Prepare the company for non-dilutive or impact-led applications where evidence, a clear commercialization plan, and delivery structure are evaluated.",
+    bestFor: "Grant and impact applications where your commercialization plan, measurable outcomes, and ability to deliver are reviewed.",
+    outcome: "A preparation package that connects evidence, delivery plan, downstream impact, and open questions.",
     weights: { completeness: 0.22, evidence: 0.2, narrative: 0.18, diligence: 0.16, exposure: 0.24 },
     guide: [
       {
-        label: "Program fit",
-        need: "Why this work matters now, who benefits, and how the project moves beyond research into deployment.",
-        destination: "Edit profile: Problem statement, Transition note, and SROI intake",
-        source: "Use call text, policy priorities, beneficiary evidence, transition context, and customer or stakeholder interviews.",
+        label: "Why this program fits",
+        need: "Why this work matters now, who benefits from it, and how it moves from research into real-world use.",
+        destination: "Profile: Problem statement, Transition note, and SROI data",
+        source: "Use the program call, policy priorities, evidence of who benefits, and interviews with customers or stakeholders.",
         fields: ["problem", "transition.note", "assessment.sroi.beneficiaryGroups", "assessment.sroi.primaryOutcome"],
       },
       {
-        label: "Delivery structure",
-        need: "Who must deliver the work, what dependencies exist, and which evidence proves the team can execute.",
-        destination: "Edit profile: Use of funds and Exposure intake; Evidence room: Evidence available",
-        source: "Review work packages, consortium roles, subcontractors, pilot sites, procurement constraints, certifications, and prior delivery proof.",
+        label: "Who delivers what",
+        need: "Who does the work, what you depend on, and what proves your team can actually deliver.",
+        destination: "Profile: Use of funds and Regulatory exposure; Evidence: Evidence available",
+        source: "Review your work plan, team roles, subcontractors, pilot sites, procurement constraints, certifications, and evidence of past delivery.",
         fields: ["useOfFunds", "assessment.exposure.note", "assessment.exposure.certificationsNeeded", "evidence"],
       },
       {
-        label: "Impact evidence",
-        need: "The measurable outcome, baseline, time window, evidence quality, and SROI inputs required later.",
-        destination: "Edit profile: SROI intake and ESG questionnaire handoff",
-        source: "Use baseline studies, beneficiary counts, monitoring data, proxy assumptions, ESG forms, and third-party evidence where available.",
-        fields: ["assessment.sroi.baselineAvailable", "assessment.sroi.outcomeEvidence", "assessment.sroi.measurementWindow", "assessment.esg.questionnaireStatus"],
+        label: "Proof of impact",
+        need: "The outcome you're targeting, what you're measuring it against, and the data you'll need to prove impact.",
+        destination: "Profile: SROI data and ESG tracking",
+        source: "Use baseline data, beneficiary counts, monitoring data, ESG forms, and any third-party evidence available.",
+        fields: ["assessment.sroi.beneficiaryGroups", "assessment.sroi.primaryOutcome", "assessment.sroi.annualReach", "assessment.esg.questionnaire.socialOutcome"],
       },
     ],
     checklist: [
-      "Show why the work matters now and how it moves beyond research into deployment.",
-      "Tie impact claims to measurable outcomes, not broad mission language.",
-      "Clarify consortium, channel, or ecosystem dependencies before submission.",
-      "State the exploitation path, funding need, and expected downstream commercial effect.",
+      "Show why this work matters now and how it moves from research into real-world use.",
+      "Tie impact claims to measurable outcomes, not broad mission statements.",
+      "Be clear about any partners, delivery channels, or networks you depend on to deliver results.",
+      "Describe your commercialization plan, what funding you need, and what commercial impact you expect.",
     ],
   },
 };
@@ -562,11 +564,17 @@ function defaultAssessment(profile) {
       note: "",
     },
     esg: {
-      questionnaireStatus: "Not started",
-      questionnaireOwner: "",
-      targetDate: "",
-      questionnaireLink: "",
-      note: "ESG should be captured in a separate questionnaire. This room tracks status only.",
+      questionnaire: {
+        envTracking: "",
+        envPolicy: "",
+        emissionsImpact: "",
+        diversityPolicy: "",
+        wellbeingTracking: "",
+        socialOutcome: "",
+        hasBoard: "",
+        ethicsPolicy: "",
+        financialsReviewed: "",
+      },
     },
     sroi: {
       beneficiaryGroups: "",
@@ -586,7 +594,7 @@ function defaultAssessment(profile) {
 function mergeAssessment(base, saved = {}) {
   return {
     exposure: { ...base.exposure, ...(saved.exposure || {}) },
-    esg: { ...base.esg, ...(saved.esg || {}) },
+    esg: { ...base.esg, ...(saved.esg || {}), questionnaire: { ...base.esg.questionnaire, ...((saved.esg || {}).questionnaire || {}) } },
     sroi: { ...base.sroi, ...(saved.sroi || {}) },
   };
 }
@@ -735,48 +743,48 @@ function computeReadiness(profile, lensKey = state.lens) {
   );
 
   const overall = clamp(weighted, 20, 96);
-  const status = overall >= 80 ? "Ready to circulate" : overall >= 64 ? "Sharpen before outreach" : overall >= 48 ? "Needs another pass" : "Still too rough";
+  const status = overall >= 80 ? "Ready to share" : overall >= 64 ? "Sharpen before outreach" : overall >= 48 ? "Needs more work" : "Too early to circulate";
 
   const strongSignals = [
     evidenceCount >= 3 ? `${evidenceCount} evidence points already visible.` : "",
     isPresent(profile.metrics.traction) ? `Traction is stated clearly: ${profile.metrics.traction}.` : "",
-    isPresent(profile.ip) ? "IP position is at least partly articulated." : "",
-    isPresent(profile.regulatory.note) ? "Regulatory exposure is explained instead of hidden." : "",
-    isPresent(profile.transition.note) ? "Transition exposure is framed with operational nuance." : "",
+    isPresent(profile.ip) ? "IP ownership is described." : "",
+    isPresent(profile.regulatory.note) ? "Regulatory environment is explained." : "",
+    isPresent(profile.transition.note) ? "Climate transition context is addressed." : "",
   ].filter(Boolean);
 
   const blockers = [
-    ...profile.missing.slice(0, 3).map((item) => `Missing: ${item}.`),
-    !isPresent(profile.problem) ? "The problem statement still needs to be made concrete." : "",
-    !isPresent(profile.customer) ? "The customer or buyer is not yet explicit." : "",
-    !isPresent(profile.useOfFunds) ? "Use of funds is still too vague." : "",
+    ...profile.missing.slice(0, 3).map((item) => item),
+    !isPresent(profile.problem) ? "Problem statement needs to be made concrete." : "",
+    !isPresent(profile.customer) ? "Customer or buyer is not yet defined." : "",
+    !isPresent(profile.useOfFunds) ? "Use of funds is too vague." : "",
   ].filter(Boolean);
 
   const moduleScores = [
     {
       label: "Profile completeness",
       value: completeness,
-      note: "How much of the core company record is already present.",
+      note: "How complete the core company profile is.",
     },
     {
       label: "Evidence depth",
       value: evidence,
-      note: "What can already be shown, not just claimed.",
+      note: "Evidence you can show, not just claim.",
     },
     {
       label: "Narrative clarity",
       value: narrative,
-      note: "How clearly the company explains problem, customer, ask, and next step.",
+      note: "How clearly the problem, customer, ask, and next step are explained.",
     },
     {
-      label: "Diligence coverage",
+      label: "Due diligence readiness",
       value: diligence,
-      note: "Whether risks, missing items, and ownership questions are visible enough for a serious conversation.",
+      note: "Whether risks and open questions are visible to a reader.",
     },
     {
-      label: "Exposure framing",
+      label: "Risk & regulation",
       value: exposure,
-      note: "How well regulatory, transition, and IP context is translated into an actionable story.",
+      note: "How well you've explained the regulatory, climate transition, and IP context.",
     },
   ];
 
@@ -797,46 +805,30 @@ function computeBestLens(profile) {
 }
 
 function computeExposureCollection(profile) {
-  const info = profile.assessment.exposure;
   const fields = [
-    info.primaryJurisdiction,
-    info.regulatedActivity,
-    info.approvalPathKnown,
-    info.publicProcurementExposure,
-    info.personalDataExposure,
-    info.safetyCriticalExposure,
-    info.crossBorderConstraints,
-    info.certificationsNeeded,
+    profile.regulatory.level,
+    profile.transition.level,
+    profile.assessment.exposure.primaryJurisdiction,
   ];
-  return buildCollectionStatus(fields, "Exposure info collection", "Capture jurisdiction, approvals, certifications, procurement, data, and safety facts before assessment.");
+  return buildCollectionStatus(fields, "Regulatory exposure", "Context for the OpenEconomics team to run the regulatory and climate exposure analysis.");
 }
 
 function computeEsgCollection(profile) {
-  const esg = profile.assessment.esg;
-  const fields = [esg.questionnaireStatus, esg.questionnaireOwner, esg.targetDate, esg.questionnaireLink];
-  return buildCollectionStatus(fields, "ESG questionnaire handoff", "Track the external questionnaire owner, status, date, and link here instead of duplicating ESG questions in this room.");
+  const q = profile.assessment.esg.questionnaire;
+  const fields = [q.envTracking, q.envPolicy, q.emissionsImpact, q.diversityPolicy, q.wellbeingTracking, q.socialOutcome, q.hasBoard, q.ethicsPolicy, q.financialsReviewed];
+  return buildCollectionStatus(fields, "ESG questionnaire", "Fill in the 9 questions below — the OpenEconomics team reviews and scores your responses.");
 }
 
 function computeSroiCollection(profile) {
   const sroi = profile.assessment.sroi;
-  const fields = [
-    sroi.beneficiaryGroups,
-    sroi.primaryOutcome,
-    sroi.baselineAvailable,
-    sroi.outcomeEvidence,
-    sroi.measurementWindow,
-    sroi.monetizationProxyAvailable,
-    sroi.deadweightEstimated,
-    sroi.attributionDataAvailable,
-    sroi.annualReach,
-  ];
-  return buildCollectionStatus(fields, "SROI input collection", "Capture the assumptions and evidence needed to calculate SROI later. Do not estimate the return in this intake.");
+  const fields = [sroi.beneficiaryGroups, sroi.primaryOutcome, sroi.annualReach];
+  return buildCollectionStatus(fields, "Social impact data", "Three inputs for the OpenEconomics team to run the SROI calculation.");
 }
 
 function buildCollectionStatus(fields, label, detail) {
   const total = fields.length;
   const completed = fields.filter(hasCollectionValue).length;
-  const status = completed === total ? "Ready for assessment" : completed >= Math.ceil(total * 0.55) ? "Partially collected" : "Collection not ready";
+  const status = completed === total ? "Complete" : completed >= Math.ceil(total * 0.55) ? "In progress" : "Incomplete";
   return { total, completed, status, detail, label };
 }
 
@@ -869,17 +861,17 @@ function renderTopbar(profile, readiness) {
       <div class="topbar__brand">
         <img src="assets/logos/OpenEconomics-LOGO WHITE.svg" alt="OpenEconomics" />
         <div>
-          <p class="eyebrow">Startup submission room</p>
+          <p class="eyebrow">Preparation workspace</p>
           <h1>Foundry</h1>
         </div>
       </div>
       <div class="topbar__status">
         <span class="status-pill">${lens.short}</span>
         <span class="status-pill status-pill--accent">${readiness.overall}/100</span>
-        <span class="status-pill">Local-only edits</span>
+        <span class="status-pill">Saved locally</span>
       </div>
       <div class="topbar__actions">
-        <button class="button button--ghost" type="button" data-action="reset-profile">Restore example data</button>
+        <button class="button button--ghost" type="button" data-action="reset-profile">Reset to example</button>
         <button class="button" type="button" data-action="copy-memo">Copy memo</button>
       </div>
     </header>
@@ -891,11 +883,11 @@ function renderHero(profile, readiness, bestLens) {
   return `
     <section class="hero panel">
       <div class="hero__copy">
-        <p class="eyebrow">Founder preparation workspace</p>
-        <h2>Turn ${profile.name} into a submission room a serious counterparty can read in minutes.</h2>
+        <p class="eyebrow">Submission room</p>
+        <h2>Get ${profile.name} ready for a serious investor or partner to review in minutes.</h2>
         <p class="hero-copy">
-          Founders are not short on narrative. They are short on a clean proof path: what is being asked, why now, what evidence exists,
-          what remains uncertain, and which diligence items should be handled before outreach.
+          Founders rarely lack a story. What they often lack is a clean, readable proof path — what's being asked, why it matters now,
+          what evidence exists, what's still uncertain, and which open items should be resolved before outreach.
         </p>
         <div class="market-strip" aria-label="Market needs">
           ${marketSignals.map((signal) => `<span>${escapeHtml(signal)}</span>`).join("")}
@@ -904,23 +896,23 @@ function renderHero(profile, readiness, bestLens) {
       <div class="hero-ledger" aria-label="Readiness summary">
         <div class="hero-ledger__item">
           <strong>${readiness.overall}</strong>
-          <span>Submission readiness</span>
+          <span>Readiness score</span>
           <small>${readiness.status}</small>
         </div>
         <div class="hero-ledger__item">
           <strong>${countList(profile.evidence)}</strong>
           <span>Evidence items</span>
-          <small>Proof points currently visible in the room</small>
+          <small>Proof points visible in this room</small>
         </div>
         <div class="hero-ledger__item">
           <strong>${countList(profile.missing)}</strong>
           <span>Open gaps</span>
-          <small>Explicitly surfaced instead of hidden</small>
+          <small>Flagged rather than hidden</small>
         </div>
         <div class="hero-ledger__item">
           <strong>${bestLens.label}</strong>
-          <span>Strongest lane</span>
-          <small>Based on the current evidence mix and company shape</small>
+          <span>Best submission path</span>
+          <small>Based on the current profile and evidence</small>
         </div>
         <div class="hero-ledger__item hero-ledger__item--wide">
           <strong>${escapeHtml(insight.priorityLabel)}</strong>
@@ -938,8 +930,8 @@ function renderNavigator() {
   return `
     <aside class="navigator panel">
       <div class="panel-heading">
-        <p class="eyebrow">Company room</p>
-        <h2>Choose the case to prepare</h2>
+        <p class="eyebrow">Companies</p>
+        <h2>Select a company to prepare</h2>
       </div>
 
       <div class="field">
@@ -968,7 +960,7 @@ function renderNavigator() {
 
       <div class="panel-heading panel-heading--compact">
         <p class="eyebrow">${currentLens.eyebrow}</p>
-        <h2>Prepare for</h2>
+        <h2>Submission path</h2>
       </div>
 
       <div class="lens-explainer">
@@ -995,8 +987,8 @@ function renderNavigator() {
       </div>
 
       <div class="panel-heading panel-heading--compact">
-        <p class="eyebrow">Example rooms</p>
-        <h2>${profiles.length} company records</h2>
+        <p class="eyebrow">Example companies</p>
+        <h2>${profiles.length} ${profiles.length === 1 ? "company" : "companies"}</h2>
       </div>
 
       <div class="profile-list" role="list">
@@ -1030,7 +1022,7 @@ function renderStudio(profile, readiness) {
     <section class="studio">
       <div class="studio__header panel">
         <div class="studio__identity">
-          <p class="eyebrow">Active company</p>
+          <p class="eyebrow">Selected company</p>
           <h2>${escapeHtml(profile.name)}</h2>
           <p>${escapeHtml(profile.oneLiner)}</p>
         </div>
@@ -1044,7 +1036,7 @@ function renderStudio(profile, readiness) {
       </div>
 
       <div class="tabs panel">
-        <div class="tabs__bar" role="tablist" aria-label="Workspace tabs">
+        <div class="tabs__bar" role="tablist" aria-label="Studio tabs">
           ${tabs
             .map(
               ([key, label]) => `
@@ -1078,20 +1070,20 @@ function renderTabGuide(profile) {
   const filled = focusedFields.filter((field) => hasGuideValue(readPath(profile, field))).length;
   const tabCopy = {
     workspace: {
-      label: "Use this room as the operating map.",
-      detail: "Start from the guided process, then jump into the exact fields and evidence areas the lens needs.",
+      label: "Your preparation overview.",
+      detail: "Work through the steps below, then go to the specific fields and evidence areas this lens focuses on.",
     },
     intake: {
-      label: "Only edit what changes the selected submission path.",
-      detail: "Use the field map as a filter: tighten the fields that this lens will actually inspect before outreach.",
+      label: "Edit the fields that matter for this submission path.",
+      detail: "The field map at the top shows what the selected lens will review. Start there.",
     },
     evidence: {
-      label: "Stage proof against the reader's questions.",
-      detail: "Evidence should reduce a specific uncertainty, not simply add more material to the room.",
+      label: "Build evidence around what a reader will actually ask.",
+      detail: "Good evidence targets a specific question. Don't just add more — close the right gaps.",
     },
     memo: {
-      label: "Generate a concise output from the current room.",
-      detail: "The memo should reflect the selected lens and make remaining uncertainty easy to inspect.",
+      label: "Export a summary from this room.",
+      detail: "The memo adapts to the selected lens and surfaces what's still uncertain.",
     },
   }[state.tab];
 
@@ -1104,7 +1096,7 @@ function renderTabGuide(profile) {
       </div>
       <div class="tab-guide__status">
         <span>${filled}/${focusedFields.length}</span>
-        <p>Lens-critical fields with usable input</p>
+        <p>Fields ready for this lens</p>
       </div>
     </section>
   `;
@@ -1125,52 +1117,47 @@ function renderWorkspaceTab(profile, readiness) {
     <div class="content-grid">
       <section class="section-block section-block--wide room-brief">
         <div class="section-heading">
-          <p class="eyebrow">Active preparation path</p>
-          <h3>${escapeHtml(currentLens.label)} turns this room into a specific checklist</h3>
+          <p class="eyebrow">${escapeHtml(currentLens.eyebrow)}</p>
+          <h3>${escapeHtml(currentLens.label)}</h3>
         </div>
         <div class="room-brief__grid">
           <article class="room-brief__primary">
-            <span>Reader expectation</span>
+            <span>What this path is for</span>
             <strong>${escapeHtml(insight.openQuestion)}</strong>
-            <p>${escapeHtml(insight.openQuestionDetail)}</p>
+            <p>${escapeHtml(currentLens.intro)}</p>
           </article>
           <article class="room-step">
-            <span>1</span>
-            <strong>Clarify the case</strong>
-            <p>Make the problem, buyer, ask, and use of funds readable without a meeting.</p>
+            <span>Audience</span>
+            <strong>${escapeHtml(insight.audience)}</strong>
+            <p>${escapeHtml(insight.audienceReason)}</p>
           </article>
           <article class="room-step">
-            <span>2</span>
-            <strong>Stage proof</strong>
-            <p>${escapeHtml(insight.proofTarget)}: ${escapeHtml(insight.proofDetail)}</p>
+            <span>Best for</span>
+            <strong>When to use this lens</strong>
+            <p>${escapeHtml(currentLens.bestFor)}</p>
           </article>
           <article class="room-step">
-            <span>3</span>
-            <strong>Name the gaps</strong>
-            <p>${escapeHtml(collections.nextStep.detail)}</p>
+            <span>Output</span>
+            <strong>What a good result looks like</strong>
+            <p>${escapeHtml(currentLens.outcome)}</p>
           </article>
         </div>
       </section>
 
       <section class="section-block section-block--wide lens-panel">
         <div class="section-heading">
-          <p class="eyebrow">Guided lens process</p>
-          <h3>What to provide, where it goes, and how to find it</h3>
+          <p class="eyebrow">Step-by-step guide</p>
+          <h3>What to prepare, where it goes, and where to find it</h3>
         </div>
-        <div class="lens-panel__body">
-          <div class="lens-panel__intro">
-            <p>${escapeHtml(currentLens.intro)}</p>
-          </div>
-          <div class="guide-process">
-            ${renderLensGuide(profile, currentLens)}
-          </div>
+        <div class="guide-process">
+          ${renderLensGuide(profile, currentLens)}
         </div>
       </section>
 
       <section class="section-block section-block--wide lens-field-map">
         <div class="section-heading">
           <p class="eyebrow">Field map</p>
-          <h3>The selected lens is pointing at these parts of the room</h3>
+          <h3>Fields this lens will review</h3>
         </div>
         <div class="field-map-grid">
           ${renderLensFieldMap(profile, currentLens)}
@@ -1179,8 +1166,8 @@ function renderWorkspaceTab(profile, readiness) {
 
       <section class="section-block section-block--wide lens-panel">
         <div class="section-heading">
-          <p class="eyebrow">Readiness emphasis</p>
-          <h3>Why the score shifts when the lens changes</h3>
+          <p class="eyebrow">Score breakdown</p>
+          <h3>How this lens weights your readiness score</h3>
         </div>
         <div class="lens-panel__body lens-panel__body--compact">
           <p>${escapeHtml(currentLens.outcome)}</p>
@@ -1192,8 +1179,8 @@ function renderWorkspaceTab(profile, readiness) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Narrative</p>
-          <h3>What the company is trying to make legible</h3>
+          <p class="eyebrow">Company story</p>
+          <h3>The narrative in this room</h3>
         </div>
         <div class="key-lines">
           <article>
@@ -1217,8 +1204,8 @@ function renderWorkspaceTab(profile, readiness) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Commercial shape</p>
-          <h3>Core operating facts already in the profile</h3>
+          <p class="eyebrow">Key metrics</p>
+          <h3>Operating figures in the profile</h3>
         </div>
         <div class="metric-grid">
           ${renderMetric("Revenue", profile.metrics.revenue)}
@@ -1230,29 +1217,29 @@ function renderWorkspaceTab(profile, readiness) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Structured inputs</p>
-          <h3>What is ready to hand to a later assessment layer</h3>
+          <p class="eyebrow">Assessment inputs</p>
+          <h3>Data captured for later assessment</h3>
         </div>
         <div class="assessment-grid">
           ${renderCollectionCard("Exposure", collections.exposure)}
           ${renderCollectionCard("ESG questionnaire", collections.esg)}
           ${renderCollectionCard("SROI", collections.sroi)}
         </div>
-        <p class="model-note">This POC should capture information, not fake the final assessment logic. The model layer can come later.</p>
+        <p class="model-note">Data collected here feeds into the assessment model. Scores and final outputs will be generated in a later step.</p>
       </section>
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Current prep signal</p>
-          <h3>What works and what still needs work</h3>
+          <p class="eyebrow">Readiness signals</p>
+          <h3>What's working and what needs attention</h3>
         </div>
         <div class="two-column-list">
           <div>
-            <span>Strongest visible signals</span>
+            <span>What's working</span>
             <ul class="clean-list">${readiness.strongSignals.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
           </div>
           <div>
-            <span>Main blockers</span>
+            <span>Gaps to address</span>
             <ul class="clean-list muted-list">${readiness.blockers.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
           </div>
         </div>
@@ -1260,8 +1247,8 @@ function renderWorkspaceTab(profile, readiness) {
 
       <section class="section-block section-block--wide">
         <div class="section-heading">
-          <p class="eyebrow">Next preparation moves</p>
-          <h3>What to clean up before this room is circulated</h3>
+          <p class="eyebrow">Next steps</p>
+          <h3>Things to address before sharing this room</h3>
         </div>
         <div class="move-list">
           ${[...insight.nextMoves, ...collections.missingActions.slice(0, 1)]
@@ -1289,8 +1276,8 @@ function renderIntakeTab(profile) {
     <div class="form-layout">
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Lens-critical inputs</p>
-          <h3>Start with the fields this submission path needs most</h3>
+          <p class="eyebrow">Priority fields</p>
+          <h3>Start here — these fields matter most for this submission path</h3>
         </div>
         <div class="field-map-grid field-map-grid--compact">
           ${renderLensFieldMap(profile, lens)}
@@ -1299,8 +1286,8 @@ function renderIntakeTab(profile) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Core company record</p>
-          <h3>Edit the narrative fields founders actually need</h3>
+          <p class="eyebrow">Company profile</p>
+          <h3>Edit the core fields for this submission</h3>
         </div>
         <div class="form-grid">
           ${renderTextField("One-liner", "oneLiner", profile.oneLiner)}
@@ -1310,14 +1297,14 @@ function renderIntakeTab(profile) {
           ${renderTextField("Funding ask", "ask", profile.ask)}
           ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
           ${renderTextField("IP position", "ip", profile.ip, "textarea")}
-          ${renderTextField("Suggested next prep step", "nextStep", profile.nextStep, "textarea")}
+          ${renderTextField("Suggested next step", "nextStep", profile.nextStep, "textarea")}
         </div>
       </section>
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Profile selectors</p>
-          <h3>Use dropdowns where the answer should be standardized</h3>
+          <p class="eyebrow">Classification</p>
+          <h3>Standardized fields for consistent profiling</h3>
         </div>
         <div class="metric-form">
           ${renderSelectField("Sector", "sector", profile.sector, allSectors().filter((option) => option !== "All"))}
@@ -1329,8 +1316,8 @@ function renderIntakeTab(profile) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Commercial signals</p>
-          <h3>Keep the hard facts close to the story</h3>
+          <p class="eyebrow">Metrics</p>
+          <h3>Key commercial figures</h3>
         </div>
         <div class="metric-form">
           ${renderMetricField("Revenue", "revenue", profile.metrics.revenue)}
@@ -1342,87 +1329,72 @@ function renderIntakeTab(profile) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Exposure intake</p>
-          <h3>Capture the facts needed to assess regulatory and exposure risk</h3>
+          <p class="eyebrow">Regulatory exposure</p>
+          <h3>Three quick questions — our team handles the rest</h3>
         </div>
         <div class="assessment-summary">
           ${renderCollectionCard("Exposure collection", exposure)}
         </div>
+        <p class="model-note">Answer what you can. The OpenEconomics team will use these to run the full regulatory and climate exposure analysis — no expertise required on your end.</p>
         <div class="form-grid">
-          ${renderSelectField("Regulatory level", "regulatory.level", profile.regulatory.level, levelOptions)}
-          ${renderSelectField("Regulatory character", "regulatory.character", profile.regulatory.character, [
-            "Limited burden",
-            "Light burden",
-            "Operational standards",
-            "Demand tailwind",
-            "Demand tailwind with verification burden",
-            "Burden and defensibility",
-            "Market access and defensibility",
-            "Procurement burden and demand driver",
-          ])}
-          ${renderTextField("Regulatory note", "regulatory.note", profile.regulatory.note, "textarea")}
-          ${renderSelectField("Transition level", "transition.level", profile.transition.level, levelOptions)}
-          ${renderSelectField("Transition character", "transition.character", profile.transition.character, [
-            "Limited exposure",
-            "Tailwind",
-            "Tailwind with adoption friction",
-            "Tailwind with market-design risk",
-            "Efficiency tailwind",
-            "Productivity and energy-efficiency tailwind",
-          ])}
-          ${renderTextField("Transition note", "transition.note", profile.transition.note, "textarea")}
-          ${renderSelectField("Primary jurisdiction", "assessment.exposure.primaryJurisdiction", profile.assessment.exposure.primaryJurisdiction, geographyOptions)}
-          ${renderSelectField("Is the activity regulated?", "assessment.exposure.regulatedActivity", profile.assessment.exposure.regulatedActivity, yesNoOptions)}
-          ${renderSelectField("Is the approval path known?", "assessment.exposure.approvalPathKnown", profile.assessment.exposure.approvalPathKnown, yesNoOptions)}
-          ${renderTextField("Approval bodies or authorities", "assessment.exposure.approvalBodies", profile.assessment.exposure.approvalBodies, "textarea")}
-          ${renderSelectField("Public procurement exposure", "assessment.exposure.publicProcurementExposure", profile.assessment.exposure.publicProcurementExposure, yesNoOptions)}
-          ${renderSelectField("Personal data exposure", "assessment.exposure.personalDataExposure", profile.assessment.exposure.personalDataExposure, yesNoOptions)}
-          ${renderSelectField("Safety-critical deployment", "assessment.exposure.safetyCriticalExposure", profile.assessment.exposure.safetyCriticalExposure, yesNoOptions)}
-          ${renderSelectField("Cross-border constraints", "assessment.exposure.crossBorderConstraints", profile.assessment.exposure.crossBorderConstraints, yesNoOptions)}
-          ${renderTextField("Required certifications or audits", "assessment.exposure.certificationsNeeded", profile.assessment.exposure.certificationsNeeded, "textarea")}
-          ${renderTextField("Exposure notes", "assessment.exposure.note", profile.assessment.exposure.note, "textarea")}
+          ${renderSelectField("How much regulatory oversight does your activity face?", "regulatory.level", profile.regulatory.level, exposureLevelOptions)}
+          ${renderSelectField("How exposed is your company to climate or sustainability regulations?", "transition.level", profile.transition.level, exposureLevelOptions)}
+          ${renderSelectField("Primary market", "assessment.exposure.primaryJurisdiction", profile.assessment.exposure.primaryJurisdiction, geographyOptions)}
+          ${renderTextField("Anything else the team should know?", "assessment.exposure.note", profile.assessment.exposure.note, "textarea")}
         </div>
       </section>
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">ESG questionnaire</p>
-          <h3>Track the separate ESG questionnaire instead of duplicating it here</h3>
+          <p class="eyebrow">ESG tracking</p>
+          <h3>Your ESG questionnaire status</h3>
         </div>
         <div class="assessment-summary">
-          ${renderCollectionCard("ESG handoff", esg)}
+          ${renderCollectionCard("ESG questionnaire", esg)}
         </div>
-        ${profile.assessment.esg.questionnaireLink
-          ? `<a class="button" href="${escapeAttr(profile.assessment.esg.questionnaireLink)}" target="_blank" rel="noreferrer">Open questionnaire</a>`
-          : `<p class="model-note">Add the questionnaire link once the separate ESG form exists.</p>`}
+        <p class="model-note">Status updates automatically as you fill in the questionnaire below.</p>
+        <a class="button" onclick="document.getElementById('esg-questionnaire')?.scrollIntoView({behavior:'smooth'});return false;" href="#esg-questionnaire">Go to questionnaire</a>
+      </section>
+
+      <section class="section-block" id="esg-questionnaire">
+        <div class="section-heading">
+          <p class="eyebrow">ESG questionnaire</p>
+          <h3>Answer once — we use this across all assessments</h3>
+        </div>
+        <p class="model-note">Answer as honestly as you can. "Working on it" or "No" is fine — the OpenEconomics team reviews your responses and builds the ESG analysis from here.</p>
+        <p class="eyebrow" style="margin-top:1.5rem">Environment</p>
         <div class="form-grid">
-          ${renderSelectField("Questionnaire status", "assessment.esg.questionnaireStatus", profile.assessment.esg.questionnaireStatus, questionnaireStatusOptions)}
-          ${renderTextField("Questionnaire owner", "assessment.esg.questionnaireOwner", profile.assessment.esg.questionnaireOwner)}
-          ${renderTextField("Target completion date", "assessment.esg.targetDate", profile.assessment.esg.targetDate)}
-          ${renderTextField("Questionnaire link", "assessment.esg.questionnaireLink", profile.assessment.esg.questionnaireLink)}
-          ${renderTextField("ESG handoff notes", "assessment.esg.note", profile.assessment.esg.note, "textarea")}
+          ${renderSelectField("Do you track your company's energy use or carbon footprint?", "assessment.esg.questionnaire.envTracking", profile.assessment.esg.questionnaire.envTracking, esgQuestionOptions)}
+          ${renderSelectField("Do you have a written environmental or sustainability policy?", "assessment.esg.questionnaire.envPolicy", profile.assessment.esg.questionnaire.envPolicy, esgQuestionOptions)}
+          ${renderSelectField("Does your product or service directly reduce emissions, waste, or resource use?", "assessment.esg.questionnaire.emissionsImpact", profile.assessment.esg.questionnaire.emissionsImpact, esgQuestionOptions)}
+        </div>
+        <p class="eyebrow" style="margin-top:1.5rem">Social</p>
+        <div class="form-grid">
+          ${renderSelectField("Do you have a diversity or inclusion policy?", "assessment.esg.questionnaire.diversityPolicy", profile.assessment.esg.questionnaire.diversityPolicy, esgQuestionOptions)}
+          ${renderSelectField("Do you track employee satisfaction or wellbeing?", "assessment.esg.questionnaire.wellbeingTracking", profile.assessment.esg.questionnaire.wellbeingTracking, esgQuestionOptions)}
+          ${renderSelectField("Does your work create a measurable positive outcome for a specific community or group?", "assessment.esg.questionnaire.socialOutcome", profile.assessment.esg.questionnaire.socialOutcome, esgQuestionOptions)}
+        </div>
+        <p class="eyebrow" style="margin-top:1.5rem">Governance</p>
+        <div class="form-grid">
+          ${renderSelectField("Does the company have a board or advisory board?", "assessment.esg.questionnaire.hasBoard", profile.assessment.esg.questionnaire.hasBoard, esgQuestionOptions)}
+          ${renderSelectField("Do you have written policies for ethics or conflicts of interest?", "assessment.esg.questionnaire.ethicsPolicy", profile.assessment.esg.questionnaire.ethicsPolicy, esgQuestionOptions)}
+          ${renderSelectField("Are your financials reviewed by an external accountant or auditor?", "assessment.esg.questionnaire.financialsReviewed", profile.assessment.esg.questionnaire.financialsReviewed, esgQuestionOptions)}
         </div>
       </section>
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">SROI intake</p>
-          <h3>Capture the information needed to calculate SROI later</h3>
+          <p class="eyebrow">Social impact data</p>
+          <h3>Tell us who you help and what changes for them</h3>
         </div>
         <div class="assessment-summary">
           ${renderCollectionCard("SROI collection", sroi)}
         </div>
+        <p class="model-note">Three questions is all we need from you. The OpenEconomics team will handle the full Social Return on Investment calculation.</p>
         <div class="form-grid">
-          ${renderTextField("Beneficiary groups", "assessment.sroi.beneficiaryGroups", profile.assessment.sroi.beneficiaryGroups, "textarea")}
-          ${renderTextField("Primary outcome to value", "assessment.sroi.primaryOutcome", profile.assessment.sroi.primaryOutcome, "textarea")}
-          ${renderSelectField("Baseline available", "assessment.sroi.baselineAvailable", profile.assessment.sroi.baselineAvailable, yesNoOptions)}
-          ${renderSelectField("Outcome evidence", "assessment.sroi.outcomeEvidence", profile.assessment.sroi.outcomeEvidence, evidenceOptions)}
-          ${renderSelectField("Measurement window", "assessment.sroi.measurementWindow", profile.assessment.sroi.measurementWindow, timeframeOptions)}
-          ${renderSelectField("Monetization proxy available", "assessment.sroi.monetizationProxyAvailable", profile.assessment.sroi.monetizationProxyAvailable, yesNoOptions)}
-          ${renderSelectField("Deadweight estimated", "assessment.sroi.deadweightEstimated", profile.assessment.sroi.deadweightEstimated, yesNoOptions)}
-          ${renderSelectField("Attribution data available", "assessment.sroi.attributionDataAvailable", profile.assessment.sroi.attributionDataAvailable, yesNoOptions)}
-          ${renderTextField("Annual reach or number served", "assessment.sroi.annualReach", profile.assessment.sroi.annualReach)}
-          ${renderTextField("SROI notes", "assessment.sroi.note", profile.assessment.sroi.note, "textarea")}
+          ${renderTextField("Who benefits from what you do?", "assessment.sroi.beneficiaryGroups", profile.assessment.sroi.beneficiaryGroups, "textarea")}
+          ${renderTextField("What is the main outcome you create for them?", "assessment.sroi.primaryOutcome", profile.assessment.sroi.primaryOutcome, "textarea")}
+          ${renderTextField("How many people does this reach per year?", "assessment.sroi.annualReach", profile.assessment.sroi.annualReach)}
         </div>
       </section>
     </div>
@@ -1437,8 +1409,8 @@ function renderEvidenceTab(profile, readiness) {
     <div class="content-grid">
       <section class="section-block section-block--wide">
         <div class="section-heading">
-          <p class="eyebrow">Evidence plan</p>
-          <h3>The selected lens turns evidence into specific proof jobs</h3>
+          <p class="eyebrow">Evidence overview</p>
+          <h3>How this submission path shapes your evidence needs</h3>
         </div>
         <div class="guide-process">
           ${renderLensGuide(profile, lens)}
@@ -1447,20 +1419,20 @@ function renderEvidenceTab(profile, readiness) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Evidence room</p>
-          <h3>Line-by-line proof and what still needs to exist</h3>
+          <p class="eyebrow">Your evidence</p>
+          <h3>What you have, what's at risk, and what's missing</h3>
         </div>
         <div class="evidence-columns">
           ${renderTextareaField("Evidence available", "evidence", profile.evidence)}
-          ${renderTextareaField("Risks to state openly", "risks", profile.risks)}
-          ${renderTextareaField("Missing diligence or prep items", "missing", profile.missing)}
+          ${renderTextareaField("Risks to acknowledge", "risks", profile.risks)}
+          ${renderTextareaField("Missing items", "missing", profile.missing)}
         </div>
       </section>
 
       <section class="section-block">
         <div class="section-heading">
           <p class="eyebrow">${lensConfig[state.lens].eyebrow}</p>
-          <h3>Lens-specific preparation prompts</h3>
+          <h3>Preparation checklist</h3>
         </div>
         <ul class="clean-list prompt-list">
           ${lensConfig[state.lens].checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
@@ -1469,8 +1441,8 @@ function renderEvidenceTab(profile, readiness) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Counterparty question map</p>
-          <h3>Questions this room should answer before outreach</h3>
+          <p class="eyebrow">Key questions to answer</p>
+          <h3>What a reader will want to know before engaging</h3>
         </div>
         <div class="question-map">
           ${insight.counterpartyQuestions
@@ -1489,8 +1461,8 @@ function renderEvidenceTab(profile, readiness) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Explainability</p>
-          <h3>Why this room currently reads the way it does</h3>
+          <p class="eyebrow">Score breakdown</p>
+          <h3>Why your score looks like this</h3>
         </div>
         <div class="score-list">
           ${readiness.moduleScores
@@ -1519,7 +1491,7 @@ function renderMemoTab(profile, readiness) {
     <section class="memo">
       <div class="memo-prep">
         <div>
-          <p class="eyebrow">Memo logic</p>
+          <p class="eyebrow">How the memo is built</p>
           <h3>${escapeHtml(lens.outcome)}</h3>
           <p>${escapeHtml(lens.bestFor)}</p>
         </div>
@@ -1529,7 +1501,7 @@ function renderMemoTab(profile, readiness) {
       </div>
       <div class="memo__header">
         <div>
-          <p class="eyebrow">Generated output</p>
+          <p class="eyebrow">Generated memo</p>
           <h3>${lensConfig[state.lens].label}</h3>
         </div>
         <button class="button" type="button" data-action="copy-memo">Copy memo</button>
@@ -1552,7 +1524,7 @@ function renderReadinessRail(profile, readiness, bestLens) {
   return `
     <aside class="rail panel">
       <div class="panel-heading">
-        <p class="eyebrow">Readiness board</p>
+        <p class="eyebrow">Readiness</p>
         <h2>${readiness.status}</h2>
       </div>
 
@@ -1579,25 +1551,25 @@ function renderReadinessRail(profile, readiness, bestLens) {
       </div>
 
       <div class="rail-section">
-        <span>Suggested lane</span>
-        <p>${escapeHtml(bestLens.label)} currently reads strongest for ${profile.name}.</p>
+        <span>Best fit</span>
+        <p>${escapeHtml(bestLens.label)} is the strongest path for ${profile.name}.</p>
       </div>
 
       <div class="rail-section">
-        <span>Next preparation move</span>
+        <span>Next step</span>
         <p>${escapeHtml(collections.nextStep.detail)}</p>
       </div>
 
       <div class="rail-section">
-        <span>Immediate blockers</span>
+        <span>Current blockers</span>
         <ul class="clean-list muted-list">${readiness.blockers.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
       </div>
 
       <div class="rail-section">
-        <span>Why this is different</span>
+        <span>About this score</span>
         <p>
-          Regulatory and transition exposure are not treated as automatic negatives here. The platform asks the startup to interpret them as demand tailwinds,
-          operational burdens, market-access barriers, or defensibility signals depending on the case.
+          Regulatory environment and climate exposure aren't automatically bad for your score. We ask you to think about whether they
+          create market demand, add operational burden, limit market access, or make your position harder to copy — it depends on your situation.
         </p>
       </div>
     </aside>
@@ -1638,8 +1610,8 @@ function renderLensWeights(lens) {
     completeness: "Profile",
     evidence: "Evidence",
     narrative: "Narrative",
-    diligence: "Diligence",
-    exposure: "Exposure",
+    diligence: "Due diligence",
+    exposure: "Risk & reg.",
   };
   const maxWeight = Math.max(...Object.values(lens.weights));
   return Object.entries(lens.weights)
@@ -1661,7 +1633,7 @@ function renderLensGuide(profile, lens) {
     .map((step, index) => {
       const filled = step.fields.filter((field) => hasGuideValue(readPath(profile, field))).length;
       const total = step.fields.length;
-      const tab = step.destination.includes("Evidence room") ? "evidence" : "intake";
+      const tab = step.destination.includes("Evidence:") ? "evidence" : "intake";
       return `
         <article class="guide-step">
           <div class="guide-step__index">${index + 1}</div>
@@ -1671,12 +1643,12 @@ function renderLensGuide(profile, lens) {
               <strong>${escapeHtml(step.need)}</strong>
             </div>
             <div class="guide-step__detail">
-              <p><b>Where to put it:</b> ${escapeHtml(step.destination)}</p>
-              <p><b>How to find it:</b> ${escapeHtml(step.source)}</p>
+              <p><b>Where it goes:</b> ${escapeHtml(step.destination)}</p>
+              <p><b>Where to find it:</b> ${escapeHtml(step.source)}</p>
             </div>
             <div class="guide-step__footer">
-              <span>${filled}/${total} related fields already have content</span>
-              <button class="button button--small" type="button" data-action="set-tab" data-tab="${tab}">Open ${tab === "evidence" ? "evidence" : "edit"} area</button>
+              <span>${filled}/${total} fields already completed</span>
+              <button class="button button--small" type="button" data-action="set-tab" data-tab="${tab}">Go to ${tab === "evidence" ? "evidence" : "profile"}</button>
             </div>
           </div>
         </article>
@@ -1694,9 +1666,9 @@ function renderLensFieldMap(profile, lens) {
       return `
         <article class="field-map-card ${filled ? "is-filled" : ""}">
           <span>${escapeHtml(fieldLabel(field))}</span>
-          <strong>${filled ? "Present" : "Needs input"}</strong>
+          <strong>${filled ? "Complete" : "Missing"}</strong>
           <p>${escapeHtml(fieldPreview(value))}</p>
-          <button class="button button--small button--quiet" type="button" data-action="set-tab" data-tab="${fieldTab(field)}">${fieldTab(field) === "evidence" ? "Evidence room" : "Edit profile"}</button>
+          <button class="button button--small button--quiet" type="button" data-action="set-tab" data-tab="${fieldTab(field)}">${fieldTab(field) === "evidence" ? "Evidence" : "Edit"}</button>
         </article>
       `;
     })
@@ -1765,15 +1737,15 @@ function generateMemo(profile, readiness) {
   const insight = buildPreparationInsight(profile, readiness, bestLens);
   const collections = buildAssessmentCollections(profile);
   const firstSignal = readiness.strongSignals[0] || "The profile already contains a usable starting point.";
-  const firstBlocker = readiness.blockers[0] || "No blocker is currently dominating the room.";
+  const firstBlocker = readiness.blockers[0] || "No major blockers identified at this stage.";
   return [
     `${profile.name} is a ${profile.stage.toLowerCase()} ${profile.sector.toLowerCase()} company in ${profile.geography}. Under the ${lens.label.toLowerCase()} lens, the current submission readiness reads at ${readiness.overall}/100 and is best described as ${readiness.status.toLowerCase()}.`,
     `Core company story: ${profile.oneLiner} The stated customer is ${profile.customer.toLowerCase()} and the current ask is ${profile.ask.toLowerCase()}, with funds intended for ${profile.useOfFunds.toLowerCase()}.`,
     `Market-facing interpretation: ${insight.marketDetail} The best first audience is ${insight.audience.toLowerCase()} because ${insight.audienceReason.charAt(0).toLowerCase() + insight.audienceReason.slice(1)}`,
-    `Evidence available: ${profile.evidence.join("; ")}. Current traction reads as ${profile.metrics.traction.toLowerCase()} and the room already benefits from ${firstSignal.toLowerCase()}.`,
-    `Main item to sharpen next: ${firstBlocker.replace(/^Missing:\s*/i, "").replace(/\.$/, "")}. The suggested next preparation step is to ${profile.nextStep.charAt(0).toLowerCase() + profile.nextStep.slice(1)}.`,
+    `Evidence available: ${profile.evidence.join("; ")}. Current traction reads as ${profile.metrics.traction.toLowerCase()} and the profile already reflects ${firstSignal.toLowerCase()}.`,
+    `Main item to sharpen next: ${firstBlocker.replace(/^Missing:\s*/i, "").replace(/\.$/, "")}. Suggested next step: ${profile.nextStep.charAt(0).toLowerCase() + profile.nextStep.slice(1)}.`,
     `Preparation priority: ${insight.priorityDetail} The next useful proof package is ${insight.proofTarget.toLowerCase()}: ${insight.proofDetail.charAt(0).toLowerCase() + insight.proofDetail.slice(1)}`,
-    `Assessment collection status: exposure ${collections.exposure.completed}/${collections.exposure.total}, ESG questionnaire ${collections.esg.completed}/${collections.esg.total}, and SROI ${collections.sroi.completed}/${collections.sroi.total}. This room is collecting inputs for later assessment rather than calculating the final result.`,
+    `Assessment inputs collected: regulatory exposure ${collections.exposure.completed}/${collections.exposure.total}, ESG tracking ${collections.esg.completed}/${collections.esg.total}, SROI ${collections.sroi.completed}/${collections.sroi.total}. These feed into the assessment model and are not used to calculate a final result here.`,
     `Exposure framing: regulatory context is ${profile.regulatory.level.toLowerCase()} and described as ${profile.regulatory.character.toLowerCase()}, while transition context is ${profile.transition.level.toLowerCase()} and described as ${profile.transition.character.toLowerCase()}. The strongest downstream lane based on the current profile is ${bestLens.label.toLowerCase()}.`,
     `This note is based on the current profile only and should be used as a founder-side preparation output before outreach, not as financing advice or a substitute for third-party diligence.`,
   ].join("\n");
@@ -1789,110 +1761,110 @@ function buildPreparationInsight(profile, readiness, bestLens) {
   const isAi = /ai|data|infra|security|automation/.test(lowerSector);
 
   const marketRead = isAi
-    ? "AI and data stories need concrete deployment value"
+    ? "AI and data products need to show concrete deployment value"
     : isDeepTech
-      ? "Technical credibility needs a commercialization bridge"
+      ? "Strong technology needs a clear route to market"
       : isRegulated
-        ? "Regulatory burden can become defensibility if explained"
-        : "Proof quality matters more than broad market language";
+        ? "Regulation can work in your favor when explained clearly"
+        : "Proof quality matters more than broad market claims";
 
   const marketDetail = isAi
-    ? "The profile should make security, workflow value, margin structure, and defensibility visible because AI-adjacent markets are noisy and buyers compare quickly."
+    ? "The profile should show security credentials, real workflow impact, margin structure, and why you're hard to copy — AI markets are crowded and buyers compare options quickly."
     : isDeepTech
-      ? "The profile should connect technical validation to a narrow beachhead, qualification path, and credible buyer pull before asking a counterparty to believe the full platform story."
+      ? "The profile should connect technical validation to a specific first market, a qualification path, and real buyer interest — before asking anyone to believe the bigger vision."
       : isRegulated
-        ? "The profile should show how rules, procurement, certification, or compliance create both adoption friction and a reason the company may be hard to copy."
-        : "The profile should turn customer pain, traction, and use of funds into a practical preparation story that can survive a selective first review.";
+        ? "The profile should show how regulation, procurement requirements, or compliance create both challenges to adoption and reasons the company may be hard to replicate."
+        : "The profile should turn customer pain, traction, and use of funds into a clear preparation story that holds up under a critical first read.";
 
   const audience = bestLens.key === "partner"
     ? "Pilot or commercial partner"
     : bestLens.key === "commercialization"
-      ? "Commercialization operator"
+      ? "Commercialization partner or tech transfer office"
       : bestLens.key === "grant"
-        ? "Program or impact funder"
+        ? "Grant program or impact funder"
         : hasRevenue
           ? "Lead investor or sector specialist"
-          : "Friendly investor and design partner";
+          : "Early-stage investor or design partner";
 
   const audienceReason = bestLens.key === "partner"
-    ? "The current profile is strongest when it proves deployment value and reduces implementation ambiguity."
+    ? "The current profile is strongest when it proves deployment value and removes uncertainty about implementation."
     : bestLens.key === "commercialization"
-      ? "The company still benefits from translating technical assets into a clear route to market."
+      ? "The company would benefit most from translating its technical assets into a clear path to market."
       : bestLens.key === "grant"
-        ? "The strongest angle is measurable effect, exploitation logic, and delivery credibility."
+        ? "The strongest angle here is measurable impact, a clear commercialization plan, and delivery credibility."
         : hasRevenue
-          ? "There is enough operating signal to discuss milestone financing, provided the gaps are named plainly."
-          : "The case still needs sharper proof before broad circulation, so the first audience should help refine the evidence path.";
+          ? "There's enough operating evidence to have a financing conversation, as long as the open questions are named honestly."
+          : "The case needs sharper proof before broad outreach, so the first audience should help stress-test and refine the evidence.";
 
   const proofTarget = isRegulated
-    ? "Regulatory and implementation proof pack"
+    ? "Regulatory and implementation evidence"
     : isDeepTech
-      ? "Pilot economics and qualification roadmap"
+      ? "Pilot results and qualification roadmap"
       : hasRevenue
-        ? "Repeatability and unit-economics evidence"
-        : "Customer problem and willingness-to-pay proof";
+        ? "Proof of repeatable growth"
+        : "Customer problem and willingness to pay";
 
   const proofDetail = isRegulated
-    ? "Include rule exposure, required approvals or procurement steps, data or safety controls, and who owns operational risk after deployment."
+    ? "Show the regulatory requirements, any required approvals or procurement steps, data or safety controls, and who owns the risk after deployment."
     : isDeepTech
-      ? "Link TRL, external validation, cost curve, beachhead buyer, IP status, and the milestone that moves the company from technical proof to commercial evidence."
+      ? "Connect your technology maturity level, external validation, cost data, first target customer, IP status, and the milestone that moves you from technical proof to commercial evidence."
       : hasRevenue
-        ? "Show retention, margin path, sales efficiency, implementation effort, and why the next funding or partner step improves repeatability."
-        : "Replace market-size claims with named buyer pain, proof of urgency, and the smallest credible paid or pilot conversion path.";
+        ? "Show customer retention, margins, how efficient your sales process is, implementation effort, and why the next funding or partnership step makes growth more repeatable."
+        : "Replace market-size claims with a specific customer problem, proof that it's urgent, and the simplest credible path to a first paying customer or pilot.";
 
   const priorityLabel = readiness.overall >= 80
-    ? "Prepare circulation pack"
+    ? "Almost ready — prepare your outreach materials"
     : readiness.overall >= 64
-      ? "Close proof gaps"
-      : "Tighten the core case";
+      ? "Close the key gaps"
+      : "Strengthen the core case";
 
   const priorityDetail = readiness.overall >= 80
-    ? "The room is close enough to circulate selectively; focus on making evidence, risks, and ask easy to verify."
+    ? "You're nearly ready to share. Focus on making your evidence, risks, and ask easy for a reader to check."
     : readiness.overall >= 64
       ? `The story is usable, but ${firstMissing.toLowerCase()} should be made clearer before broad outreach.`
-      : "The profile still needs a stronger link between customer pain, evidence, ask, and next milestone.";
+      : "The profile needs a clearer connection between the problem you're solving, the evidence you have, what you're asking for, and what comes next.";
 
   const openQuestion = isRegulated
-    ? "What makes the regulated path worth the friction?"
+    ? "What makes this worth navigating the regulatory hurdles?"
     : isDeepTech
-      ? "What proves the technology can leave the lab or pilot?"
+      ? "What proves this can move from the lab into real-world use?"
       : hasRevenue
-        ? "Can the company repeat growth without service creep?"
-        : "Who urgently needs this enough to act now?";
+        ? "Can the company keep growing without the economics falling apart?"
+        : "Who needs this urgently enough to act now?";
 
   const openQuestionDetail = isRegulated
-    ? "A serious reader will look for the budget owner, approval path, timeline, and whether regulation creates demand or only delay."
+    ? "A serious reader will look for who owns the budget, what the approval path looks like, the timeline, and whether regulation creates demand or only delays it."
     : isDeepTech
-      ? "A serious reader will look for external validation, manufacturability, IP control, and a buyer-specific qualification route."
+      ? "A serious reader will look for external validation, whether it can be manufactured at scale, who owns the IP, and a realistic route to a first paying customer."
       : hasRevenue
-        ? "A serious reader will look for retention, margin, CAC payback, implementation load, and customer concentration."
-        : "A serious reader will look for named customer segments, buying triggers, willingness to pay, and a narrower first market.";
+        ? "A serious reader will look for retention rates, margins, how much it costs to acquire a customer, implementation effort, and how concentrated the customer base is."
+        : "A serious reader will look for specific customer types, what triggers them to buy, their willingness to pay, and a more focused first market.";
 
   const nextMoves = [
-    `Build a one-page proof pack around ${firstMissing.toLowerCase()} and connect it to the stated ${profile.ask.toLowerCase()}.`,
-    `Turn "${firstRisk}" into an owned diligence item with mitigation, evidence owner, and expected timing.`,
-    `Rewrite the next outreach note around ${audience.toLowerCase()}, not a generic investor audience.`,
+    `Put together a short proof summary around ${firstMissing.toLowerCase()} and connect it directly to the ask of ${profile.ask.toLowerCase()}.`,
+    `Address "${firstRisk}" as a known risk — document how you're managing it, who owns it, and when it will be resolved.`,
+    `Tailor your next outreach to ${audience.toLowerCase()} specifically, not a generic investor audience.`,
   ];
 
   const counterpartyQuestions = [
     {
-      label: "Demand",
-      question: "Why does this buyer or funder need to care now?",
+      label: "Urgency",
+      question: "Why does this investor or partner need to care right now?",
       answer: profile.transition.note,
     },
     {
-      label: "Proof",
-      question: "What evidence is available today, and what is still missing?",
-      answer: `${profile.evidence[0] || "Evidence still needs to be staged."} / Missing: ${firstMissing}.`,
+      label: "Evidence",
+      question: "What proof is available today, and what's still missing?",
+      answer: `${profile.evidence[0] || "Evidence still needs to be added."} / Still missing: ${firstMissing}.`,
     },
     {
-      label: "Execution",
-      question: "What has to happen after the ask is accepted?",
+      label: "Next steps",
+      question: "What happens after they say yes?",
       answer: profile.useOfFunds,
     },
     {
-      label: "Risk",
-      question: "Which uncertainty should be named before someone else names it?",
+      label: "Risks",
+      question: "Which risks should you name before they do?",
       answer: firstRisk,
     },
   ];
@@ -1926,15 +1898,15 @@ function buildAssessmentCollections(profile) {
   return {
     exposure: {
       ...exposure,
-      summary: `Collected ${exposure.completed} of ${exposure.total} key regulatory and exposure inputs.`,
+      summary: `${exposure.completed} of ${exposure.total} regulatory fields completed.`,
     },
     esg: {
       ...esg,
-      summary: `Collected ${esg.completed} of ${esg.total} ESG handoff items. The questionnaire itself should live elsewhere.`,
+      summary: `${esg.completed} of ${esg.total} ESG tracking fields completed.`,
     },
     sroi: {
       ...sroi,
-      summary: `Collected ${sroi.completed} of ${sroi.total} SROI inputs required for later calculation.`,
+      summary: `${sroi.completed} of ${sroi.total} SROI inputs completed.`,
     },
     nextStep: buildCollectionNextStep(exposure, esg, sroi),
     missingActions,
@@ -1943,9 +1915,9 @@ function buildAssessmentCollections(profile) {
 
 function buildCollectionNextStep(exposure, esg, sroi) {
   const items = [
-    { key: "Exposure intake", gap: exposure.total - exposure.completed, detail: "Finish the regulatory, procurement, data, and certification facts." },
-    { key: "ESG questionnaire handoff", gap: esg.total - esg.completed, detail: "Assign the questionnaire owner, date, and link instead of duplicating ESG questions here." },
-    { key: "SROI input pack", gap: sroi.total - sroi.completed, detail: "Capture beneficiaries, baseline, evidence, time horizon, and monetization inputs." },
+    { key: "Regulatory exposure", gap: exposure.total - exposure.completed, detail: "Fill in the regulatory level, climate exposure, and primary market." },
+    { key: "ESG questionnaire", gap: esg.total - esg.completed, detail: "Fill in the 9 questions across environment, social, and governance." },
+    { key: "Social impact data", gap: sroi.total - sroi.completed, detail: "Record who you help, the main outcome, and how many people you reach per year." },
   ].sort((a, b) => b.gap - a.gap);
 
   return {
@@ -1955,27 +1927,26 @@ function buildCollectionNextStep(exposure, esg, sroi) {
 }
 
 function nextMissingExposureAction(profile) {
-  const info = profile.assessment.exposure;
-  if (!hasCollectionValue(info.approvalPathKnown)) return "State whether the company needs a formal approval path.";
-  if (!hasCollectionValue(info.approvalBodies)) return "List the authority, regulator, or approval body involved.";
-  if (!hasCollectionValue(info.certificationsNeeded)) return "Capture the certifications, audits, or compliance regimes required.";
-  return "Review cross-border, procurement, data, and safety constraints before assessment.";
+  if (!hasCollectionValue(profile.regulatory.level)) return "Select the level of regulatory oversight your company faces.";
+  if (!hasCollectionValue(profile.transition.level)) return "Select your exposure to climate and sustainability regulations.";
+  if (!hasCollectionValue(profile.assessment.exposure.primaryJurisdiction)) return "Select the primary market your company operates in.";
+  return "Add any extra context in the notes field if useful.";
 }
 
 function nextMissingEsgAction(profile) {
-  const esg = profile.assessment.esg;
-  if (!hasCollectionValue(esg.questionnaireOwner)) return "Assign an owner for the external ESG questionnaire.";
-  if (!hasCollectionValue(esg.targetDate)) return "Set a target date for ESG questionnaire completion.";
-  if (!hasCollectionValue(esg.questionnaireLink)) return "Attach the questionnaire link once the separate form exists.";
-  return "Keep the ESG questionnaire outside this room and only track status here.";
+  const q = profile.assessment.esg.questionnaire;
+  if (!hasCollectionValue(q.envTracking)) return "Start with the environment section of the ESG questionnaire.";
+  if (!hasCollectionValue(q.diversityPolicy)) return "Continue with the social section of the ESG questionnaire.";
+  if (!hasCollectionValue(q.hasBoard)) return "Complete the governance section to finish the ESG questionnaire.";
+  return "Review your answers — the OpenEconomics team will take it from here.";
 }
 
 function nextMissingSroiAction(profile) {
   const sroi = profile.assessment.sroi;
-  if (!hasCollectionValue(sroi.beneficiaryGroups)) return "Name the beneficiary groups affected by the intervention.";
+  if (!hasCollectionValue(sroi.beneficiaryGroups)) return "Identify who this company's work directly affects.";
   if (!hasCollectionValue(sroi.primaryOutcome)) return "Define the main outcome that SROI should value.";
-  if (!hasCollectionValue(sroi.annualReach)) return "Estimate annual reach or number served before attempting SROI.";
-  return "Add baseline, evidence, deadweight, attribution, and proxy inputs before calculation.";
+  if (!hasCollectionValue(sroi.annualReach)) return "Estimate how many people you reach per year before attempting the social return calculation.";
+  return "Add baseline data, impact evidence, counterfactual estimate, attribution data, and financial proxy before calculating.";
 }
 
 function handleClick(event) {
@@ -2119,10 +2090,10 @@ function hasGuideValue(value) {
 
 function fieldPreview(value) {
   if (Array.isArray(value)) {
-    return value.length ? value.slice(0, 2).join("; ") : "No items added yet.";
+    return value.length ? value.slice(0, 2).join("; ") : "Nothing added yet.";
   }
   if (typeof value === "number") return String(value);
-  if (!hasGuideValue(value)) return "No usable input yet.";
+  if (!hasGuideValue(value)) return "Not filled in yet.";
   const text = String(value).trim();
   return text.length > 130 ? `${text.slice(0, 127)}...` : text;
 }
@@ -2135,11 +2106,11 @@ function fieldLabel(field) {
   const labels = {
     ask: "Funding ask",
     useOfFunds: "Use of funds",
-    nextStep: "Suggested next prep step",
+    nextStep: "Next step",
     evidence: "Evidence available",
     "metrics.traction": "Traction",
-    missing: "Missing diligence items",
-    risks: "Risks to state openly",
+    missing: "Missing items",
+    risks: "Risks to acknowledge",
     ip: "IP position",
     customer: "Customer and buyer",
     problem: "Problem statement",
@@ -2154,7 +2125,8 @@ function fieldLabel(field) {
     "assessment.sroi.baselineAvailable": "Baseline available",
     "assessment.sroi.outcomeEvidence": "Outcome evidence",
     "assessment.sroi.measurementWindow": "Measurement window",
-    "assessment.esg.questionnaireStatus": "ESG questionnaire status",
+    "assessment.esg.questionnaire.socialOutcome": "Social outcome",
+    "assessment.esg.questionnaire.envTracking": "Energy / carbon tracking",
   };
   return labels[field] || field;
 }
