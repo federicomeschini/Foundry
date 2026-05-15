@@ -1,39 +1,48 @@
-# Innovation Dealroom
+# Foundry
 
-Innovation Dealroom is a frontend-only proof of concept for an investor-facing startup discovery room. It helps answer:
+Foundry is a frontend-only proof of concept for a startup-facing submission room. It helps answer:
 
-> Which innovation opportunities are worth my attention, and why?
+> Is our company information structured well enough for investors, partners, or commercialization programs to work with?
 
-The app is static and uses embedded fictional startup data. It is not a backend product, crowdfunding platform, investment recommendation engine, valuation engine, or portfolio-management tool.
+This fork keeps the original static, no-backend constraint, but flips the product objective. The platform is now a founder-side workspace for assembling a cleaner company record, staging evidence, surfacing missing diligence, and generating a concise submission memo.
 
 ## What The POC Demonstrates
 
-- Adjustable investor preferences for sectors, stages, ticket size, geography, maturity / TRL, evidence depth, risk appetite, regulatory exposure, and transition exposure.
-- A curated opportunity queue of fictional startups across climate tech, health tech, AI/data infrastructure, energy, circular economy, agritech, mobility, deep tech materials, water tech, cybersecurity, medtech, and industrial automation.
-- Explainable estimated fit signals that show why an opportunity appears relevant and what still requires diligence.
-- Structured first-level dealroom tabs for screening rationale, evidence, risk exposure, missing diligence, and a mock investor brief.
-- Standalone company detail pages opened by clicking a startup card, with a shareable hash route and the full structured dossier on one screen.
-- Side-by-side comparison for up to three startups.
-- Cautious investor-facing language throughout: screening view, estimated fit, first-level risk signal, evidence available, requires diligence, and suggested next step.
+- Editable fictional startup profiles stored locally in the browser.
+- A founder-side intake flow for company narrative, customer definition, funding ask, use of funds, IP, regulatory framing, transition framing, traction, risks, and missing items.
+- Multiple submission lenses:
+  - Raise preparation
+  - Pilot partner outreach
+  - Research commercialization
+  - Grant and impact packaging
+- Explainable readiness logic showing:
+  - profile completeness
+  - evidence depth
+  - narrative clarity
+  - diligence coverage
+  - exposure framing
+- A generated submission memo based on the current profile and selected lens.
 
-## Design And Product Choices
+## Product Logic
 
-The visual system uses the OpenEconomics brand materials in the repository:
+The app uses local research already present in the repository, but translates it into startup-side preparation:
 
-- Primary foundation: black and white for structure and legibility.
-- Accent colors: Bluette `#4400B3` and Lime `#B9FF69`, used sparingly for status, focus, and high-value signals.
-- Typography: bundled OpenEconomics font assets, with Atkinson Hyperlegible Next for dense UI and Hedvig Letters Serif for the main product headline.
+- `knowledge_base/02-Due-Diligence-and-Risk-Assessment.md` informs what information tends to get challenged, verified, or requested.
+- `knowledge_base/04-Deal-Structuring-and-Risk-Mitigation.md` informs which ownership, IP, and financing details founders should make easier to inspect.
+- `target_proposal_research/02-Program-Analysis-Horizon-Results-Booster.md` informs the commercialization and KER-oriented packaging lens.
+- Regulatory and transition exposure are treated as context to interpret, not automatic negatives.
 
-Product logic is informed by the local venture-investment context files:
+## Design Direction
 
-- Mandate fit and sourcing logic from `knowledge_base/01-The-Investor-Mandate-and-Sourcing.md`.
-- Evidence, diligence, and fixable-vs-terminal risk framing from `knowledge_base/02-Due-Diligence-and-Risk-Assessment.md`.
-- Valuation uncertainty and scenario caution from `knowledge_base/03-Valuation-and-Quantifying-Uncertainty.md`.
-- Deal structuring watchpoints from `knowledge_base/04-Deal-Structuring-and-Risk-Mitigation.md`.
-- Reporting and exit-readiness concepts from `knowledge_base/05-Portfolio-Management-and-Exit-Mechanics.md`.
-- Research-to-market and TRL framing from `target_proposal_research/`.
+The visual system still uses OpenEconomics brand assets and the same institutional visual language:
 
-Regulatory and transition exposure are not treated as automatic negatives. The UI distinguishes demand tailwinds, operational burdens, market access barriers, and defensibility effects.
+- near-black / off-white editorial surfaces
+- Bluette as the brand anchor
+- Lime as a sparse signal accent
+- Atkinson Hyperlegible Next for interface density
+- Hedvig Letters Serif for key display moments
+
+The product should feel like a serious founder preparation room, not a startup marketplace or marketing page.
 
 ## Local Run
 
@@ -53,7 +62,7 @@ You can also open `index.html` directly in a browser.
 
 ## Static Deployment
 
-The repository is ready for GitHub Pages or any static host. The root files are the deployable site:
+The repository is still ready for GitHub Pages or any static host. The deployable site remains:
 
 ```text
 index.html
@@ -61,25 +70,21 @@ src/
 assets/
 ```
 
-For GitHub Pages:
+## Current Boundaries
 
-1. Push this repository to GitHub.
-2. In the repository settings, enable Pages.
-3. Set the source to the `main` branch and `/root`.
-4. Save and wait for the Pages URL to be published.
-
-## Mocked And Out Of Scope
-
-- All startup data is fictional and embedded in `src/app.js`.
-- Fit scores are deterministic mock screening logic, not financial advice or investment recommendations.
-- Generated investor briefs are static client-side text assembled from the mock data.
-- No authentication, backend persistence, document upload, real diligence workflow, real financial model, valuation engine, or investor suitability logic is included.
+- All company data is fictional and embedded in `src/app.js`.
+- Edits are local-only and persisted through browser storage; there is no backend persistence.
+- Readiness outputs are deterministic heuristics based on the visible profile, not financing advice and not automated diligence.
+- No authentication, document upload, real CRM, cap-table engine, valuation engine, or investor matching logic is included.
 
 ## Repository Commands
 
 ```bash
 npm start
 npm run build
+node --check src/app.js
+node --check scripts/serve.mjs
+node --check scripts/check-static.mjs
 ```
 
 `npm run build` performs a lightweight static file presence check. There is no bundling step because the POC is intentionally dependency-free.
@@ -87,18 +92,3 @@ npm run build
 ## Agent Development
 
 Future coding agents should start with `AGENTS.md`. A lowercase `agent.md` pointer and `.github/copilot-instructions.md` are also included for tool compatibility.
-
-## Push Commands
-
-GitHub CLI was not available in the current environment.
-
-`git init` was also attempted locally, but this OneDrive-managed folder blocked Git from creating its normal lock/config files. The failed Git metadata was removed so the project is clean. If the same issue appears again, move or copy the folder to a non-OneDrive path, then run:
-
-```bash
-git init
-git add -A
-git commit -m "Build Innovation Dealroom POC"
-git branch -M main
-git remote add origin https://github.com/<your-user>/<your-repo>.git
-git push -u origin main
-```

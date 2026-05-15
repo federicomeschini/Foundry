@@ -1,33 +1,33 @@
 # Agent Development Guide
 
-This file is the primary handoff document for coding agents working on Innovation Dealroom.
+This file is the primary handoff document for coding agents working on Foundry.
 
 ## Project Summary
 
-Innovation Dealroom is a frontend-only static POC for an investor-facing startup discovery and first-level dealroom experience. It helps an investor understand which fictional innovation opportunities deserve attention and why.
+Foundry is a frontend-only static POC for a startup-facing submission room. It helps founders, startup operators, and commercialization teams structure company information before outreach to investors, pilot partners, accelerators, or public-program operators.
 
-The app is not a backend product, crowdfunding platform, investment recommendation engine, valuation engine, or portfolio-management tool. Keep all product language cautious and explainable.
+The app is not a backend product, CRM, crowdfunding platform, investment recommendation engine, valuation engine, or live diligence platform. Keep product language cautious and preparation-oriented.
 
 ## Core User Jobs
 
-- Adjust basic investor preferences.
-- Browse fictional startup opportunities.
-- Filter by sector, stage, ticket size, geography, TRL, risk appetite, regulatory exposure, transition exposure, and evidence available.
-- Open a structured first-level dealroom.
-- Compare a few startups side by side.
-- Generate a concise mock investor brief.
+- Create or edit a structured startup profile.
+- Clarify customer, problem, business model, ask, and use of funds.
+- Stage evidence, traction, IP, regulatory context, and transition context in one place.
+- Surface what is still missing before outreach.
+- Read a deterministic readiness view based on the current profile.
+- Generate a concise startup submission memo.
 
 ## Repository Map
 
 - `index.html`: static app entrypoint.
-- `src/app.js`: embedded mock data, scoring/screening logic, rendering, and interactions.
+- `src/app.js`: embedded fictional profiles, local editing logic, readiness scoring, rendering, and interactions.
 - `src/styles.css`: full visual system and responsive UI.
 - `assets/fonts/`: local OpenEconomics font assets used by the app.
 - `assets/logos/`: local OpenEconomics logo assets used by the app.
 - `scripts/serve.mjs`: dependency-free local static server.
 - `scripts/check-static.mjs`: lightweight static project check.
-- `knowledge_base/`: venture decision-making, diligence, valuation, deal structuring, and exit context.
-- `target_proposal_research/`: META Group / Horizon Results Booster context.
+- `knowledge_base/`: venture diligence, valuation, structuring, and exit context used as a preparation reference layer.
+- `target_proposal_research/`: META Group / Horizon Results Booster context informing commercialization-oriented packaging.
 - `Branding and frontend/`: source brand assets and design guidance.
 
 ## Commands
@@ -53,34 +53,32 @@ The app can also be opened directly through `index.html`.
 ## Technical Constraints
 
 - Keep the product frontend-only and static.
-- Do not introduce a backend, database, API dependency, authentication, or network runtime requirement.
-- Keep mock startup data embedded locally unless the user explicitly asks for a different architecture.
+- Do not introduce a backend, database, authentication layer, or network runtime requirement.
+- Keep fictional startup profiles embedded locally unless the user explicitly asks for a different architecture.
+- Local browser storage is acceptable for draft persistence because it keeps the POC frontend-only.
 - Prefer dependency-free code unless a clear maintainability gain justifies adding tooling.
 - If adding a package, update `package.json`, document the reason, and verify install/run instructions.
 - Keep files ASCII unless an existing file or brand asset requires otherwise.
 
 ## Product Language Rules
 
-Use cautious investor-facing language:
+Use cautious startup-facing language:
 
-- `estimated fit`
-- `screening view`
-- `first-level risk signal`
+- `submission readiness`
+- `based on the current profile`
 - `evidence available`
-- `requires diligence`
-- `based on current evidence`
-- `suggested next step`
-- `not an investment recommendation`
+- `requires clarification`
+- `open diligence item`
+- `suggested next preparation step`
+- `not financing advice`
 
 Avoid:
 
 - `recommended investment`
 - `predicted return`
-- `true risk`
 - `guaranteed fit`
 - `safe investment`
 - `best deal`
-- `undervalued`
 - `invest now`
 - `this company will succeed`
 
@@ -88,7 +86,7 @@ Regulatory and transition exposure must not be treated as automatically negative
 
 ## UX And Visual Direction
 
-The interface should feel like a serious investor command room, not a startup directory or marketing landing page.
+The interface should feel like a serious founder preparation room, not a startup marketplace or marketing landing page.
 
 - Use OpenEconomics brand assets.
 - Foundation: near-black / off-white surfaces, not pure black / white in CSS surfaces.
@@ -96,38 +94,42 @@ The interface should feel like a serious investor command room, not a startup di
 - Use Lime sparingly for focus, confirmation, or high-value signals.
 - Use Atkinson Hyperlegible Next for dense UI.
 - Use Hedvig Letters Serif only for sparse editorial emphasis.
-- Keep cards purposeful. Avoid nested cards.
+- Keep panels purposeful. Avoid card spam and nested-card clutter.
 - Maintain clear scanability, strong hierarchy, and visible focus states.
 - Do not use gradient text or colored side-stripe card accents.
-- Keep mobile functional; reflow rather than hiding critical decision data.
+- Keep mobile functional; reflow rather than hiding critical preparation data.
 
 ## Mock Data Requirements
 
-Each startup should remain credible enough to support browsing, filtering, comparison, and a structured dealroom. When editing or adding startups, include:
+Each fictional startup should remain credible enough to support editing, preparation, and memo generation. When editing or adding companies, include:
 
-- Sector, stage, geography, TRL, ticket / ask.
-- Use of funds and business model.
+- Sector, stage, geography, and TRL.
+- One-line company description.
+- Problem and customer definition.
+- Ask and use of funds.
+- Business model.
 - Evidence available.
 - IP status.
 - Regulatory exposure and interpretation.
 - Transition exposure and interpretation.
-- Risk signals.
-- Investment rationale.
-- Missing diligence.
+- Risks.
+- Missing diligence or preparation items.
 - Suggested next step.
 - Basic metrics for revenue, runway, gross margin, and traction.
 
 ## Explainability Model
 
-Do not expose a score without explaining it. The current UI separates:
+Do not expose a readiness score without explaining it. The UI should keep the logic visible and deterministic.
 
-- Investment fit.
-- Evidence strength.
-- Risk severity.
-- Data confidence.
-- Diligence completeness.
+The current fork separates:
 
-If scoring logic changes, keep the explanation trail visible and deterministic. This POC should make uncertainty easier to inspect, not hide it behind a black-box score.
+- Profile completeness.
+- Evidence depth.
+- Narrative clarity.
+- Diligence coverage.
+- Exposure framing.
+
+If readiness logic changes, keep the explanation trail visible. This POC should make uncertainty easier to inspect, not hide it behind a black-box score.
 
 ## QA Checklist
 
@@ -140,10 +142,10 @@ node --check scripts/serve.mjs
 node --check scripts/check-static.mjs
 ```
 
-Also scan product surfaces for forbidden language and obvious design anti-patterns. Do not include this guide in the language scan because it intentionally lists phrases to avoid.
+Also scan product surfaces for startup-facing language consistency and obvious design anti-patterns. Do not include this guide in the language scan because it intentionally lists phrases to avoid.
 
 ```powershell
-Select-String -Path src\app.js,README.md,index.html -Pattern "recommended investment|predicted return|true risk|guaranteed fit|safe investment|invest now|best deal|undervalued|will succeed" -CaseSensitive:$false
+Select-String -Path src\app.js,README.md,index.html -Pattern "recommended investment|predicted return|guaranteed fit|safe investment|invest now|best deal|will succeed" -CaseSensitive:$false
 Select-String -Path src\styles.css -Pattern "border-left:\s*[2-9]|border-right:\s*[2-9]|background-clip:\s*text|-webkit-background-clip:\s*text|#000|#fff" -CaseSensitive:$false
 ```
 
@@ -163,7 +165,7 @@ If Git still fails here, move or copy the project to a non-OneDrive path and run
 ```bash
 git init
 git add -A
-git commit -m "Build Innovation Dealroom POC"
+git commit -m "Build Foundry POC"
 git branch -M main
 git remote add origin https://github.com/<your-user>/<your-repo>.git
 git push -u origin main
@@ -174,13 +176,13 @@ git push -u origin main
 - Keep edits scoped.
 - Preserve the local context folders; they are part of the source material for future agents.
 - Do not mechanically copy context-file content into the UI.
-- Translate investment concepts into refined, investor-facing product logic.
+- Translate diligence, funding, and commercialization concepts into refined startup-facing product logic.
 - Prefer `apply_patch` for manual edits.
 - Do not remove brand assets or knowledge-base files unless the user explicitly asks.
 
 ## Commit Message Style
 
 - Match the existing repo history rather than using bare, dry summaries.
-- Prefer a scoped subject plus a short explanatory tail when the change benefits from context, for example: `feat(tentative): add AI analyst layer — frontend-only, no API`.
+- Prefer a scoped subject plus a short explanatory tail when the change benefits from context, for example: `feat(foundry): shift platform to startup-side readiness workspace`.
 - Keep the first words informative and specific about the user-facing or technical effect.
 - Use the longer form for meaningful feature work, UX changes, and docs that explain behavior; reserve terse subjects for tiny mechanical fixes.

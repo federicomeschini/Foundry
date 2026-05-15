@@ -1,8 +1,8 @@
 {
-  "name": "innovation-dealroom-poc",
+  "name": "innovation-foundry-poc",
   "version": "0.1.0",
   "private": true,
-  "description": "Frontend-only Innovation Dealroom POC for explainable startup screening.",
+  "description": "Frontend-only startup submission room POC for structuring company information, evidence, and readiness.",
   "type": "module",
   "scripts": {
     "start": "node scripts/serve.mjs",
