@@ -317,6 +317,7 @@ const tabs = [
   ["intake", "Profile"],
   ["evidence", "Evidence"],
   ["memo", "Memo"],
+  ["esg", "ESG"],
 ];
 
 const marketSignals = [
@@ -501,6 +502,8 @@ const state = {
   sector: "All",
   stage: "All",
   tab: "workspace",
+  onboarding: typeof localStorage !== "undefined" && !localStorage.getItem(STORAGE_KEY),
+  draft: { name: "", sector: "", stage: "", geography: "", ask: "", roundType: "", oneLiner: "" },
 };
 
 syncStateFromHash();
@@ -833,6 +836,11 @@ function buildCollectionStatus(fields, label, detail) {
 }
 
 function render() {
+  if (state.onboarding) {
+    app.innerHTML = renderOnboarding();
+    return;
+  }
+
   const profile = activeProfile();
   const readiness = computeReadiness(profile);
   const bestLens = computeBestLens(profile);
@@ -852,6 +860,110 @@ function render() {
       </main>
     </div>
   `;
+}
+
+function renderOnboarding() {
+  const d = state.draft;
+  const roundOptions = ["Pre-seed", "Seed", "Series A", "Series B+", "Grant", "Strategic partnership"];
+  const sectorOptions = allSectors().filter((s) => s !== "All");
+  const stageOptions = allStages().filter((s) => s !== "All");
+
+  const makeSelect = (field, placeholder, options, current) => `
+    <div class="field">
+      <label><span>${escapeHtml(placeholder)}</span>
+        <select class="select-input" data-draft="${escapeAttr(field)}">
+          <option value="" ${!current ? "selected" : ""}>Select…</option>
+          ${options.map((o) => `<option value="${escapeAttr(o)}" ${o === current ? "selected" : ""}>${escapeHtml(o)}</option>`).join("")}
+        </select>
+      </label>
+    </div>`;
+
+  const makeText = (field, placeholder, current) => `
+    <div class="field">
+      <label><span>${escapeHtml(placeholder)}</span>
+        <input class="text-input" type="text" data-draft="${escapeAttr(field)}" value="${escapeAttr(current)}" placeholder="${escapeAttr(placeholder)}" />
+      </label>
+    </div>`;
+
+  return `
+    <div class="shell">
+      <header class="topbar">
+        <div class="topbar__brand">
+          <img src="assets/logos/OpenEconomics-LOGO WHITE.svg" alt="OpenEconomics" />
+          <div>
+            <p class="eyebrow">Preparation workspace</p>
+            <h1>Foundry</h1>
+          </div>
+        </div>
+      </header>
+      <main id="main" class="onboarding-page">
+        <div class="onboarding-split">
+          <div class="onboarding-ask">
+            <div>
+              <p class="eyebrow">Start here</p>
+              <h2>How much are you raising?</h2>
+              <p>Your workspace is built around the ask. Start here and we'll guide you through the rest.</p>
+            </div>
+            <div class="form-grid">
+              ${makeSelect("roundType", "Round type", roundOptions, d.roundType)}
+              ${makeText("ask", "Target amount — e.g. €1.5M", d.ask)}
+            </div>
+          </div>
+          <div class="onboarding-form">
+            <div class="section-heading">
+              <p class="eyebrow">Your company</p>
+              <h3>A few details to personalise your workspace</h3>
+            </div>
+            <div class="form-grid">
+              ${makeText("name", "Company name", d.name)}
+              ${makeSelect("sector", "Sector", sectorOptions, d.sector)}
+              ${makeSelect("stage", "Current stage", stageOptions, d.stage)}
+              ${makeSelect("geography", "Primary market", geographyOptions, d.geography)}
+            </div>
+            <div class="field">
+              <label><span>One-liner (optional)</span>
+                <input class="text-input" type="text" data-draft="oneLiner" value="${escapeAttr(d.oneLiner)}" placeholder="Describe what you do in one sentence" />
+              </label>
+            </div>
+            <div class="onboarding-cta">
+              <button class="button" data-action="start-preparing">Start preparing</button>
+              <button class="onboarding-skip" data-action="skip-onboarding">Load an example company instead</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  `;
+}
+
+function createProfileFromDraft(draft) {
+  const id = `custom-${Date.now().toString(36)}`;
+  const template = {
+    id,
+    name: draft.name || "My company",
+    tagline: draft.oneLiner || "",
+    sector: draft.sector || "Climate tech",
+    stage: draft.stage || "Seed",
+    geography: draft.geography || "European Union",
+    problem: "",
+    solution: "",
+    oneLiner: draft.oneLiner || "",
+    trl: "",
+    ip: "",
+    customer: "",
+    model: "",
+    ask: draft.ask || "",
+    useOfFunds: "",
+    nextStep: "",
+    evidence: [],
+    missing: [],
+    risks: [],
+    regulatory: { level: "Low", character: "Minimal regulatory impact", note: "" },
+    transition: { level: "Low", character: "Minimal climate exposure", note: "" },
+    tags: [],
+    metrics: { revenue: "", runway: "", grossMargin: "", traction: "" },
+  };
+  return mergeProfile(template);
 }
 
 function renderTopbar(profile, readiness) {
@@ -1085,6 +1197,10 @@ function renderTabGuide(profile) {
       label: "Export a summary from this room.",
       detail: "The memo adapts to the selected lens and surfaces what's still uncertain.",
     },
+    esg: {
+      label: "Fill in the ESG questionnaire.",
+      detail: "Questions are tailored to your sector. Answer what you can — the OpenEconomics team scores your responses.",
+    },
   }[state.tab];
 
   return `
@@ -1106,6 +1222,7 @@ function renderTabContent(profile, readiness) {
   if (state.tab === "intake") return renderIntakeTab(profile);
   if (state.tab === "evidence") return renderEvidenceTab(profile, readiness);
   if (state.tab === "memo") return renderMemoTab(profile, readiness);
+  if (state.tab === "esg") return renderEsgTab(profile);
   return renderWorkspaceTab(profile, readiness);
 }
 
@@ -1352,34 +1469,8 @@ function renderIntakeTab(profile) {
         <div class="assessment-summary">
           ${renderCollectionCard("ESG questionnaire", esg)}
         </div>
-        <p class="model-note">Status updates automatically as you fill in the questionnaire below.</p>
-        <a class="button" onclick="document.getElementById('esg-questionnaire')?.scrollIntoView({behavior:'smooth'});return false;" href="#esg-questionnaire">Go to questionnaire</a>
-      </section>
-
-      <section class="section-block" id="esg-questionnaire">
-        <div class="section-heading">
-          <p class="eyebrow">ESG questionnaire</p>
-          <h3>Answer once — we use this across all assessments</h3>
-        </div>
-        <p class="model-note">Answer as honestly as you can. "Working on it" or "No" is fine — the OpenEconomics team reviews your responses and builds the ESG analysis from here.</p>
-        <p class="eyebrow" style="margin-top:1.5rem">Environment</p>
-        <div class="form-grid">
-          ${renderSelectField("Do you track your company's energy use or carbon footprint?", "assessment.esg.questionnaire.envTracking", profile.assessment.esg.questionnaire.envTracking, esgQuestionOptions)}
-          ${renderSelectField("Do you have a written environmental or sustainability policy?", "assessment.esg.questionnaire.envPolicy", profile.assessment.esg.questionnaire.envPolicy, esgQuestionOptions)}
-          ${renderSelectField("Does your product or service directly reduce emissions, waste, or resource use?", "assessment.esg.questionnaire.emissionsImpact", profile.assessment.esg.questionnaire.emissionsImpact, esgQuestionOptions)}
-        </div>
-        <p class="eyebrow" style="margin-top:1.5rem">Social</p>
-        <div class="form-grid">
-          ${renderSelectField("Do you have a diversity or inclusion policy?", "assessment.esg.questionnaire.diversityPolicy", profile.assessment.esg.questionnaire.diversityPolicy, esgQuestionOptions)}
-          ${renderSelectField("Do you track employee satisfaction or wellbeing?", "assessment.esg.questionnaire.wellbeingTracking", profile.assessment.esg.questionnaire.wellbeingTracking, esgQuestionOptions)}
-          ${renderSelectField("Does your work create a measurable positive outcome for a specific community or group?", "assessment.esg.questionnaire.socialOutcome", profile.assessment.esg.questionnaire.socialOutcome, esgQuestionOptions)}
-        </div>
-        <p class="eyebrow" style="margin-top:1.5rem">Governance</p>
-        <div class="form-grid">
-          ${renderSelectField("Does the company have a board or advisory board?", "assessment.esg.questionnaire.hasBoard", profile.assessment.esg.questionnaire.hasBoard, esgQuestionOptions)}
-          ${renderSelectField("Do you have written policies for ethics or conflicts of interest?", "assessment.esg.questionnaire.ethicsPolicy", profile.assessment.esg.questionnaire.ethicsPolicy, esgQuestionOptions)}
-          ${renderSelectField("Are your financials reviewed by an external accountant or auditor?", "assessment.esg.questionnaire.financialsReviewed", profile.assessment.esg.questionnaire.financialsReviewed, esgQuestionOptions)}
-        </div>
+        <p class="model-note">Status updates automatically as you fill in the questionnaire.</p>
+        <button class="button" data-action="set-tab" data-tab="esg">Go to questionnaire</button>
       </section>
 
       <section class="section-block">
@@ -1396,6 +1487,99 @@ function renderIntakeTab(profile) {
           ${renderTextField("What is the main outcome you create for them?", "assessment.sroi.primaryOutcome", profile.assessment.sroi.primaryOutcome, "textarea")}
           ${renderTextField("How many people does this reach per year?", "assessment.sroi.annualReach", profile.assessment.sroi.annualReach)}
         </div>
+      </section>
+    </div>
+  `;
+}
+
+function getEsgQuestions(sector) {
+  const base = [
+    { key: "envTracking", group: "Environment", label: "Do you track your company's energy use or carbon footprint?" },
+    { key: "envPolicy", group: "Environment", label: "Do you have a written environmental or sustainability policy?" },
+    { key: "emissionsImpact", group: "Environment", label: "Does your product or service directly reduce emissions, waste, or resource use?" },
+    { key: "diversityPolicy", group: "Social", label: "Do you have a diversity or inclusion policy?" },
+    { key: "wellbeingTracking", group: "Social", label: "Do you track employee satisfaction or wellbeing?" },
+    { key: "socialOutcome", group: "Social", label: "Does your work create a measurable positive outcome for a specific community or group?" },
+    { key: "hasBoard", group: "Governance", label: "Does the company have a board or advisory board?" },
+    { key: "ethicsPolicy", group: "Governance", label: "Do you have written policies for ethics or conflicts of interest?" },
+    { key: "financialsReviewed", group: "Governance", label: "Are your financials reviewed by an external accountant or auditor?" },
+  ];
+  const overrides = {
+    "Climate tech": {
+      envTracking: "Do you track the emissions your product avoids or reduces, at scale?",
+      emissionsImpact: "Is reducing emissions, waste, or resource use the core purpose of your product?",
+      socialOutcome: "Does your technology improve access to clean energy or sustainable resources for underserved communities?",
+    },
+    "Energy": {
+      envTracking: "Do you track the carbon or resource impact of your energy product or service?",
+      emissionsImpact: "Does your product directly replace or reduce fossil fuel use?",
+      socialOutcome: "Does your product improve energy access or affordability for underserved communities?",
+    },
+    "Circular economy": {
+      envTracking: "Do you track material flows, waste reduction, or lifecycle emissions in your operations?",
+      emissionsImpact: "Does your business model extend product life, recover materials, or eliminate waste?",
+      socialOutcome: "Does your model create economic opportunities from waste or resource recovery for local communities?",
+    },
+    "Health tech": {
+      emissionsImpact: "Does your product reduce waste, energy use, or chemical use in healthcare settings?",
+      socialOutcome: "Does your product directly improve patient outcomes or expand access to care?",
+    },
+    "AI/data infrastructure": {
+      envTracking: "Do you track the energy consumption of your cloud infrastructure or data centers?",
+      emissionsImpact: "Does your software help customers reduce their own emissions or resource use?",
+      socialOutcome: "Do you have policies to ensure your technology does not cause harm to vulnerable groups?",
+    },
+    "Cybersecurity": {
+      emissionsImpact: "Do you consider environmental impact in your infrastructure choices (e.g. server efficiency, cloud provider)?",
+      socialOutcome: "Does your product protect individuals or communities from digital harm?",
+    },
+    "Agritech": {
+      envTracking: "Do you track land use, water use, or emissions in your operations or supply chain?",
+      emissionsImpact: "Does your product reduce food waste, improve soil health, or lower agricultural emissions?",
+      socialOutcome: "Does your product improve livelihoods or food security for farmers or rural communities?",
+    },
+    "Water tech": {
+      envTracking: "Do you measure the water savings or efficiency gains your product delivers?",
+      emissionsImpact: "Does your product reduce water waste, contamination, or energy use in water systems?",
+      socialOutcome: "Does your product improve access to clean water for underserved communities?",
+    },
+    "Deep tech materials": {
+      envTracking: "Do you track the lifecycle emissions or resource use of your materials?",
+      emissionsImpact: "Do your materials enable lower-emissions manufacturing or replace virgin resource extraction?",
+    },
+    "Industrial automation": {
+      envTracking: "Do you track the energy or emissions savings your automation delivers to clients?",
+      emissionsImpact: "Does your automation reduce energy use, waste, or emissions in industrial processes?",
+    },
+  };
+  const sectorOverrides = overrides[sector] || {};
+  return base.map((q) => ({ ...q, label: sectorOverrides[q.key] || q.label }));
+}
+
+function renderEsgTab(profile) {
+  const esg = computeEsgCollection(profile);
+  const questions = getEsgQuestions(profile.sector);
+  const groups = ["Environment", "Social", "Governance"];
+  return `
+    <div class="content-grid">
+      <section class="section-block section-block--wide">
+        <div class="section-heading">
+          <p class="eyebrow">ESG questionnaire</p>
+          <h3>Answer once — we use this across all assessments</h3>
+        </div>
+        <div class="assessment-summary">
+          ${renderCollectionCard("ESG questionnaire", esg)}
+        </div>
+        <p class="model-note">Answer as honestly as you can — "Working on it" or "No" is fine. Questions below are tailored to your sector: <strong>${escapeHtml(profile.sector)}</strong>. The OpenEconomics team reviews your responses and builds the full ESG analysis.</p>
+        ${groups.map((group) => {
+          const qs = questions.filter((q) => q.group === group);
+          return `
+            <p class="eyebrow" style="margin-top:1.5rem">${escapeHtml(group)}</p>
+            <div class="form-grid">
+              ${qs.map((q) => renderSelectField(q.label, `assessment.esg.questionnaire.${q.key}`, profile.assessment.esg.questionnaire[q.key], esgQuestionOptions)).join("")}
+            </div>
+          `;
+        }).join("")}
       </section>
     </div>
   `;
@@ -1974,6 +2158,24 @@ function handleClick(event) {
     return;
   }
 
+  if (action === "start-preparing") {
+    const profile = createProfileFromDraft(state.draft);
+    state.profiles.push(profile);
+    state.activeId = profile.id;
+    state.onboarding = false;
+    state.tab = "intake";
+    persistProfiles();
+    render();
+    return;
+  }
+
+  if (action === "skip-onboarding") {
+    state.onboarding = false;
+    persistProfiles();
+    render();
+    return;
+  }
+
   if (action === "reset-profile") {
     resetActiveProfile();
     render();
@@ -1987,6 +2189,11 @@ function handleClick(event) {
 
 function handleInput(event) {
   const { target } = event;
+
+  if (target.dataset.draft) {
+    state.draft[target.dataset.draft] = target.value;
+    return;
+  }
 
   if (target.dataset.input === "query") {
     state.query = target.value;
@@ -2026,6 +2233,12 @@ function handleInput(event) {
 
 function handleChange(event) {
   const { target } = event;
+
+  if (target.dataset.draft) {
+    state.draft[target.dataset.draft] = target.value;
+    return;
+  }
+
   if (target.dataset.field) {
     writeField(target.dataset.field, target.value);
     persistProfiles();
@@ -2099,6 +2312,7 @@ function fieldPreview(value) {
 }
 
 function fieldTab(field) {
+  if (field.startsWith("assessment.esg.questionnaire")) return "esg";
   return ["evidence", "risks", "missing"].includes(field) ? "evidence" : "intake";
 }
 
