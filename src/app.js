@@ -319,6 +319,21 @@ const tabs = [
   ["memo", "Submission memo"],
 ];
 
+const marketSignals = [
+  "Selective capital rewards evidence, margin discipline, and clear milestone use of funds.",
+  "Pilot partners need implementation realism: owner, integration load, ROI proof, and risk handoff.",
+  "Programs and commercialization operators look for exploitation path, IP clarity, and measurable downstream effect.",
+];
+
+const stageOptions = ["Pre-seed", "Seed", "Series A", "Series B", "Growth"];
+const geographyOptions = ["Austria", "France", "Germany", "Greece", "Ireland", "Italy", "Netherlands", "Portugal", "Spain", "Switzerland", "United Kingdom", "European Union"];
+const trlOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const levelOptions = ["Low", "Medium", "High"];
+const yesNoOptions = ["Unknown", "Yes", "No"];
+const questionnaireStatusOptions = ["Not started", "In progress", "Ready for review", "Completed"];
+const timeframeOptions = ["Unknown", "Less than 1 year", "1-3 years", "3-5 years", "More than 5 years"];
+const evidenceOptions = ["Unknown", "Founder estimate", "Internal data", "Third-party evidence"];
+
 const lensConfig = {
   fundraising: {
     label: "Raise preparation",
@@ -399,31 +414,80 @@ window.addEventListener("hashchange", () => {
 render();
 
 function loadProfiles() {
-  if (typeof localStorage === "undefined") return structuredClone(profileTemplates);
+  if (typeof localStorage === "undefined") return profileTemplates.map((template) => mergeProfile(template));
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return structuredClone(profileTemplates);
+    if (!raw) return profileTemplates.map((template) => mergeProfile(template));
     const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return structuredClone(profileTemplates);
+    if (!Array.isArray(parsed)) return profileTemplates.map((template) => mergeProfile(template));
     const byId = new Map(parsed.map((profile) => [profile.id, profile]));
     return profileTemplates.map((template) => mergeProfile(template, byId.get(template.id)));
   } catch {
-    return structuredClone(profileTemplates);
+    return profileTemplates.map((template) => mergeProfile(template));
   }
 }
 
 function mergeProfile(template, saved) {
-  if (!saved || typeof saved !== "object") return structuredClone(template);
-  return {
+  const base = {
     ...structuredClone(template),
+    assessment: defaultAssessment(template),
+  };
+  if (!saved || typeof saved !== "object") return base;
+  return {
+    ...base,
     ...saved,
     regulatory: { ...template.regulatory, ...(saved.regulatory || {}) },
     transition: { ...template.transition, ...(saved.transition || {}) },
     metrics: { ...template.metrics, ...(saved.metrics || {}) },
+    assessment: mergeAssessment(base.assessment, saved.assessment),
     evidence: Array.isArray(saved.evidence) ? saved.evidence : template.evidence,
     risks: Array.isArray(saved.risks) ? saved.risks : template.risks,
     missing: Array.isArray(saved.missing) ? saved.missing : template.missing,
     tags: Array.isArray(saved.tags) ? saved.tags : template.tags,
+  };
+}
+
+function defaultAssessment(profile) {
+  return {
+    exposure: {
+      primaryJurisdiction: profile.geography,
+      regulatedActivity: "Unknown",
+      approvalPathKnown: "Unknown",
+      approvalBodies: "",
+      publicProcurementExposure: /municipal|water|energy/i.test(`${profile.sector} ${profile.tags.join(" ")}`) ? "Yes" : "Unknown",
+      personalDataExposure: /health|ai|data|cyber/i.test(`${profile.sector} ${profile.tags.join(" ")}`) ? "Yes" : "Unknown",
+      safetyCriticalExposure: /health|water|energy|industrial|materials/i.test(`${profile.sector} ${profile.tags.join(" ")}`) ? "Yes" : "Unknown",
+      crossBorderConstraints: "Unknown",
+      certificationsNeeded: "",
+      note: "",
+    },
+    esg: {
+      questionnaireStatus: "Not started",
+      questionnaireOwner: "",
+      targetDate: "",
+      questionnaireLink: "",
+      note: "ESG should be captured in a separate questionnaire. This room tracks status only.",
+    },
+    sroi: {
+      beneficiaryGroups: "",
+      primaryOutcome: "",
+      baselineAvailable: "Unknown",
+      outcomeEvidence: profile.evidence.length >= 3 ? "Internal data" : "Unknown",
+      measurementWindow: "Unknown",
+      monetizationProxyAvailable: "Unknown",
+      deadweightEstimated: "Unknown",
+      attributionDataAvailable: "Unknown",
+      annualReach: "",
+      note: "",
+    },
+  };
+}
+
+function mergeAssessment(base, saved = {}) {
+  return {
+    exposure: { ...base.exposure, ...(saved.exposure || {}) },
+    esg: { ...base.esg, ...(saved.esg || {}) },
+    sroi: { ...base.sroi, ...(saved.sroi || {}) },
   };
 }
 
@@ -632,6 +696,50 @@ function computeBestLens(profile) {
   return ranked[0];
 }
 
+function computeExposureCollection(profile) {
+  const info = profile.assessment.exposure;
+  const fields = [
+    info.primaryJurisdiction,
+    info.regulatedActivity,
+    info.approvalPathKnown,
+    info.publicProcurementExposure,
+    info.personalDataExposure,
+    info.safetyCriticalExposure,
+    info.crossBorderConstraints,
+    info.certificationsNeeded,
+  ];
+  return buildCollectionStatus(fields, "Exposure info collection", "Capture jurisdiction, approvals, certifications, procurement, data, and safety facts before assessment.");
+}
+
+function computeEsgCollection(profile) {
+  const esg = profile.assessment.esg;
+  const fields = [esg.questionnaireStatus, esg.questionnaireOwner, esg.targetDate, esg.questionnaireLink];
+  return buildCollectionStatus(fields, "ESG questionnaire handoff", "Track the external questionnaire owner, status, date, and link here instead of duplicating ESG questions in this room.");
+}
+
+function computeSroiCollection(profile) {
+  const sroi = profile.assessment.sroi;
+  const fields = [
+    sroi.beneficiaryGroups,
+    sroi.primaryOutcome,
+    sroi.baselineAvailable,
+    sroi.outcomeEvidence,
+    sroi.measurementWindow,
+    sroi.monetizationProxyAvailable,
+    sroi.deadweightEstimated,
+    sroi.attributionDataAvailable,
+    sroi.annualReach,
+  ];
+  return buildCollectionStatus(fields, "SROI input collection", "Capture the assumptions and evidence needed to calculate SROI later. Do not estimate the return in this intake.");
+}
+
+function buildCollectionStatus(fields, label, detail) {
+  const total = fields.length;
+  const completed = fields.filter(hasCollectionValue).length;
+  const status = completed === total ? "Ready for assessment" : completed >= Math.ceil(total * 0.55) ? "Partially collected" : "Collection not ready";
+  return { total, completed, status, detail, label };
+}
+
 function render() {
   const profile = activeProfile();
   const readiness = computeReadiness(profile);
@@ -679,15 +787,19 @@ function renderTopbar(profile, readiness) {
 }
 
 function renderHero(profile, readiness, bestLens) {
+  const insight = buildPreparationInsight(profile, readiness, bestLens);
   return `
     <section class="hero panel">
       <div class="hero__copy">
-        <p class="eyebrow">From raw company notes to a cleaner room</p>
-        <h2>Build the version of ${profile.name} that investors, partners, and programs can actually work with.</h2>
+        <p class="eyebrow">Founder preparation workspace</p>
+        <h2>Turn ${profile.name} into a submission room a serious counterparty can read in minutes.</h2>
         <p class="hero-copy">
-          The platform is now a founder-side preparation room. The goal is not to rank a company; it is to make the startup's own
-          information more structured, more explainable, and easier to circulate based on the current profile.
+          Founders are not short on narrative. They are short on a clean proof path: what is being asked, why now, what evidence exists,
+          what remains uncertain, and which diligence items should be handled before outreach.
         </p>
+        <div class="market-strip" aria-label="Market needs">
+          ${marketSignals.map((signal) => `<span>${escapeHtml(signal)}</span>`).join("")}
+        </div>
       </div>
       <div class="hero-ledger" aria-label="Readiness summary">
         <div class="hero-ledger__item">
@@ -709,6 +821,11 @@ function renderHero(profile, readiness, bestLens) {
           <strong>${bestLens.label}</strong>
           <span>Strongest lane</span>
           <small>Based on the current evidence mix and company shape</small>
+        </div>
+        <div class="hero-ledger__item hero-ledger__item--wide">
+          <strong>${escapeHtml(insight.priorityLabel)}</strong>
+          <span>Preparation priority</span>
+          <small>${escapeHtml(insight.priorityDetail)}</small>
         </div>
       </div>
     </section>
@@ -855,8 +972,38 @@ function renderTabContent(profile, readiness) {
 }
 
 function renderWorkspaceTab(profile, readiness) {
+  const collections = buildAssessmentCollections(profile);
   return `
     <div class="content-grid">
+      <section class="section-block section-block--wide cockpit">
+        <div class="section-heading">
+          <p class="eyebrow">Assessment workflow</p>
+          <h3>Collect the information that later models will actually need</h3>
+        </div>
+        <div class="cockpit-grid">
+          <article class="cockpit-card cockpit-card--primary">
+            <span>1. Regulatory and exposure facts</span>
+            <strong>${collections.exposure.status}</strong>
+            <p>${escapeHtml(collections.exposure.summary)}</p>
+          </article>
+          <article class="cockpit-card">
+            <span>2. ESG questionnaire</span>
+            <strong>${collections.esg.status}</strong>
+            <p>${escapeHtml(collections.esg.summary)}</p>
+          </article>
+          <article class="cockpit-card">
+            <span>3. SROI calculation inputs</span>
+            <strong>${collections.sroi.status}</strong>
+            <p>${escapeHtml(collections.sroi.summary)}</p>
+          </article>
+          <article class="cockpit-card">
+            <span>4. Immediate next step</span>
+            <strong>${escapeHtml(collections.nextStep.title)}</strong>
+            <p>${escapeHtml(collections.nextStep.detail)}</p>
+          </article>
+        </div>
+      </section>
+
       <section class="section-block">
         <div class="section-heading">
           <p class="eyebrow">Narrative</p>
@@ -897,13 +1044,15 @@ function renderWorkspaceTab(profile, readiness) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Exposure framing</p>
-          <h3>Regulatory and transition context</h3>
+          <p class="eyebrow">Assessment collection</p>
+          <h3>What is ready to hand to a model and what is still missing</h3>
         </div>
-        <div class="exposure-grid">
-          ${renderExposureCard("Regulatory", profile.regulatory)}
-          ${renderExposureCard("Transition", profile.transition)}
+        <div class="assessment-grid">
+          ${renderCollectionCard("Exposure", collections.exposure)}
+          ${renderCollectionCard("ESG questionnaire", collections.esg)}
+          ${renderCollectionCard("SROI", collections.sroi)}
         </div>
+        <p class="model-note">This POC should capture information, not fake the final assessment logic. The model layer can come later.</p>
       </section>
 
       <section class="section-block">
@@ -922,11 +1071,33 @@ function renderWorkspaceTab(profile, readiness) {
           </div>
         </div>
       </section>
+
+      <section class="section-block section-block--wide">
+        <div class="section-heading">
+          <p class="eyebrow">Missing collection items</p>
+          <h3>The raw inputs still needed before assessment work starts</h3>
+        </div>
+        <div class="move-list">
+          ${collections.missingActions
+            .map(
+              (move, index) => `
+                <article class="move-item">
+                  <span>0${index + 1}</span>
+                  <p>${escapeHtml(move)}</p>
+                </article>
+              `
+            )
+            .join("")}
+        </div>
+      </section>
     </div>
   `;
 }
 
 function renderIntakeTab(profile) {
+  const exposure = computeExposureCollection(profile);
+  const esg = computeEsgCollection(profile);
+  const sroi = computeSroiCollection(profile);
   return `
     <div class="form-layout">
       <section class="section-block">
@@ -948,6 +1119,19 @@ function renderIntakeTab(profile) {
 
       <section class="section-block">
         <div class="section-heading">
+          <p class="eyebrow">Profile selectors</p>
+          <h3>Use dropdowns where the answer should be standardized</h3>
+        </div>
+        <div class="metric-form">
+          ${renderSelectField("Sector", "sector", profile.sector, allSectors().filter((option) => option !== "All"))}
+          ${renderSelectField("Stage", "stage", profile.stage, stageOptions)}
+          ${renderSelectField("Geography", "geography", profile.geography, geographyOptions)}
+          ${renderSelectField("TRL", "trl", String(profile.trl), trlOptions)}
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
           <p class="eyebrow">Commercial signals</p>
           <h3>Keep the hard facts close to the story</h3>
         </div>
@@ -961,16 +1145,87 @@ function renderIntakeTab(profile) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Interpretation</p>
-          <h3>Explain exposure instead of letting it be guessed</h3>
+          <p class="eyebrow">Exposure intake</p>
+          <h3>Capture the facts needed to assess regulatory and exposure risk</h3>
+        </div>
+        <div class="assessment-summary">
+          ${renderCollectionCard("Exposure collection", exposure)}
         </div>
         <div class="form-grid">
-          ${renderSelectField("Regulatory level", "regulatory.level", profile.regulatory.level, ["Low", "Medium", "High"])}
-          ${renderTextField("Regulatory character", "regulatory.character", profile.regulatory.character)}
+          ${renderSelectField("Regulatory level", "regulatory.level", profile.regulatory.level, levelOptions)}
+          ${renderSelectField("Regulatory character", "regulatory.character", profile.regulatory.character, [
+            "Limited burden",
+            "Light burden",
+            "Operational standards",
+            "Demand tailwind",
+            "Demand tailwind with verification burden",
+            "Burden and defensibility",
+            "Market access and defensibility",
+            "Procurement burden and demand driver",
+          ])}
           ${renderTextField("Regulatory note", "regulatory.note", profile.regulatory.note, "textarea")}
-          ${renderSelectField("Transition level", "transition.level", profile.transition.level, ["Low", "Medium", "High"])}
-          ${renderTextField("Transition character", "transition.character", profile.transition.character)}
+          ${renderSelectField("Transition level", "transition.level", profile.transition.level, levelOptions)}
+          ${renderSelectField("Transition character", "transition.character", profile.transition.character, [
+            "Limited exposure",
+            "Tailwind",
+            "Tailwind with adoption friction",
+            "Tailwind with market-design risk",
+            "Efficiency tailwind",
+            "Productivity and energy-efficiency tailwind",
+          ])}
           ${renderTextField("Transition note", "transition.note", profile.transition.note, "textarea")}
+          ${renderSelectField("Primary jurisdiction", "assessment.exposure.primaryJurisdiction", profile.assessment.exposure.primaryJurisdiction, geographyOptions)}
+          ${renderSelectField("Is the activity regulated?", "assessment.exposure.regulatedActivity", profile.assessment.exposure.regulatedActivity, yesNoOptions)}
+          ${renderSelectField("Is the approval path known?", "assessment.exposure.approvalPathKnown", profile.assessment.exposure.approvalPathKnown, yesNoOptions)}
+          ${renderTextField("Approval bodies or authorities", "assessment.exposure.approvalBodies", profile.assessment.exposure.approvalBodies, "textarea")}
+          ${renderSelectField("Public procurement exposure", "assessment.exposure.publicProcurementExposure", profile.assessment.exposure.publicProcurementExposure, yesNoOptions)}
+          ${renderSelectField("Personal data exposure", "assessment.exposure.personalDataExposure", profile.assessment.exposure.personalDataExposure, yesNoOptions)}
+          ${renderSelectField("Safety-critical deployment", "assessment.exposure.safetyCriticalExposure", profile.assessment.exposure.safetyCriticalExposure, yesNoOptions)}
+          ${renderSelectField("Cross-border constraints", "assessment.exposure.crossBorderConstraints", profile.assessment.exposure.crossBorderConstraints, yesNoOptions)}
+          ${renderTextField("Required certifications or audits", "assessment.exposure.certificationsNeeded", profile.assessment.exposure.certificationsNeeded, "textarea")}
+          ${renderTextField("Exposure notes", "assessment.exposure.note", profile.assessment.exposure.note, "textarea")}
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">ESG questionnaire</p>
+          <h3>Track the separate ESG questionnaire instead of duplicating it here</h3>
+        </div>
+        <div class="assessment-summary">
+          ${renderCollectionCard("ESG handoff", esg)}
+        </div>
+        ${profile.assessment.esg.questionnaireLink
+          ? `<a class="button" href="${escapeAttr(profile.assessment.esg.questionnaireLink)}" target="_blank" rel="noreferrer">Open questionnaire</a>`
+          : `<p class="model-note">Add the questionnaire link once the separate ESG form exists.</p>`}
+        <div class="form-grid">
+          ${renderSelectField("Questionnaire status", "assessment.esg.questionnaireStatus", profile.assessment.esg.questionnaireStatus, questionnaireStatusOptions)}
+          ${renderTextField("Questionnaire owner", "assessment.esg.questionnaireOwner", profile.assessment.esg.questionnaireOwner)}
+          ${renderTextField("Target completion date", "assessment.esg.targetDate", profile.assessment.esg.targetDate)}
+          ${renderTextField("Questionnaire link", "assessment.esg.questionnaireLink", profile.assessment.esg.questionnaireLink)}
+          ${renderTextField("ESG handoff notes", "assessment.esg.note", profile.assessment.esg.note, "textarea")}
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">SROI intake</p>
+          <h3>Capture the information needed to calculate SROI later</h3>
+        </div>
+        <div class="assessment-summary">
+          ${renderCollectionCard("SROI collection", sroi)}
+        </div>
+        <div class="form-grid">
+          ${renderTextField("Beneficiary groups", "assessment.sroi.beneficiaryGroups", profile.assessment.sroi.beneficiaryGroups, "textarea")}
+          ${renderTextField("Primary outcome to value", "assessment.sroi.primaryOutcome", profile.assessment.sroi.primaryOutcome, "textarea")}
+          ${renderSelectField("Baseline available", "assessment.sroi.baselineAvailable", profile.assessment.sroi.baselineAvailable, yesNoOptions)}
+          ${renderSelectField("Outcome evidence", "assessment.sroi.outcomeEvidence", profile.assessment.sroi.outcomeEvidence, evidenceOptions)}
+          ${renderSelectField("Measurement window", "assessment.sroi.measurementWindow", profile.assessment.sroi.measurementWindow, timeframeOptions)}
+          ${renderSelectField("Monetization proxy available", "assessment.sroi.monetizationProxyAvailable", profile.assessment.sroi.monetizationProxyAvailable, yesNoOptions)}
+          ${renderSelectField("Deadweight estimated", "assessment.sroi.deadweightEstimated", profile.assessment.sroi.deadweightEstimated, yesNoOptions)}
+          ${renderSelectField("Attribution data available", "assessment.sroi.attributionDataAvailable", profile.assessment.sroi.attributionDataAvailable, yesNoOptions)}
+          ${renderTextField("Annual reach or number served", "assessment.sroi.annualReach", profile.assessment.sroi.annualReach)}
+          ${renderTextField("SROI notes", "assessment.sroi.note", profile.assessment.sroi.note, "textarea")}
         </div>
       </section>
     </div>
@@ -978,6 +1233,8 @@ function renderIntakeTab(profile) {
 }
 
 function renderEvidenceTab(profile, readiness) {
+  const bestLens = computeBestLens(profile);
+  const insight = buildPreparationInsight(profile, readiness, bestLens);
   return `
     <div class="content-grid">
       <section class="section-block">
@@ -1000,6 +1257,26 @@ function renderEvidenceTab(profile, readiness) {
         <ul class="clean-list prompt-list">
           ${lensConfig[state.lens].checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
         </ul>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">Counterparty question map</p>
+          <h3>Questions this room should answer before outreach</h3>
+        </div>
+        <div class="question-map">
+          ${insight.counterpartyQuestions
+            .map(
+              (question) => `
+                <article>
+                  <span>${escapeHtml(question.label)}</span>
+                  <p>${escapeHtml(question.question)}</p>
+                  <strong>${escapeHtml(question.answer)}</strong>
+                </article>
+              `
+            )
+            .join("")}
+        </div>
       </section>
 
       <section class="section-block">
@@ -1052,6 +1329,7 @@ function renderMemoTab(profile, readiness) {
 }
 
 function renderReadinessRail(profile, readiness, bestLens) {
+  const collections = buildAssessmentCollections(profile);
   return `
     <aside class="rail panel">
       <div class="panel-heading">
@@ -1084,6 +1362,11 @@ function renderReadinessRail(profile, readiness, bestLens) {
       <div class="rail-section">
         <span>Suggested lane</span>
         <p>${escapeHtml(bestLens.label)} currently reads strongest for ${profile.name}.</p>
+      </div>
+
+      <div class="rail-section">
+        <span>Next preparation move</span>
+        <p>${escapeHtml(collections.nextStep.detail)}</p>
       </div>
 
       <div class="rail-section">
@@ -1120,6 +1403,17 @@ function renderMetric(label, value) {
   `;
 }
 
+function renderCollectionCard(label, collection) {
+  return `
+    <article class="assessment-card">
+      <span>${escapeHtml(label)}</span>
+      <strong>${collection.completed}/${collection.total}</strong>
+      <p>${escapeHtml(collection.status)}</p>
+      <small>${escapeHtml(collection.detail)}</small>
+    </article>
+  `;
+}
+
 function renderExposureCard(label, exposure) {
   return `
     <article class="exposure-card">
@@ -1152,7 +1446,7 @@ function renderSelectField(label, field, value, options) {
     <label class="field">
       <span>${escapeHtml(label)}</span>
       <select class="select-input" data-field="${field}">
-        ${options.map((option) => `<option value="${escapeAttr(option)}" ${option === value ? "selected" : ""}>${escapeHtml(option)}</option>`).join("")}
+        ${options.map((option) => `<option value="${escapeAttr(option)}" ${String(option) === String(value) ? "selected" : ""}>${escapeHtml(option)}</option>`).join("")}
       </select>
     </label>
   `;
@@ -1179,16 +1473,220 @@ function renderTextareaField(label, field, values) {
 function generateMemo(profile, readiness) {
   const lens = lensConfig[state.lens];
   const bestLens = computeBestLens(profile);
+  const insight = buildPreparationInsight(profile, readiness, bestLens);
+  const collections = buildAssessmentCollections(profile);
   const firstSignal = readiness.strongSignals[0] || "The profile already contains a usable starting point.";
   const firstBlocker = readiness.blockers[0] || "No blocker is currently dominating the room.";
   return [
     `${profile.name} is a ${profile.stage.toLowerCase()} ${profile.sector.toLowerCase()} company in ${profile.geography}. Under the ${lens.label.toLowerCase()} lens, the current submission readiness reads at ${readiness.overall}/100 and is best described as ${readiness.status.toLowerCase()}.`,
     `Core company story: ${profile.oneLiner} The stated customer is ${profile.customer.toLowerCase()} and the current ask is ${profile.ask.toLowerCase()}, with funds intended for ${profile.useOfFunds.toLowerCase()}.`,
+    `Market-facing interpretation: ${insight.marketDetail} The best first audience is ${insight.audience.toLowerCase()} because ${insight.audienceReason.charAt(0).toLowerCase() + insight.audienceReason.slice(1)}`,
     `Evidence available: ${profile.evidence.join("; ")}. Current traction reads as ${profile.metrics.traction.toLowerCase()} and the room already benefits from ${firstSignal.toLowerCase()}.`,
     `Main item to sharpen next: ${firstBlocker.replace(/^Missing:\s*/i, "").replace(/\.$/, "")}. The suggested next preparation step is to ${profile.nextStep.charAt(0).toLowerCase() + profile.nextStep.slice(1)}.`,
+    `Preparation priority: ${insight.priorityDetail} The next useful proof package is ${insight.proofTarget.toLowerCase()}: ${insight.proofDetail.charAt(0).toLowerCase() + insight.proofDetail.slice(1)}`,
+    `Assessment collection status: exposure ${collections.exposure.completed}/${collections.exposure.total}, ESG questionnaire ${collections.esg.completed}/${collections.esg.total}, and SROI ${collections.sroi.completed}/${collections.sroi.total}. This room is collecting inputs for later assessment rather than calculating the final result.`,
     `Exposure framing: regulatory context is ${profile.regulatory.level.toLowerCase()} and described as ${profile.regulatory.character.toLowerCase()}, while transition context is ${profile.transition.level.toLowerCase()} and described as ${profile.transition.character.toLowerCase()}. The strongest downstream lane based on the current profile is ${bestLens.label.toLowerCase()}.`,
     `This note is based on the current profile only and should be used as a founder-side preparation output before outreach, not as financing advice or a substitute for third-party diligence.`,
   ].join("\n");
+}
+
+function buildPreparationInsight(profile, readiness, bestLens) {
+  const lowerSector = `${profile.sector} ${profile.tags.join(" ")}`.toLowerCase();
+  const firstMissing = profile.missing[0] || "a sharper evidence package";
+  const firstRisk = profile.risks[0] || "execution risk";
+  const hasRevenue = /arr|mrr|revenue|fees|customers|pilot/i.test(`${profile.metrics.revenue} ${profile.metrics.traction}`);
+  const isRegulated = profile.regulatory.level === "High" || /health|energy|water|cyber|regulated|clinical|municipal/.test(lowerSector);
+  const isDeepTech = profile.trl <= 6 || /deep tech|materials|hardware|climate|carbon|circular/.test(lowerSector);
+  const isAi = /ai|data|infra|security|automation/.test(lowerSector);
+
+  const marketRead = isAi
+    ? "AI and data stories need concrete deployment value"
+    : isDeepTech
+      ? "Technical credibility needs a commercialization bridge"
+      : isRegulated
+        ? "Regulatory burden can become defensibility if explained"
+        : "Proof quality matters more than broad market language";
+
+  const marketDetail = isAi
+    ? "The profile should make security, workflow value, margin structure, and defensibility visible because AI-adjacent markets are noisy and buyers compare quickly."
+    : isDeepTech
+      ? "The profile should connect technical validation to a narrow beachhead, qualification path, and credible buyer pull before asking a counterparty to believe the full platform story."
+      : isRegulated
+        ? "The profile should show how rules, procurement, certification, or compliance create both adoption friction and a reason the company may be hard to copy."
+        : "The profile should turn customer pain, traction, and use of funds into a practical preparation story that can survive a selective first review.";
+
+  const audience = bestLens.key === "partner"
+    ? "Pilot or commercial partner"
+    : bestLens.key === "commercialization"
+      ? "Commercialization operator"
+      : bestLens.key === "grant"
+        ? "Program or impact funder"
+        : hasRevenue
+          ? "Lead investor or sector specialist"
+          : "Friendly investor and design partner";
+
+  const audienceReason = bestLens.key === "partner"
+    ? "The current profile is strongest when it proves deployment value and reduces implementation ambiguity."
+    : bestLens.key === "commercialization"
+      ? "The company still benefits from translating technical assets into a clear route to market."
+      : bestLens.key === "grant"
+        ? "The strongest angle is measurable effect, exploitation logic, and delivery credibility."
+        : hasRevenue
+          ? "There is enough operating signal to discuss milestone financing, provided the gaps are named plainly."
+          : "The case still needs sharper proof before broad circulation, so the first audience should help refine the evidence path.";
+
+  const proofTarget = isRegulated
+    ? "Regulatory and implementation proof pack"
+    : isDeepTech
+      ? "Pilot economics and qualification roadmap"
+      : hasRevenue
+        ? "Repeatability and unit-economics evidence"
+        : "Customer problem and willingness-to-pay proof";
+
+  const proofDetail = isRegulated
+    ? "Include rule exposure, required approvals or procurement steps, data or safety controls, and who owns operational risk after deployment."
+    : isDeepTech
+      ? "Link TRL, external validation, cost curve, beachhead buyer, IP status, and the milestone that moves the company from technical proof to commercial evidence."
+      : hasRevenue
+        ? "Show retention, margin path, sales efficiency, implementation effort, and why the next funding or partner step improves repeatability."
+        : "Replace market-size claims with named buyer pain, proof of urgency, and the smallest credible paid or pilot conversion path.";
+
+  const priorityLabel = readiness.overall >= 80
+    ? "Prepare circulation pack"
+    : readiness.overall >= 64
+      ? "Close proof gaps"
+      : "Tighten the core case";
+
+  const priorityDetail = readiness.overall >= 80
+    ? "The room is close enough to circulate selectively; focus on making evidence, risks, and ask easy to verify."
+    : readiness.overall >= 64
+      ? `The story is usable, but ${firstMissing.toLowerCase()} should be made clearer before broad outreach.`
+      : "The profile still needs a stronger link between customer pain, evidence, ask, and next milestone.";
+
+  const openQuestion = isRegulated
+    ? "What makes the regulated path worth the friction?"
+    : isDeepTech
+      ? "What proves the technology can leave the lab or pilot?"
+      : hasRevenue
+        ? "Can the company repeat growth without service creep?"
+        : "Who urgently needs this enough to act now?";
+
+  const openQuestionDetail = isRegulated
+    ? "A serious reader will look for the budget owner, approval path, timeline, and whether regulation creates demand or only delay."
+    : isDeepTech
+      ? "A serious reader will look for external validation, manufacturability, IP control, and a buyer-specific qualification route."
+      : hasRevenue
+        ? "A serious reader will look for retention, margin, CAC payback, implementation load, and customer concentration."
+        : "A serious reader will look for named customer segments, buying triggers, willingness to pay, and a narrower first market.";
+
+  const nextMoves = [
+    `Build a one-page proof pack around ${firstMissing.toLowerCase()} and connect it to the stated ${profile.ask.toLowerCase()}.`,
+    `Turn "${firstRisk}" into an owned diligence item with mitigation, evidence owner, and expected timing.`,
+    `Rewrite the next outreach note around ${audience.toLowerCase()}, not a generic investor audience.`,
+  ];
+
+  const counterpartyQuestions = [
+    {
+      label: "Demand",
+      question: "Why does this buyer or funder need to care now?",
+      answer: profile.transition.note,
+    },
+    {
+      label: "Proof",
+      question: "What evidence is available today, and what is still missing?",
+      answer: `${profile.evidence[0] || "Evidence still needs to be staged."} / Missing: ${firstMissing}.`,
+    },
+    {
+      label: "Execution",
+      question: "What has to happen after the ask is accepted?",
+      answer: profile.useOfFunds,
+    },
+    {
+      label: "Risk",
+      question: "Which uncertainty should be named before someone else names it?",
+      answer: firstRisk,
+    },
+  ];
+
+  return {
+    marketRead,
+    marketDetail,
+    audience,
+    audienceReason,
+    proofTarget,
+    proofDetail,
+    priorityLabel,
+    priorityDetail,
+    openQuestion,
+    openQuestionDetail,
+    nextMoves,
+    counterpartyQuestions,
+  };
+}
+
+function buildAssessmentCollections(profile) {
+  const exposure = computeExposureCollection(profile);
+  const esg = computeEsgCollection(profile);
+  const sroi = computeSroiCollection(profile);
+  const missingActions = [
+    nextMissingExposureAction(profile),
+    nextMissingEsgAction(profile),
+    nextMissingSroiAction(profile),
+  ];
+
+  return {
+    exposure: {
+      ...exposure,
+      summary: `Collected ${exposure.completed} of ${exposure.total} key regulatory and exposure inputs.`,
+    },
+    esg: {
+      ...esg,
+      summary: `Collected ${esg.completed} of ${esg.total} ESG handoff items. The questionnaire itself should live elsewhere.`,
+    },
+    sroi: {
+      ...sroi,
+      summary: `Collected ${sroi.completed} of ${sroi.total} SROI inputs required for later calculation.`,
+    },
+    nextStep: buildCollectionNextStep(exposure, esg, sroi),
+    missingActions,
+  };
+}
+
+function buildCollectionNextStep(exposure, esg, sroi) {
+  const items = [
+    { key: "Exposure intake", gap: exposure.total - exposure.completed, detail: "Finish the regulatory, procurement, data, and certification facts." },
+    { key: "ESG questionnaire handoff", gap: esg.total - esg.completed, detail: "Assign the questionnaire owner, date, and link instead of duplicating ESG questions here." },
+    { key: "SROI input pack", gap: sroi.total - sroi.completed, detail: "Capture beneficiaries, baseline, evidence, time horizon, and monetization inputs." },
+  ].sort((a, b) => b.gap - a.gap);
+
+  return {
+    title: items[0].key,
+    detail: items[0].detail,
+  };
+}
+
+function nextMissingExposureAction(profile) {
+  const info = profile.assessment.exposure;
+  if (!hasCollectionValue(info.approvalPathKnown)) return "State whether the company needs a formal approval path.";
+  if (!hasCollectionValue(info.approvalBodies)) return "List the authority, regulator, or approval body involved.";
+  if (!hasCollectionValue(info.certificationsNeeded)) return "Capture the certifications, audits, or compliance regimes required.";
+  return "Review cross-border, procurement, data, and safety constraints before assessment.";
+}
+
+function nextMissingEsgAction(profile) {
+  const esg = profile.assessment.esg;
+  if (!hasCollectionValue(esg.questionnaireOwner)) return "Assign an owner for the external ESG questionnaire.";
+  if (!hasCollectionValue(esg.targetDate)) return "Set a target date for ESG questionnaire completion.";
+  if (!hasCollectionValue(esg.questionnaireLink)) return "Attach the questionnaire link once the separate form exists.";
+  return "Keep the ESG questionnaire outside this room and only track status here.";
+}
+
+function nextMissingSroiAction(profile) {
+  const sroi = profile.assessment.sroi;
+  if (!hasCollectionValue(sroi.beneficiaryGroups)) return "Name the beneficiary groups affected by the intervention.";
+  if (!hasCollectionValue(sroi.primaryOutcome)) return "Define the main outcome that SROI should value.";
+  if (!hasCollectionValue(sroi.annualReach)) return "Estimate annual reach or number served before attempting SROI.";
+  return "Add baseline, evidence, deadweight, attribution, and proxy inputs before calculation.";
 }
 
 function handleClick(event) {
@@ -1267,7 +1765,23 @@ function handleInput(event) {
 
 function handleChange(event) {
   const { target } = event;
-  if (target.dataset.field || target.dataset.metric || target.dataset.list) {
+  if (target.dataset.field) {
+    writeField(target.dataset.field, target.value);
+    persistProfiles();
+    render();
+    return;
+  }
+
+  if (target.dataset.metric) {
+    activeProfile().metrics[target.dataset.metric] = target.value;
+    persistProfiles();
+    render();
+    return;
+  }
+
+  if (target.dataset.list) {
+    activeProfile()[target.dataset.list] = splitLines(target.value);
+    persistProfiles();
     render();
   }
 }
@@ -1286,7 +1800,7 @@ function resetActiveProfile() {
   const template = profileTemplates.find((profile) => profile.id === state.activeId);
   const index = state.profiles.findIndex((profile) => profile.id === state.activeId);
   if (!template || index < 0) return;
-  state.profiles[index] = structuredClone(template);
+  state.profiles[index] = mergeProfile(template);
   persistProfiles();
 }
 
@@ -1317,7 +1831,14 @@ function presencePoints(values, pointsPerField) {
 function levelScore(level) {
   if (level === "High") return 3;
   if (level === "Medium") return 2;
+  if (level === "Not assessed") return 0;
   return 1;
+}
+
+function hasCollectionValue(value) {
+  if (!isPresent(value)) return false;
+  const normalized = String(value).trim().toLowerCase();
+  return !["unknown", "not started"].includes(normalized);
 }
 
 function countList(values) {
