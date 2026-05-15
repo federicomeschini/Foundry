@@ -29,6 +29,11 @@ const profileTemplates = [
     nextStep: "Package pilot economics, MRV logic, and customer proof into one submission narrative before outreach.",
     metrics: { revenue: "Pre-revenue", runway: "9 months", grossMargin: "Modeled 42%", traction: "2 LOIs" },
     tags: ["hardware", "carbon", "industrial"],
+    team: { size: "4–7", founders: "2 founders — CEO (materials scientist, ex-Holcim R&D) and CTO (chemical engineer, PhD in carbon mineralisation)", background: "Deep expertise in carbon accounting, industrial process chemistry, and hardware prototyping.", missingRoles: "CFO", advisors: "Former Lafarge sustainability director; EU carbon markets policy advisor" },
+    market: { tam: "~€30B (global industrial carbon removal market by 2035)", sam: "~€4B (European cement sector facing mandatory decarbonisation targets)", competitors: "Carbon Clean Solutions, Climeworks (DAC), Carbfix, CarbonCure", differentiator: "Cartridge-based system deployable at point of emission — no transport or geological storage needed. Lower capex than competing DAC approaches." },
+    unitEconomics: { mrr: "", arr: "", cac: "Not yet established — first commercial conversations in progress", ltv: "Estimated €200k–€800k per cement plant on a 5-year service contract", churn: "Not applicable (pre-revenue)", salesChannel: "Direct enterprise sales to industrial decarbonisation teams" },
+    funding: { totalRaised: "EUR 350k (EIC Accelerator grant + angel)", roundCount: "1 pre-institutional round", notableInvestors: "EIC Accelerator grant, industrial angel investor", postMoneyVal: "Not yet established" },
+    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "LafargeHolcim, Saint-Gobain, carbon removal platforms, industrial gases majors" },
   },
   {
     id: "neuroharbor",
@@ -60,6 +65,11 @@ const profileTemplates = [
     nextStep: "Tighten the reimbursement case and present the MDR path alongside clinic and insurer traction.",
     metrics: { revenue: "EUR 180k ARR", runway: "11 months", grossMargin: "78%", traction: "3 clinics" },
     tags: ["regulated", "clinical", "saas"],
+    team: { size: "16–30", founders: "3 founders — CEO (ex-Fresenius clinical operations), CMO (neurologist, PhD, TU München), CTO (software architect)", background: "Clinical management, neurology research, and SaaS engineering across European health systems.", missingRoles: "CFO", advisors: "KOL neurologist at Charité Berlin; German reimbursement consultant (GKV/IQWiG process)" },
+    market: { tam: "~€8B (European digital therapeutics for neurological conditions)", sam: "~€1.2B (German + French reimbursable digital therapy pipeline)", competitors: "Kaia Health, NeuroNation, SWORD Health, Hinge Health", differentiator: "Pathway-based protocols designed for clinic workflows and integrated with payer evidence requirements — not a consumer app." },
+    unitEconomics: { mrr: "~EUR 15k", arr: "EUR 180k", cac: "~EUR 8k per clinic (12–18 month sales and onboarding cycle)", ltv: "~EUR 60k per clinic over 3 years", churn: "Under 5% annual logo churn", salesChannel: "Direct B2B to clinics and insurers; reimbursement pathway drives adoption" },
+    funding: { totalRaised: "EUR 1.1M (pre-seed + seed)", roundCount: "2", notableInvestors: "Berlin digital health angel syndicate", postMoneyVal: "EUR 6M (post-seed)" },
+    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Philips Healthcare, Siemens Healthineers, large German Krankenkassen, Fresenius Digital" },
   },
   {
     id: "vectorlane",
@@ -91,6 +101,11 @@ const profileTemplates = [
     nextStep: "Turn customer, retention, and security proof into one clear operator-grade submission room.",
     metrics: { revenue: "EUR 42k MRR", runway: "8 months", grossMargin: "71%", traction: "14 customers" },
     tags: ["ai", "infra", "privacy"],
+    team: { size: "8–15", founders: "2 founders — CEO (ex-Criteo data engineer) and CTO (vector database specialist, ex-Pinecone)", background: "Infrastructure engineering, ML systems, and enterprise developer tooling. First-time founders.", missingRoles: "VP Sales", advisors: "Former AWS enterprise solutions architect; CISO advisor from insurance sector" },
+    market: { tam: "~€12B (enterprise AI infrastructure and retrieval market)", sam: "~€1.5B (European regulated enterprise AI deployment)", competitors: "Pinecone, Weaviate, MongoDB Atlas Vector, Qdrant", differentiator: "Private deployment by default — no data leaves the customer environment. Purpose-built for regulated industries." },
+    unitEconomics: { mrr: "EUR 42k", arr: "EUR 504k (run rate)", cac: "~EUR 5k per customer (self-serve trial + conversion)", ltv: "~EUR 45k per account over 24 months (usage-based expansion)", churn: "8% annual (improving)", salesChannel: "Product-led growth via developer community + enterprise outbound" },
+    funding: { totalRaised: "EUR 750k (pre-seed)", roundCount: "1", notableInvestors: "Station F accelerator; 2 enterprise software angels", postMoneyVal: "EUR 4.5M (post pre-seed)" },
+    exit: { horizon: "3–5 years", type: "Strategic acquisition", acquirers: "Snowflake, Databricks, cloud-native AI platforms, enterprise SaaS leaders" },
   },
   {
     id: "gridforge",
@@ -122,6 +137,11 @@ const profileTemplates = [
     nextStep: "Explain country-by-country rule exposure and show how the raise unlocks commercial repeatability.",
     metrics: { revenue: "EUR 310k ARR", runway: "10 months", grossMargin: "64%", traction: "18MW pilot" },
     tags: ["energy", "software", "regulated"],
+    team: { size: "16–30", founders: "2 founders — CEO (ex-Enel trading desk) and CTO (grid optimisation engineer, PhD)", background: "Energy market operations, dispatch algorithms, and regulatory navigation across three European markets.", missingRoles: "None currently", advisors: "Former Spanish CNMC energy regulator; two battery OEM commercial partners" },
+    market: { tam: "~€40B (European grid flexibility and demand response by 2030)", sam: "~€5B (Spain, Italy, UK — active flexibility markets)", competitors: "Voltalis, Enel X, Virtual Peaker, Origis Energy", differentiator: "Asset-agnostic aggregation — works across heterogeneous battery and demand-response assets without vendor lock-in." },
+    unitEconomics: { mrr: "~EUR 26k", arr: "EUR 310k", cac: "~EUR 25k per aggregator (long procurement and integration cycle)", ltv: "~EUR 200k per aggregator over 3 years (revenue share model)", churn: "Low — anchored by long-term dispatch contracts", salesChannel: "Direct B2B to utilities, aggregators, and battery OEM partners" },
+    funding: { totalRaised: "EUR 2.5M (seed)", roundCount: "1", notableInvestors: "Renewable energy VC; EU innovation pilot grant", postMoneyVal: "EUR 10M (post-seed)" },
+    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Enel, Iberdrola, ABB, Siemens Energy, GE Vernova" },
   },
   {
     id: "circuliq",
@@ -153,6 +173,11 @@ const profileTemplates = [
     nextStep: "Recast the deck around one credible pilot path instead of broad circularity ambition.",
     metrics: { revenue: "Pre-revenue", runway: "6 months", grossMargin: "Not proven", traction: "1 LOI" },
     tags: ["materials", "circular", "deep tech"],
+    team: { size: "1–3", founders: "2 founders — CEO (ex-Inditex sustainability buyer) and CTO (polymer chemist, PhD)", background: "Fashion supply chain operations and polymer materials science.", missingRoles: "CFO / COO", advisors: "None formal yet" },
+    market: { tam: "~€7B (textile recycling and circular materials global)", sam: "~€800M (European fashion group circular feedstock demand)", competitors: "Renewlondon, Carbios, Worn Again, Circ", differentiator: "Post-consumer textile-to-resin conversion at ambient temperature — lower capex than thermal competitors." },
+    unitEconomics: { mrr: "", arr: "", cac: "Not yet established", ltv: "Licensing model — per-ton fee estimated at €200–400 per tonne", churn: "Not applicable", salesChannel: "Direct to fashion group sustainability teams" },
+    funding: { totalRaised: "EUR 100k (founder capital + early-stage grant)", roundCount: "0 formal rounds", notableInvestors: "None", postMoneyVal: "Not established" },
+    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Covestro, BASF, Renewlondon, major fashion groups" },
   },
   {
     id: "soilpulse",
@@ -184,6 +209,11 @@ const profileTemplates = [
     nextStep: "Show one clean seasonal economics story and who owns the grower relationship at scale.",
     metrics: { revenue: "EUR 22k MRR seasonal", runway: "7 months", grossMargin: "48%", traction: "126 sensors" },
     tags: ["agritech", "water", "hardware"],
+    team: { size: "8–15", founders: "2 founders — CEO (agronomist, ex-irrigation consultant) and CTO (IoT hardware engineer)", background: "Field agronomy, crop-cycle analytics, and IoT sensor deployment.", missingRoles: "CMO / Marketing", advisors: "Iberian distributor partner; crop scientist from Portuguese agricultural institute" },
+    market: { tam: "~€5B (smart irrigation and precision agriculture in Europe)", sam: "~€600M (Iberian and Italian specialty-crop growers)", competitors: "CropX, Sentek, Lindsay FieldNET, John Deere precision ag", differentiator: "Seasonal analytics calibrated for specialty crops in the field — not adapted from greenhouse or commodity-crop products." },
+    unitEconomics: { mrr: "EUR 22k (seasonal)", arr: "~EUR 180k annualised", cac: "~EUR 1.5k per grower via distributor channel", ltv: "~EUR 6k per grower over 4 seasons", churn: "Unknown — first full crop cycle completing", salesChannel: "Distributor-led — signed channel partner in Iberia" },
+    funding: { totalRaised: "EUR 450k (seed grant + pre-seed angel)", roundCount: "1 informal round", notableInvestors: "Regional innovation fund (Portugal)", postMoneyVal: "Not formally established" },
+    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Valmont Industries, Lindsay, Netafim, John Deere, Trimble" },
   },
   {
     id: "quantweave",
@@ -215,6 +245,11 @@ const profileTemplates = [
     nextStep: "Package the company as a commercialization candidate focused on one specific first market, not a broad platform.",
     metrics: { revenue: "Pre-revenue", runway: "10 months", grossMargin: "Not proven", traction: "2 evals" },
     tags: ["deep tech", "materials", "spinout"],
+    team: { size: "4–7", founders: "2 founders — CEO (materials engineering, ex-ETH spinout) and CTO (physicist, PhD nanomaterials)", background: "Nanomaterials synthesis, thermal interface characterisation, and IP prosecution.", missingRoles: "CFO / commercial lead", advisors: "ETH Zurich technology transfer office; patent advisor (EP/US)" },
+    market: { tam: "~€3B (advanced thermal interface materials global)", sam: "~€400M (European electronics OEM segment)", competitors: "Henkel Bergquist, 3M, Shin-Etsu, Parker Chomerics", differentiator: "Film form factor that eliminates paste application step — reduces manufacturing time and improves yield predictability." },
+    unitEconomics: { mrr: "", arr: "", cac: "Not established — OEM evaluations ongoing", ltv: "Licensing fee per product line — estimated €50k–€500k per OEM agreement", churn: "Not applicable", salesChannel: "Direct to OEM technical and procurement teams via lab evaluation cycle" },
+    funding: { totalRaised: "EUR 800k (ETH spinout grant + first angel round)", roundCount: "1", notableInvestors: "ETH spinout programme", postMoneyVal: "EUR 3.5M (estimated)" },
+    exit: { horizon: "7+ years", type: "Strategic acquisition", acquirers: "Henkel, 3M, Shin-Etsu, Merck KGaA, Saint-Gobain" },
   },
   {
     id: "aquacipher",
@@ -246,6 +281,11 @@ const profileTemplates = [
     nextStep: "Convert the pilot story into a paid-procurement story before broad fundraising outreach.",
     metrics: { revenue: "Pilot fees", runway: "8 months", grossMargin: "69% software", traction: "3 pilots" },
     tags: ["water", "municipal", "software"],
+    team: { size: "4–7", founders: "2 founders — CEO (ex-utility procurement manager) and CTO (signal processing engineer, PhD)", background: "Water infrastructure operations and acoustic leak detection algorithms.", missingRoles: "VP Sales / BD", advisors: "Municipal procurement advisor; utility engineering contact (Greek water authority)" },
+    market: { tam: "~€10B (global water infrastructure monitoring and leak detection)", sam: "~€1.2B (European municipal water utilities)", competitors: "Itron, Sensus, Suez leak detection, Xylem Pure Technologies", differentiator: "Software-first — deploys on existing sensor infrastructure without new hardware procurement cycle." },
+    unitEconomics: { mrr: "Pilot fees (~EUR 5k/month)", arr: "Not yet on recurring contracts", cac: "High — 12–18 month municipal procurement cycle", ltv: "Estimated €80k–€200k per utility over 5 years", churn: "Not applicable (pilot phase)", salesChannel: "Direct to utility procurement and technical teams" },
+    funding: { totalRaised: "EUR 500k (pre-seed + pilot project co-funding)", roundCount: "1", notableInvestors: "Regional water utility co-investor", postMoneyVal: "EUR 4M (estimated)" },
+    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Xylem, Itron, Veolia, Suez, Diehl Metering" },
   },
   {
     id: "ciphernest",
@@ -277,6 +317,11 @@ const profileTemplates = [
     nextStep: "Sharpen the differentiation case and document what the next round unlocks operationally.",
     metrics: { revenue: "EUR 1.1M ARR", runway: "14 months", grossMargin: "82%", traction: "36 customers" },
     tags: ["cybersecurity", "saas", "regulated"],
+    team: { size: "31–50", founders: "2 founders — CEO (ex-Deloitte risk and cyber partner) and CTO (security software engineer)", background: "Enterprise risk consulting, compliance automation, and B2B SaaS architecture.", missingRoles: "None currently", advisors: "CISO council member (Fortune 500 financial); legal tech advisor (NIS2 / DORA specialist)" },
+    market: { tam: "~€6B (European third-party risk management and GRC software)", sam: "~€1.5B (regulated financial services and insurance enterprises)", competitors: "OneTrust, Archer GRC, ProcessUnity, Prevalent, Venminder", differentiator: "Supplier-facing monitoring with automated evidence collection — not just questionnaires. Continuous rather than point-in-time." },
+    unitEconomics: { mrr: "~EUR 92k", arr: "EUR 1.1M", cac: "~EUR 18k per enterprise (12-month sales cycle)", ltv: "~EUR 150k per enterprise over 3 years (net revenue retention 118%)", churn: "Under 6% logo churn annual", salesChannel: "Outbound enterprise sales + compliance ecosystem partnerships (Big 4, legal advisors)" },
+    funding: { totalRaised: "EUR 2.2M (seed)", roundCount: "1", notableInvestors: "Dublin enterprise tech VC", postMoneyVal: "EUR 8M (post-seed)" },
+    exit: { horizon: "3–5 years", type: "Strategic acquisition", acquirers: "OneTrust, ServiceNow, IBM Security, SAP GRC, Workiva" },
   },
   {
     id: "factorymesh",
@@ -308,6 +353,11 @@ const profileTemplates = [
     nextStep: "Package live-factory proof and services-burden discipline into one narrative before the next raise.",
     metrics: { revenue: "EUR 68k MRR", runway: "9 months", grossMargin: "61%", traction: "5 factories" },
     tags: ["industrial", "ai", "saas"],
+    team: { size: "16–30", founders: "2 founders — CEO (ex-Siemens manufacturing ops) and CTO (computer vision engineer, PhD)", background: "Factory automation, machine learning for industrial sensors, and implementation delivery.", missingRoles: "VP Sales", advisors: "Mid-market manufacturing operator (DACH); PLC and OPC-UA integration specialist" },
+    market: { tam: "~€8B (European industrial software and AI for manufacturing)", sam: "~€1.5B (mid-market manufacturers in DACH region)", competitors: "Sight Machine, C3.ai industrial, Siemens MindSphere, Rockwell Automation", differentiator: "Deployable in legacy environments without new hardware — integration-first, not platform-first. Faster time-to-value." },
+    unitEconomics: { mrr: "EUR 68k", arr: "EUR 816k (run rate)", cac: "~EUR 12k per factory (6-month sales and integration cycle)", ltv: "~EUR 70k per factory over 3 years", churn: "Under 10% annual", salesChannel: "Direct to plant managers; OEM channel partnership in development" },
+    funding: { totalRaised: "EUR 1.2M (pre-seed + seed)", roundCount: "2", notableInvestors: "DACH industrial tech angels; EIC Accelerator grant", postMoneyVal: "EUR 7M (post-seed)" },
+    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Siemens, ABB, Dassault Systèmes, AVEVA, Rockwell Automation" },
   },
 ];
 
@@ -332,6 +382,11 @@ const trlOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const levelOptions = ["Low", "Medium", "High"];
 const exposureLevelOptions = ["Not sure", "Low", "Medium", "High"];
 const yesNoOptions = ["Unknown", "Yes", "No"];
+const teamSizeOptions = ["1–3", "4–7", "8–15", "16–30", "31–50", "50+"];
+const missingRoleOptions = ["None currently", "CFO", "CTO", "CMO / Marketing", "VP Sales", "COO", "Clinical / Medical lead", "Regulatory lead"];
+const salesChannelOptions = ["Direct enterprise sales", "Product-led growth", "Distributor / channel partner", "OEM / licensing", "Government procurement", "Marketplace or platform", "Mixed"];
+const exitHorizonOptions = ["2–3 years", "3–5 years", "5–7 years", "7+ years", "Not decided yet"];
+const exitTypeOptions = ["Strategic acquisition", "Financial acquisition (PE / buy-out)", "IPO", "Management buyout", "Not decided yet"];
 const questionnaireStatusOptions = ["Not started", "In progress", "Ready for review", "Completed"];
 const esgQuestionOptions = ["Yes", "Working on it", "No"];
 const timeframeOptions = ["Unknown", "Less than 1 year", "1-3 years", "3-5 years", "More than 5 years"];
@@ -536,6 +591,11 @@ function mergeProfile(template, saved) {
   const base = {
     ...structuredClone(template),
     assessment: defaultAssessment(template),
+    team: { ...defaultTeam(), ...(template.team || {}) },
+    market: { ...defaultMarket(), ...(template.market || {}) },
+    unitEconomics: { ...defaultUnitEconomics(), ...(template.unitEconomics || {}) },
+    funding: { ...defaultFunding(), ...(template.funding || {}) },
+    exit: { ...defaultExit(), ...(template.exit || {}) },
   };
   if (!saved || typeof saved !== "object") return base;
   return {
@@ -544,12 +604,33 @@ function mergeProfile(template, saved) {
     regulatory: { ...template.regulatory, ...(saved.regulatory || {}) },
     transition: { ...template.transition, ...(saved.transition || {}) },
     metrics: { ...template.metrics, ...(saved.metrics || {}) },
+    team: { ...base.team, ...(saved.team || {}) },
+    market: { ...base.market, ...(saved.market || {}) },
+    unitEconomics: { ...base.unitEconomics, ...(saved.unitEconomics || {}) },
+    funding: { ...base.funding, ...(saved.funding || {}) },
+    exit: { ...base.exit, ...(saved.exit || {}) },
     assessment: mergeAssessment(base.assessment, saved.assessment),
     evidence: Array.isArray(saved.evidence) ? saved.evidence : template.evidence,
     risks: Array.isArray(saved.risks) ? saved.risks : template.risks,
     missing: Array.isArray(saved.missing) ? saved.missing : template.missing,
     tags: Array.isArray(saved.tags) ? saved.tags : template.tags,
   };
+}
+
+function defaultTeam() {
+  return { size: "", founders: "", background: "", missingRoles: "", advisors: "" };
+}
+function defaultMarket() {
+  return { tam: "", sam: "", competitors: "", differentiator: "" };
+}
+function defaultUnitEconomics() {
+  return { mrr: "", arr: "", cac: "", ltv: "", churn: "", salesChannel: "" };
+}
+function defaultFunding() {
+  return { totalRaised: "", roundCount: "", notableInvestors: "", postMoneyVal: "" };
+}
+function defaultExit() {
+  return { horizon: "", type: "", acquirers: "" };
 }
 
 function defaultAssessment(profile) {
@@ -687,6 +768,12 @@ function computeReadiness(profile, lensKey = state.lens) {
     profile.metrics.traction,
     profile.regulatory.note,
     profile.transition.note,
+    profile.team.founders,
+    profile.team.background,
+    profile.market.tam,
+    profile.market.competitors,
+    profile.funding.totalRaised,
+    profile.exit.horizon,
   ];
 
   const completeness = clamp(Math.round((filledCore.filter(isPresent).length / filledCore.length) * 100), 24, 100);
@@ -705,8 +792,9 @@ function computeReadiness(profile, lensKey = state.lens) {
   const narrative =
     clamp(
       Math.round(
-        20 +
-          presencePoints([profile.oneLiner, profile.problem, profile.customer, profile.model, profile.useOfFunds, profile.ask, profile.nextStep], 10) +
+        14 +
+          presencePoints([profile.oneLiner, profile.problem, profile.customer, profile.model, profile.useOfFunds, profile.ask, profile.nextStep], 8) +
+          presencePoints([profile.team.founders, profile.market.tam, profile.market.differentiator], 6) +
           metricBonus(profile.metrics.traction, ["ARR", "MRR", "pilot", "LOI", "live"], 6)
       ),
       22,
@@ -715,8 +803,9 @@ function computeReadiness(profile, lensKey = state.lens) {
   const diligence =
     clamp(
       Math.round(
-        28 +
-          presencePoints([profile.ip, profile.regulatory.note, profile.transition.note], 9) +
+        22 +
+          presencePoints([profile.ip, profile.regulatory.note, profile.transition.note], 8) +
+          presencePoints([profile.funding.totalRaised, profile.exit.horizon, profile.market.competitors], 5) +
           Math.min(18, riskCount * 4) +
           Math.min(12, missingCount * 2) -
           Math.max(0, missingCount - 4) * 4
@@ -1420,6 +1509,33 @@ function renderIntakeTab(profile) {
 
       <section class="section-block">
         <div class="section-heading">
+          <p class="eyebrow">Team</p>
+          <h3>Who is building this, and who is still missing</h3>
+        </div>
+        <div class="form-grid">
+          ${renderTextField("Founding team — names, roles, and brief background", "team.founders", profile.team.founders, "textarea")}
+          ${renderTextField("What makes this team the right one to execute this", "team.background", profile.team.background, "textarea")}
+          ${renderSelectField("Full-time team size", "team.size", profile.team.size, teamSizeOptions)}
+          ${renderSelectField("Key role currently missing", "team.missingRoles", profile.team.missingRoles, missingRoleOptions)}
+          ${renderTextField("Key advisors (optional)", "team.advisors", profile.team.advisors)}
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">Market & competition</p>
+          <h3>The size of the opportunity and who you are competing with</h3>
+        </div>
+        <div class="form-grid">
+          ${renderTextField("Total addressable market — your best estimate", "market.tam", profile.market.tam)}
+          ${renderTextField("Serviceable market — what you can realistically reach", "market.sam", profile.market.sam)}
+          ${renderTextField("Main competitors (name 2–4)", "market.competitors", profile.market.competitors, "textarea")}
+          ${renderTextField("Why would customers choose you over them?", "market.differentiator", profile.market.differentiator, "textarea")}
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
           <p class="eyebrow">Classification</p>
           <h3>Standardized fields for consistent profiling</h3>
         </div>
@@ -1441,6 +1557,38 @@ function renderIntakeTab(profile) {
           ${renderMetricField("Runway", "runway", profile.metrics.runway)}
           ${renderMetricField("Gross margin", "grossMargin", profile.metrics.grossMargin)}
           ${renderMetricField("Traction", "traction", profile.metrics.traction)}
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">Unit economics</p>
+          <h3>The numbers that tell investors whether the business model works</h3>
+        </div>
+        <p class="model-note">Fill in what you have. Pre-revenue companies can leave MRR/ARR blank and focus on CAC estimates and sales channel.</p>
+        <div class="form-grid">
+          ${renderTextField("Monthly recurring revenue (MRR)", "unitEconomics.mrr", profile.unitEconomics.mrr)}
+          ${renderTextField("Annual recurring revenue (ARR)", "unitEconomics.arr", profile.unitEconomics.arr)}
+          ${renderTextField("Customer acquisition cost (CAC)", "unitEconomics.cac", profile.unitEconomics.cac)}
+          ${renderTextField("Customer lifetime value (LTV)", "unitEconomics.ltv", profile.unitEconomics.ltv)}
+          ${renderTextField("Churn rate", "unitEconomics.churn", profile.unitEconomics.churn)}
+          ${renderSelectField("How do you primarily reach customers?", "unitEconomics.salesChannel", profile.unitEconomics.salesChannel, salesChannelOptions)}
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">Funding & exit</p>
+          <h3>Where you have been and where you are going</h3>
+        </div>
+        <div class="form-grid">
+          ${renderTextField("Total raised to date", "funding.totalRaised", profile.funding.totalRaised)}
+          ${renderTextField("Number of previous rounds", "funding.roundCount", profile.funding.roundCount)}
+          ${renderTextField("Key existing investors", "funding.notableInvestors", profile.funding.notableInvestors)}
+          ${renderTextField("Last known post-money valuation", "funding.postMoneyVal", profile.funding.postMoneyVal)}
+          ${renderSelectField("Expected exit horizon", "exit.horizon", profile.exit.horizon, exitHorizonOptions)}
+          ${renderSelectField("Preferred exit type", "exit.type", profile.exit.type, exitTypeOptions)}
+          ${renderTextField("Potential acquirers or strategic partners", "exit.acquirers", profile.exit.acquirers, "textarea")}
         </div>
       </section>
 
@@ -2313,7 +2461,8 @@ function fieldPreview(value) {
 
 function fieldTab(field) {
   if (field.startsWith("assessment.esg.questionnaire")) return "esg";
-  return ["evidence", "risks", "missing"].includes(field) ? "evidence" : "intake";
+  if (["evidence", "risks", "missing"].includes(field)) return "evidence";
+  return "intake";
 }
 
 function fieldLabel(field) {
@@ -2341,6 +2490,24 @@ function fieldLabel(field) {
     "assessment.sroi.measurementWindow": "Measurement window",
     "assessment.esg.questionnaire.socialOutcome": "Social outcome",
     "assessment.esg.questionnaire.envTracking": "Energy / carbon tracking",
+    "team.founders": "Founding team",
+    "team.background": "Team background",
+    "team.missingRoles": "Key missing role",
+    "market.tam": "Total addressable market",
+    "market.sam": "Serviceable market",
+    "market.competitors": "Main competitors",
+    "market.differentiator": "Competitive advantage",
+    "unitEconomics.mrr": "MRR",
+    "unitEconomics.arr": "ARR",
+    "unitEconomics.cac": "Customer acquisition cost",
+    "unitEconomics.ltv": "Customer lifetime value",
+    "unitEconomics.churn": "Churn rate",
+    "unitEconomics.salesChannel": "Sales channel",
+    "funding.totalRaised": "Total raised",
+    "funding.notableInvestors": "Key investors",
+    "exit.horizon": "Exit horizon",
+    "exit.type": "Exit type",
+    "exit.acquirers": "Potential acquirers",
   };
   return labels[field] || field;
 }
