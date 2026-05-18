@@ -381,6 +381,35 @@ const profileTemplates = [
   },
 ];
 
+const exampleTemplateIdsByLens = {
+  fundraising: ["ciphernest", "vectorlane", "factorymesh"],
+  partner: ["gridforge", "aquacipher", "neuroharbor"],
+  commercialization: ["aerolith", "quantweave", "circuliq"],
+  grant: ["soilpulse"],
+};
+
+function featuredExampleProfileIdForLens(lensKey) {
+  const candidateIds = exampleTemplateIdsByLens[lensKey] || [];
+  const candidates = candidateIds
+    .map((id) => profileTemplates.find((template) => template.id === id))
+    .filter(Boolean)
+    .map((template) => {
+      const profile = buildProfileRecord(template, { source: "template", templateId: template.id });
+      return {
+        id: template.id,
+        score: computeReadiness(profile, lensKey).overall,
+      };
+    })
+    .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+
+  if (candidates.length) return candidates[0].id;
+  return profileTemplates[0]?.id || "aerolith";
+}
+
+function isTemplateProfile(profile) {
+  return profile?.source === "template";
+}
+
 const STORAGE_KEY = "openeconomics-foundry-profiles-v1";
 const tabs = [
   ["workspace", "Guide"],
@@ -656,7 +685,7 @@ const PROFILE_STORAGE_VERSION = 2;
 
 const state = {
   profiles: loadProfiles(),
-  activeId: "aerolith",
+  activeId: featuredExampleProfileIdForLens("fundraising"),
   lens: "fundraising",
   query: "",
   sector: "All",
@@ -923,6 +952,12 @@ function syncStateFromHash() {
     }
   } else if (lens && lensConfig[lens]) {
     state.lens = lens;
+  }
+  if (!activeProfileId) {
+    const activeProfileRecord = activeProfile();
+    if (isTemplateProfile(activeProfileRecord)) {
+      state.activeId = featuredExampleProfileIdForLens(state.lens);
+    }
   }
   if (tab && tabs.some(([value]) => value === tab)) state.tab = tab;
 }
@@ -2616,6 +2651,9 @@ function handleClick(event) {
 
   if (action === "set-lens") {
     state.lens = target.dataset.lens;
+    if (isTemplateProfile(activeProfile())) {
+      state.activeId = featuredExampleProfileIdForLens(state.lens);
+    }
     state.tab = "workspace";
     render();
     return;
@@ -2640,6 +2678,7 @@ function handleClick(event) {
 
   if (action === "skip-onboarding") {
     state.onboarding = false;
+    state.activeId = featuredExampleProfileIdForLens(state.lens);
     persistProfiles();
     render();
     return;
