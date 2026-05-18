@@ -383,11 +383,11 @@ const profileTemplates = [
 
 const STORAGE_KEY = "openeconomics-foundry-profiles-v1";
 const tabs = [
-  ["workspace", "Overview"],
+  ["workspace", "Guide"],
   ["intake", "Profile"],
   ["evidence", "Evidence"],
   ["memo", "Memo"],
-  ["esg", "ESG"],
+  ["esg", "Impact"],
 ];
 
 const lensMarketSignals = {
@@ -570,8 +570,8 @@ const lensConfig = {
       {
         label: "Proof of impact",
         need: "The outcome you're targeting, what you're measuring it against, and the data you'll need to prove impact.",
-        destination: "Profile: SROI data and ESG tracking",
-        source: "Use baseline data, beneficiary counts, monitoring data, ESG forms, and any third-party evidence available.",
+      destination: "Profile: SROI data and impact tracking",
+      source: "Use baseline data, beneficiary counts, monitoring data, impact forms, and any third-party evidence available.",
         fields: ["assessment.sroi.beneficiaryGroups", "assessment.sroi.primaryOutcome", "assessment.sroi.annualReach", "assessment.esg.questionnaire.socialOutcome"],
       },
     ],
@@ -664,6 +664,7 @@ const state = {
   tab: "workspace",
   onboarding: typeof localStorage !== "undefined" && !localStorage.getItem(STORAGE_KEY),
   draft: { name: "", sector: "", stage: "", geography: "", ask: "", roundType: "", oneLiner: "" },
+  extendedProfileOpen: false,
 };
 
 let searchRenderTimer = null;
@@ -1170,7 +1171,7 @@ function computeExposureCollection(profile) {
 function computeEsgCollection(profile) {
   const q = profile.assessment.esg.questionnaire;
   const fields = [q.envTracking, q.envPolicy, q.emissionsImpact, q.diversityPolicy, q.wellbeingTracking, q.socialOutcome, q.hasBoard, q.ethicsPolicy, q.financialsReviewed];
-  return buildCollectionStatus(fields, "ESG questionnaire", "Optional structured preparation input stored for later reuse. It does not change the readiness score directly.");
+  return buildCollectionStatus(fields, "Impact questionnaire", "Optional structured preparation input stored for later reuse. It does not change the readiness score directly.");
 }
 
 function computeSroiCollection(profile) {
@@ -1659,12 +1660,12 @@ function renderTabGuide(profile) {
   const filled = focusedFields.filter((field) => hasGuideValue(readPath(profile, field))).length;
   const tabCopy = {
     workspace: {
-      label: "Your preparation overview.",
-      detail: "Work through the steps below, then go to the specific fields and evidence areas this lens focuses on.",
+      label: "Where you are now, and what matters next.",
+      detail: "Use the field map to jump to the highest-priority fields, then follow the next steps to close the main gaps.",
     },
     intake: {
       label: "Edit the fields that matter for this submission path.",
-      detail: "The field map at the top shows what the selected lens uses first. Start there.",
+      detail: "The priority block shows what this lens uses first. Fill that before the rest.",
     },
     evidence: {
       label: "Build evidence around what a reader will actually ask.",
@@ -1675,7 +1676,7 @@ function renderTabGuide(profile) {
       detail: "The memo adapts to the selected lens and surfaces what's still uncertain.",
     },
     esg: {
-      label: "Fill in the ESG questionnaire.",
+      label: "Fill in the Impact questionnaire.",
       detail: "Questions are tailored to your sector. Answer what you can, then reuse the answers in later preparation.",
     },
   }[state.tab];
@@ -1704,148 +1705,43 @@ function renderTabContent(profile, readiness) {
 }
 
 function renderWorkspaceTab(profile, readiness) {
-  const collections = buildAssessmentCollections(profile);
   const currentLens = lensConfig[state.lens];
   const insight = buildPreparationInsightV2(profile, readiness, currentLens);
+  const strongSignals = readiness.strongSignals.slice(0, 3);
+  const blockers = readiness.blockers.slice(0, 3);
   return `
     <div class="content-grid">
-      <section class="section-block section-block--wide room-brief">
+      <section class="section-block section-block--wide">
         <div class="section-heading">
           <p class="eyebrow">${escapeHtml(currentLens.eyebrow)}</p>
           <h3>${escapeHtml(currentLens.label)}</h3>
         </div>
-        <div class="room-brief__grid">
-          <article class="room-brief__primary">
-            <span>What this path is for</span>
-            <strong>${escapeHtml(insight.openQuestion)}</strong>
-            <p>${escapeHtml(currentLens.intro)}</p>
-          </article>
-          <article class="room-step">
-            <span>Audience</span>
-            <strong>${escapeHtml(insight.audience)}</strong>
-            <p>${escapeHtml(insight.audienceReason)}</p>
-          </article>
-          <article class="room-step">
-            <span>Best for</span>
-            <strong>When to use this lens</strong>
-            <p>${escapeHtml(currentLens.bestFor)}</p>
-          </article>
-          <article class="room-step">
-            <span>Output</span>
-            <strong>What a good result looks like</strong>
-            <p>${escapeHtml(currentLens.outcome)}</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section-block section-block--wide lens-panel">
-        <div class="section-heading">
-          <p class="eyebrow">Step-by-step guide</p>
-          <h3>What to prepare, where it goes, and where to find it</h3>
-        </div>
-        <div class="guide-process">
-          ${renderLensGuide(profile, currentLens)}
-        </div>
+        <article class="lens-summary-card">
+          <span>What this path is for</span>
+          <strong>${escapeHtml(insight.openQuestion)}</strong>
+          <p>${escapeHtml(currentLens.intro)}</p>
+          <small>${escapeHtml(currentLens.bestFor)}</small>
+        </article>
       </section>
 
       <section class="section-block section-block--wide lens-field-map">
         <div class="section-heading">
           <p class="eyebrow">Field map</p>
-          <h3>Fields this lens uses first</h3>
+          <h3>Fields this lens uses first — click any card to jump to the field</h3>
         </div>
         <div class="field-map-grid">
           ${renderLensFieldMap(profile, currentLens)}
         </div>
       </section>
 
-      <section class="section-block section-block--wide lens-panel">
-        <div class="section-heading">
-          <p class="eyebrow">Score breakdown</p>
-          <h3>How this lens influences the readiness score</h3>
-        </div>
-        <div class="lens-panel__body lens-panel__body--compact">
-          <p>${escapeHtml(currentLens.outcome)}</p>
-          <div class="lens-weight-grid">
-            ${renderLensWeights(currentLens)}
-          </div>
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Company story</p>
-          <h3>The narrative in this room</h3>
-        </div>
-        <div class="key-lines">
-          <article>
-            <span>Problem</span>
-            <p>${escapeHtml(profile.problem)}</p>
-          </article>
-          <article>
-            <span>Customer</span>
-            <p>${escapeHtml(profile.customer)}</p>
-          </article>
-          <article>
-            <span>Business model</span>
-            <p>${escapeHtml(profile.model)}</p>
-          </article>
-          <article>
-            <span>Use of funds</span>
-            <p>${escapeHtml(profile.useOfFunds)}</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Key metrics</p>
-          <h3>Operating figures in the profile</h3>
-        </div>
-        <div class="metric-grid">
-          ${renderMetric("Revenue", profile.metrics.revenue)}
-          ${renderMetric("Runway", profile.metrics.runway)}
-          ${renderMetric("Gross margin", profile.metrics.grossMargin)}
-          ${renderMetric("Traction", profile.metrics.traction)}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Assessment inputs</p>
-          <h3>Data captured for readiness or later preparation</h3>
-        </div>
-        <div class="assessment-grid">
-          ${renderCollectionCard("Exposure", collections.exposure)}
-          ${renderCollectionCard("ESG questionnaire", collections.esg)}
-          ${renderCollectionCard("Social return on investment (SROI)", collections.sroi)}
-        </div>
-        <p class="model-note">Exposure framing influences readiness. ESG and SROI inputs are stored for later memo and packaging work, but they do not change the readiness score directly.</p>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Readiness signals</p>
-          <h3>What's working and what needs attention</h3>
-        </div>
-        <div class="two-column-list">
-          <div>
-            <span>What's working</span>
-            <ul class="clean-list">${readiness.strongSignals.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-          </div>
-          <div>
-            <span>Gaps to address</span>
-            <ul class="clean-list muted-list">${readiness.blockers.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-          </div>
-        </div>
-      </section>
-
       <section class="section-block section-block--wide">
         <div class="section-heading">
-          <p class="eyebrow">Next steps</p>
-          <h3>Things to address before sharing this room</h3>
+          <p class="eyebrow">Preparation priority</p>
+          <h3>${escapeHtml(insight.priorityLabel)}</h3>
         </div>
+        <p class="model-note">${escapeHtml(insight.priorityDetail)}</p>
         <div class="move-list">
-          ${[...insight.nextMoves, ...collections.missingActions.slice(0, 1)]
+          ${insight.nextMoves
             .map(
               (move, index) => `
                 <article class="move-item">
@@ -1857,26 +1753,34 @@ function renderWorkspaceTab(profile, readiness) {
             .join("")}
         </div>
       </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">Readiness signals</p>
+          <h3>What's working and what needs attention</h3>
+        </div>
+        <div class="two-column-list">
+          <div>
+            <span>What's working</span>
+            <ul class="clean-list">${strongSignals.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+          </div>
+          <div>
+            <span>Gaps to address</span>
+            <ul class="clean-list muted-list">${blockers.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+          </div>
+        </div>
+      </section>
     </div>
   `;
 }
 
 function renderIntakeTabV2(profile) {
-  const exposure = computeExposureCollection(profile);
-  const esg = computeEsgCollection(profile);
-  const sroi = computeSroiCollection(profile);
   const lens = lensConfig[state.lens];
   const lensTitle = {
-    fundraising: "Raise preparation",
+    fundraising: "Fundraising",
     partner: "Partner deployment",
     commercialization: "Commercialization",
     grant: "Grant and impact",
-  }[state.lens];
-  const lensIntro = {
-    fundraising: "Start with the ask, the spend plan, and the proof that makes the round easier to defend.",
-    partner: "Start with the buyer, the deployment burden, and what a successful pilot actually looks like.",
-    commercialization: "Start with what has been built, who owns it, and the first route to market that can actually work.",
-    grant: "Start with the beneficiary, the outcome, and the delivery plan behind the application.",
   }[state.lens];
 
   const lensFields = {
@@ -1886,7 +1790,6 @@ function renderIntakeTabV2(profile) {
       ${renderTextField("Suggested next step", "nextStep", profile.nextStep, "textarea")}
       ${renderMetricField("Runway", "runway", profile.metrics.runway)}
       ${renderMetricField("Traction", "traction", profile.metrics.traction)}
-      ${renderTextField("Total raised to date", "funding.totalRaised", profile.funding.totalRaised)}
     `,
     partner: `
       ${renderTextField("Deployment requirements", "assessment.exposure.note", profile.assessment.exposure.note, "textarea")}
@@ -1907,157 +1810,105 @@ function renderIntakeTabV2(profile) {
       ${renderTextField("Primary outcome to value", "assessment.sroi.primaryOutcome", profile.assessment.sroi.primaryOutcome, "textarea")}
       ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
       ${renderTextField("Funding ask", "ask", profile.ask)}
-      ${renderTextField("Suggested next step", "nextStep", profile.nextStep, "textarea")}
     `,
   }[state.lens];
+
+  const extendedFieldCount = [
+    profile.team.founders, profile.team.background, profile.team.advisors,
+    profile.market.tam, profile.market.sam, profile.market.competitors, profile.market.differentiator,
+    profile.metrics.revenue, profile.metrics.runway, profile.metrics.grossMargin, profile.metrics.traction,
+    profile.funding.totalRaised, profile.funding.roundCount, profile.funding.notableInvestors, profile.funding.postMoneyVal,
+    profile.exit.acquirers,
+  ].filter(isPresent).length + [
+    profile.team.size, profile.team.missingRoles, profile.exit.horizon, profile.exit.type,
+  ].filter(hasCollectionValue).length;
 
   return `
     <div class="form-layout">
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">${escapeHtml(lens.eyebrow)}</p>
-          <h3>${escapeHtml(lensTitle)} fields first</h3>
-        </div>
-        <p class="model-note">${escapeHtml(lensIntro)}</p>
-        <div class="field-map-grid field-map-grid--compact">
-          ${renderLensFieldMap(profile, lens)}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Shared company core</p>
-          <h3>The fields every submission path reuses</h3>
+          <p class="eyebrow">Company core</p>
+          <h3>Fields every submission path reuses</h3>
         </div>
         <div class="form-grid">
           ${renderTextField("Company name", "name", profile.name)}
-          ${renderSelectField("Sector", "sector", profile.sector, allSectors().filter((option) => option !== "All"))}
-          ${renderSelectField("Stage", "stage", profile.stage, stageOptions)}
-          ${renderSelectField("Geography", "geography", profile.geography, geographyOptions)}
           ${renderTextField("One-liner", "oneLiner", profile.oneLiner)}
           ${renderTextField("Problem statement", "problem", profile.problem, "textarea")}
           ${renderTextField("Customer and buyer", "customer", profile.customer, "textarea")}
           ${renderTextField("Business model", "model", profile.model, "textarea")}
+          ${renderSelectField("Sector", "sector", profile.sector, allSectors().filter((option) => option !== "All"))}
+          ${renderSelectField("Stage", "stage", profile.stage, stageOptions)}
+          ${renderSelectField("Geography", "geography", profile.geography, geographyOptions)}
         </div>
       </section>
 
-      <section class="section-block">
+      <section class="section-block section-block--lens-priority">
         <div class="section-heading">
           <p class="eyebrow">${escapeHtml(lens.eyebrow)}</p>
-          <h3>Lens-specific fields first</h3>
+          <h3>${escapeHtml(lensTitle)} — priority fields</h3>
         </div>
-        <p class="model-note">This section changes with the selected lens, so the workflow stays specific instead of generic.</p>
+        <p class="model-note">This lens weights these fields most. Fill them before anything else.</p>
         <div class="form-grid">${lensFields}</div>
       </section>
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Evidence and gaps</p>
-          <h3>What is visible, what is risky, and what still needs proof</h3>
+          <p class="eyebrow">Exposure — affects readiness</p>
+          <h3>Regulatory and climate context</h3>
         </div>
-        <div class="assessment-summary">
-          ${renderCollectionCard("Evidence", {
-            total: Math.max(3, countList(profile.evidence)),
-            completed: countList(profile.evidence),
-            status: profile.evidence.length ? "Visible" : "Empty",
-            detail: "Structured proof points used in readiness and memo work.",
-          })}
-        </div>
-        <div class="evidence-preview-grid">
-          ${renderStructuredCollectionPreview("Evidence items", buildStructuredEvidence(profile.evidence))}
-          ${renderStructuredCollectionPreview("Risks", buildStructuredRisks(profile.risks))}
-          ${renderStructuredCollectionPreview("Missing items", buildStructuredMissing(profile.missing))}
-        </div>
-        <div class="evidence-columns">
-          ${renderTextareaField("Evidence available", "evidence", profile.evidence)}
-          ${renderTextareaField("Risks to acknowledge", "risks", profile.risks)}
-          ${renderTextareaField("Missing items", "missing", profile.missing)}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Team, market, and metrics</p>
-          <h3>The context that makes the story credible</h3>
-        </div>
+        <p class="model-note">These three fields change the readiness score directly by framing market access and compliance burden.</p>
         <div class="form-grid">
-          ${renderTextField("Founding team", "team.founders", profile.team.founders, "textarea")}
-          ${renderTextField("Team background", "team.background", profile.team.background, "textarea")}
-          ${renderSelectField("Full-time team size", "team.size", profile.team.size, teamSizeOptions)}
-          ${renderSelectField("Key role currently missing", "team.missingRoles", profile.team.missingRoles, missingRoleOptions)}
-          ${renderTextField("Key advisors (optional)", "team.advisors", profile.team.advisors)}
-          ${renderTextField("Total addressable market", "market.tam", profile.market.tam)}
-          ${renderTextField("Serviceable market", "market.sam", profile.market.sam)}
-          ${renderTextField("Main competitors", "market.competitors", profile.market.competitors, "textarea")}
-          ${renderTextField("Competitive advantage", "market.differentiator", profile.market.differentiator, "textarea")}
-        </div>
-        <div class="metric-form">
-          ${renderMetricField("Revenue", "revenue", profile.metrics.revenue)}
-          ${renderMetricField("Runway", "runway", profile.metrics.runway)}
-          ${renderMetricField("Gross margin", "grossMargin", profile.metrics.grossMargin)}
-          ${renderMetricField("Traction", "traction", profile.metrics.traction)}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Funding history and exit</p>
-          <h3>Where the company has been and where it aims to go</h3>
-        </div>
-        <div class="form-grid">
-          ${renderTextField("Total raised to date", "funding.totalRaised", profile.funding.totalRaised)}
-          ${renderTextField("Number of previous rounds", "funding.roundCount", profile.funding.roundCount)}
-          ${renderTextField("Key existing investors", "funding.notableInvestors", profile.funding.notableInvestors)}
-          ${renderTextField("Last known post-money valuation", "funding.postMoneyVal", profile.funding.postMoneyVal)}
-          ${renderSelectField("Expected exit horizon", "exit.horizon", profile.exit.horizon, exitHorizonOptions)}
-          ${renderSelectField("Preferred exit type", "exit.type", profile.exit.type, exitTypeOptions)}
-          ${renderTextField("Potential acquirers or strategic partners", "exit.acquirers", profile.exit.acquirers, "textarea")}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Regulatory exposure</p>
-          <h3>Optional framing that does affect readiness</h3>
-        </div>
-        <div class="assessment-summary">
-          ${renderCollectionCard("Exposure collection", exposure)}
-        </div>
-        <p class="model-note">Answer what you can. This section is used directly in the readiness view because it frames market access, compliance burden, and defensibility.</p>
-        <div class="form-grid">
-          ${renderSelectField("How much regulatory oversight does your activity face?", "regulatory.level", profile.regulatory.level, exposureLevelOptions)}
-          ${renderSelectField("How exposed is your company to climate or sustainability regulations?", "transition.level", profile.transition.level, exposureLevelOptions)}
+          ${renderSelectField("Regulatory oversight level", "regulatory.level", profile.regulatory.level, exposureLevelOptions)}
+          ${renderSelectField("Climate / sustainability exposure", "transition.level", profile.transition.level, exposureLevelOptions)}
           ${renderSelectField("Primary market", "assessment.exposure.primaryJurisdiction", profile.assessment.exposure.primaryJurisdiction, geographyOptions)}
-          ${renderTextField("Regulatory or compliance context", "assessment.exposure.note", profile.assessment.exposure.note, "textarea")}
         </div>
       </section>
 
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">ESG tracking</p>
-          <h3>Optional structured preparation for later reuse</h3>
-        </div>
-        <div class="assessment-summary">
-          ${renderCollectionCard("ESG questionnaire", esg)}
-        </div>
-        <p class="model-note">This questionnaire is optional structured preparation. It stays local and is reused in the memo when useful.</p>
-        <button class="button" data-action="set-tab" data-tab="esg">Go to questionnaire</button>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Social impact data</p>
-          <h3>Optional impact inputs for later packaging</h3>
-        </div>
-        <div class="assessment-summary">
-          ${renderCollectionCard("Social return on investment (SROI)", sroi)}
-        </div>
-        <p class="model-note">These inputs help later preparation and memo drafting. They do not change the readiness score directly.</p>
-        <div class="form-grid">
-          ${renderTextField("Who benefits from what you do?", "assessment.sroi.beneficiaryGroups", profile.assessment.sroi.beneficiaryGroups, "textarea")}
-          ${renderTextField("What is the main outcome you create for them?", "assessment.sroi.primaryOutcome", profile.assessment.sroi.primaryOutcome, "textarea")}
-          ${renderTextField("How many people does this reach per year?", "assessment.sroi.annualReach", profile.assessment.sroi.annualReach)}
-        </div>
+      <section class="section-block extended-profile" id="extended-profile">
+        <button class="extended-profile__toggle" type="button" data-action="toggle-extended-profile" aria-expanded="${state.extendedProfileOpen ? "true" : "false"}">
+          <span class="extended-profile__label">Extended profile — team, market, metrics, funding history, exit</span>
+          <span class="extended-profile__badge">${extendedFieldCount} field${extendedFieldCount !== 1 ? "s" : ""} filled</span>
+          <span class="extended-profile__chevron" aria-hidden="true"></span>
+        </button>
+        ${state.extendedProfileOpen ? `
+          <div class="extended-profile__body">
+            <p class="eyebrow extended-profile__sub">Team</p>
+            <div class="form-grid">
+              ${renderTextField("Founding team", "team.founders", profile.team.founders, "textarea")}
+              ${renderTextField("Team background", "team.background", profile.team.background, "textarea")}
+              ${renderSelectField("Full-time team size", "team.size", profile.team.size, teamSizeOptions)}
+              ${renderSelectField("Key role currently missing", "team.missingRoles", profile.team.missingRoles, missingRoleOptions)}
+              ${renderTextField("Key advisors (optional)", "team.advisors", profile.team.advisors)}
+            </div>
+            <p class="eyebrow extended-profile__sub">Market</p>
+            <div class="form-grid">
+              ${renderTextField("Total addressable market", "market.tam", profile.market.tam)}
+              ${renderTextField("Serviceable market", "market.sam", profile.market.sam)}
+              ${renderTextField("Main competitors", "market.competitors", profile.market.competitors, "textarea")}
+              ${renderTextField("Competitive advantage", "market.differentiator", profile.market.differentiator, "textarea")}
+            </div>
+            <p class="eyebrow extended-profile__sub">Metrics</p>
+            <div class="metric-form">
+              ${renderMetricField("Revenue", "revenue", profile.metrics.revenue)}
+              ${renderMetricField("Runway", "runway", profile.metrics.runway)}
+              ${renderMetricField("Gross margin", "grossMargin", profile.metrics.grossMargin)}
+              ${renderMetricField("Traction", "traction", profile.metrics.traction)}
+            </div>
+            <p class="eyebrow extended-profile__sub">Funding history</p>
+            <div class="form-grid">
+              ${renderTextField("Total raised to date", "funding.totalRaised", profile.funding.totalRaised)}
+              ${renderTextField("Number of previous rounds", "funding.roundCount", profile.funding.roundCount)}
+              ${renderTextField("Key existing investors", "funding.notableInvestors", profile.funding.notableInvestors)}
+              ${renderTextField("Last known post-money valuation", "funding.postMoneyVal", profile.funding.postMoneyVal)}
+            </div>
+            <p class="eyebrow extended-profile__sub">Exit planning</p>
+            <div class="form-grid">
+              ${renderSelectField("Expected exit horizon", "exit.horizon", profile.exit.horizon, exitHorizonOptions)}
+              ${renderSelectField("Preferred exit type", "exit.type", profile.exit.type, exitTypeOptions)}
+              ${renderTextField("Potential acquirers or strategic partners", "exit.acquirers", profile.exit.acquirers, "textarea")}
+            </div>
+          </div>
+        ` : ""}
       </section>
     </div>
   `;
@@ -2132,24 +1983,25 @@ function getEsgQuestions(sector, stage) {
 
 function renderEsgTabV2(profile) {
   const esg = computeEsgCollection(profile);
+  const sroi = computeSroiCollection(profile);
   const questions = getEsgQuestions(profile.sector, profile.stage);
   const groups = ["Environment", "Social", "Governance"];
   return `
     <div class="content-grid">
       <section class="section-block section-block--wide">
         <div class="section-heading">
-          <p class="eyebrow">ESG questionnaire</p>
+          <p class="eyebrow">Impact questionnaire</p>
           <h3>Optional structured prep for later reuse</h3>
         </div>
+        <p class="model-note">Both sections below are optional. Answer what you can — "Working on it" or "No" is fine. Answers stay local and can be reused in the memo or a later preparation pack.</p>
         <div class="assessment-summary">
-          ${renderCollectionCard("ESG questionnaire", esg)}
+          ${renderCollectionCard("Impact questionnaire", esg)}
         </div>
-        <p class="model-note">Answer as honestly as you can. "Working on it" or "No" is fine. The answers stay local and can be reused later in the memo or in a more detailed preparation pack.</p>
         ${groups
           .map((group) => {
             const qs = questions.filter((q) => q.group === group);
             return `
-              <p class="eyebrow" style="margin-top:1.5rem">${escapeHtml(group)}</p>
+              <p class="eyebrow impact-group-label">${escapeHtml(group)}</p>
               <div class="form-grid">
                 ${qs.map((q) => renderSelectField(q.label, `assessment.esg.questionnaire.${q.key}`, profile.assessment.esg.questionnaire[q.key], esgQuestionOptions)).join("")}
               </div>
@@ -2157,13 +2009,27 @@ function renderEsgTabV2(profile) {
           })
           .join("")}
       </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">Social return inputs</p>
+          <h3>Optional impact inputs for later packaging</h3>
+        </div>
+        <div class="assessment-summary">
+          ${renderCollectionCard("Social return on investment (SROI)", sroi)}
+        </div>
+        <p class="model-note">These inputs help later preparation and memo drafting. They do not change the readiness score directly.</p>
+        <div class="form-grid">
+          ${renderTextField("Who benefits from what you do?", "assessment.sroi.beneficiaryGroups", profile.assessment.sroi.beneficiaryGroups, "textarea")}
+          ${renderTextField("What is the main outcome you create for them?", "assessment.sroi.primaryOutcome", profile.assessment.sroi.primaryOutcome, "textarea")}
+          ${renderTextField("How many people does this reach per year?", "assessment.sroi.annualReach", profile.assessment.sroi.annualReach)}
+        </div>
+      </section>
     </div>
   `;
 }
 
 function renderEvidenceTab(profile, readiness) {
-  const lens = lensConfig[state.lens];
-  const insight = buildPreparationInsightV2(profile, readiness, lens);
   const structuredEvidence = buildStructuredEvidence(profile.evidence);
   const structuredRisks = buildStructuredRisks(profile.risks);
   const structuredMissing = buildStructuredMissing(profile.missing);
@@ -2171,33 +2037,27 @@ function renderEvidenceTab(profile, readiness) {
     <div class="content-grid">
       <section class="section-block section-block--wide">
         <div class="section-heading">
-          <p class="eyebrow">Evidence overview</p>
-          <h3>How this submission path shapes your evidence needs</h3>
-        </div>
-        <div class="guide-process">
-          ${renderLensGuide(profile, lens)}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
           <p class="eyebrow">Your evidence</p>
           <h3>What you have, what's at risk, and what's missing</h3>
         </div>
-        <p class="model-note">Add one item per line. Each line is treated as a separate proof point, risk, or open diligence item.</p>
-        <div class="evidence-preview-grid">
-          ${renderStructuredCollectionPreview("Evidence items", structuredEvidence)}
-          ${renderStructuredCollectionPreview("Risks", structuredRisks)}
-          ${renderStructuredCollectionPreview("Missing items", structuredMissing)}
-        </div>
+        <p class="model-note">One item per line — each line becomes a separate proof point, risk, or open diligence item.</p>
         <div class="evidence-columns">
-          ${renderTextareaField("Evidence available", "evidence", profile.evidence)}
-          ${renderTextareaField("Risks to acknowledge", "risks", profile.risks)}
-          ${renderTextareaField("Missing items", "missing", profile.missing)}
+          <div class="evidence-column">
+            ${renderTextareaField("Evidence available", "evidence", profile.evidence)}
+            ${renderStructuredCollectionPreview("Parsed evidence", structuredEvidence)}
+          </div>
+          <div class="evidence-column">
+            ${renderTextareaField("Risks to acknowledge", "risks", profile.risks)}
+            ${renderStructuredCollectionPreview("Parsed risks", structuredRisks)}
+          </div>
+          <div class="evidence-column">
+            ${renderTextareaField("Missing items", "missing", profile.missing)}
+            ${renderStructuredCollectionPreview("Parsed gaps", structuredMissing)}
+          </div>
         </div>
       </section>
 
-      <section class="section-block">
+      <section class="section-block section-block--wide evidence-checklist">
         <div class="section-heading">
           <p class="eyebrow">${lensConfig[state.lens].eyebrow}</p>
           <h3>Preparation checklist</h3>
@@ -2205,54 +2065,6 @@ function renderEvidenceTab(profile, readiness) {
         <ul class="clean-list prompt-list">
           ${lensConfig[state.lens].checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
         </ul>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Key questions to answer</p>
-          <h3>What a reader will want to know before engaging</h3>
-        </div>
-        <div class="question-map">
-          ${insight.counterpartyQuestions
-            .map(
-              (question) => `
-                <article>
-                  <span>${escapeHtml(question.label)}</span>
-                  <p>${escapeHtml(question.question)}</p>
-                  <strong>${escapeHtml(question.answer)}</strong>
-                </article>
-              `
-            )
-            .join("")}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Score breakdown</p>
-          <h3>Why your score looks like this</h3>
-        </div>
-        <div class="score-list">
-          ${readiness.moduleScores
-            .map(
-              (score) => `
-                <article class="score-row">
-                  <div>
-                    <strong>${escapeHtml(score.label)}</strong>
-                    <p>${escapeHtml(score.note)}</p>
-                    <p class="score-row__detail">${escapeHtml(score.detail)}</p>
-                  </div>
-                  <div class="score-row__meta">
-                    <span>${score.value}/100</span>
-                    <small>Coverage ${score.coverage}/100</small>
-                    <small>Quality ${score.quality}/100</small>
-                    <small>${escapeHtml(score.summary)}</small>
-                  </div>
-                </article>
-              `
-            )
-            .join("")}
-        </div>
       </section>
     </div>
   `;
@@ -2299,7 +2111,9 @@ function renderMemoTab(profile, readiness) {
 }
 
 function renderReadinessRail(profile, readiness, bestLens) {
-  const collections = buildAssessmentCollections(profile);
+  const insight = buildPreparationInsightV2(profile, readiness, bestLens);
+  const topBlocker = readiness.blockers[0] || "No critical blockers identified yet.";
+  const aboutScore = "Regulatory and climate exposure aren’t automatically bad for your score. They can create market demand, add compliance burden, limit market access, or make your position harder to copy — it depends on your situation.";
   return `
     <aside class="rail panel">
       <div class="panel-heading">
@@ -2308,7 +2122,7 @@ function renderReadinessRail(profile, readiness, bestLens) {
       </div>
 
       <div class="rail-score">
-        <strong>${readiness.overall}</strong>
+        <strong title="${escapeHtml(aboutScore)}">${readiness.overall}</strong>
         <span>${lensConfig[state.lens].label}</span>
       </div>
 
@@ -2322,40 +2136,38 @@ function renderReadinessRail(profile, readiness, bestLens) {
                   <strong>${score.value}</strong>
                 </div>
                 <div class="progress" aria-hidden="true"><span style="width:${score.value}%"></span></div>
-                <p>${escapeHtml(score.note)}</p>
-                <p class="bar-block__detail">${escapeHtml(score.detail)}</p>
               </div>
             `
           )
           .join("")}
       </div>
 
-      <div class="rail-section">
-        <span>Strongest signal</span>
-        <p>${escapeHtml(readiness.strongSignals[0] || "Overall profile coverage is the strongest signal so far.")}</p>
+      <div class="rail-decision">
+        <div class="rail-section rail-section--priority">
+          <span>Most critical gap</span>
+          <p>${escapeHtml(topBlocker)}</p>
+        </div>
+
+        <div class="rail-section rail-section--priority">
+          <span>Suggested next step</span>
+          <p>${escapeHtml(insight.priorityDetail)}</p>
+        </div>
       </div>
 
-      <div class="rail-section">
-        <span>Best fit</span>
-        <p>${escapeHtml(bestLens.label)} is the strongest path for ${profile.name}.</p>
-      </div>
-
-      <div class="rail-section">
-        <span>Next step</span>
-        <p>${escapeHtml(collections.nextStep.detail)}</p>
-      </div>
-
-      <div class="rail-section">
-        <span>Current blockers</span>
-        <ul class="clean-list muted-list">${readiness.blockers.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-      </div>
-
-      <div class="rail-section">
-        <span>About this score</span>
-        <p>
-          Regulatory environment and climate exposure aren't automatically bad for your score. We ask you to think about whether they
-          create market demand, add operational burden, limit market access, or make your position harder to copy — it depends on your situation.
-        </p>
+      <div class="rail-counterparty">
+        <p class="eyebrow">Key questions</p>
+        ${insight.counterpartyQuestions
+          .slice(0, 4)
+          .map(
+            (q) => `
+              <article class="rail-qa">
+                <span>${escapeHtml(q.label)}</span>
+                <p>${escapeHtml(q.question)}</p>
+                <strong>${escapeHtml(q.answer)}</strong>
+              </article>
+            `
+          )
+          .join("")}
       </div>
     </aside>
   `;
@@ -2503,43 +2315,6 @@ function renderLensWeights(lens) {
     .join("");
 }
 
-function renderLensGuide(profile, lens) {
-  return lens.guide
-    .map((step, index) => {
-      const filled = step.fields.filter((field) => hasGuideValue(readPath(profile, field))).length;
-      const total = step.fields.length;
-      const tab = step.destination.includes("Evidence:") ? "evidence" : "intake";
-      return `
-        <article class="guide-step">
-          <div class="guide-step__index">${index + 1}</div>
-          <div class="guide-step__body">
-            <div>
-              <span>${escapeHtml(step.label)}</span>
-              <strong>${escapeHtml(step.need)}</strong>
-            </div>
-            <div class="guide-step__detail">
-              <p><b>Where it goes:</b> ${escapeHtml(step.destination)}</p>
-              <p><b>Where to find it:</b> ${escapeHtml(step.source)}</p>
-            </div>
-            <div class="guide-step__footer">
-              <span>${filled}/${total} fields already completed</span>
-              <button
-                class="button button--small"
-                type="button"
-                data-action="set-tab"
-                data-tab="${tab}"
-                data-target-field="${step.fields.find((field) => !hasGuideValue(readPath(profile, field))) || step.fields[0]}"
-              >
-                Go to ${tab === "evidence" ? "evidence" : "profile"}
-              </button>
-            </div>
-          </div>
-        </article>
-      `;
-    })
-    .join("");
-}
-
 function renderLensFieldMap(profile, lens) {
   const fields = unique(lens.guide.flatMap((step) => step.fields));
   return fields
@@ -2651,7 +2426,7 @@ function generateMemoV2(profile, readiness) {
     `## Risk framing`,
     `${structuredRisks.length ? structuredRisks.map((item) => item.title).join("; ") : "No risks named yet."} First risk to acknowledge: ${firstRisk}.`,
     `## Structured inputs`,
-    `Regulatory exposure ${collections.exposure.completed}/${collections.exposure.total} fields; ESG tracking ${collections.esg.completed}/${collections.esg.total} fields; SROI ${collections.sroi.completed}/${collections.sroi.total} fields. Exposure framing affects readiness; ESG and SROI are kept for later packaging work.`,
+    `Regulatory exposure ${collections.exposure.completed}/${collections.exposure.total} fields; Impact tracking ${collections.esg.completed}/${collections.esg.total} fields; SROI ${collections.sroi.completed}/${collections.sroi.total} fields. Exposure framing affects readiness; Impact and SROI are kept for later packaging work.`,
     `---`,
     `This note is based on the current profile only and should be used as a founder-side preparation output before outreach, not as financing advice or a substitute for third-party diligence.`,
   ].join("\n");
@@ -2793,7 +2568,7 @@ function buildAssessmentCollections(profile) {
     },
     esg: {
       ...esg,
-      summary: `${esg.completed} of ${esg.total} ESG tracking fields completed.`,
+      summary: `${esg.completed} of ${esg.total} Impact tracking fields completed.`,
     },
     sroi: {
       ...sroi,
@@ -2807,7 +2582,7 @@ function buildAssessmentCollections(profile) {
 function buildCollectionNextStep(exposure, esg, sroi) {
   const items = [
     { key: "Regulatory exposure", gap: exposure.total - exposure.completed, detail: "Fill in the regulatory level, climate exposure, and primary market." },
-    { key: "ESG questionnaire", gap: esg.total - esg.completed, detail: "Fill in the 9 questions across environment, social, and governance." },
+    { key: "Impact questionnaire", gap: esg.total - esg.completed, detail: "Fill in the 9 questions across environment, social, and governance." },
     { key: "Social impact data", gap: sroi.total - sroi.completed, detail: "Record who you help, the main outcome, and how many people you reach per year." },
   ].sort((a, b) => b.gap - a.gap);
 
@@ -2826,9 +2601,9 @@ function nextMissingExposureAction(profile) {
 
 function nextMissingEsgAction(profile) {
   const q = profile.assessment.esg.questionnaire;
-  if (!hasCollectionValue(q.envTracking)) return "Start with the environment section of the ESG questionnaire.";
-  if (!hasCollectionValue(q.diversityPolicy)) return "Continue with the social section of the ESG questionnaire.";
-  if (!hasCollectionValue(q.hasBoard)) return "Complete the governance section to finish the ESG questionnaire.";
+  if (!hasCollectionValue(q.envTracking)) return "Start with the environment section of the Impact questionnaire.";
+  if (!hasCollectionValue(q.diversityPolicy)) return "Continue with the social section of the Impact questionnaire.";
+  if (!hasCollectionValue(q.hasBoard)) return "Complete the governance section to finish the Impact questionnaire.";
   return "Review the answers and reuse them in the memo or the next preparation pack.";
 }
 
@@ -2914,6 +2689,12 @@ function handleClick(event) {
 
   if (action === "copy-memo") {
     copyMemo();
+    return;
+  }
+
+  if (action === "toggle-extended-profile") {
+    state.extendedProfileOpen = !state.extendedProfileOpen;
+    render({ preserveFocus: true, focusTab: state.tab });
   }
 }
 

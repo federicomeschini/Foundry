@@ -76,7 +76,7 @@ assets/
 
 - All company data is fictional and embedded in `src/app.js`.
 - Edits are local-only and persisted through browser storage; there is no backend persistence.
-- Readiness outputs are deterministic, explainable heuristics based on the visible profile. ESG and SROI inputs are stored for later packaging, while exposure framing contributes to readiness.
+- Readiness outputs are deterministic, explainable heuristics based on the visible profile. Impact and SROI inputs are stored for later packaging, while exposure framing contributes to readiness.
 - The app is preparation-oriented, not financing advice and not automated diligence.
 - No authentication, document upload, real CRM, cap-table engine, valuation engine, or investor matching logic is included.
 
