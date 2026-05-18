@@ -2965,6 +2965,7 @@ function fieldLabel(field) {
     "transition.note": "Transition note",
     "assessment.sroi.beneficiaryGroups": "Beneficiary groups",
     "assessment.sroi.primaryOutcome": "Primary outcome to value",
+    "assessment.sroi.annualReach": "Annual reach",
     "assessment.sroi.baselineAvailable": "Baseline available",
     "assessment.sroi.outcomeEvidence": "Outcome evidence",
     "assessment.sroi.measurementWindow": "Measurement window",
