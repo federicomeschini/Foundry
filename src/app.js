@@ -7,7 +7,9 @@ const profileTemplates = [
     geography: "Italy",
     trl: 6,
     ask: "EUR 1.8M seed round",
-    oneLiner: "Carbon removal systems for cement producers that need measurable decarbonization evidence.",
+    oneLiner: "Carbon removal spinout for cement producers that need a credible first commercial route.",
+    objective: "Research commercialization",
+    preferredLens: "commercialization",
     problem: "Industrial emitters need credible decarbonization tools, but many carbon claims still fail on measurement and verification.",
     customer: "Cement groups, industrial decarbonization teams, and buyers of verified carbon removal outcomes.",
     model: "Hardware-enabled carbon removal credits with recurring maintenance.",
@@ -26,7 +28,7 @@ const profileTemplates = [
     ip: "Patent filed for mineralization cartridge geometry; sorbent recipe treated as trade secret.",
     risks: ["Scale-up reliability", "MRV acceptance", "Working capital intensity"],
     missing: ["Independent MRV provider review", "Cost curve at 10x pilot volume", "Customer willingness-to-pay evidence"],
-    nextStep: "Package pilot economics, MRV logic, and customer proof into one submission narrative before outreach.",
+    nextStep: "Package pilot economics, MRV logic, and the first commercial license path into one submission narrative before outreach.",
     metrics: { revenue: "Pre-revenue", runway: "9 months", grossMargin: "Modeled 42%", traction: "2 LOIs" },
     tags: ["hardware", "carbon", "industrial"],
     team: { size: "4–7", founders: "2 founders — CEO (materials scientist, ex-Holcim R&D) and CTO (chemical engineer, PhD in carbon mineralisation)", background: "Deep expertise in carbon accounting, industrial process chemistry, and hardware prototyping.", missingRoles: "CFO", advisors: "Former Lafarge sustainability director; EU carbon markets policy advisor" },
@@ -43,7 +45,9 @@ const profileTemplates = [
     geography: "Germany",
     trl: 7,
     ask: "EUR 4.5M Series A",
-    oneLiner: "Digital therapeutic platform for clinics and insurers managing neurological recovery pathways.",
+    oneLiner: "Digital therapeutic platform prepared for clinic and payer pilots in neurological recovery.",
+    objective: "Pilot partner outreach",
+    preferredLens: "partner",
     problem: "Neurological recovery is hard to standardize, and clinics struggle to show scalable outcomes to payers.",
     customer: "Clinics, care networks, and insurers evaluating reimbursable digital therapy pathways.",
     model: "B2B digital therapeutic sold to clinics and insurers.",
@@ -62,7 +66,7 @@ const profileTemplates = [
     ip: "Software copyright, clinical protocol know-how, and pending claims on adaptive therapy sequencing.",
     risks: ["Clinical endpoint sufficiency", "Reimbursement pathway", "Long enterprise procurement"],
     missing: ["Health-economic analysis", "Full MDR timeline", "Data privacy audit"],
-    nextStep: "Tighten the reimbursement case and present the MDR path alongside clinic and insurer traction.",
+    nextStep: "Tighten the reimbursement case and present the pilot protocol alongside clinic and insurer traction.",
     metrics: { revenue: "EUR 180k ARR", runway: "11 months", grossMargin: "78%", traction: "3 clinics" },
     tags: ["regulated", "clinical", "saas"],
     team: { size: "16–30", founders: "3 founders — CEO (ex-Fresenius clinical operations), CMO (neurologist, PhD, TU München), CTO (software architect)", background: "Clinical management, neurology research, and SaaS engineering across European health systems.", missingRoles: "CFO", advisors: "KOL neurologist at Charité Berlin; German reimbursement consultant (GKV/IQWiG process)" },
@@ -79,7 +83,9 @@ const profileTemplates = [
     geography: "France",
     trl: 8,
     ask: "EUR 2.6M seed extension",
-    oneLiner: "Private retrieval infrastructure for teams that need enterprise-grade AI deployments with controlled data flows.",
+    oneLiner: "Private retrieval infrastructure for regulated AI teams that need controlled data flows at scale.",
+    objective: "Raise preparation",
+    preferredLens: "fundraising",
     problem: "Enterprises want AI retrieval systems, but public tooling creates security, residency, and dependency concerns.",
     customer: "Engineering teams, CISOs, and data platform leaders in regulated or privacy-sensitive organizations.",
     model: "Usage-based developer infrastructure for private retrieval systems.",
@@ -115,7 +121,9 @@ const profileTemplates = [
     geography: "Spain",
     trl: 8,
     ask: "EUR 6M Series A",
-    oneLiner: "Grid flexibility platform turning distributed battery and demand-response assets into dispatchable revenue streams.",
+    oneLiner: "Grid flexibility platform helping utilities and battery operators turn distributed assets into dispatchable revenue.",
+    objective: "Pilot partner outreach",
+    preferredLens: "partner",
     problem: "Power systems need flexible capacity, but operators face fragmented assets, complicated tariffs, and slow market access.",
     customer: "Utilities, aggregators, and asset operators navigating flexibility markets.",
     model: "Grid flexibility platform with revenue share on demand response events.",
@@ -151,7 +159,9 @@ const profileTemplates = [
     geography: "Netherlands",
     trl: 5,
     ask: "EUR 900k pre-seed",
-    oneLiner: "Textile-to-resin conversion process aimed at fashion groups under circularity pressure.",
+    oneLiner: "Textile-to-resin conversion process built for a narrow first industrial licensing path.",
+    objective: "Research commercialization",
+    preferredLens: "commercialization",
     problem: "Apparel supply chains generate difficult waste streams, while buyers still lack scalable circular-material substitutes.",
     customer: "Fashion groups, recycled-material buyers, and industrial processors evaluating circular feedstocks.",
     model: "Licensing and tolling for textile-to-resin conversion.",
@@ -187,7 +197,9 @@ const profileTemplates = [
     geography: "Portugal",
     trl: 7,
     ask: "EUR 1.4M seed",
-    oneLiner: "Field sensors and seasonal analytics helping specialty-crop growers reduce water waste.",
+    oneLiner: "Field sensors and seasonal analytics aimed at conservation programs and grant-backed deployments.",
+    objective: "Grant and impact packaging",
+    preferredLens: "grant",
     problem: "Growers need usable water intelligence, but most tools are either too generic or too expensive to operate in the field.",
     customer: "Specialty-crop growers, agronomists, and irrigation distributors.",
     model: "Hardware plus seasonal analytics subscription for specialty crops.",
@@ -223,7 +235,9 @@ const profileTemplates = [
     geography: "Switzerland",
     trl: 4,
     ask: "EUR 2.2M seed",
-    oneLiner: "Advanced thermal films for electronics manufacturers under performance and energy constraints.",
+    oneLiner: "Advanced thermal films for electronics manufacturers that need one clear qualification path.",
+    objective: "Research commercialization",
+    preferredLens: "commercialization",
     problem: "Electronics OEMs need better thermal management, but qualification cycles are long and proof burdens are technical.",
     customer: "Electronics manufacturers, packaging teams, and advanced-material integration labs.",
     model: "Licensing advanced thermal films to electronics manufacturers.",
@@ -259,7 +273,9 @@ const profileTemplates = [
     geography: "Greece",
     trl: 7,
     ask: "EUR 1.6M seed",
-    oneLiner: "Leak-detection analytics for water utilities that need measurable infrastructure resilience gains.",
+    oneLiner: "Leak-detection analytics for water utilities that need a pilot-to-procurement story.",
+    objective: "Pilot partner outreach",
+    preferredLens: "partner",
     problem: "Municipal utilities lose water and budget to network leakage, but procurement cycles reward proof over promises.",
     customer: "Municipal water utilities, infrastructure operators, and regional distributors.",
     model: "Leak detection analytics sold to municipal water utilities.",
@@ -295,7 +311,9 @@ const profileTemplates = [
     geography: "Ireland",
     trl: 9,
     ask: "EUR 3.8M Series A",
-    oneLiner: "Supplier-risk monitoring software for regulated enterprises under vendor-compliance pressure.",
+    oneLiner: "Supplier-risk monitoring software for regulated enterprises under compliance pressure.",
+    objective: "Raise preparation",
+    preferredLens: "fundraising",
     problem: "Enterprises face rising third-party risk obligations, but internal teams still manage supplier exposure with fragmented workflows.",
     customer: "Risk, compliance, procurement, and security leaders in regulated enterprises.",
     model: "B2B SaaS for supplier-risk monitoring in regulated enterprises.",
@@ -331,7 +349,9 @@ const profileTemplates = [
     geography: "Austria",
     trl: 8,
     ask: "EUR 2.9M seed",
-    oneLiner: "Factory intelligence software for mid-market manufacturers trying to reduce downtime and energy waste.",
+    oneLiner: "Factory intelligence software for mid-market manufacturers that need to prove ROI without heavy service drag.",
+    objective: "Raise preparation",
+    preferredLens: "fundraising",
     problem: "Factories need practical automation gains, but deployments fail when implementation complexity outruns software economics.",
     customer: "Plant managers, operations leaders, and manufacturing groups with legacy equipment environments.",
     model: "Annual software license plus implementation fee for mid-market factories.",
@@ -695,8 +715,17 @@ function syncStateFromHash() {
   const profile = params.get("profile");
   const lens = params.get("lens");
   const tab = params.get("tab");
-  if (profile && profileById(profile)) state.activeId = profile;
-  if (lens && lensConfig[lens]) state.lens = lens;
+  const activeProfileId = profile && profileById(profile) ? profile : null;
+  if (activeProfileId) {
+    state.activeId = activeProfileId;
+    if (lens && lensConfig[lens]) {
+      state.lens = lens;
+    } else {
+      state.lens = preferredLensForProfile(profileById(activeProfileId));
+    }
+  } else if (lens && lensConfig[lens]) {
+    state.lens = lens;
+  }
   if (tab && tabs.some(([value]) => value === tab)) state.tab = tab;
 }
 
@@ -711,6 +740,11 @@ function updateHash() {
 
 function profileById(id) {
   return state.profiles.find((profile) => profile.id === id);
+}
+
+function preferredLensForProfile(profile) {
+  if (profile && profile.preferredLens && lensConfig[profile.preferredLens]) return profile.preferredLens;
+  return computeBestLens(profile).key;
 }
 
 function activeProfile() {
@@ -933,6 +967,7 @@ function render() {
   const profile = activeProfile();
   const readiness = computeReadiness(profile);
   const bestLens = computeBestLens(profile);
+  const submissionLens = lensConfig[state.lens] || lensConfig[preferredLensForProfile(profile)];
 
   updateHash();
 
@@ -940,7 +975,7 @@ function render() {
     <div class="shell">
       ${renderTopbar(profile, readiness)}
       <main id="main" class="page">
-        ${renderHero(profile, readiness, bestLens)}
+        ${renderHero(profile, readiness, submissionLens)}
         <section class="workspace">
           ${renderNavigator()}
           ${renderStudio(profile, readiness)}
@@ -1090,6 +1125,9 @@ function renderHero(profile, readiness, bestLens) {
           Founders rarely lack a story. What they often lack is a clean, readable proof path — what's being asked, why it matters now,
           what evidence exists, what's still uncertain, and which open items should be resolved before outreach.
         </p>
+        <p class="hero-copy hero-copy--subtle">
+          This example is tuned for ${escapeHtml(profile.objective || bestLens.label)} and opens on the ${escapeHtml(bestLens.label)} path.
+        </p>
         <div class="market-strip" aria-label="Market needs">
           ${marketSignals.map((signal) => `<span>${escapeHtml(signal)}</span>`).join("")}
         </div>
@@ -1112,8 +1150,8 @@ function renderHero(profile, readiness, bestLens) {
         </div>
         <div class="hero-ledger__item">
           <strong>${bestLens.label}</strong>
-          <span>Best submission path</span>
-          <small>Based on the current profile and evidence</small>
+          <span>Submission path</span>
+          <small>Driven by the selected example</small>
         </div>
         <div class="hero-ledger__item hero-ledger__item--wide">
           <strong>${escapeHtml(insight.priorityLabel)}</strong>
@@ -1127,6 +1165,7 @@ function renderHero(profile, readiness, bestLens) {
 
 function renderNavigator() {
   const profiles = filteredProfiles();
+  const profile = activeProfile();
   const currentLens = lensConfig[state.lens];
   return `
     <aside class="navigator panel">
@@ -1160,14 +1199,14 @@ function renderNavigator() {
       </div>
 
       <div class="panel-heading panel-heading--compact">
-        <p class="eyebrow">${currentLens.eyebrow}</p>
-        <h2>Submission path</h2>
+        <p class="eyebrow">Example objective</p>
+        <h2>${escapeHtml(profile.objective || "Submission path")}</h2>
       </div>
 
-      <div class="lens-explainer">
-        <strong>${escapeHtml(currentLens.label)}</strong>
-        <p>${escapeHtml(currentLens.outcome)}</p>
-      </div>
+      <p class="navigator-note">
+        ${escapeHtml(profile.name)} opens on the ${escapeHtml(currentLens.label.toLowerCase())} path.
+        Use the buttons below only if you want to inspect another framing.
+      </p>
 
       <div class="lens-list" role="tablist" aria-label="Submission lenses">
         ${Object.entries(lensConfig)
@@ -1195,6 +1234,7 @@ function renderNavigator() {
       <div class="profile-list" role="list">
         ${profiles
           .map((profile) => {
+            const profileLens = lensConfig[profile.preferredLens] || computeBestLens(profile);
             const readiness = computeReadiness(profile);
             return `
               <button
@@ -1208,6 +1248,8 @@ function renderNavigator() {
                   <span>${readiness.overall}/100</span>
                 </span>
                 <span class="profile-item__meta">${escapeHtml(profile.sector)} / ${escapeHtml(profile.stage)} / TRL ${profile.trl}</span>
+                <span class="profile-item__meta">Objective: ${escapeHtml(profile.objective || profileLens.label)}</span>
+                <span class="profile-item__meta">Path: ${escapeHtml(profileLens.label)}</span>
                 <span class="profile-item__body">${escapeHtml(profile.oneLiner)}</span>
               </button>
             `;
@@ -1317,8 +1359,8 @@ function renderTabContent(profile, readiness) {
 
 function renderWorkspaceTab(profile, readiness) {
   const collections = buildAssessmentCollections(profile);
-  const insight = buildPreparationInsight(profile, readiness, computeBestLens(profile));
   const currentLens = lensConfig[state.lens];
+  const insight = buildPreparationInsight(profile, readiness, currentLens);
   return `
     <div class="content-grid">
       <section class="section-block section-block--wide room-brief">
@@ -1734,9 +1776,8 @@ function renderEsgTab(profile) {
 }
 
 function renderEvidenceTab(profile, readiness) {
-  const bestLens = computeBestLens(profile);
-  const insight = buildPreparationInsight(profile, readiness, bestLens);
   const lens = lensConfig[state.lens];
+  const insight = buildPreparationInsight(profile, readiness, lens);
   return `
     <div class="content-grid">
       <section class="section-block section-block--wide">
@@ -2066,7 +2107,7 @@ function renderTextareaField(label, field, values) {
 function generateMemo(profile, readiness) {
   const lens = lensConfig[state.lens];
   const bestLens = computeBestLens(profile);
-  const insight = buildPreparationInsight(profile, readiness, bestLens);
+  const insight = buildPreparationInsight(profile, readiness, lens);
   const collections = buildAssessmentCollections(profile);
   const firstSignal = readiness.strongSignals[0] || "The profile already contains a usable starting point.";
   const firstBlocker = readiness.blockers[0] || "No major blockers identified at this stage.";
@@ -2078,7 +2119,7 @@ function generateMemo(profile, readiness) {
     `Main item to sharpen next: ${firstBlocker.replace(/^Missing:\s*/i, "").replace(/\.$/, "")}. Suggested next step: ${profile.nextStep.charAt(0).toLowerCase() + profile.nextStep.slice(1)}.`,
     `Preparation priority: ${insight.priorityDetail} The next useful proof package is ${insight.proofTarget.toLowerCase()}: ${insight.proofDetail.charAt(0).toLowerCase() + insight.proofDetail.slice(1)}`,
     `Assessment inputs collected: regulatory exposure ${collections.exposure.completed}/${collections.exposure.total}, ESG tracking ${collections.esg.completed}/${collections.esg.total}, SROI ${collections.sroi.completed}/${collections.sroi.total}. These feed into the assessment model and are not used to calculate a final result here.`,
-    `Exposure framing: regulatory context is ${profile.regulatory.level.toLowerCase()} and described as ${profile.regulatory.character.toLowerCase()}, while transition context is ${profile.transition.level.toLowerCase()} and described as ${profile.transition.character.toLowerCase()}. The strongest downstream lane based on the current profile is ${bestLens.label.toLowerCase()}.`,
+    `Exposure framing: regulatory context is ${profile.regulatory.level.toLowerCase()} and described as ${profile.regulatory.character.toLowerCase()}, while transition context is ${profile.transition.level.toLowerCase()} and described as ${profile.transition.character.toLowerCase()}. The strongest automatically scored lane based on the current profile is ${bestLens.label.toLowerCase()}.`,
     `This note is based on the current profile only and should be used as a founder-side preparation output before outreach, not as financing advice or a substitute for third-party diligence.`,
   ].join("\n");
 }
@@ -2287,7 +2328,9 @@ function handleClick(event) {
 
   const action = target.dataset.action;
   if (action === "open-profile") {
+    const profile = profileById(target.dataset.id);
     state.activeId = target.dataset.id;
+    state.lens = preferredLensForProfile(profile);
     state.tab = "workspace";
     render();
     return;
