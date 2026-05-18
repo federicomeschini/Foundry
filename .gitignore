@@ -55,3 +55,4 @@ launch.command
 # Project-specific
 gitdata.git/
 .gstack/
+REMEDIATION_IMPLEMENTATION_PLAN.md
