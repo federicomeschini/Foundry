@@ -1165,6 +1165,7 @@ function renderHero(profile, readiness, bestLens) {
 
 function renderNavigator() {
   const profiles = filteredProfiles();
+  const profile = activeProfile();
   const currentLens = lensConfig[state.lens];
   return `
     <aside class="navigator panel">
@@ -1198,14 +1199,14 @@ function renderNavigator() {
       </div>
 
       <div class="panel-heading panel-heading--compact">
-        <p class="eyebrow">${currentLens.eyebrow}</p>
-        <h2>Submission path</h2>
+        <p class="eyebrow">Example objective</p>
+        <h2>${escapeHtml(profile.objective || "Submission path")}</h2>
       </div>
 
-      <div class="lens-explainer">
-        <strong>${escapeHtml(currentLens.label)}</strong>
-        <p>${escapeHtml(currentLens.outcome)}</p>
-      </div>
+      <p class="navigator-note">
+        ${escapeHtml(profile.name)} opens on the ${escapeHtml(currentLens.label.toLowerCase())} path.
+        Use the buttons below only if you want to inspect another framing.
+      </p>
 
       <div class="lens-list" role="tablist" aria-label="Submission lenses">
         ${Object.entries(lensConfig)

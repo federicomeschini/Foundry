@@ -541,7 +541,6 @@ h3 {
 .bar-list,
 .bar-block,
 .lens-list,
-.lens-explainer,
 .lens-panel__body,
 .lens-weight-grid,
 .guide-process,
@@ -666,25 +665,11 @@ h3 {
   box-shadow: 0 0 0 2px oklch(34% 0.225 296 / 15%);
 }
 
-.lens-explainer {
-  padding: var(--space-md);
-  border: 1px solid var(--bluette-mid);
-  border-radius: var(--radius-md);
-  background: var(--bluette);
-  color: var(--bluette-ink);
-}
-
-.lens-explainer strong {
-  color: var(--lime);
-  font-size: 0.96rem;
-  font-weight: 780;
-}
-
-.lens-explainer p {
-  margin-bottom: 0;
-  color: oklch(84% 0.03 296);
+.navigator-note {
+  margin: 0;
+  color: var(--ink-soft);
   font-size: 0.82rem;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .profile-list {
