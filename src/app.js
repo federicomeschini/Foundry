@@ -1,4 +1,4 @@
-const profileTemplates = [
+﻿const profileTemplates = [
   {
     id: "aerolith",
     name: "Aerolith Capture",
@@ -31,11 +31,11 @@ const profileTemplates = [
     nextStep: "Package pilot economics, MRV logic, and the first commercial license path into one submission narrative before outreach.",
     metrics: { revenue: "Pre-revenue", runway: "9 months", grossMargin: "Modeled 42%", traction: "2 LOIs" },
     tags: ["hardware", "carbon", "industrial"],
-    team: { size: "4–7", founders: "2 founders — CEO (materials scientist, ex-Holcim R&D) and CTO (chemical engineer, PhD in carbon mineralisation)", background: "Deep expertise in carbon accounting, industrial process chemistry, and hardware prototyping.", missingRoles: "CFO", advisors: "Former Lafarge sustainability director; EU carbon markets policy advisor" },
-    market: { tam: "~€30B (global industrial carbon removal market by 2035)", sam: "~€4B (European cement sector facing mandatory decarbonisation targets)", competitors: "Carbon Clean Solutions, Climeworks (DAC), Carbfix, CarbonCure", differentiator: "Cartridge-based system deployable at point of emission — no transport or geological storage needed. Lower capex than competing DAC approaches." },
-    unitEconomics: { mrr: "", arr: "", cac: "Not yet established — first commercial conversations in progress", ltv: "Estimated €200k–€800k per cement plant on a 5-year service contract", churn: "Not applicable (pre-revenue)", salesChannel: "Direct enterprise sales to industrial decarbonisation teams" },
+    team: { size: "4â€“7", founders: "2 founders â€” CEO (materials scientist, ex-Holcim R&D) and CTO (chemical engineer, PhD in carbon mineralisation)", background: "Deep expertise in carbon accounting, industrial process chemistry, and hardware prototyping.", missingRoles: "CFO", advisors: "Former Lafarge sustainability director; EU carbon markets policy advisor" },
+    market: { tam: "~â‚¬30B (global industrial carbon removal market by 2035)", sam: "~â‚¬4B (European cement sector facing mandatory decarbonisation targets)", competitors: "Carbon Clean Solutions, Climeworks (DAC), Carbfix, CarbonCure", differentiator: "Cartridge-based system deployable at point of emission â€” no transport or geological storage needed. Lower capex than competing DAC approaches." },
+    unitEconomics: { mrr: "", arr: "", cac: "Not yet established â€” first commercial conversations in progress", ltv: "Estimated â‚¬200kâ€“â‚¬800k per cement plant on a 5-year service contract", churn: "Not applicable (pre-revenue)", salesChannel: "Direct enterprise sales to industrial decarbonisation teams" },
     funding: { totalRaised: "EUR 350k (EIC Accelerator grant + angel)", roundCount: "1 pre-institutional round", notableInvestors: "EIC Accelerator grant, industrial angel investor", postMoneyVal: "Not yet established" },
-    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "LafargeHolcim, Saint-Gobain, carbon removal platforms, industrial gases majors" },
+    exit: { horizon: "5â€“7 years", type: "Strategic acquisition", acquirers: "LafargeHolcim, Saint-Gobain, carbon removal platforms, industrial gases majors" },
   },
   {
     id: "neuroharbor",
@@ -69,11 +69,11 @@ const profileTemplates = [
     nextStep: "Tighten the reimbursement case and present the pilot protocol alongside clinic and insurer traction.",
     metrics: { revenue: "EUR 180k ARR", runway: "11 months", grossMargin: "78%", traction: "3 clinics" },
     tags: ["regulated", "clinical", "saas"],
-    team: { size: "16–30", founders: "3 founders — CEO (ex-Fresenius clinical operations), CMO (neurologist, PhD, TU München), CTO (software architect)", background: "Clinical management, neurology research, and SaaS engineering across European health systems.", missingRoles: "CFO", advisors: "KOL neurologist at Charité Berlin; German reimbursement consultant (GKV/IQWiG process)" },
-    market: { tam: "~€8B (European digital therapeutics for neurological conditions)", sam: "~€1.2B (German + French reimbursable digital therapy pipeline)", competitors: "Kaia Health, NeuroNation, SWORD Health, Hinge Health", differentiator: "Pathway-based protocols designed for clinic workflows and integrated with payer evidence requirements — not a consumer app." },
-    unitEconomics: { mrr: "~EUR 15k", arr: "EUR 180k", cac: "~EUR 8k per clinic (12–18 month sales and onboarding cycle)", ltv: "~EUR 60k per clinic over 3 years", churn: "Under 5% annual logo churn", salesChannel: "Direct B2B to clinics and insurers; reimbursement pathway drives adoption" },
+    team: { size: "16â€“30", founders: "3 founders â€” CEO (ex-Fresenius clinical operations), CMO (neurologist, PhD, TU MÃ¼nchen), CTO (software architect)", background: "Clinical management, neurology research, and SaaS engineering across European health systems.", missingRoles: "CFO", advisors: "KOL neurologist at CharitÃ© Berlin; German reimbursement consultant (GKV/IQWiG process)" },
+    market: { tam: "~â‚¬8B (European digital therapeutics for neurological conditions)", sam: "~â‚¬1.2B (German + French reimbursable digital therapy pipeline)", competitors: "Kaia Health, NeuroNation, SWORD Health, Hinge Health", differentiator: "Pathway-based protocols designed for clinic workflows and integrated with payer evidence requirements â€” not a consumer app." },
+    unitEconomics: { mrr: "~EUR 15k", arr: "EUR 180k", cac: "~EUR 8k per clinic (12â€“18 month sales and onboarding cycle)", ltv: "~EUR 60k per clinic over 3 years", churn: "Under 5% annual logo churn", salesChannel: "Direct B2B to clinics and insurers; reimbursement pathway drives adoption" },
     funding: { totalRaised: "EUR 1.1M (pre-seed + seed)", roundCount: "2", notableInvestors: "Berlin digital health angel syndicate", postMoneyVal: "EUR 6M (post-seed)" },
-    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Philips Healthcare, Siemens Healthineers, large German Krankenkassen, Fresenius Digital" },
+    exit: { horizon: "5â€“7 years", type: "Strategic acquisition", acquirers: "Philips Healthcare, Siemens Healthineers, large German Krankenkassen, Fresenius Digital" },
   },
   {
     id: "vectorlane",
@@ -107,11 +107,11 @@ const profileTemplates = [
     nextStep: "Turn customer, retention, and security proof into one clear operator-grade submission room.",
     metrics: { revenue: "EUR 42k MRR", runway: "8 months", grossMargin: "71%", traction: "14 customers" },
     tags: ["ai", "infra", "privacy"],
-    team: { size: "8–15", founders: "2 founders — CEO (ex-Criteo data engineer) and CTO (vector database specialist, ex-Pinecone)", background: "Infrastructure engineering, ML systems, and enterprise developer tooling. First-time founders.", missingRoles: "VP Sales", advisors: "Former AWS enterprise solutions architect; CISO advisor from insurance sector" },
-    market: { tam: "~€12B (enterprise AI infrastructure and retrieval market)", sam: "~€1.5B (European regulated enterprise AI deployment)", competitors: "Pinecone, Weaviate, MongoDB Atlas Vector, Qdrant", differentiator: "Private deployment by default — no data leaves the customer environment. Purpose-built for regulated industries." },
+    team: { size: "8â€“15", founders: "2 founders â€” CEO (ex-Criteo data engineer) and CTO (vector database specialist, ex-Pinecone)", background: "Infrastructure engineering, ML systems, and enterprise developer tooling. First-time founders.", missingRoles: "VP Sales", advisors: "Former AWS enterprise solutions architect; CISO advisor from insurance sector" },
+    market: { tam: "~â‚¬12B (enterprise AI infrastructure and retrieval market)", sam: "~â‚¬1.5B (European regulated enterprise AI deployment)", competitors: "Pinecone, Weaviate, MongoDB Atlas Vector, Qdrant", differentiator: "Private deployment by default â€” no data leaves the customer environment. Purpose-built for regulated industries." },
     unitEconomics: { mrr: "EUR 42k", arr: "EUR 504k (run rate)", cac: "~EUR 5k per customer (self-serve trial + conversion)", ltv: "~EUR 45k per account over 24 months (usage-based expansion)", churn: "8% annual (improving)", salesChannel: "Product-led growth via developer community + enterprise outbound" },
     funding: { totalRaised: "EUR 750k (pre-seed)", roundCount: "1", notableInvestors: "Station F accelerator; 2 enterprise software angels", postMoneyVal: "EUR 4.5M (post pre-seed)" },
-    exit: { horizon: "3–5 years", type: "Strategic acquisition", acquirers: "Snowflake, Databricks, cloud-native AI platforms, enterprise SaaS leaders" },
+    exit: { horizon: "3â€“5 years", type: "Strategic acquisition", acquirers: "Snowflake, Databricks, cloud-native AI platforms, enterprise SaaS leaders" },
   },
   {
     id: "gridforge",
@@ -145,11 +145,11 @@ const profileTemplates = [
     nextStep: "Explain country-by-country rule exposure and show how the raise unlocks commercial repeatability.",
     metrics: { revenue: "EUR 310k ARR", runway: "10 months", grossMargin: "64%", traction: "18MW pilot" },
     tags: ["energy", "software", "regulated"],
-    team: { size: "16–30", founders: "2 founders — CEO (ex-Enel trading desk) and CTO (grid optimisation engineer, PhD)", background: "Energy market operations, dispatch algorithms, and regulatory navigation across three European markets.", missingRoles: "None currently", advisors: "Former Spanish CNMC energy regulator; two battery OEM commercial partners" },
-    market: { tam: "~€40B (European grid flexibility and demand response by 2030)", sam: "~€5B (Spain, Italy, UK — active flexibility markets)", competitors: "Voltalis, Enel X, Virtual Peaker, Origis Energy", differentiator: "Asset-agnostic aggregation — works across heterogeneous battery and demand-response assets without vendor lock-in." },
-    unitEconomics: { mrr: "~EUR 26k", arr: "EUR 310k", cac: "~EUR 25k per aggregator (long procurement and integration cycle)", ltv: "~EUR 200k per aggregator over 3 years (revenue share model)", churn: "Low — anchored by long-term dispatch contracts", salesChannel: "Direct B2B to utilities, aggregators, and battery OEM partners" },
+    team: { size: "16â€“30", founders: "2 founders â€” CEO (ex-Enel trading desk) and CTO (grid optimisation engineer, PhD)", background: "Energy market operations, dispatch algorithms, and regulatory navigation across three European markets.", missingRoles: "None currently", advisors: "Former Spanish CNMC energy regulator; two battery OEM commercial partners" },
+    market: { tam: "~â‚¬40B (European grid flexibility and demand response by 2030)", sam: "~â‚¬5B (Spain, Italy, UK â€” active flexibility markets)", competitors: "Voltalis, Enel X, Virtual Peaker, Origis Energy", differentiator: "Asset-agnostic aggregation â€” works across heterogeneous battery and demand-response assets without vendor lock-in." },
+    unitEconomics: { mrr: "~EUR 26k", arr: "EUR 310k", cac: "~EUR 25k per aggregator (long procurement and integration cycle)", ltv: "~EUR 200k per aggregator over 3 years (revenue share model)", churn: "Low â€” anchored by long-term dispatch contracts", salesChannel: "Direct B2B to utilities, aggregators, and battery OEM partners" },
     funding: { totalRaised: "EUR 2.5M (seed)", roundCount: "1", notableInvestors: "Renewable energy VC; EU innovation pilot grant", postMoneyVal: "EUR 10M (post-seed)" },
-    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Enel, Iberdrola, ABB, Siemens Energy, GE Vernova" },
+    exit: { horizon: "5â€“7 years", type: "Strategic acquisition", acquirers: "Enel, Iberdrola, ABB, Siemens Energy, GE Vernova" },
   },
   {
     id: "circuliq",
@@ -183,11 +183,11 @@ const profileTemplates = [
     nextStep: "Recast the deck around one credible pilot path instead of broad circularity ambition.",
     metrics: { revenue: "Pre-revenue", runway: "6 months", grossMargin: "Not proven", traction: "1 LOI" },
     tags: ["materials", "circular", "deep tech"],
-    team: { size: "1–3", founders: "2 founders — CEO (ex-Inditex sustainability buyer) and CTO (polymer chemist, PhD)", background: "Fashion supply chain operations and polymer materials science.", missingRoles: "CFO / COO", advisors: "None formal yet" },
-    market: { tam: "~€7B (textile recycling and circular materials global)", sam: "~€800M (European fashion group circular feedstock demand)", competitors: "Renewlondon, Carbios, Worn Again, Circ", differentiator: "Post-consumer textile-to-resin conversion at ambient temperature — lower capex than thermal competitors." },
-    unitEconomics: { mrr: "", arr: "", cac: "Not yet established", ltv: "Licensing model — per-ton fee estimated at €200–400 per tonne", churn: "Not applicable", salesChannel: "Direct to fashion group sustainability teams" },
+    team: { size: "1â€“3", founders: "2 founders â€” CEO (ex-Inditex sustainability buyer) and CTO (polymer chemist, PhD)", background: "Fashion supply chain operations and polymer materials science.", missingRoles: "CFO / COO", advisors: "None formal yet" },
+    market: { tam: "~â‚¬7B (textile recycling and circular materials global)", sam: "~â‚¬800M (European fashion group circular feedstock demand)", competitors: "Renewlondon, Carbios, Worn Again, Circ", differentiator: "Post-consumer textile-to-resin conversion at ambient temperature â€” lower capex than thermal competitors." },
+    unitEconomics: { mrr: "", arr: "", cac: "Not yet established", ltv: "Licensing model â€” per-ton fee estimated at â‚¬200â€“400 per tonne", churn: "Not applicable", salesChannel: "Direct to fashion group sustainability teams" },
     funding: { totalRaised: "EUR 100k (founder capital + early-stage grant)", roundCount: "0 formal rounds", notableInvestors: "None", postMoneyVal: "Not established" },
-    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Covestro, BASF, Renewlondon, major fashion groups" },
+    exit: { horizon: "5â€“7 years", type: "Strategic acquisition", acquirers: "Covestro, BASF, Renewlondon, major fashion groups" },
   },
   {
     id: "soilpulse",
@@ -221,11 +221,11 @@ const profileTemplates = [
     nextStep: "Show one clean seasonal economics story and who owns the grower relationship at scale.",
     metrics: { revenue: "EUR 22k MRR seasonal", runway: "7 months", grossMargin: "48%", traction: "126 sensors" },
     tags: ["agritech", "water", "hardware"],
-    team: { size: "8–15", founders: "2 founders — CEO (agronomist, ex-irrigation consultant) and CTO (IoT hardware engineer)", background: "Field agronomy, crop-cycle analytics, and IoT sensor deployment.", missingRoles: "CMO / Marketing", advisors: "Iberian distributor partner; crop scientist from Portuguese agricultural institute" },
-    market: { tam: "~€5B (smart irrigation and precision agriculture in Europe)", sam: "~€600M (Iberian and Italian specialty-crop growers)", competitors: "CropX, Sentek, Lindsay FieldNET, John Deere precision ag", differentiator: "Seasonal analytics calibrated for specialty crops in the field — not adapted from greenhouse or commodity-crop products." },
-    unitEconomics: { mrr: "EUR 22k (seasonal)", arr: "~EUR 180k annualised", cac: "~EUR 1.5k per grower via distributor channel", ltv: "~EUR 6k per grower over 4 seasons", churn: "Unknown — first full crop cycle completing", salesChannel: "Distributor-led — signed channel partner in Iberia" },
+    team: { size: "8â€“15", founders: "2 founders â€” CEO (agronomist, ex-irrigation consultant) and CTO (IoT hardware engineer)", background: "Field agronomy, crop-cycle analytics, and IoT sensor deployment.", missingRoles: "CMO / Marketing", advisors: "Iberian distributor partner; crop scientist from Portuguese agricultural institute" },
+    market: { tam: "~â‚¬5B (smart irrigation and precision agriculture in Europe)", sam: "~â‚¬600M (Iberian and Italian specialty-crop growers)", competitors: "CropX, Sentek, Lindsay FieldNET, John Deere precision ag", differentiator: "Seasonal analytics calibrated for specialty crops in the field â€” not adapted from greenhouse or commodity-crop products." },
+    unitEconomics: { mrr: "EUR 22k (seasonal)", arr: "~EUR 180k annualised", cac: "~EUR 1.5k per grower via distributor channel", ltv: "~EUR 6k per grower over 4 seasons", churn: "Unknown â€” first full crop cycle completing", salesChannel: "Distributor-led â€” signed channel partner in Iberia" },
     funding: { totalRaised: "EUR 450k (seed grant + pre-seed angel)", roundCount: "1 informal round", notableInvestors: "Regional innovation fund (Portugal)", postMoneyVal: "Not formally established" },
-    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Valmont Industries, Lindsay, Netafim, John Deere, Trimble" },
+    exit: { horizon: "5â€“7 years", type: "Strategic acquisition", acquirers: "Valmont Industries, Lindsay, Netafim, John Deere, Trimble" },
   },
   {
     id: "quantweave",
@@ -259,9 +259,9 @@ const profileTemplates = [
     nextStep: "Package the company as a commercialization candidate focused on one specific first market, not a broad platform.",
     metrics: { revenue: "Pre-revenue", runway: "10 months", grossMargin: "Not proven", traction: "2 evals" },
     tags: ["deep tech", "materials", "spinout"],
-    team: { size: "4–7", founders: "2 founders — CEO (materials engineering, ex-ETH spinout) and CTO (physicist, PhD nanomaterials)", background: "Nanomaterials synthesis, thermal interface characterisation, and IP prosecution.", missingRoles: "CFO / commercial lead", advisors: "ETH Zurich technology transfer office; patent advisor (EP/US)" },
-    market: { tam: "~€3B (advanced thermal interface materials global)", sam: "~€400M (European electronics OEM segment)", competitors: "Henkel Bergquist, 3M, Shin-Etsu, Parker Chomerics", differentiator: "Film form factor that eliminates paste application step — reduces manufacturing time and improves yield predictability." },
-    unitEconomics: { mrr: "", arr: "", cac: "Not established — OEM evaluations ongoing", ltv: "Licensing fee per product line — estimated €50k–€500k per OEM agreement", churn: "Not applicable", salesChannel: "Direct to OEM technical and procurement teams via lab evaluation cycle" },
+    team: { size: "4â€“7", founders: "2 founders â€” CEO (materials engineering, ex-ETH spinout) and CTO (physicist, PhD nanomaterials)", background: "Nanomaterials synthesis, thermal interface characterisation, and IP prosecution.", missingRoles: "CFO / commercial lead", advisors: "ETH Zurich technology transfer office; patent advisor (EP/US)" },
+    market: { tam: "~â‚¬3B (advanced thermal interface materials global)", sam: "~â‚¬400M (European electronics OEM segment)", competitors: "Henkel Bergquist, 3M, Shin-Etsu, Parker Chomerics", differentiator: "Film form factor that eliminates paste application step â€” reduces manufacturing time and improves yield predictability." },
+    unitEconomics: { mrr: "", arr: "", cac: "Not established â€” OEM evaluations ongoing", ltv: "Licensing fee per product line â€” estimated â‚¬50kâ€“â‚¬500k per OEM agreement", churn: "Not applicable", salesChannel: "Direct to OEM technical and procurement teams via lab evaluation cycle" },
     funding: { totalRaised: "EUR 800k (ETH spinout grant + first angel round)", roundCount: "1", notableInvestors: "ETH spinout programme", postMoneyVal: "EUR 3.5M (estimated)" },
     exit: { horizon: "7+ years", type: "Strategic acquisition", acquirers: "Henkel, 3M, Shin-Etsu, Merck KGaA, Saint-Gobain" },
   },
@@ -297,11 +297,11 @@ const profileTemplates = [
     nextStep: "Convert the pilot story into a paid-procurement story before broad fundraising outreach.",
     metrics: { revenue: "Pilot fees", runway: "8 months", grossMargin: "69% software", traction: "3 pilots" },
     tags: ["water", "municipal", "software"],
-    team: { size: "4–7", founders: "2 founders — CEO (ex-utility procurement manager) and CTO (signal processing engineer, PhD)", background: "Water infrastructure operations and acoustic leak detection algorithms.", missingRoles: "VP Sales / BD", advisors: "Municipal procurement advisor; utility engineering contact (Greek water authority)" },
-    market: { tam: "~€10B (global water infrastructure monitoring and leak detection)", sam: "~€1.2B (European municipal water utilities)", competitors: "Itron, Sensus, Suez leak detection, Xylem Pure Technologies", differentiator: "Software-first — deploys on existing sensor infrastructure without new hardware procurement cycle." },
-    unitEconomics: { mrr: "Pilot fees (~EUR 5k/month)", arr: "Not yet on recurring contracts", cac: "High — 12–18 month municipal procurement cycle", ltv: "Estimated €80k–€200k per utility over 5 years", churn: "Not applicable (pilot phase)", salesChannel: "Direct to utility procurement and technical teams" },
+    team: { size: "4â€“7", founders: "2 founders â€” CEO (ex-utility procurement manager) and CTO (signal processing engineer, PhD)", background: "Water infrastructure operations and acoustic leak detection algorithms.", missingRoles: "VP Sales / BD", advisors: "Municipal procurement advisor; utility engineering contact (Greek water authority)" },
+    market: { tam: "~â‚¬10B (global water infrastructure monitoring and leak detection)", sam: "~â‚¬1.2B (European municipal water utilities)", competitors: "Itron, Sensus, Suez leak detection, Xylem Pure Technologies", differentiator: "Software-first â€” deploys on existing sensor infrastructure without new hardware procurement cycle." },
+    unitEconomics: { mrr: "Pilot fees (~EUR 5k/month)", arr: "Not yet on recurring contracts", cac: "High â€” 12â€“18 month municipal procurement cycle", ltv: "Estimated â‚¬80kâ€“â‚¬200k per utility over 5 years", churn: "Not applicable (pilot phase)", salesChannel: "Direct to utility procurement and technical teams" },
     funding: { totalRaised: "EUR 500k (pre-seed + pilot project co-funding)", roundCount: "1", notableInvestors: "Regional water utility co-investor", postMoneyVal: "EUR 4M (estimated)" },
-    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Xylem, Itron, Veolia, Suez, Diehl Metering" },
+    exit: { horizon: "5â€“7 years", type: "Strategic acquisition", acquirers: "Xylem, Itron, Veolia, Suez, Diehl Metering" },
   },
   {
     id: "ciphernest",
@@ -335,11 +335,11 @@ const profileTemplates = [
     nextStep: "Sharpen the differentiation case and document what the next round unlocks operationally.",
     metrics: { revenue: "EUR 1.1M ARR", runway: "14 months", grossMargin: "82%", traction: "36 customers" },
     tags: ["cybersecurity", "saas", "regulated"],
-    team: { size: "31–50", founders: "2 founders — CEO (ex-Deloitte risk and cyber partner) and CTO (security software engineer)", background: "Enterprise risk consulting, compliance automation, and B2B SaaS architecture.", missingRoles: "None currently", advisors: "CISO council member (Fortune 500 financial); legal tech advisor (NIS2 / DORA specialist)" },
-    market: { tam: "~€6B (European third-party risk management and GRC software)", sam: "~€1.5B (regulated financial services and insurance enterprises)", competitors: "OneTrust, Archer GRC, ProcessUnity, Prevalent, Venminder", differentiator: "Supplier-facing monitoring with automated evidence collection — not just questionnaires. Continuous rather than point-in-time." },
+    team: { size: "31â€“50", founders: "2 founders â€” CEO (ex-Deloitte risk and cyber partner) and CTO (security software engineer)", background: "Enterprise risk consulting, compliance automation, and B2B SaaS architecture.", missingRoles: "None currently", advisors: "CISO council member (Fortune 500 financial); legal tech advisor (NIS2 / DORA specialist)" },
+    market: { tam: "~â‚¬6B (European third-party risk management and GRC software)", sam: "~â‚¬1.5B (regulated financial services and insurance enterprises)", competitors: "OneTrust, Archer GRC, ProcessUnity, Prevalent, Venminder", differentiator: "Supplier-facing monitoring with automated evidence collection â€” not just questionnaires. Continuous rather than point-in-time." },
     unitEconomics: { mrr: "~EUR 92k", arr: "EUR 1.1M", cac: "~EUR 18k per enterprise (12-month sales cycle)", ltv: "~EUR 150k per enterprise over 3 years (net revenue retention 118%)", churn: "Under 6% logo churn annual", salesChannel: "Outbound enterprise sales + compliance ecosystem partnerships (Big 4, legal advisors)" },
     funding: { totalRaised: "EUR 2.2M (seed)", roundCount: "1", notableInvestors: "Dublin enterprise tech VC", postMoneyVal: "EUR 8M (post-seed)" },
-    exit: { horizon: "3–5 years", type: "Strategic acquisition", acquirers: "OneTrust, ServiceNow, IBM Security, SAP GRC, Workiva" },
+    exit: { horizon: "3â€“5 years", type: "Strategic acquisition", acquirers: "OneTrust, ServiceNow, IBM Security, SAP GRC, Workiva" },
   },
   {
     id: "factorymesh",
@@ -373,11 +373,11 @@ const profileTemplates = [
     nextStep: "Package live-factory proof and services-burden discipline into one narrative before the next raise.",
     metrics: { revenue: "EUR 68k MRR", runway: "9 months", grossMargin: "61%", traction: "5 factories" },
     tags: ["industrial", "ai", "saas"],
-    team: { size: "16–30", founders: "2 founders — CEO (ex-Siemens manufacturing ops) and CTO (computer vision engineer, PhD)", background: "Factory automation, machine learning for industrial sensors, and implementation delivery.", missingRoles: "VP Sales", advisors: "Mid-market manufacturing operator (DACH); PLC and OPC-UA integration specialist" },
-    market: { tam: "~€8B (European industrial software and AI for manufacturing)", sam: "~€1.5B (mid-market manufacturers in DACH region)", competitors: "Sight Machine, C3.ai industrial, Siemens MindSphere, Rockwell Automation", differentiator: "Deployable in legacy environments without new hardware — integration-first, not platform-first. Faster time-to-value." },
+    team: { size: "16â€“30", founders: "2 founders â€” CEO (ex-Siemens manufacturing ops) and CTO (computer vision engineer, PhD)", background: "Factory automation, machine learning for industrial sensors, and implementation delivery.", missingRoles: "VP Sales", advisors: "Mid-market manufacturing operator (DACH); PLC and OPC-UA integration specialist" },
+    market: { tam: "~â‚¬8B (European industrial software and AI for manufacturing)", sam: "~â‚¬1.5B (mid-market manufacturers in DACH region)", competitors: "Sight Machine, C3.ai industrial, Siemens MindSphere, Rockwell Automation", differentiator: "Deployable in legacy environments without new hardware â€” integration-first, not platform-first. Faster time-to-value." },
     unitEconomics: { mrr: "EUR 68k", arr: "EUR 816k (run rate)", cac: "~EUR 12k per factory (6-month sales and integration cycle)", ltv: "~EUR 70k per factory over 3 years", churn: "Under 10% annual", salesChannel: "Direct to plant managers; OEM channel partnership in development" },
     funding: { totalRaised: "EUR 1.2M (pre-seed + seed)", roundCount: "2", notableInvestors: "DACH industrial tech angels; EIC Accelerator grant", postMoneyVal: "EUR 7M (post-seed)" },
-    exit: { horizon: "5–7 years", type: "Strategic acquisition", acquirers: "Siemens, ABB, Dassault Systèmes, AVEVA, Rockwell Automation" },
+    exit: { horizon: "5â€“7 years", type: "Strategic acquisition", acquirers: "Siemens, ABB, Dassault SystÃ¨mes, AVEVA, Rockwell Automation" },
   },
 ];
 
@@ -402,10 +402,10 @@ const trlOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const levelOptions = ["Low", "Medium", "High"];
 const exposureLevelOptions = ["Not sure", "Low", "Medium", "High"];
 const yesNoOptions = ["Unknown", "Yes", "No"];
-const teamSizeOptions = ["1–3", "4–7", "8–15", "16–30", "31–50", "50+"];
+const teamSizeOptions = ["1â€“3", "4â€“7", "8â€“15", "16â€“30", "31â€“50", "50+"];
 const missingRoleOptions = ["None currently", "CFO", "CTO", "CMO / Marketing", "VP Sales", "COO", "Clinical / Medical lead", "Regulatory lead"];
 const salesChannelOptions = ["Direct enterprise sales", "Product-led growth", "Distributor / channel partner", "OEM / licensing", "Government procurement", "Marketplace or platform", "Mixed"];
-const exitHorizonOptions = ["2–3 years", "3–5 years", "5–7 years", "7+ years", "Not decided yet"];
+const exitHorizonOptions = ["2â€“3 years", "3â€“5 years", "5â€“7 years", "7+ years", "Not decided yet"];
 const exitTypeOptions = ["Strategic acquisition", "Financial acquisition (PE / buy-out)", "IPO", "Management buyout", "Not decided yet"];
 const questionnaireStatusOptions = ["Not started", "In progress", "Ready for review", "Completed"];
 const esgQuestionOptions = ["Yes", "Working on it", "No"];
@@ -417,7 +417,7 @@ const lensConfig = {
     label: "Raise preparation",
     short: "Raise",
     eyebrow: "Fundraising track",
-    intro: "Get ready for a fundraising conversation: clear ask, real evidence, and honest open questions — all in one place.",
+    intro: "Get ready for a fundraising conversation: clear ask, real evidence, and honest open questions â€” all in one place.",
     bestFor: "Fundraising conversations where the reader needs a clear picture of the ask, the proof, and the next milestone.",
     outcome: "A tighter fundraising narrative with the ask, evidence, risks, and use of funds clearly connected.",
     weights: { completeness: 0.18, evidence: 0.24, narrative: 0.24, diligence: 0.22, exposure: 0.12 },
@@ -426,19 +426,19 @@ const lensConfig = {
         label: "What the raise is for",
         need: "What you're raising, what you'll spend it on, and what it should make possible.",
         destination: "Profile: Funding ask and Use of funds",
-        source: "Start from your budget and hiring plan. Focus on the 2–3 spend items that will most change the company's risk profile.",
+        source: "Start from your budget and hiring plan. Focus on the 2â€“3 spend items that will most change the company's risk profile.",
         fields: ["ask", "useOfFunds", "nextStep"],
       },
       {
         label: "Proof of customer demand",
-        need: "Proof that the problem is real — not just what you believe, but what customers have confirmed.",
+        need: "Proof that the problem is real â€” not just what you believe, but what customers have confirmed.",
         destination: "Evidence: Evidence available and Missing items",
         source: "Look for letters of intent, pilots, usage data, paid contracts, customer references, or written feedback.",
         fields: ["evidence", "metrics.traction", "missing"],
       },
       {
         label: "Answering due diligence",
-        need: "The questions an investor will ask before committing — about who owns what, the business model, and what could go wrong.",
+        need: "The questions an investor will ask before committing â€” about who owns what, the business model, and what could go wrong.",
         destination: "Evidence: Risks and missing items; Profile: IP position",
         source: "Check your ownership structure, IP assignments, freedom-to-operate status, unit economics, and any unresolved legal or technical issues.",
         fields: ["risks", "missing", "ip"],
@@ -455,7 +455,7 @@ const lensConfig = {
     label: "Pilot partner outreach",
     short: "Partner",
     eyebrow: "Partnership track",
-    intro: "Prepare the company for a partner that expects proof, a realistic implementation plan, and clear expectations — not just a good story.",
+    intro: "Prepare the company for a partner that expects proof, a realistic implementation plan, and clear expectations â€” not just a good story.",
     bestFor: "Partner or channel reviews where implementation realism matters as much as the narrative.",
     outcome: "A clear partner case: buyer problem, proof of results, what deployment involves, and who owns the risk.",
     weights: { completeness: 0.16, evidence: 0.28, narrative: 0.2, diligence: 0.18, exposure: 0.18 },
@@ -495,7 +495,7 @@ const lensConfig = {
     eyebrow: "Commercialization track",
     intro: "For spinouts and research teams moving from a validated result to a credible commercial path.",
     bestFor: "Spinouts and research teams translating what they've built into a credible route to market.",
-    outcome: "A clear path from what you've built — technology maturity, ownership, and first target market — to a believable commercial plan.",
+    outcome: "A clear path from what you've built â€” technology maturity, ownership, and first target market â€” to a believable commercial plan.",
     weights: { completeness: 0.18, evidence: 0.18, narrative: 0.2, diligence: 0.18, exposure: 0.26 },
     guide: [
       {
@@ -514,7 +514,7 @@ const lensConfig = {
       },
       {
         label: "Bridging tech and business value",
-        need: "Evidence that what you've built has real business value — not just that it works, but that buyers will pay for it.",
+        need: "Evidence that what you've built has real business value â€” not just that it works, but that buyers will pay for it.",
         destination: "Evidence: Evidence available, Risks, and Missing items",
         source: "Look for external validation, manufacturer evaluations, prototype results, cost models, IP clearance work, and certification requirements.",
         fields: ["evidence", "risks", "missing", "assessment.exposure.certificationsNeeded"],
@@ -568,6 +568,7 @@ const lensConfig = {
 };
 
 const app = document.querySelector("#app");
+const PROFILE_STORAGE_VERSION = 2;
 
 const state = {
   profiles: loadProfiles(),
@@ -581,11 +582,14 @@ const state = {
   draft: { name: "", sector: "", stage: "", geography: "", ask: "", roundType: "", oneLiner: "" },
 };
 
+let searchRenderTimer = null;
+
 syncStateFromHash();
 
 app.addEventListener("click", handleClick);
 app.addEventListener("input", handleInput);
 app.addEventListener("change", handleChange);
+app.addEventListener("keydown", handleKeyDown);
 window.addEventListener("hashchange", () => {
   syncStateFromHash();
   render();
@@ -594,46 +598,144 @@ window.addEventListener("hashchange", () => {
 render();
 
 function loadProfiles() {
-  if (typeof localStorage === "undefined") return profileTemplates.map((template) => mergeProfile(template));
+  if (typeof localStorage === "undefined") return seedProfiles();
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return profileTemplates.map((template) => mergeProfile(template));
+    if (!raw) return seedProfiles();
     const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return profileTemplates.map((template) => mergeProfile(template));
-    const byId = new Map(parsed.map((profile) => [profile.id, profile]));
-    return profileTemplates.map((template) => mergeProfile(template, byId.get(template.id)));
+    if (!Array.isArray(parsed)) return seedProfiles();
+    return normalizeStoredProfiles(parsed);
   } catch {
-    return profileTemplates.map((template) => mergeProfile(template));
+    return seedProfiles();
   }
 }
 
-function mergeProfile(template, saved) {
-  const base = {
-    ...structuredClone(template),
-    assessment: defaultAssessment(template),
-    team: { ...defaultTeam(), ...(template.team || {}) },
-    market: { ...defaultMarket(), ...(template.market || {}) },
-    unitEconomics: { ...defaultUnitEconomics(), ...(template.unitEconomics || {}) },
-    funding: { ...defaultFunding(), ...(template.funding || {}) },
-    exit: { ...defaultExit(), ...(template.exit || {}) },
-  };
-  if (!saved || typeof saved !== "object") return base;
-  return {
+function seedProfiles() {
+  return profileTemplates.map((template) => buildProfileRecord(template, { source: "template", templateId: template.id }));
+}
+
+function normalizeStoredProfiles(savedProfiles) {
+  const byTemplateId = new Map();
+  const customProfiles = [];
+  const now = new Date().toISOString();
+
+  for (const saved of savedProfiles) {
+    if (!saved || typeof saved !== "object") continue;
+    const templateId = saved.templateId || (profileTemplates.some((template) => template.id === saved.id) ? saved.id : "");
+    if (templateId && profileTemplates.some((template) => template.id === templateId)) {
+      byTemplateId.set(templateId, saved);
+      continue;
+    }
+    customProfiles.push(normalizeProfileRecord(saved, { source: "custom", templateId: null, now }));
+  }
+
+  const templateProfiles = profileTemplates.map((template) => {
+    const saved = byTemplateId.get(template.id);
+    return normalizeProfileRecord(saved || {}, {
+      source: "template",
+      templateId: template.id,
+      template,
+      now,
+    });
+  });
+
+  return [...templateProfiles, ...customProfiles];
+}
+
+function buildProfileRecord(template, metadata = {}, saved = {}) {
+  return normalizeProfileRecord(saved, {
+    source: metadata.source || "template",
+    templateId: metadata.templateId ?? template.id,
+    template,
+    now: new Date().toISOString(),
+  });
+}
+
+function normalizeProfileRecord(saved, metadata = {}) {
+  const template = metadata.template || profileTemplates.find((item) => item.id === metadata.templateId) || null;
+  const baseTemplate = template ? structuredClone(template) : null;
+  const source = metadata.source || saved.source || (template ? "template" : "custom");
+  const templateId = metadata.templateId ?? saved.templateId ?? (template ? template.id : null);
+  const base = baseTemplate
+    ? {
+        ...baseTemplate,
+        assessment: defaultAssessment(baseTemplate),
+        team: { ...defaultTeam(), ...(baseTemplate.team || {}) },
+        market: { ...defaultMarket(), ...(baseTemplate.market || {}) },
+        unitEconomics: { ...defaultUnitEconomics(), ...(baseTemplate.unitEconomics || {}) },
+        funding: { ...defaultFunding(), ...(baseTemplate.funding || {}) },
+        exit: { ...defaultExit(), ...(baseTemplate.exit || {}) },
+      }
+    : createEmptyProfile(saved.id || `custom-${Date.now().toString(36)}`);
+
+  const merged = {
     ...base,
     ...saved,
-    regulatory: { ...template.regulatory, ...(saved.regulatory || {}) },
-    transition: { ...template.transition, ...(saved.transition || {}) },
-    metrics: { ...template.metrics, ...(saved.metrics || {}) },
-    team: { ...base.team, ...(saved.team || {}) },
-    market: { ...base.market, ...(saved.market || {}) },
-    unitEconomics: { ...base.unitEconomics, ...(saved.unitEconomics || {}) },
-    funding: { ...base.funding, ...(saved.funding || {}) },
-    exit: { ...base.exit, ...(saved.exit || {}) },
-    assessment: mergeAssessment(base.assessment, saved.assessment),
-    evidence: Array.isArray(saved.evidence) ? saved.evidence : template.evidence,
-    risks: Array.isArray(saved.risks) ? saved.risks : template.risks,
-    missing: Array.isArray(saved.missing) ? saved.missing : template.missing,
-    tags: Array.isArray(saved.tags) ? saved.tags : template.tags,
+    source,
+    templateId,
+    createdAt: saved.createdAt || metadata.now || new Date().toISOString(),
+    updatedAt: saved.updatedAt || saved.createdAt || metadata.now || new Date().toISOString(),
+    regulatory: { ...(base.regulatory || {}), ...(saved.regulatory || {}) },
+    transition: { ...(base.transition || {}), ...(saved.transition || {}) },
+    metrics: { ...(base.metrics || {}), ...(saved.metrics || {}) },
+    team: { ...defaultTeam(), ...(base.team || {}), ...(saved.team || {}) },
+    market: { ...defaultMarket(), ...(base.market || {}), ...(saved.market || {}) },
+    unitEconomics: { ...defaultUnitEconomics(), ...(base.unitEconomics || {}), ...(saved.unitEconomics || {}) },
+    funding: { ...defaultFunding(), ...(base.funding || {}), ...(saved.funding || {}) },
+    exit: { ...defaultExit(), ...(base.exit || {}), ...(saved.exit || {}) },
+    assessment: mergeAssessment(base.assessment || defaultAssessment(base), saved.assessment),
+    evidence: Array.isArray(saved.evidence) ? saved.evidence : base.evidence || [],
+    risks: Array.isArray(saved.risks) ? saved.risks : base.risks || [],
+    missing: Array.isArray(saved.missing) ? saved.missing : base.missing || [],
+    tags: Array.isArray(saved.tags) ? saved.tags : base.tags || [],
+  };
+
+  if (!merged.preferredLens || !lensConfig[merged.preferredLens]) {
+    merged.preferredLens = template ? template.preferredLens : saved.preferredLens || "fundraising";
+  }
+
+  if (source === "custom") {
+    merged.source = "custom";
+    merged.templateId = null;
+  }
+
+  return merged;
+}
+
+function createEmptyProfile(id) {
+  return {
+    id,
+    name: "My company",
+    source: "custom",
+    templateId: null,
+    preferredLens: "fundraising",
+    sector: "Climate tech",
+    stage: "Seed",
+    geography: "European Union",
+    oneLiner: "",
+    problem: "",
+    customer: "",
+    model: "",
+    ask: "",
+    useOfFunds: "",
+    nextStep: "",
+    trl: "",
+    ip: "",
+    evidence: [],
+    risks: [],
+    missing: [],
+    regulatory: { level: "Low", character: "Minimal regulatory impact", note: "" },
+    transition: { level: "Low", character: "Minimal climate exposure", note: "" },
+    tags: [],
+    metrics: { revenue: "", runway: "", grossMargin: "", traction: "" },
+    team: defaultTeam(),
+    market: defaultMarket(),
+    unitEconomics: defaultUnitEconomics(),
+    funding: defaultFunding(),
+    exit: defaultExit(),
+    assessment: defaultAssessment({ geography: "European Union", sector: "Climate tech", tags: [], evidence: [] }),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   };
 }
 
@@ -705,7 +807,17 @@ function mergeAssessment(base, saved = {}) {
 
 function persistProfiles() {
   if (typeof localStorage === "undefined") return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.profiles));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.profiles.map((profile) => serializeProfile(profile))));
+}
+
+function serializeProfile(profile) {
+  return {
+    ...structuredClone(profile),
+    source: profile.source || (profile.templateId ? "template" : "custom"),
+    templateId: profile.templateId ?? null,
+    createdAt: profile.createdAt || new Date().toISOString(),
+    updatedAt: profile.updatedAt || profile.createdAt || new Date().toISOString(),
+  };
 }
 
 function syncStateFromHash() {
@@ -752,11 +864,11 @@ function activeProfile() {
 }
 
 function allSectors() {
-  return ["All", ...new Set(profileTemplates.map((profile) => profile.sector))];
+  return ["All", ...new Set(state.profiles.map((profile) => profile.sector).filter(Boolean))];
 }
 
 function allStages() {
-  return ["All", ...new Set(profileTemplates.map((profile) => profile.stage))];
+  return ["All", ...new Set(state.profiles.map((profile) => profile.stage).filter(Boolean))];
 }
 
 function filteredProfiles() {
@@ -782,145 +894,242 @@ function filteredProfiles() {
   });
 }
 
+const readinessBlueprint = {
+  completeness: {
+    label: "Profile completeness",
+    note: "Core company fields are in place.",
+    checks: [
+      { id: "one-liner", label: "The company has a one-line description", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.oneLiner) },
+      { id: "problem", label: "The problem is stated", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.problem) },
+      { id: "customer", label: "The customer or buyer is named", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.customer) },
+      { id: "model", label: "The business model is stated", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.model) },
+      { id: "ask", label: "The funding ask is filled in", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.ask) },
+      { id: "use-of-funds", label: "Use of funds is explained", category: "coverage", points: 10, threshold: 1, test: (profile) => specificTextScore(profile.useOfFunds, ["pilot", "hire", "validation", "commercial", "launch", "certification", "deployment", "repeatable"]) },
+      { id: "next-step", label: "The next preparation step is action-oriented", category: "quality", points: 10, threshold: 0.7, test: (profile) => actionOrientedScore(profile.nextStep) },
+      { id: "team", label: "The founding team is described", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.team.founders) },
+      { id: "metrics", label: "At least one operating metric is present", category: "coverage", points: 10, threshold: 1, test: (profile) => operatingMetricScore(profile) },
+      { id: "ip", label: "IP position is stated", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.ip) },
+    ],
+  },
+  evidence: {
+    label: "Evidence quality",
+    note: "Proof is specific and linked to an outcome.",
+    checks: [
+      { id: "has-evidence", label: "Evidence items are listed", category: "coverage", points: 16, threshold: 1, test: (profile) => countList(profile.evidence) > 0 },
+      { id: "customer-proof", label: "At least one customer-facing proof point is visible", category: "quality", points: 16, threshold: 0.7, test: (profile) => evidenceListScore(profile.evidence, ["pilot", "loi", "customer", "contract", "agreement", "paying", "buyer", "reference", "clinic", "factory", "utility", "partner"]) },
+      { id: "technical-proof", label: "At least one technical or operational proof point is visible", category: "quality", points: 16, threshold: 0.7, test: (profile) => evidenceListScore(profile.evidence, ["validation", "lab", "study", "tested", "deployed", "audit", "certified", "prototype", "pilot run", "evaluation"]) },
+      { id: "metric-linked", label: "Evidence links to a metric, milestone, or named outcome", category: "quality", points: 16, threshold: 0.7, test: (profile) => evidenceOutcomeScore(profile) },
+      { id: "specificity", label: "Evidence is more specific than generic claims", category: "quality", points: 20, threshold: 0.7, test: (profile) => evidenceSpecificityScore(profile.evidence) },
+      { id: "missing-proof", label: "Missing proof is named clearly", category: "coverage", points: 16, threshold: 1, test: (profile) => countList(profile.missing) > 0 },
+    ],
+  },
+  narrative: {
+    label: "Narrative clarity",
+    note: "The story is concrete and action-oriented.",
+    checks: [
+      { id: "problem-specific", label: "The problem is concrete", category: "coverage", points: 16, threshold: 0.7, test: (profile) => specificTextScore(profile.problem, ["customer", "market", "compliance", "deployment", "workflow", "cost", "risk", "pain"]) },
+      { id: "customer-specific", label: "The customer definition is specific", category: "coverage", points: 16, threshold: 0.7, test: (profile) => specificTextScore(profile.customer, ["buyer", "user", "clinic", "utility", "factory", "team", "operator", "procurement"]) },
+      { id: "ask-specific", label: "The ask is concrete", category: "coverage", points: 16, threshold: 0.7, test: (profile) => specificTextScore(profile.ask, ["round", "grant", "pilot", "seed", "series", "funding", "partnership"]) },
+      { id: "funds-linked", label: "Use of funds links to a milestone", category: "quality", points: 16, threshold: 0.7, test: (profile) => milestoneLinkScore(profile.useOfFunds) },
+      { id: "next-step", label: "The next step is action-oriented", category: "quality", points: 16, threshold: 0.7, test: (profile) => actionOrientedScore(profile.nextStep) },
+      { id: "model-clear", label: "The business model is easy to explain", category: "coverage", points: 20, threshold: 0.7, test: (profile) => specificTextScore(profile.model, ["subscription", "licensing", "usage", "service", "contract", "hardware", "pilot", "recurring", "revenue"]) },
+    ],
+  },
+  diligence: {
+    label: "Diligence visibility",
+    note: "Risks and open questions are easy to inspect.",
+    checks: [
+      { id: "ip", label: "IP status is stated", category: "coverage", points: 20, threshold: 1, test: (profile) => basicPresenceScore(profile.ip) },
+      { id: "risks", label: "Risks are named", category: "coverage", points: 20, threshold: 1, test: (profile) => countList(profile.risks) > 0 },
+      { id: "missing", label: "Missing items are named", category: "coverage", points: 20, threshold: 1, test: (profile) => countList(profile.missing) > 0 },
+      { id: "regulatory-note", label: "Regulatory context is explained", category: "quality", points: 20, threshold: 0.7, test: (profile) => specificTextScore(profile.regulatory.note, ["demand", "burden", "access", "barrier", "defensibility", "timing", "approval", "compliance"]) },
+      { id: "transition-note", label: "Transition context is explained", category: "quality", points: 10, threshold: 0.7, test: (profile) => specificTextScore(profile.transition.note, ["demand", "burden", "access", "barrier", "defensibility", "timing", "tailwind", "resilience"]) },
+      { id: "ownership-path", label: "Ownership or commercialization path questions are visible", category: "quality", points: 10, threshold: 0.7, test: (profile) => ownershipPathScore(profile) },
+    ],
+  },
+  exposure: {
+    label: "Exposure framing",
+    note: "Regulatory and transition exposure are framed as context, not noise.",
+    checks: [
+      { id: "reg-level", label: "Regulatory exposure level is set", category: "coverage", points: 16, threshold: 1, test: (profile) => nonUnknownPresenceScore(profile.regulatory.level) },
+      { id: "transition-level", label: "Transition exposure level is set", category: "coverage", points: 16, threshold: 1, test: (profile) => nonUnknownPresenceScore(profile.transition.level) },
+      { id: "market", label: "Primary market is named", category: "coverage", points: 16, threshold: 1, test: (profile) => basicPresenceScore(profile.assessment.exposure.primaryJurisdiction) },
+      { id: "reg-framing", label: "Regulatory note frames the trade-off", category: "quality", points: 16, threshold: 0.7, test: (profile) => exposureFramingScore(profile.regulatory.note) },
+      { id: "transition-framing", label: "Transition note frames the trade-off", category: "quality", points: 16, threshold: 0.7, test: (profile) => exposureFramingScore(profile.transition.note) },
+      { id: "extra-context", label: "Approval or certification context is captured when relevant", category: "quality", points: 20, threshold: 0.7, test: (profile) => exposureContextScore(profile) },
+    ],
+  },
+};
+
 function computeReadiness(profile, lensKey = state.lens) {
   const lens = lensConfig[lensKey];
-  const evidenceCount = countList(profile.evidence);
-  const riskCount = countList(profile.risks);
-  const missingCount = countList(profile.missing);
-  const filledCore = [
-    profile.oneLiner,
-    profile.problem,
-    profile.customer,
-    profile.model,
-    profile.useOfFunds,
-    profile.ask,
-    profile.ip,
-    profile.nextStep,
-    profile.metrics.revenue,
-    profile.metrics.runway,
-    profile.metrics.grossMargin,
-    profile.metrics.traction,
-    profile.regulatory.note,
-    profile.transition.note,
-    profile.team.founders,
-    profile.team.background,
-    profile.market.tam,
-    profile.market.competitors,
-    profile.funding.totalRaised,
-    profile.exit.horizon,
-  ];
-
-  const completeness = clamp(Math.round((filledCore.filter(isPresent).length / filledCore.length) * 100), 24, 100);
-  const evidence =
-    clamp(
-      Math.round(
-        18 +
-          evidenceCount * 11 +
-          profile.trl * 3 +
-          metricBonus(profile.metrics.revenue, ["ARR", "MRR", "revenue", "fees"], 10) +
-          metricBonus(profile.metrics.traction, ["customer", "contract", "pilot", "LOI", "MW", "clinic", "factory"], 8)
-      ),
-      18,
-      96
-    );
-  const narrative =
-    clamp(
-      Math.round(
-        14 +
-          presencePoints([profile.oneLiner, profile.problem, profile.customer, profile.model, profile.useOfFunds, profile.ask, profile.nextStep], 8) +
-          presencePoints([profile.team.founders, profile.market.tam, profile.market.differentiator], 6) +
-          metricBonus(profile.metrics.traction, ["ARR", "MRR", "pilot", "LOI", "live"], 6)
-      ),
-      22,
-      96
-    );
-  const diligence =
-    clamp(
-      Math.round(
-        22 +
-          presencePoints([profile.ip, profile.regulatory.note, profile.transition.note], 8) +
-          presencePoints([profile.funding.totalRaised, profile.exit.horizon, profile.market.competitors], 5) +
-          Math.min(18, riskCount * 4) +
-          Math.min(12, missingCount * 2) -
-          Math.max(0, missingCount - 4) * 4
-      ),
-      18,
-      94
-    );
-  const exposure =
-    clamp(
-      Math.round(
-        24 +
-          levelScore(profile.regulatory.level) * 4 +
-          levelScore(profile.transition.level) * 4 +
-          presencePoints([profile.regulatory.character, profile.regulatory.note, profile.transition.character, profile.transition.note], 8) +
-          metricBonus(profile.ip, ["patent", "trade secret", "assigned", "FTO"], 8)
-      ),
-      22,
-      96
-    );
-
+  const moduleMap = Object.entries(readinessBlueprint).map(([key, module]) => evaluateReadinessModule(profile, key, module));
+  const moduleByKey = Object.fromEntries(moduleMap.map((module) => [module.key, module]));
   const weighted = Math.round(
-    completeness * lens.weights.completeness +
-      evidence * lens.weights.evidence +
-      narrative * lens.weights.narrative +
-      diligence * lens.weights.diligence +
-      exposure * lens.weights.exposure
+    moduleByKey.completeness.value * lens.weights.completeness +
+      moduleByKey.evidence.value * lens.weights.evidence +
+      moduleByKey.narrative.value * lens.weights.narrative +
+      moduleByKey.diligence.value * lens.weights.diligence +
+      moduleByKey.exposure.value * lens.weights.exposure
   );
 
-  const overall = clamp(weighted, 20, 96);
+  const overall = clamp(weighted, 18, 96);
   const status = overall >= 80 ? "Ready to share" : overall >= 64 ? "Sharpen before outreach" : overall >= 48 ? "Needs more work" : "Too early to circulate";
-
-  const strongSignals = [
-    evidenceCount >= 3 ? `${evidenceCount} evidence points already visible.` : "",
-    isPresent(profile.metrics.traction) ? `Traction is stated clearly: ${profile.metrics.traction}.` : "",
-    isPresent(profile.ip) ? "IP ownership is described." : "",
-    isPresent(profile.regulatory.note) ? "Regulatory environment is explained." : "",
-    isPresent(profile.transition.note) ? "Climate transition context is addressed." : "",
-  ].filter(Boolean);
-
-  const blockers = [
-    ...profile.missing.slice(0, 3).map((item) => item),
-    !isPresent(profile.problem) ? "Problem statement needs to be made concrete." : "",
-    !isPresent(profile.customer) ? "Customer or buyer is not yet defined." : "",
-    !isPresent(profile.useOfFunds) ? "Use of funds is too vague." : "",
-  ].filter(Boolean);
-
-  const moduleScores = [
-    {
-      label: "Profile completeness",
-      value: completeness,
-      note: "How complete the core company profile is.",
-    },
-    {
-      label: "Evidence depth",
-      value: evidence,
-      note: "Evidence you can show, not just claim.",
-    },
-    {
-      label: "Narrative clarity",
-      value: narrative,
-      note: "How clearly the problem, customer, ask, and next step are explained.",
-    },
-    {
-      label: "Due diligence readiness",
-      value: diligence,
-      note: "Whether risks and open questions are visible to a reader.",
-    },
-    {
-      label: "Risk & regulation",
-      value: exposure,
-      note: "How well you've explained the regulatory, climate transition, and IP context.",
-    },
-  ];
+  const strongestModule = [...moduleMap].sort((a, b) => b.value - a.value)[0];
+  const weakestModule = [...moduleMap].sort((a, b) => a.value - b.value)[0];
+  const strongestChecks = unique(moduleMap.flatMap((module) => module.triggeredChecks.map((check) => check.label))).slice(0, 4);
+  const blockers = unique(moduleMap.flatMap((module) => module.missingChecks.map((check) => check.note || check.label)).concat(profile.missing.slice(0, 3))).slice(0, 6);
 
   return {
     overall,
     status,
-    moduleScores,
-    strongSignals,
+    moduleScores: moduleMap,
+    strongSignals: strongestChecks.length ? strongestChecks : [strongestModule.summary],
     blockers,
+    weakestModule: weakestModule.key,
   };
+}
+
+function evaluateReadinessModule(profile, key, module) {
+  const checks = module.checks.map((check) => {
+    const rawValue = check.test(profile);
+    const value = clamp(typeof rawValue === "number" ? rawValue : rawValue ? 1 : 0, 0, 1);
+    const threshold = check.threshold ?? 0.75;
+    return {
+      ...check,
+      value,
+      met: value >= threshold,
+    };
+  });
+
+  const totalPoints = checks.reduce((sum, check) => sum + check.points, 0) || 1;
+  const earnedPoints = checks.reduce((sum, check) => sum + check.points * check.value, 0);
+  const value = clamp(Math.round((earnedPoints / totalPoints) * 100), 0, 100);
+  const triggeredChecks = checks.filter((check) => check.met);
+  const missingChecks = checks.filter((check) => !check.met);
+  const triggeredLabels = triggeredChecks.map((check) => check.label);
+  const missingLabels = missingChecks.map((check) => check.label);
+  const summary = `${triggeredChecks.length} of ${checks.length} checks met`;
+  const detail = triggeredLabels.length && missingLabels.length
+    ? `Met: ${triggeredLabels.slice(0, 2).join("; ")}. Missing: ${missingLabels.slice(0, 2).join("; ")}.`
+    : triggeredLabels.length
+      ? `Met: ${triggeredLabels.slice(0, 3).join("; ")}.`
+      : `Missing: ${missingLabels.slice(0, 3).join("; ")}.`;
+  const note = `${module.note} ${summary}.`;
+
+  return {
+    key,
+    label: module.label,
+    value,
+    note,
+    summary,
+    detail,
+    triggeredChecks,
+    missingChecks,
+    coverage: scoreChecksByCategory(checks, "coverage"),
+    quality: scoreChecksByCategory(checks, "quality"),
+  };
+}
+
+function scoreChecksByCategory(checks, category) {
+  const subset = checks.filter((check) => check.category === category);
+  if (!subset.length) return 0;
+  const totalPoints = subset.reduce((sum, check) => sum + check.points, 0) || 1;
+  const earnedPoints = subset.reduce((sum, check) => sum + check.points * check.value, 0);
+  return clamp(Math.round((earnedPoints / totalPoints) * 100), 0, 100);
+}
+
+function basicPresenceScore(value) {
+  return isPresent(value) ? 1 : 0;
+}
+
+function nonUnknownPresenceScore(value) {
+  if (!isPresent(value)) return 0;
+  const normalized = String(value).trim().toLowerCase();
+  return ["unknown", "not started", "not sure", "not assessed"].includes(normalized) ? 0 : 1;
+}
+
+function specificTextScore(value, markers = []) {
+  const text = normalizeText(value);
+  if (!text) return 0;
+  let score = 0.18;
+  if (text.length >= 32) score += 0.22;
+  if (text.length >= 72) score += 0.15;
+  if (/\d|%|â‚¬|\$/.test(text)) score += 0.15;
+  if (markers.some((marker) => text.toLowerCase().includes(marker.toLowerCase()))) score += 0.2;
+  if (text.split(/\s+/).length >= 10) score += 0.1;
+  return clamp(score, 0, 1);
+}
+
+function actionOrientedScore(value) {
+  const text = normalizeText(value);
+  if (!text) return 0;
+  const verbs = ["show", "package", "validate", "convert", "launch", "ship", "prepare", "reduce", "secure", "close", "pilot", "publish", "hire", "complete"];
+  let score = specificTextScore(text, verbs);
+  if (verbs.some((verb) => text.toLowerCase().startsWith(verb))) score += 0.1;
+  return clamp(score, 0, 1);
+}
+
+function milestoneLinkScore(value) {
+  const text = normalizeText(value);
+  if (!text) return 0;
+  const markers = ["pilot", "validation", "certification", "launch", "hire", "commercial", "deployment", "procurement", "repeatable", "revenue", "scale", "conversion", "qualification"];
+  return specificTextScore(text, markers);
+}
+
+function ownershipPathScore(profile) {
+  const text = normalizeText(`${profile.ip} ${profile.team.missingRoles} ${profile.nextStep}`);
+  return specificTextScore(text, ["ownership", "license", "spinout", "assignment", "trade secret", "freedom to operate", "commercial", "route to market", "qualification"]);
+}
+
+function exposureFramingScore(value) {
+  const text = normalizeText(value);
+  if (!text) return 0;
+  return specificTextScore(text, ["demand", "burden", "access", "barrier", "defensible", "defensibility", "timing", "compliance", "tailwind", "risk", "market"]);
+}
+
+function exposureContextScore(profile) {
+  const text = normalizeText(`${profile.assessment.exposure.certificationsNeeded} ${profile.assessment.exposure.approvalBodies} ${profile.assessment.exposure.crossBorderConstraints} ${profile.assessment.exposure.approvalPathKnown}`);
+  if (!text) return 0;
+  return specificTextScore(text, ["certification", "approval", "audit", "cross-border", "procurement", "data", "medical", "safety", "regulatory"]);
+}
+
+function operatingMetricScore(profile) {
+  const values = [profile.metrics.revenue, profile.metrics.runway, profile.metrics.grossMargin, profile.metrics.traction];
+  return values.some((value) => isPresent(value)) ? (values.filter((value) => specificTextScore(value) > 0.3).length >= 2 ? 1 : 0.75) : 0;
+}
+
+function evidenceListScore(items, markers = []) {
+  if (!Array.isArray(items) || !items.length) return 0;
+  const scores = items.map((item) => specificTextScore(item, markers));
+  return scores.reduce((sum, score) => sum + score, 0) / scores.length;
+}
+
+function evidenceSpecificityScore(items) {
+  if (!Array.isArray(items) || !items.length) return 0;
+  const scores = items.map((item) => {
+    const text = normalizeText(item);
+    if (!text) return 0;
+    let score = 0.15;
+    if (text.length >= 24) score += 0.2;
+    if (text.length >= 50) score += 0.15;
+    if (/\d|%|â‚¬|\$/.test(text)) score += 0.2;
+    if (/[A-Z][a-z]+/.test(text) || /\b[A-Z]{2,}\b/.test(text)) score += 0.15;
+    if (/(pilot|LOI|customer|contract|agreement|study|audit|certified|deployed|validation|metric|outcome|runway|revenue|arr|mrr)/i.test(text)) score += 0.2;
+    return clamp(score, 0, 1);
+  });
+  return scores.reduce((sum, score) => sum + score, 0) / scores.length;
+}
+
+function evidenceOutcomeScore(profile) {
+  const evidenceText = normalizeText(profile.evidence.join(" "));
+  const metricText = normalizeText(`${profile.metrics.revenue} ${profile.metrics.traction} ${profile.metrics.runway} ${profile.metrics.grossMargin}`);
+  if (!evidenceText) return 0;
+  return specificTextScore(`${evidenceText} ${metricText}`, ["metric", "milestone", "outcome", "revenue", "runway", "traction", "pilot", "customer", "patient", "factory", "sensor", "MW", "clinic", "contract", "reduction", "improvement"]);
+}
+
+function normalizeText(value) {
+  return typeof value === "string" ? value.trim() : "";
 }
 
 function computeBestLens(profile) {
@@ -936,19 +1145,19 @@ function computeExposureCollection(profile) {
     profile.transition.level,
     profile.assessment.exposure.primaryJurisdiction,
   ];
-  return buildCollectionStatus(fields, "Regulatory exposure", "Context for the OpenEconomics team to run the regulatory and climate exposure analysis.");
+  return buildCollectionStatus(fields, "Regulatory exposure", "This section affects readiness because it frames market access, compliance burden, and defensibility in the current profile.");
 }
 
 function computeEsgCollection(profile) {
   const q = profile.assessment.esg.questionnaire;
   const fields = [q.envTracking, q.envPolicy, q.emissionsImpact, q.diversityPolicy, q.wellbeingTracking, q.socialOutcome, q.hasBoard, q.ethicsPolicy, q.financialsReviewed];
-  return buildCollectionStatus(fields, "ESG questionnaire", "Fill in the 9 questions below — the OpenEconomics team reviews and scores your responses.");
+  return buildCollectionStatus(fields, "ESG questionnaire", "Optional structured preparation input stored for later reuse. It does not change the readiness score directly.");
 }
 
 function computeSroiCollection(profile) {
   const sroi = profile.assessment.sroi;
   const fields = [sroi.beneficiaryGroups, sroi.primaryOutcome, sroi.annualReach];
-  return buildCollectionStatus(fields, "Social impact data", "Three inputs for the OpenEconomics team to run the SROI calculation.");
+  return buildCollectionStatus(fields, "Social impact data", "Optional structured preparation input for later memo and impact packaging work. It does not change the readiness score directly.");
 }
 
 function buildCollectionStatus(fields, label, detail) {
@@ -958,9 +1167,12 @@ function buildCollectionStatus(fields, label, detail) {
   return { total, completed, status, detail, label };
 }
 
-function render() {
+function render(options = {}) {
+  const focusState = options.preserveFocus ? captureFocusState() : null;
   if (state.onboarding) {
     app.innerHTML = renderOnboarding();
+    if (options.focusTab) focusTabButton(options.focusTab);
+    if (focusState) restoreFocusState(focusState);
     return;
   }
 
@@ -984,6 +1196,49 @@ function render() {
       </main>
     </div>
   `;
+
+  if (options.focusTab) focusTabButton(options.focusTab);
+  if (focusState) restoreFocusState(focusState);
+}
+
+function scheduleRender(options = {}) {
+  clearTimeout(searchRenderTimer);
+  searchRenderTimer = setTimeout(() => render(options), 120);
+}
+
+function captureFocusState() {
+  const element = document.activeElement;
+  if (!element || !app.contains(element)) return null;
+  const selector = focusSelectorForElement(element);
+  if (!selector) return null;
+  return {
+    selector,
+    start: typeof element.selectionStart === "number" ? element.selectionStart : null,
+    end: typeof element.selectionEnd === "number" ? element.selectionEnd : null,
+  };
+}
+
+function restoreFocusState(focusState) {
+  const element = app.querySelector(focusState.selector);
+  if (!element) return;
+  element.focus();
+  if (typeof focusState.start === "number" && typeof focusState.end === "number" && typeof element.setSelectionRange === "function") {
+    element.setSelectionRange(focusState.start, focusState.end);
+  }
+}
+
+function focusSelectorForElement(element) {
+  if (element.id) return `#${element.id}`;
+  for (const key of ["input", "field", "metric", "list", "draft", "action", "tab"]) {
+    if (element.dataset && element.dataset[key]) return `[data-${key}="${element.dataset[key]}"]`;
+  }
+  if (element.getAttribute("role") === "tab" && element.dataset.tab) return `[data-action="set-tab"][data-tab="${element.dataset.tab}"]`;
+  return null;
+}
+
+function focusTabButton(tabKey) {
+  const button = app.querySelector(`[data-action="set-tab"][data-tab="${tabKey}"]`);
+  if (button) button.focus();
 }
 
 function renderOnboarding() {
@@ -996,7 +1251,7 @@ function renderOnboarding() {
     <div class="field">
       <label><span>${escapeHtml(placeholder)}</span>
         <select class="select-input" data-draft="${escapeAttr(field)}">
-          <option value="" ${!current ? "selected" : ""}>Select…</option>
+          <option value="" ${!current ? "selected" : ""}>Selectâ€¦</option>
           ${options.map((o) => `<option value="${escapeAttr(o)}" ${o === current ? "selected" : ""}>${escapeHtml(o)}</option>`).join("")}
         </select>
       </label>
@@ -1030,7 +1285,7 @@ function renderOnboarding() {
             </div>
             <div class="form-grid">
               ${makeSelect("roundType", "Round type", roundOptions, d.roundType)}
-              ${makeText("ask", "Target amount — e.g. €1.5M", d.ask)}
+              ${makeText("ask", "Target amount â€” e.g. â‚¬1.5M", d.ask)}
             </div>
           </div>
           <div class="onboarding-form">
@@ -1062,36 +1317,51 @@ function renderOnboarding() {
 
 function createProfileFromDraft(draft) {
   const id = `custom-${Date.now().toString(36)}`;
-  const template = {
-    id,
-    name: draft.name || "My company",
-    tagline: draft.oneLiner || "",
-    sector: draft.sector || "Climate tech",
-    stage: draft.stage || "Seed",
-    geography: draft.geography || "European Union",
-    problem: "",
-    solution: "",
-    oneLiner: draft.oneLiner || "",
-    trl: "",
-    ip: "",
-    customer: "",
-    model: "",
-    ask: draft.ask || "",
-    useOfFunds: "",
-    nextStep: "",
-    evidence: [],
-    missing: [],
-    risks: [],
-    regulatory: { level: "Low", character: "Minimal regulatory impact", note: "" },
-    transition: { level: "Low", character: "Minimal climate exposure", note: "" },
-    tags: [],
-    metrics: { revenue: "", runway: "", grossMargin: "", traction: "" },
-  };
-  return mergeProfile(template);
+  return normalizeProfileRecord(
+    {
+      id,
+      name: draft.name || "My company",
+      tagline: draft.oneLiner || "",
+      sector: draft.sector || "Climate tech",
+      stage: draft.stage || "Seed",
+      geography: draft.geography || "European Union",
+      problem: "",
+      solution: "",
+      oneLiner: draft.oneLiner || "",
+      trl: "",
+      ip: "",
+      customer: "",
+      model: "",
+      ask: draft.ask || "",
+      useOfFunds: "",
+      nextStep: "",
+      evidence: [],
+      missing: [],
+      risks: [],
+      regulatory: { level: "Low", character: "Minimal regulatory impact", note: "" },
+      transition: { level: "Low", character: "Minimal climate exposure", note: "" },
+      tags: [],
+      metrics: { revenue: "", runway: "", grossMargin: "", traction: "" },
+      preferredLens: state.lens,
+    },
+    { source: "custom", templateId: null, now: new Date().toISOString() }
+  );
 }
 
 function renderTopbar(profile, readiness) {
   const lens = lensConfig[state.lens];
+  const sourceLabel = profile.source === "custom" ? "Custom profile" : "Example profile";
+  const actions =
+    profile.source === "custom"
+      ? `
+        <button class="button button--ghost" type="button" data-action="clear-profile">Clear profile</button>
+        <button class="button button--ghost" type="button" data-action="duplicate-profile">Duplicate</button>
+        <button class="button button--ghost" type="button" data-action="delete-profile">Delete</button>
+      `
+      : `
+        <button class="button button--ghost" type="button" data-action="reset-profile">Reset to template</button>
+        <button class="button button--ghost" type="button" data-action="duplicate-profile">Duplicate as custom</button>
+      `;
   return `
     <header class="topbar">
       <div class="topbar__brand">
@@ -1105,24 +1375,25 @@ function renderTopbar(profile, readiness) {
         <span class="status-pill">${lens.short}</span>
         <span class="status-pill status-pill--accent">${readiness.overall}/100</span>
         <span class="status-pill">Saved locally</span>
+        <span class="status-pill">${sourceLabel}</span>
       </div>
       <div class="topbar__actions">
-        <button class="button button--ghost" type="button" data-action="reset-profile">Reset to example</button>
         <button class="button" type="button" data-action="copy-memo">Copy memo</button>
+        ${actions}
       </div>
     </header>
   `;
 }
 
 function renderHero(profile, readiness, bestLens) {
-  const insight = buildPreparationInsight(profile, readiness, bestLens);
+  const insight = buildPreparationInsightV2(profile, readiness, bestLens);
   return `
     <section class="hero panel">
       <div class="hero__copy">
         <p class="eyebrow">Submission room</p>
-        <h2>Get ${profile.name} ready for a serious investor or partner to review in minutes.</h2>
+        <h2>Get ${profile.name} ready for a serious investor or partner conversation.</h2>
         <p class="hero-copy">
-          Founders rarely lack a story. What they often lack is a clean, readable proof path — what's being asked, why it matters now,
+          Founders rarely lack a story. What they often lack is a clean, readable proof path â€” what's being asked, why it matters now,
           what evidence exists, what's still uncertain, and which open items should be resolved before outreach.
         </p>
         <p class="hero-copy hero-copy--subtle">
@@ -1208,7 +1479,7 @@ function renderNavigator() {
         Use the buttons below only if you want to inspect another framing.
       </p>
 
-      <div class="lens-list" role="tablist" aria-label="Submission lenses">
+      <div class="lens-list" role="group" aria-label="Submission lenses">
         ${Object.entries(lensConfig)
           .map(
             ([key, lens]) => `
@@ -1217,6 +1488,7 @@ function renderNavigator() {
                 type="button"
                 data-action="set-lens"
                 data-lens="${key}"
+                aria-pressed="${state.lens === key ? "true" : "false"}"
               >
                 <strong>${lens.label}</strong>
                 <span>${lens.bestFor}</span>
@@ -1248,6 +1520,7 @@ function renderNavigator() {
                   <span>${readiness.overall}/100</span>
                 </span>
                 <span class="profile-item__meta">${escapeHtml(profile.sector)} / ${escapeHtml(profile.stage)} / TRL ${profile.trl}</span>
+                <span class="profile-item__meta">${profile.source === "custom" ? "Custom profile" : "Example profile"}</span>
                 <span class="profile-item__meta">Objective: ${escapeHtml(profile.objective || profileLens.label)}</span>
                 <span class="profile-item__meta">Path: ${escapeHtml(profileLens.label)}</span>
                 <span class="profile-item__body">${escapeHtml(profile.oneLiner)}</span>
@@ -1261,6 +1534,7 @@ function renderNavigator() {
 }
 
 function renderStudio(profile, readiness) {
+  const activeTabId = `tab-${state.tab}`;
   return `
     <section class="studio">
       <div class="studio__header panel">
@@ -1284,12 +1558,15 @@ function renderStudio(profile, readiness) {
             .map(
               ([key, label]) => `
                 <button
+                  id="tab-${key}"
                   class="tab-button ${state.tab === key ? "is-active" : ""}"
                   type="button"
                   data-action="set-tab"
                   data-tab="${key}"
                   role="tab"
                   aria-selected="${state.tab === key ? "true" : "false"}"
+                  aria-controls="tabs-panel"
+                  tabindex="${state.tab === key ? "0" : "-1"}"
                 >
                   ${label}
                 </button>
@@ -1299,7 +1576,9 @@ function renderStudio(profile, readiness) {
         </div>
         <div class="tabs__body">
           ${renderTabGuide(profile)}
-          ${renderTabContent(profile, readiness)}
+          <div class="tabs__panel" id="tabs-panel" role="tabpanel" aria-labelledby="${activeTabId}" tabindex="0">
+            ${renderTabContent(profile, readiness)}
+          </div>
         </div>
       </div>
     </section>
@@ -1318,11 +1597,11 @@ function renderTabGuide(profile) {
     },
     intake: {
       label: "Edit the fields that matter for this submission path.",
-      detail: "The field map at the top shows what the selected lens will review. Start there.",
+      detail: "The field map at the top shows what the selected lens uses first. Start there.",
     },
     evidence: {
       label: "Build evidence around what a reader will actually ask.",
-      detail: "Good evidence targets a specific question. Don't just add more — close the right gaps.",
+      detail: "Good evidence targets a specific question. Don't just add more â€” close the right gaps.",
     },
     memo: {
       label: "Export a summary from this room.",
@@ -1330,7 +1609,7 @@ function renderTabGuide(profile) {
     },
     esg: {
       label: "Fill in the ESG questionnaire.",
-      detail: "Questions are tailored to your sector. Answer what you can — the OpenEconomics team scores your responses.",
+      detail: "Questions are tailored to your sector. Answer what you can, then reuse the answers in later preparation.",
     },
   }[state.tab];
 
@@ -1350,17 +1629,17 @@ function renderTabGuide(profile) {
 }
 
 function renderTabContent(profile, readiness) {
-  if (state.tab === "intake") return renderIntakeTab(profile);
+  if (state.tab === "intake") return renderIntakeTabV2(profile);
   if (state.tab === "evidence") return renderEvidenceTab(profile, readiness);
   if (state.tab === "memo") return renderMemoTab(profile, readiness);
-  if (state.tab === "esg") return renderEsgTab(profile);
+  if (state.tab === "esg") return renderEsgTabV2(profile);
   return renderWorkspaceTab(profile, readiness);
 }
 
 function renderWorkspaceTab(profile, readiness) {
   const collections = buildAssessmentCollections(profile);
   const currentLens = lensConfig[state.lens];
-  const insight = buildPreparationInsight(profile, readiness, currentLens);
+  const insight = buildPreparationInsightV2(profile, readiness, currentLens);
   return `
     <div class="content-grid">
       <section class="section-block section-block--wide room-brief">
@@ -1405,7 +1684,7 @@ function renderWorkspaceTab(profile, readiness) {
       <section class="section-block section-block--wide lens-field-map">
         <div class="section-heading">
           <p class="eyebrow">Field map</p>
-          <h3>Fields this lens will review</h3>
+          <h3>Fields this lens uses first</h3>
         </div>
         <div class="field-map-grid">
           ${renderLensFieldMap(profile, currentLens)}
@@ -1415,7 +1694,7 @@ function renderWorkspaceTab(profile, readiness) {
       <section class="section-block section-block--wide lens-panel">
         <div class="section-heading">
           <p class="eyebrow">Score breakdown</p>
-          <h3>How this lens weights your readiness score</h3>
+          <h3>How this lens influences the readiness score</h3>
         </div>
         <div class="lens-panel__body lens-panel__body--compact">
           <p>${escapeHtml(currentLens.outcome)}</p>
@@ -1466,14 +1745,14 @@ function renderWorkspaceTab(profile, readiness) {
       <section class="section-block">
         <div class="section-heading">
           <p class="eyebrow">Assessment inputs</p>
-          <h3>Data captured for later assessment</h3>
+          <h3>Data captured for readiness or later preparation</h3>
         </div>
         <div class="assessment-grid">
           ${renderCollectionCard("Exposure", collections.exposure)}
           ${renderCollectionCard("ESG questionnaire", collections.esg)}
           ${renderCollectionCard("SROI", collections.sroi)}
         </div>
-        <p class="model-note">Data collected here feeds into the assessment model. Scores and final outputs will be generated in a later step.</p>
+        <p class="model-note">Exposure framing influences readiness. ESG and SROI inputs are stored for later memo and packaging work, but they do not change the readiness score directly.</p>
       </section>
 
       <section class="section-block">
@@ -1515,18 +1794,65 @@ function renderWorkspaceTab(profile, readiness) {
   `;
 }
 
-function renderIntakeTab(profile) {
+function renderIntakeTabV2(profile) {
   const exposure = computeExposureCollection(profile);
   const esg = computeEsgCollection(profile);
   const sroi = computeSroiCollection(profile);
   const lens = lensConfig[state.lens];
+  const lensTitle = {
+    fundraising: "Raise preparation",
+    partner: "Partner deployment",
+    commercialization: "Commercialization",
+    grant: "Grant and impact",
+  }[state.lens];
+  const lensIntro = {
+    fundraising: "Start with the ask, the spend plan, and the proof that makes the round easier to defend.",
+    partner: "Start with the buyer, the deployment burden, and what a successful pilot actually looks like.",
+    commercialization: "Start with what has been built, who owns it, and the first route to market that can actually work.",
+    grant: "Start with the beneficiary, the outcome, and the delivery plan behind the application.",
+  }[state.lens];
+
+  const lensFields = {
+    fundraising: `
+      ${renderTextField("Funding ask", "ask", profile.ask)}
+      ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
+      ${renderMetricField("Revenue", "revenue", profile.metrics.revenue)}
+      ${renderMetricField("Runway", "runway", profile.metrics.runway)}
+      ${renderMetricField("Traction", "traction", profile.metrics.traction)}
+      ${renderTextField("Funding history", "funding.totalRaised", profile.funding.totalRaised)}
+    `,
+    partner: `
+      ${renderTextField("Customer and buyer", "customer", profile.customer, "textarea")}
+      ${renderTextField("Problem statement", "problem", profile.problem, "textarea")}
+      ${renderTextField("Deployment requirements", "assessment.exposure.note", profile.assessment.exposure.note, "textarea")}
+      ${renderTextareaField("Risks to acknowledge", "risks", profile.risks)}
+      ${renderTextField("Expected pilot outcome", "nextStep", profile.nextStep, "textarea")}
+    `,
+    commercialization: `
+      ${renderTextField("One-liner", "oneLiner", profile.oneLiner)}
+      ${renderSelectField("TRL", "trl", String(profile.trl), trlOptions)}
+      ${renderTextField("IP position", "ip", profile.ip, "textarea")}
+      ${renderTextField("Business model", "model", profile.model, "textarea")}
+      ${renderTextField("First target customer", "customer", profile.customer, "textarea")}
+      ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
+    `,
+    grant: `
+      ${renderTextField("Problem statement", "problem", profile.problem, "textarea")}
+      ${renderTextField("Transition note", "transition.note", profile.transition.note, "textarea")}
+      ${renderTextField("Beneficiary groups", "assessment.sroi.beneficiaryGroups", profile.assessment.sroi.beneficiaryGroups, "textarea")}
+      ${renderTextField("Primary outcome to value", "assessment.sroi.primaryOutcome", profile.assessment.sroi.primaryOutcome, "textarea")}
+      ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
+    `,
+  }[state.lens];
+
   return `
     <div class="form-layout">
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Priority fields</p>
-          <h3>Start here — these fields matter most for this submission path</h3>
+          <p class="eyebrow">${escapeHtml(lens.eyebrow)}</p>
+          <h3>${escapeHtml(lensTitle)} fields first</h3>
         </div>
+        <p class="model-note">${escapeHtml(lensIntro)}</p>
         <div class="field-map-grid field-map-grid--compact">
           ${renderLensFieldMap(profile, lens)}
         </div>
@@ -1534,65 +1860,70 @@ function renderIntakeTab(profile) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Company profile</p>
-          <h3>Edit the core fields for this submission</h3>
+          <p class="eyebrow">Shared company core</p>
+          <h3>The fields every submission path reuses</h3>
         </div>
         <div class="form-grid">
+          ${renderTextField("Company name", "name", profile.name)}
+          ${renderSelectField("Sector", "sector", profile.sector, allSectors().filter((option) => option !== "All"))}
+          ${renderSelectField("Stage", "stage", profile.stage, stageOptions)}
+          ${renderSelectField("Geography", "geography", profile.geography, geographyOptions)}
           ${renderTextField("One-liner", "oneLiner", profile.oneLiner)}
           ${renderTextField("Problem statement", "problem", profile.problem, "textarea")}
           ${renderTextField("Customer and buyer", "customer", profile.customer, "textarea")}
           ${renderTextField("Business model", "model", profile.model, "textarea")}
-          ${renderTextField("Funding ask", "ask", profile.ask)}
-          ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
-          ${renderTextField("IP position", "ip", profile.ip, "textarea")}
-          ${renderTextField("Suggested next step", "nextStep", profile.nextStep, "textarea")}
         </div>
       </section>
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Team</p>
-          <h3>Who is building this, and who is still missing</h3>
+          <p class="eyebrow">${escapeHtml(lens.eyebrow)}</p>
+          <h3>Lens-specific fields first</h3>
+        </div>
+        <p class="model-note">This section changes with the selected lens, so the workflow stays specific instead of generic.</p>
+        <div class="form-grid">${lensFields}</div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">Evidence and gaps</p>
+          <h3>What is visible, what is risky, and what still needs proof</h3>
+        </div>
+        <div class="assessment-summary">
+          ${renderCollectionCard("Evidence", {
+            total: Math.max(3, countList(profile.evidence)),
+            completed: countList(profile.evidence),
+            status: profile.evidence.length ? "Visible" : "Empty",
+            detail: "Structured proof points used in readiness and memo work.",
+          })}
+        </div>
+        <div class="evidence-preview-grid">
+          ${renderStructuredCollectionPreview("Evidence items", buildStructuredEvidence(profile.evidence))}
+          ${renderStructuredCollectionPreview("Risks", buildStructuredRisks(profile.risks))}
+          ${renderStructuredCollectionPreview("Missing items", buildStructuredMissing(profile.missing))}
+        </div>
+        <div class="evidence-columns">
+          ${renderTextareaField("Evidence available", "evidence", profile.evidence)}
+          ${renderTextareaField("Risks to acknowledge", "risks", profile.risks)}
+          ${renderTextareaField("Missing items", "missing", profile.missing)}
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">Team, market, and metrics</p>
+          <h3>The context that makes the story credible</h3>
         </div>
         <div class="form-grid">
-          ${renderTextField("Founding team — names, roles, and brief background", "team.founders", profile.team.founders, "textarea")}
-          ${renderTextField("What makes this team the right one to execute this", "team.background", profile.team.background, "textarea")}
+          ${renderTextField("Founding team", "team.founders", profile.team.founders, "textarea")}
+          ${renderTextField("Team background", "team.background", profile.team.background, "textarea")}
           ${renderSelectField("Full-time team size", "team.size", profile.team.size, teamSizeOptions)}
           ${renderSelectField("Key role currently missing", "team.missingRoles", profile.team.missingRoles, missingRoleOptions)}
           ${renderTextField("Key advisors (optional)", "team.advisors", profile.team.advisors)}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Market & competition</p>
-          <h3>The size of the opportunity and who you are competing with</h3>
-        </div>
-        <div class="form-grid">
-          ${renderTextField("Total addressable market — your best estimate", "market.tam", profile.market.tam)}
-          ${renderTextField("Serviceable market — what you can realistically reach", "market.sam", profile.market.sam)}
-          ${renderTextField("Main competitors (name 2–4)", "market.competitors", profile.market.competitors, "textarea")}
-          ${renderTextField("Why would customers choose you over them?", "market.differentiator", profile.market.differentiator, "textarea")}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Classification</p>
-          <h3>Standardized fields for consistent profiling</h3>
-        </div>
-        <div class="metric-form">
-          ${renderSelectField("Sector", "sector", profile.sector, allSectors().filter((option) => option !== "All"))}
-          ${renderSelectField("Stage", "stage", profile.stage, stageOptions)}
-          ${renderSelectField("Geography", "geography", profile.geography, geographyOptions)}
-          ${renderSelectField("TRL", "trl", String(profile.trl), trlOptions)}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Metrics</p>
-          <h3>Key commercial figures</h3>
+          ${renderTextField("Total addressable market", "market.tam", profile.market.tam)}
+          ${renderTextField("Serviceable market", "market.sam", profile.market.sam)}
+          ${renderTextField("Main competitors", "market.competitors", profile.market.competitors, "textarea")}
+          ${renderTextField("Competitive advantage", "market.differentiator", profile.market.differentiator, "textarea")}
         </div>
         <div class="metric-form">
           ${renderMetricField("Revenue", "revenue", profile.metrics.revenue)}
@@ -1604,26 +1935,12 @@ function renderIntakeTab(profile) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Unit economics</p>
-          <h3>The numbers that tell investors whether the business model works</h3>
-        </div>
-        <p class="model-note">Fill in what you have. Pre-revenue companies can leave MRR/ARR blank and focus on CAC estimates and sales channel.</p>
-        <div class="form-grid">
-          ${renderTextField("Monthly recurring revenue (MRR)", "unitEconomics.mrr", profile.unitEconomics.mrr)}
-          ${renderTextField("Annual recurring revenue (ARR)", "unitEconomics.arr", profile.unitEconomics.arr)}
-          ${renderTextField("Customer acquisition cost (CAC)", "unitEconomics.cac", profile.unitEconomics.cac)}
-          ${renderTextField("Customer lifetime value (LTV)", "unitEconomics.ltv", profile.unitEconomics.ltv)}
-          ${renderTextField("Churn rate", "unitEconomics.churn", profile.unitEconomics.churn)}
-          ${renderSelectField("How do you primarily reach customers?", "unitEconomics.salesChannel", profile.unitEconomics.salesChannel, salesChannelOptions)}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Funding & exit</p>
-          <h3>Where you have been and where you are going</h3>
+          <p class="eyebrow">Funding and exit</p>
+          <h3>Where the company is going next</h3>
         </div>
         <div class="form-grid">
+          ${renderTextField("Funding ask", "ask", profile.ask)}
+          ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
           ${renderTextField("Total raised to date", "funding.totalRaised", profile.funding.totalRaised)}
           ${renderTextField("Number of previous rounds", "funding.roundCount", profile.funding.roundCount)}
           ${renderTextField("Key existing investors", "funding.notableInvestors", profile.funding.notableInvestors)}
@@ -1631,47 +1948,48 @@ function renderIntakeTab(profile) {
           ${renderSelectField("Expected exit horizon", "exit.horizon", profile.exit.horizon, exitHorizonOptions)}
           ${renderSelectField("Preferred exit type", "exit.type", profile.exit.type, exitTypeOptions)}
           ${renderTextField("Potential acquirers or strategic partners", "exit.acquirers", profile.exit.acquirers, "textarea")}
+          ${renderTextField("Suggested next step", "nextStep", profile.nextStep, "textarea")}
         </div>
       </section>
 
       <section class="section-block">
         <div class="section-heading">
           <p class="eyebrow">Regulatory exposure</p>
-          <h3>Three quick questions — our team handles the rest</h3>
+          <h3>Optional framing that does affect readiness</h3>
         </div>
         <div class="assessment-summary">
           ${renderCollectionCard("Exposure collection", exposure)}
         </div>
-        <p class="model-note">Answer what you can. The OpenEconomics team will use these to run the full regulatory and climate exposure analysis — no expertise required on your end.</p>
+        <p class="model-note">Answer what you can. This section is used directly in the readiness view because it frames market access, compliance burden, and defensibility.</p>
         <div class="form-grid">
           ${renderSelectField("How much regulatory oversight does your activity face?", "regulatory.level", profile.regulatory.level, exposureLevelOptions)}
           ${renderSelectField("How exposed is your company to climate or sustainability regulations?", "transition.level", profile.transition.level, exposureLevelOptions)}
           ${renderSelectField("Primary market", "assessment.exposure.primaryJurisdiction", profile.assessment.exposure.primaryJurisdiction, geographyOptions)}
-          ${renderTextField("Anything else the team should know?", "assessment.exposure.note", profile.assessment.exposure.note, "textarea")}
+          ${renderTextField("Anything else the founder should note?", "assessment.exposure.note", profile.assessment.exposure.note, "textarea")}
         </div>
       </section>
 
       <section class="section-block">
         <div class="section-heading">
           <p class="eyebrow">ESG tracking</p>
-          <h3>Your ESG questionnaire status</h3>
+          <h3>Optional structured preparation for later reuse</h3>
         </div>
         <div class="assessment-summary">
           ${renderCollectionCard("ESG questionnaire", esg)}
         </div>
-        <p class="model-note">Status updates automatically as you fill in the questionnaire.</p>
+        <p class="model-note">This questionnaire is optional structured preparation. It stays local and is reused in the memo when useful.</p>
         <button class="button" data-action="set-tab" data-tab="esg">Go to questionnaire</button>
       </section>
 
       <section class="section-block">
         <div class="section-heading">
           <p class="eyebrow">Social impact data</p>
-          <h3>Tell us who you help and what changes for them</h3>
+          <h3>Optional impact inputs for later packaging</h3>
         </div>
         <div class="assessment-summary">
           ${renderCollectionCard("SROI collection", sroi)}
         </div>
-        <p class="model-note">Three questions is all we need from you. The OpenEconomics team will handle the full Social Return on Investment calculation.</p>
+        <p class="model-note">These inputs help later preparation and memo drafting. They do not change the readiness score directly.</p>
         <div class="form-grid">
           ${renderTextField("Who benefits from what you do?", "assessment.sroi.beneficiaryGroups", profile.assessment.sroi.beneficiaryGroups, "textarea")}
           ${renderTextField("What is the main outcome you create for them?", "assessment.sroi.primaryOutcome", profile.assessment.sroi.primaryOutcome, "textarea")}
@@ -1746,7 +2064,7 @@ function getEsgQuestions(sector) {
   return base.map((q) => ({ ...q, label: sectorOverrides[q.key] || q.label }));
 }
 
-function renderEsgTab(profile) {
+function renderEsgTabV2(profile) {
   const esg = computeEsgCollection(profile);
   const questions = getEsgQuestions(profile.sector);
   const groups = ["Environment", "Social", "Governance"];
@@ -1755,21 +2073,23 @@ function renderEsgTab(profile) {
       <section class="section-block section-block--wide">
         <div class="section-heading">
           <p class="eyebrow">ESG questionnaire</p>
-          <h3>Answer once — we use this across all assessments</h3>
+          <h3>Optional structured prep for later reuse</h3>
         </div>
         <div class="assessment-summary">
           ${renderCollectionCard("ESG questionnaire", esg)}
         </div>
-        <p class="model-note">Answer as honestly as you can — "Working on it" or "No" is fine. Questions below are tailored to your sector: <strong>${escapeHtml(profile.sector)}</strong>. The OpenEconomics team reviews your responses and builds the full ESG analysis.</p>
-        ${groups.map((group) => {
-          const qs = questions.filter((q) => q.group === group);
-          return `
-            <p class="eyebrow" style="margin-top:1.5rem">${escapeHtml(group)}</p>
-            <div class="form-grid">
-              ${qs.map((q) => renderSelectField(q.label, `assessment.esg.questionnaire.${q.key}`, profile.assessment.esg.questionnaire[q.key], esgQuestionOptions)).join("")}
-            </div>
-          `;
-        }).join("")}
+        <p class="model-note">Answer as honestly as you can. "Working on it" or "No" is fine. The answers stay local and can be reused later in the memo or in a more detailed preparation pack.</p>
+        ${groups
+          .map((group) => {
+            const qs = questions.filter((q) => q.group === group);
+            return `
+              <p class="eyebrow" style="margin-top:1.5rem">${escapeHtml(group)}</p>
+              <div class="form-grid">
+                ${qs.map((q) => renderSelectField(q.label, `assessment.esg.questionnaire.${q.key}`, profile.assessment.esg.questionnaire[q.key], esgQuestionOptions)).join("")}
+              </div>
+            `;
+          })
+          .join("")}
       </section>
     </div>
   `;
@@ -1777,7 +2097,7 @@ function renderEsgTab(profile) {
 
 function renderEvidenceTab(profile, readiness) {
   const lens = lensConfig[state.lens];
-  const insight = buildPreparationInsight(profile, readiness, lens);
+  const insight = buildPreparationInsightV2(profile, readiness, lens);
   return `
     <div class="content-grid">
       <section class="section-block section-block--wide">
@@ -1845,8 +2165,14 @@ function renderEvidenceTab(profile, readiness) {
                   <div>
                     <strong>${escapeHtml(score.label)}</strong>
                     <p>${escapeHtml(score.note)}</p>
+                    <p class="score-row__detail">${escapeHtml(score.detail)}</p>
                   </div>
-                  <span>${score.value}/100</span>
+                  <div class="score-row__meta">
+                    <span>${score.value}/100</span>
+                    <small>Coverage ${score.coverage}/100</small>
+                    <small>Quality ${score.quality}/100</small>
+                    <small>${escapeHtml(score.summary)}</small>
+                  </div>
                 </article>
               `
             )
@@ -1858,7 +2184,7 @@ function renderEvidenceTab(profile, readiness) {
 }
 
 function renderMemoTab(profile, readiness) {
-  const memo = generateMemo(profile, readiness);
+  const memo = generateMemoV2(profile, readiness);
   const lens = lensConfig[state.lens];
   return `
     <section class="memo">
@@ -1917,10 +2243,16 @@ function renderReadinessRail(profile, readiness, bestLens) {
                 </div>
                 <div class="progress" aria-hidden="true"><span style="width:${score.value}%"></span></div>
                 <p>${escapeHtml(score.note)}</p>
+                <p class="bar-block__detail">${escapeHtml(score.detail)}</p>
               </div>
             `
           )
           .join("")}
+      </div>
+
+      <div class="rail-section">
+        <span>What changed the score</span>
+        <p>${escapeHtml(readiness.strongSignals[0] || "The strongest visible signal is still the overall profile coverage.")}</p>
       </div>
 
       <div class="rail-section">
@@ -1942,7 +2274,7 @@ function renderReadinessRail(profile, readiness, bestLens) {
         <span>About this score</span>
         <p>
           Regulatory environment and climate exposure aren't automatically bad for your score. We ask you to think about whether they
-          create market demand, add operational burden, limit market access, or make your position harder to copy — it depends on your situation.
+          create market demand, add operational burden, limit market access, or make your position harder to copy â€” it depends on your situation.
         </p>
       </div>
     </aside>
@@ -1976,6 +2308,96 @@ function renderCollectionCard(label, collection) {
       <small>${escapeHtml(collection.detail)}</small>
     </article>
   `;
+}
+
+function renderStructuredCollectionPreview(label, items) {
+  const visible = items.slice(0, 3);
+  return `
+    <article class="structured-card">
+      <div class="section-heading">
+        <p class="eyebrow">${escapeHtml(label)}</p>
+      </div>
+      ${
+        visible.length
+          ? `
+            <ul class="structured-list">
+              ${visible
+                .map(
+                  (item) => `
+                    <li>
+                      <strong>${escapeHtml(item.title)}</strong>
+                      <span>${escapeHtml(item.type)}</span>
+                      <p>${escapeHtml(item.summary)}</p>
+                    </li>
+                  `
+                )
+                .join("")}
+            </ul>
+            ${items.length > visible.length ? `<p class="structured-card__more">+${items.length - visible.length} more item${items.length - visible.length === 1 ? "" : "s"}</p>` : ""}
+          `
+          : `<p class="structured-card__more">Nothing added yet.</p>`
+      }
+    </article>
+  `;
+}
+
+function buildStructuredEvidence(items) {
+  return (Array.isArray(items) ? items : []).filter(Boolean).map((item) => {
+    const text = normalizeText(item);
+    const lower = text.toLowerCase();
+    const type =
+      /(pilot|loi|contract|customer|paid|agreement|buyer|reference)/.test(lower)
+        ? "Commercial proof"
+        : /(lab|validation|study|audit|certified|deployed|prototype|technical|operational)/.test(lower)
+          ? "Technical proof"
+          : /(metric|revenue|mrr|arr|runway|traction|outcome|reduction|improvement|patients|mw|units)/.test(lower)
+            ? "Metric-linked proof"
+            : "Evidence item";
+    const strength = evidenceItemStrength(text);
+    return {
+      title: text,
+      type,
+      summary: strength >= 0.7 ? "Strong and specific" : strength >= 0.45 ? "Moderately specific" : "Needs more detail",
+    };
+  });
+}
+
+function buildStructuredRisks(items) {
+  return (Array.isArray(items) ? items : []).filter(Boolean).map((item) => {
+    const text = normalizeText(item);
+    return {
+      title: text,
+      type: riskTypeForText(text),
+      summary: riskSeverityForText(text),
+    };
+  });
+}
+
+function buildStructuredMissing(items) {
+  return (Array.isArray(items) ? items : []).filter(Boolean).map((item) => ({
+    title: normalizeText(item),
+    type: "Open diligence item",
+    summary: "Still needs a named owner or proof path",
+  }));
+}
+
+function evidenceItemStrength(text) {
+  return specificTextScore(text, ["pilot", "customer", "contract", "agreement", "validation", "study", "metric", "outcome", "revenue", "traction", "certified"]);
+}
+
+function riskTypeForText(text) {
+  const lower = normalizeText(text).toLowerCase();
+  if (/(regulat|compliance|approval|procurement|certif)/.test(lower)) return "Regulatory";
+  if (/(sales|market|pricing|demand|conversion)/.test(lower)) return "Commercial";
+  if (/(scale|implementation|integration|deployment|ops|manufacturing)/.test(lower)) return "Operational";
+  return "Execution";
+}
+
+function riskSeverityForText(text) {
+  const lower = normalizeText(text).toLowerCase();
+  if (/(long|high|uncertain|critical|burden|material)/.test(lower)) return "Potentially material";
+  if (/(early|limited|unknown|open)/.test(lower)) return "Needs clarification";
+  return "Track and revisit";
 }
 
 function renderLensWeights(lens) {
@@ -2104,6 +2526,151 @@ function renderTextareaField(label, field, values) {
   `;
 }
 
+function generateMemoV2(profile, readiness) {
+  const lens = lensConfig[state.lens];
+  const insight = buildPreparationInsightV2(profile, readiness, lens);
+  const collections = buildAssessmentCollections(profile);
+  const strongestModule = readiness.moduleScores.find((module) => module.key === readiness.strongestModule) || readiness.moduleScores[0];
+  const weakestModule = readiness.moduleScores.find((module) => module.key === readiness.weakestModule) || readiness.moduleScores[0];
+  const structuredEvidence = buildStructuredEvidence(profile.evidence).slice(0, 3);
+  const structuredRisks = buildStructuredRisks(profile.risks).slice(0, 2);
+  const structuredMissing = buildStructuredMissing(profile.missing).slice(0, 3);
+  const firstEvidence = structuredEvidence[0]?.title || "No evidence items listed yet.";
+  const firstGap = structuredMissing[0]?.title || "a sharper evidence package";
+  const firstRisk = structuredRisks[0]?.title || "execution risk";
+
+  return [
+    `Company snapshot: ${profile.name} is a ${profile.stage.toLowerCase()} ${profile.sector.toLowerCase()} company in ${profile.geography}. The current submission readiness based on the current profile is ${readiness.overall}/100, which reads as ${readiness.status.toLowerCase()}.`,
+    `Why this company matters now: ${insight.marketDetail} The best first audience is ${insight.audience.toLowerCase()} because ${insight.audienceReason.charAt(0).toLowerCase() + insight.audienceReason.slice(1)}`,
+    `Current evidence available: ${firstEvidence}${structuredEvidence.length > 1 ? `; ${structuredEvidence[1].title}` : ""}${structuredEvidence.length > 2 ? `; ${structuredEvidence[2].title}` : ""}. The strongest visible signal is ${readiness.strongSignals[0] || strongestModule.summary}.`,
+    `Open diligence items: ${structuredMissing.length ? structuredMissing.map((item) => item.title).join("; ") : "No named missing items yet."} The main unresolved item to address next is ${firstGap}.`,
+    `Readiness interpretation based on the current profile: ${weakestModule.label} is the weakest module at ${weakestModule.value}/100, while ${strongestModule.label} is the strongest at ${strongestModule.value}/100. ${weakestModule.detail}`,
+    `Suggested next preparation step: ${insight.priorityDetail} The next useful proof package is ${insight.proofTarget.toLowerCase()}: ${insight.proofDetail.charAt(0).toLowerCase() + insight.proofDetail.slice(1)}`,
+    `Risk framing: ${structuredRisks.length ? structuredRisks.map((item) => item.title).join("; ") : "No risks named yet."} The first risk to acknowledge is ${firstRisk}.`,
+    `Optional structured inputs: regulatory exposure ${collections.exposure.completed}/${collections.exposure.total}, ESG tracking ${collections.esg.completed}/${collections.esg.total}, SROI ${collections.sroi.completed}/${collections.sroi.total}. Exposure framing affects readiness; ESG and SROI are kept for later packaging work.`,
+    `This note is based on the current profile only and should be used as a founder-side preparation output before outreach, not as financing advice or a substitute for third-party diligence.`,
+  ].join("\n");
+}
+
+function buildPreparationInsightV2(profile, readiness, bestLens) {
+  const weakestModule = readiness.moduleScores.find((module) => module.key === readiness.weakestModule) || readiness.moduleScores[0];
+  const strongestModule = readiness.moduleScores.find((module) => module.key === readiness.strongestModule) || readiness.moduleScores[0];
+  const topMissing = weakestModule?.missingChecks?.[0]?.note || weakestModule?.missingChecks?.[0]?.label || profile.missing[0] || "a sharper evidence package";
+  const topSignal = readiness.strongSignals[0] || strongestModule.summary;
+  const lowerSector = `${profile.sector} ${profile.tags.join(" ")}`.toLowerCase();
+  const hasRevenue = /arr|mrr|revenue|fees|customers|pilot/i.test(`${profile.metrics.revenue} ${profile.metrics.traction}`);
+  const isRegulated = profile.regulatory.level === "High" || /health|energy|water|cyber|regulated|clinical|municipal/.test(lowerSector);
+  const isDeepTech = profile.trl <= 6 || /deep tech|materials|hardware|climate|carbon|circular/.test(lowerSector);
+  const isAi = /ai|data|infra|security|automation/.test(lowerSector);
+
+  const marketDetail = isAi
+    ? "The profile should show security credentials, real workflow impact, margin structure, and why you're hard to copy. AI markets are crowded and buyers compare options quickly."
+    : isDeepTech
+      ? "The profile should connect technical validation to a specific first market, a qualification path, and real buyer interest before asking anyone to believe the bigger vision."
+      : isRegulated
+        ? "The profile should show how regulation, procurement requirements, or compliance create both challenges to adoption and reasons the company may be hard to replicate."
+        : "The profile should turn customer pain, traction, and use of funds into a clear preparation story that holds up under a critical first read.";
+
+  const audience = bestLens.key === "partner"
+    ? "Pilot or commercial partner"
+    : bestLens.key === "commercialization"
+      ? "Commercialization partner or tech transfer office"
+      : bestLens.key === "grant"
+        ? "Grant program or impact funder"
+        : hasRevenue
+          ? "Lead investor or sector specialist"
+          : "Early-stage investor or design partner";
+
+  const audienceReason = bestLens.key === "partner"
+    ? "The current profile is strongest when it proves deployment value and removes uncertainty about implementation."
+    : bestLens.key === "commercialization"
+      ? "The company would benefit most from translating its technical assets into a clear path to market."
+      : bestLens.key === "grant"
+        ? "The strongest angle here is measurable impact, a clear commercialization plan, and delivery credibility."
+        : hasRevenue
+          ? "There's enough operating evidence to have a financing conversation, as long as the open questions are named honestly."
+          : "The case needs sharper proof before broad outreach, so the first audience should help stress-test and refine the evidence.";
+
+  const proofTarget = weakestModule.key === "evidence"
+    ? "Evidence package"
+    : weakestModule.key === "narrative"
+      ? "Narrative clarity"
+      : weakestModule.key === "diligence"
+        ? "Open diligence items"
+        : weakestModule.key === "exposure"
+          ? "Exposure framing"
+          : "Core profile coverage";
+
+  const proofDetail = weakestModule.detail || "Focus on the missing checks until the next round of outreach is easier to defend.";
+  const priorityLabel = readiness.overall >= 80
+    ? "Almost ready â€” prepare your outreach materials"
+    : readiness.overall >= 64
+      ? "Close the key gaps"
+      : "Strengthen the core case";
+  const priorityDetail = readiness.overall >= 80
+    ? "You're nearly ready to share. Focus on making your evidence, risks, and ask easy for a reader to check."
+    : readiness.overall >= 64
+      ? `The story is usable, but ${topMissing.toLowerCase()} should be made clearer before broad outreach.`
+      : "The profile needs a clearer connection between the problem you're solving, the evidence you have, what you're asking for, and what comes next.";
+  const openQuestion = weakestModule.key === "evidence"
+    ? "What proof is missing before the next conversation?"
+    : weakestModule.key === "narrative"
+      ? "Is the story specific enough to survive a quick read?"
+      : weakestModule.key === "diligence"
+        ? "What would a serious reader still ask to verify?"
+        : weakestModule.key === "exposure"
+          ? "How should the regulatory or transition context be framed?"
+          : isRegulated
+            ? "What makes this worth navigating the regulatory hurdles?"
+            : isDeepTech
+              ? "What proves this can move from the lab into real-world use?"
+              : hasRevenue
+                ? "Can the company keep growing without the economics falling apart?"
+                : "Who needs this urgently enough to act now?";
+
+  const nextMoves = [
+    `Package the missing item "${topMissing}" and connect it directly to the ask of ${profile.ask.toLowerCase()}.`,
+    `Name "${readiness.blockers[1] || "the next unresolved question"}" as an open diligence item and assign an owner.`,
+    `Tailor your next outreach to ${audience.toLowerCase()} specifically, not a generic audience.`,
+  ];
+
+  const counterpartyQuestions = [
+    {
+      label: "Signal",
+      question: "What is already strong enough to share?",
+      answer: topSignal,
+    },
+    {
+      label: "Gap",
+      question: "What still needs clarification before outreach?",
+      answer: topMissing,
+    },
+    {
+      label: "Next step",
+      question: "What happens after the next yes?",
+      answer: profile.useOfFunds,
+    },
+    {
+      label: "Risk",
+      question: "Which risk should be named before they ask?",
+      answer: readiness.blockers[0] || "execution risk",
+    },
+  ];
+
+  return {
+    marketDetail,
+    audience,
+    audienceReason,
+    proofTarget,
+    proofDetail,
+    priorityLabel,
+    priorityDetail,
+    openQuestion,
+    nextMoves,
+    counterpartyQuestions,
+  };
+}
+
 function generateMemo(profile, readiness) {
   const lens = lensConfig[state.lens];
   const bestLens = computeBestLens(profile);
@@ -2142,9 +2709,9 @@ function buildPreparationInsight(profile, readiness, bestLens) {
         : "Proof quality matters more than broad market claims";
 
   const marketDetail = isAi
-    ? "The profile should show security credentials, real workflow impact, margin structure, and why you're hard to copy — AI markets are crowded and buyers compare options quickly."
+    ? "The profile should show security credentials, real workflow impact, margin structure, and why you're hard to copy â€” AI markets are crowded and buyers compare options quickly."
     : isDeepTech
-      ? "The profile should connect technical validation to a specific first market, a qualification path, and real buyer interest — before asking anyone to believe the bigger vision."
+      ? "The profile should connect technical validation to a specific first market, a qualification path, and real buyer interest â€” before asking anyone to believe the bigger vision."
       : isRegulated
         ? "The profile should show how regulation, procurement requirements, or compliance create both challenges to adoption and reasons the company may be hard to replicate."
         : "The profile should turn customer pain, traction, and use of funds into a clear preparation story that holds up under a critical first read.";
@@ -2186,7 +2753,7 @@ function buildPreparationInsight(profile, readiness, bestLens) {
         : "Replace market-size claims with a specific customer problem, proof that it's urgent, and the simplest credible path to a first paying customer or pilot.";
 
   const priorityLabel = readiness.overall >= 80
-    ? "Almost ready — prepare your outreach materials"
+    ? "Almost ready â€” prepare your outreach materials"
     : readiness.overall >= 64
       ? "Close the key gaps"
       : "Strengthen the core case";
@@ -2215,7 +2782,7 @@ function buildPreparationInsight(profile, readiness, bestLens) {
 
   const nextMoves = [
     `Put together a short proof summary around ${firstMissing.toLowerCase()} and connect it directly to the ask of ${profile.ask.toLowerCase()}.`,
-    `Address "${firstRisk}" as a known risk — document how you're managing it, who owns it, and when it will be resolved.`,
+    `Address "${firstRisk}" as a known risk â€” document how you're managing it, who owns it, and when it will be resolved.`,
     `Tailor your next outreach to ${audience.toLowerCase()} specifically, not a generic investor audience.`,
   ];
 
@@ -2311,7 +2878,7 @@ function nextMissingEsgAction(profile) {
   if (!hasCollectionValue(q.envTracking)) return "Start with the environment section of the ESG questionnaire.";
   if (!hasCollectionValue(q.diversityPolicy)) return "Continue with the social section of the ESG questionnaire.";
   if (!hasCollectionValue(q.hasBoard)) return "Complete the governance section to finish the ESG questionnaire.";
-  return "Review your answers — the OpenEconomics team will take it from here.";
+  return "Review the answers and reuse them in the memo or the next preparation pack.";
 }
 
 function nextMissingSroiAction(profile) {
@@ -2345,7 +2912,7 @@ function handleClick(event) {
 
   if (action === "set-tab") {
     state.tab = target.dataset.tab;
-    render();
+    render({ focusTab: state.tab });
     return;
   }
 
@@ -2369,7 +2936,25 @@ function handleClick(event) {
 
   if (action === "reset-profile") {
     resetActiveProfile();
-    render();
+    render({ focusTab: state.tab });
+    return;
+  }
+
+  if (action === "clear-profile") {
+    clearActiveProfile();
+    render({ focusTab: state.tab });
+    return;
+  }
+
+  if (action === "duplicate-profile") {
+    duplicateActiveProfile();
+    render({ focusTab: state.tab });
+    return;
+  }
+
+  if (action === "delete-profile") {
+    deleteActiveProfile();
+    render({ focusTab: state.tab });
     return;
   }
 
@@ -2388,19 +2973,19 @@ function handleInput(event) {
 
   if (target.dataset.input === "query") {
     state.query = target.value;
-    render();
+    scheduleRender({ preserveFocus: true });
     return;
   }
 
   if (target.dataset.input === "sector") {
     state.sector = target.value;
-    render();
+    render({ preserveFocus: true });
     return;
   }
 
   if (target.dataset.input === "stage") {
     state.stage = target.value;
-    render();
+    render({ preserveFocus: true });
     return;
   }
 
@@ -2433,22 +3018,46 @@ function handleChange(event) {
   if (target.dataset.field) {
     writeField(target.dataset.field, target.value);
     persistProfiles();
-    render();
+    render({ preserveFocus: true, focusTab: state.tab });
     return;
   }
 
   if (target.dataset.metric) {
     activeProfile().metrics[target.dataset.metric] = target.value;
     persistProfiles();
-    render();
+    render({ preserveFocus: true, focusTab: state.tab });
     return;
   }
 
   if (target.dataset.list) {
     activeProfile()[target.dataset.list] = splitLines(target.value);
     persistProfiles();
-    render();
+    render({ preserveFocus: true, focusTab: state.tab });
   }
+}
+
+function handleKeyDown(event) {
+  if (!event.target.closest('[role="tablist"] [role="tab"]')) return;
+  const tabsInOrder = tabs.map(([key]) => key);
+  const currentTab = state.tab;
+  let nextTab = null;
+
+  if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+    const index = tabsInOrder.indexOf(currentTab);
+    nextTab = tabsInOrder[(index + 1) % tabsInOrder.length];
+  } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+    const index = tabsInOrder.indexOf(currentTab);
+    nextTab = tabsInOrder[(index - 1 + tabsInOrder.length) % tabsInOrder.length];
+  } else if (event.key === "Home") {
+    nextTab = tabsInOrder[0];
+  } else if (event.key === "End") {
+    nextTab = tabsInOrder.at(-1);
+  }
+
+  if (!nextTab) return;
+  event.preventDefault();
+  state.tab = nextTab;
+  render({ focusTab: nextTab });
 }
 
 function writeField(path, value) {
@@ -2459,14 +3068,83 @@ function writeField(path, value) {
     cursor = cursor[parts[index]];
   }
   cursor[parts.at(-1)] = value;
+  touchProfile(profile);
 }
 
 function resetActiveProfile() {
-  const template = profileTemplates.find((profile) => profile.id === state.activeId);
+  const profile = activeProfile();
+  if (!profile) return;
+  const template = profileTemplates.find((item) => item.id === profile.templateId || item.id === profile.id);
   const index = state.profiles.findIndex((profile) => profile.id === state.activeId);
   if (!template || index < 0) return;
-  state.profiles[index] = mergeProfile(template);
+  state.profiles[index] = normalizeProfileRecord(
+    {
+      id: template.id,
+      source: "template",
+      templateId: template.id,
+      createdAt: profile.createdAt,
+    },
+    { source: "template", templateId: template.id, template, now: new Date().toISOString() }
+  );
   persistProfiles();
+}
+
+function clearActiveProfile() {
+  const profile = activeProfile();
+  if (!profile || profile.source !== "custom") return;
+  const index = state.profiles.findIndex((item) => item.id === profile.id);
+  if (index < 0) return;
+  state.profiles[index] = buildClearedCustomProfile(profile);
+  persistProfiles();
+}
+
+function duplicateActiveProfile() {
+  const profile = activeProfile();
+  if (!profile) return;
+  const duplicate = normalizeProfileRecord(structuredClone(profile), { source: "custom", templateId: null, now: new Date().toISOString() });
+  duplicate.id = `custom-${Date.now().toString(36)}`;
+  duplicate.name = `${profile.name} copy`;
+  duplicate.source = "custom";
+  duplicate.templateId = null;
+  duplicate.createdAt = new Date().toISOString();
+  duplicate.updatedAt = duplicate.createdAt;
+  state.profiles.push(duplicate);
+  state.activeId = duplicate.id;
+  state.tab = "intake";
+  persistProfiles();
+}
+
+function deleteActiveProfile() {
+  const profile = activeProfile();
+  if (!profile || profile.source !== "custom") return;
+  const index = state.profiles.findIndex((item) => item.id === profile.id);
+  if (index < 0) return;
+  state.profiles.splice(index, 1);
+  state.activeId = state.profiles[index]?.id || state.profiles[index - 1]?.id || state.profiles[0]?.id;
+  state.tab = "workspace";
+  persistProfiles();
+}
+
+function buildClearedCustomProfile(profile) {
+  const cleared = createEmptyProfile(profile.id);
+  cleared.assessment.exposure.primaryJurisdiction = profile.geography || cleared.assessment.exposure.primaryJurisdiction;
+  return {
+    ...cleared,
+    name: profile.name || cleared.name,
+    source: "custom",
+    templateId: null,
+    preferredLens: profile.preferredLens || cleared.preferredLens,
+    sector: profile.sector || cleared.sector,
+    stage: profile.stage || cleared.stage,
+    geography: profile.geography || cleared.geography,
+    createdAt: profile.createdAt,
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+function touchProfile(profile) {
+  if (!profile) return;
+  profile.updatedAt = new Date().toISOString();
 }
 
 async function copyMemo() {
@@ -2613,3 +3291,5 @@ function escapeHtml(value) {
 function escapeAttr(value) {
   return escapeHtml(value).replace(/`/g, "&#96;");
 }
+
+

@@ -244,7 +244,7 @@ h3 {
 .status-pill {
   display: inline-flex;
   align-items: center;
-  min-height: 28px;
+  min-height: 32px;
   padding: 0 var(--space-sm);
   border: 1px solid oklch(45% 0.16 296);
   border-radius: 999px;
@@ -265,7 +265,7 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 var(--space-md);
   border: 1px solid var(--bluette);
   border-radius: var(--radius-sm);
@@ -297,7 +297,7 @@ h3 {
 }
 
 .button--small {
-  min-height: 32px;
+  min-height: 36px;
   padding-inline: var(--space-sm);
   font-size: 0.74rem;
 }
@@ -584,7 +584,7 @@ h3 {
 .select-input,
 .textarea-input {
   width: 100%;
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 var(--space-sm);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-sm);
@@ -636,6 +636,7 @@ h3 {
 .lens-toggle {
   display: grid;
   gap: var(--space-xs);
+  min-height: 44px;
   padding: var(--space-md);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
@@ -713,7 +714,7 @@ h3 {
 
 .profile-item__meta {
   color: var(--muted);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -737,7 +738,7 @@ h3 {
 
 .tab-button {
   width: auto;
-  min-height: 38px;
+  min-height: 44px;
   padding: 0 var(--space-md);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
@@ -754,6 +755,11 @@ h3 {
 }
 
 .tabs__body {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.tabs__panel {
   display: grid;
   gap: var(--space-lg);
 }
@@ -1161,6 +1167,12 @@ h3 {
   gap: var(--space-sm);
 }
 
+.evidence-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
 .assessment-summary {
   display: grid;
 }
@@ -1195,6 +1207,54 @@ h3 {
 
 .assessment-summary .assessment-card small {
   display: none;
+}
+
+.structured-card {
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+}
+
+.structured-list {
+  display: grid;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.structured-list li {
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-sm);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-deep);
+}
+
+.structured-list strong {
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 760;
+}
+
+.structured-list span,
+.structured-card__more {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 780;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.structured-list p {
+  margin-bottom: 0;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  line-height: 1.5;
 }
 
 .model-note {
@@ -1260,6 +1320,11 @@ h3 {
 .bar-block p {
   margin-bottom: 0;
   color: var(--ink-soft);
+}
+
+.bar-block__detail {
+  color: var(--muted);
+  font-size: 0.76rem;
 }
 
 .metric-grid {
@@ -1374,11 +1439,23 @@ h3 {
   font-size: 0.82rem;
 }
 
-.score-row span {
+.score-row__detail {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.score-row__meta {
+  display: grid;
+  gap: var(--space-2xs);
+  justify-items: end;
+  min-width: 112px;
+}
+
+.score-row__meta span {
   display: inline-flex;
   align-items: center;
-  min-width: 54px;
-  min-height: 28px;
+  min-width: 60px;
+  min-height: 32px;
   padding: 0 var(--space-xs);
   border: 1px solid var(--bluette-mid);
   border-radius: var(--radius-sm);
@@ -1390,6 +1467,12 @@ h3 {
   white-space: nowrap;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.score-row__meta small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.3;
 }
 
 .memo {
@@ -1703,6 +1786,7 @@ h3 {
   .lens-panel__body--compact,
   .field-map-grid,
   .field-map-grid--compact,
+  .evidence-preview-grid,
   .tab-guide,
   .memo-prep,
   .cockpit-grid,
@@ -1779,6 +1863,10 @@ h3 {
   .memo__header,
   .score-row {
     flex-direction: column;
+  }
+
+  .score-row__meta {
+    justify-items: start;
   }
 
   .move-item {
