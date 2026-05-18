@@ -2098,6 +2098,9 @@ function renderEsgTabV2(profile) {
 function renderEvidenceTab(profile, readiness) {
   const lens = lensConfig[state.lens];
   const insight = buildPreparationInsightV2(profile, readiness, lens);
+  const structuredEvidence = buildStructuredEvidence(profile.evidence);
+  const structuredRisks = buildStructuredRisks(profile.risks);
+  const structuredMissing = buildStructuredMissing(profile.missing);
   return `
     <div class="content-grid">
       <section class="section-block section-block--wide">
@@ -2114,6 +2117,12 @@ function renderEvidenceTab(profile, readiness) {
         <div class="section-heading">
           <p class="eyebrow">Your evidence</p>
           <h3>What you have, what's at risk, and what's missing</h3>
+        </div>
+        <p class="model-note">Add one item per line. Each line is treated as a separate proof point, risk, or open diligence item.</p>
+        <div class="evidence-preview-grid">
+          ${renderStructuredCollectionPreview("Evidence items", structuredEvidence)}
+          ${renderStructuredCollectionPreview("Risks", structuredRisks)}
+          ${renderStructuredCollectionPreview("Missing items", structuredMissing)}
         </div>
         <div class="evidence-columns">
           ${renderTextareaField("Evidence available", "evidence", profile.evidence)}
@@ -2671,160 +2680,6 @@ function buildPreparationInsightV2(profile, readiness, bestLens) {
   };
 }
 
-function generateMemo(profile, readiness) {
-  const lens = lensConfig[state.lens];
-  const bestLens = computeBestLens(profile);
-  const insight = buildPreparationInsight(profile, readiness, lens);
-  const collections = buildAssessmentCollections(profile);
-  const firstSignal = readiness.strongSignals[0] || "The profile already contains a usable starting point.";
-  const firstBlocker = readiness.blockers[0] || "No major blockers identified at this stage.";
-  return [
-    `${profile.name} is a ${profile.stage.toLowerCase()} ${profile.sector.toLowerCase()} company in ${profile.geography}. Under the ${lens.label.toLowerCase()} lens, the current submission readiness reads at ${readiness.overall}/100 and is best described as ${readiness.status.toLowerCase()}.`,
-    `Core company story: ${profile.oneLiner} The stated customer is ${profile.customer.toLowerCase()} and the current ask is ${profile.ask.toLowerCase()}, with funds intended for ${profile.useOfFunds.toLowerCase()}.`,
-    `Market-facing interpretation: ${insight.marketDetail} The best first audience is ${insight.audience.toLowerCase()} because ${insight.audienceReason.charAt(0).toLowerCase() + insight.audienceReason.slice(1)}`,
-    `Evidence available: ${profile.evidence.join("; ")}. Current traction reads as ${profile.metrics.traction.toLowerCase()} and the profile already reflects ${firstSignal.toLowerCase()}.`,
-    `Main item to sharpen next: ${firstBlocker.replace(/^Missing:\s*/i, "").replace(/\.$/, "")}. Suggested next step: ${profile.nextStep.charAt(0).toLowerCase() + profile.nextStep.slice(1)}.`,
-    `Preparation priority: ${insight.priorityDetail} The next useful proof package is ${insight.proofTarget.toLowerCase()}: ${insight.proofDetail.charAt(0).toLowerCase() + insight.proofDetail.slice(1)}`,
-    `Assessment inputs collected: regulatory exposure ${collections.exposure.completed}/${collections.exposure.total}, ESG tracking ${collections.esg.completed}/${collections.esg.total}, SROI ${collections.sroi.completed}/${collections.sroi.total}. These feed into the assessment model and are not used to calculate a final result here.`,
-    `Exposure framing: regulatory context is ${profile.regulatory.level.toLowerCase()} and described as ${profile.regulatory.character.toLowerCase()}, while transition context is ${profile.transition.level.toLowerCase()} and described as ${profile.transition.character.toLowerCase()}. The strongest automatically scored lane based on the current profile is ${bestLens.label.toLowerCase()}.`,
-    `This note is based on the current profile only and should be used as a founder-side preparation output before outreach, not as financing advice or a substitute for third-party diligence.`,
-  ].join("\n");
-}
-
-function buildPreparationInsight(profile, readiness, bestLens) {
-  const lowerSector = `${profile.sector} ${profile.tags.join(" ")}`.toLowerCase();
-  const firstMissing = profile.missing[0] || "a sharper evidence package";
-  const firstRisk = profile.risks[0] || "execution risk";
-  const hasRevenue = /arr|mrr|revenue|fees|customers|pilot/i.test(`${profile.metrics.revenue} ${profile.metrics.traction}`);
-  const isRegulated = profile.regulatory.level === "High" || /health|energy|water|cyber|regulated|clinical|municipal/.test(lowerSector);
-  const isDeepTech = profile.trl <= 6 || /deep tech|materials|hardware|climate|carbon|circular/.test(lowerSector);
-  const isAi = /ai|data|infra|security|automation/.test(lowerSector);
-
-  const marketRead = isAi
-    ? "AI and data products need to show concrete deployment value"
-    : isDeepTech
-      ? "Strong technology needs a clear route to market"
-      : isRegulated
-        ? "Regulation can work in your favor when explained clearly"
-        : "Proof quality matters more than broad market claims";
-
-  const marketDetail = isAi
-    ? "The profile should show security credentials, real workflow impact, margin structure, and why you're hard to copy — AI markets are crowded and buyers compare options quickly."
-    : isDeepTech
-      ? "The profile should connect technical validation to a specific first market, a qualification path, and real buyer interest — before asking anyone to believe the bigger vision."
-      : isRegulated
-        ? "The profile should show how regulation, procurement requirements, or compliance create both challenges to adoption and reasons the company may be hard to replicate."
-        : "The profile should turn customer pain, traction, and use of funds into a clear preparation story that holds up under a critical first read.";
-
-  const audience = bestLens.key === "partner"
-    ? "Pilot or commercial partner"
-    : bestLens.key === "commercialization"
-      ? "Commercialization partner or tech transfer office"
-      : bestLens.key === "grant"
-        ? "Grant program or impact funder"
-        : hasRevenue
-          ? "Lead investor or sector specialist"
-          : "Early-stage investor or design partner";
-
-  const audienceReason = bestLens.key === "partner"
-    ? "The current profile is strongest when it proves deployment value and removes uncertainty about implementation."
-    : bestLens.key === "commercialization"
-      ? "The company would benefit most from translating its technical assets into a clear path to market."
-      : bestLens.key === "grant"
-        ? "The strongest angle here is measurable impact, a clear commercialization plan, and delivery credibility."
-        : hasRevenue
-          ? "There's enough operating evidence to have a financing conversation, as long as the open questions are named honestly."
-          : "The case needs sharper proof before broad outreach, so the first audience should help stress-test and refine the evidence.";
-
-  const proofTarget = isRegulated
-    ? "Regulatory and implementation evidence"
-    : isDeepTech
-      ? "Pilot results and qualification roadmap"
-      : hasRevenue
-        ? "Proof of repeatable growth"
-        : "Customer problem and willingness to pay";
-
-  const proofDetail = isRegulated
-    ? "Show the regulatory requirements, any required approvals or procurement steps, data or safety controls, and who owns the risk after deployment."
-    : isDeepTech
-      ? "Connect your technology maturity level, external validation, cost data, first target customer, IP status, and the milestone that moves you from technical proof to commercial evidence."
-      : hasRevenue
-        ? "Show customer retention, margins, how efficient your sales process is, implementation effort, and why the next funding or partnership step makes growth more repeatable."
-        : "Replace market-size claims with a specific customer problem, proof that it's urgent, and the simplest credible path to a first paying customer or pilot.";
-
-  const priorityLabel = readiness.overall >= 80
-    ? "Almost ready — prepare your outreach materials"
-    : readiness.overall >= 64
-      ? "Close the key gaps"
-      : "Strengthen the core case";
-
-  const priorityDetail = readiness.overall >= 80
-    ? "You're nearly ready to share. Focus on making your evidence, risks, and ask easy for a reader to check."
-    : readiness.overall >= 64
-      ? `The story is usable, but ${firstMissing.toLowerCase()} should be made clearer before broad outreach.`
-      : "The profile needs a clearer connection between the problem you're solving, the evidence you have, what you're asking for, and what comes next.";
-
-  const openQuestion = isRegulated
-    ? "What makes this worth navigating the regulatory hurdles?"
-    : isDeepTech
-      ? "What proves this can move from the lab into real-world use?"
-      : hasRevenue
-        ? "Can the company keep growing without the economics falling apart?"
-        : "Who needs this urgently enough to act now?";
-
-  const openQuestionDetail = isRegulated
-    ? "A serious reader will look for who owns the budget, what the approval path looks like, the timeline, and whether regulation creates demand or only delays it."
-    : isDeepTech
-      ? "A serious reader will look for external validation, whether it can be manufactured at scale, who owns the IP, and a realistic route to a first paying customer."
-      : hasRevenue
-        ? "A serious reader will look for retention rates, margins, how much it costs to acquire a customer, implementation effort, and how concentrated the customer base is."
-        : "A serious reader will look for specific customer types, what triggers them to buy, their willingness to pay, and a more focused first market.";
-
-  const nextMoves = [
-    `Put together a short proof summary around ${firstMissing.toLowerCase()} and connect it directly to the ask of ${profile.ask.toLowerCase()}.`,
-    `Address "${firstRisk}" as a known risk — document how you're managing it, who owns it, and when it will be resolved.`,
-    `Tailor your next outreach to ${audience.toLowerCase()} specifically, not a generic investor audience.`,
-  ];
-
-  const counterpartyQuestions = [
-    {
-      label: "Urgency",
-      question: "Why does this investor or partner need to care right now?",
-      answer: profile.transition.note,
-    },
-    {
-      label: "Evidence",
-      question: "What proof is available today, and what's still missing?",
-      answer: `${profile.evidence[0] || "Evidence still needs to be added."} / Still missing: ${firstMissing}.`,
-    },
-    {
-      label: "Next steps",
-      question: "What happens after they say yes?",
-      answer: profile.useOfFunds,
-    },
-    {
-      label: "Risks",
-      question: "Which risks should you name before they do?",
-      answer: firstRisk,
-    },
-  ];
-
-  return {
-    marketRead,
-    marketDetail,
-    audience,
-    audienceReason,
-    proofTarget,
-    proofDetail,
-    priorityLabel,
-    priorityDetail,
-    openQuestion,
-    openQuestionDetail,
-    nextMoves,
-    counterpartyQuestions,
-  };
-}
-
 function buildAssessmentCollections(profile) {
   const exposure = computeExposureCollection(profile);
   const esg = computeEsgCollection(profile);
@@ -3148,7 +3003,7 @@ function touchProfile(profile) {
 }
 
 async function copyMemo() {
-  const text = generateMemo(activeProfile(), computeReadiness(activeProfile()));
+  const text = generateMemoV2(activeProfile(), computeReadiness(activeProfile()));
   try {
     await navigator.clipboard.writeText(text);
   } catch {
@@ -3291,5 +3146,3 @@ function escapeHtml(value) {
 function escapeAttr(value) {
   return escapeHtml(value).replace(/`/g, "&#96;");
 }
-
-
