@@ -9,6 +9,7 @@ This fork keeps the original static, no-backend constraint, but flips the produc
 ## What The POC Demonstrates
 
 - Editable fictional startup profiles stored locally in the browser.
+- Template and custom profiles both persist through reloads with explicit source metadata.
 - A founder-side intake flow for company narrative, customer definition, funding ask, use of funds, IP, regulatory framing, transition framing, traction, risks, and missing items.
 - Multiple submission lenses:
   - Raise preparation
@@ -17,10 +18,11 @@ This fork keeps the original static, no-backend constraint, but flips the produc
   - Grant and impact packaging
 - Explainable readiness logic showing:
   - profile completeness
-  - evidence depth
+  - evidence quality
   - narrative clarity
   - diligence coverage
   - exposure framing
+- Structured evidence, risk, and missing-item previews to make the current profile easier to inspect.
 - A generated submission memo based on the current profile and selected lens.
 
 ## Product Logic
@@ -74,7 +76,8 @@ assets/
 
 - All company data is fictional and embedded in `src/app.js`.
 - Edits are local-only and persisted through browser storage; there is no backend persistence.
-- Readiness outputs are deterministic heuristics based on the visible profile, not financing advice and not automated diligence.
+- Readiness outputs are deterministic, explainable heuristics based on the visible profile. ESG and SROI inputs are stored for later packaging, while exposure framing contributes to readiness.
+- The app is preparation-oriented, not financing advice and not automated diligence.
 - No authentication, document upload, real CRM, cap-table engine, valuation engine, or investor matching logic is included.
 
 ## Repository Commands
