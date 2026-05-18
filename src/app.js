@@ -567,6 +567,73 @@ const lensConfig = {
   },
 };
 
+const readinessBlueprint = {
+  completeness: {
+    label: "Profile completeness",
+    note: "Core company fields are in place.",
+    checks: [
+      { id: "one-liner", label: "The company has a one-line description", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.oneLiner) },
+      { id: "problem", label: "The problem is stated", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.problem) },
+      { id: "customer", label: "The customer or buyer is named", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.customer) },
+      { id: "model", label: "The business model is stated", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.model) },
+      { id: "ask", label: "The funding ask is filled in", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.ask) },
+      { id: "use-of-funds", label: "Use of funds is explained", category: "coverage", points: 10, threshold: 1, test: (profile) => specificTextScore(profile.useOfFunds, ["pilot", "hire", "validation", "commercial", "launch", "certification", "deployment", "repeatable"]) },
+      { id: "next-step", label: "The next preparation step is action-oriented", category: "quality", points: 10, threshold: 0.7, test: (profile) => actionOrientedScore(profile.nextStep) },
+      { id: "team", label: "The founding team is described", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.team.founders) },
+      { id: "metrics", label: "At least one operating metric is present", category: "coverage", points: 10, threshold: 1, test: (profile) => operatingMetricScore(profile) },
+      { id: "ip", label: "IP position is stated", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.ip) },
+    ],
+  },
+  evidence: {
+    label: "Evidence quality",
+    note: "Proof is specific and linked to an outcome.",
+    checks: [
+      { id: "has-evidence", label: "Evidence items are listed", category: "coverage", points: 16, threshold: 1, test: (profile) => countList(profile.evidence) > 0 },
+      { id: "customer-proof", label: "At least one customer-facing proof point is visible", category: "quality", points: 16, threshold: 0.7, test: (profile) => evidenceListScore(profile.evidence, ["pilot", "loi", "customer", "contract", "agreement", "paying", "buyer", "reference", "clinic", "factory", "utility", "partner"]) },
+      { id: "technical-proof", label: "At least one technical or operational proof point is visible", category: "quality", points: 16, threshold: 0.7, test: (profile) => evidenceListScore(profile.evidence, ["validation", "lab", "study", "tested", "deployed", "audit", "certified", "prototype", "pilot run", "evaluation"]) },
+      { id: "metric-linked", label: "Evidence links to a metric, milestone, or named outcome", category: "quality", points: 16, threshold: 0.7, test: (profile) => evidenceOutcomeScore(profile) },
+      { id: "specificity", label: "Evidence is more specific than generic claims", category: "quality", points: 20, threshold: 0.7, test: (profile) => evidenceSpecificityScore(profile.evidence) },
+      { id: "missing-proof", label: "Missing proof is named clearly", category: "coverage", points: 16, threshold: 1, test: (profile) => countList(profile.missing) > 0 },
+    ],
+  },
+  narrative: {
+    label: "Narrative clarity",
+    note: "The story is concrete and action-oriented.",
+    checks: [
+      { id: "problem-specific", label: "The problem is concrete", category: "coverage", points: 16, threshold: 0.7, test: (profile) => specificTextScore(profile.problem, ["customer", "market", "compliance", "deployment", "workflow", "cost", "risk", "pain"]) },
+      { id: "customer-specific", label: "The customer definition is specific", category: "coverage", points: 16, threshold: 0.7, test: (profile) => specificTextScore(profile.customer, ["buyer", "user", "clinic", "utility", "factory", "team", "operator", "procurement"]) },
+      { id: "ask-specific", label: "The ask is concrete", category: "coverage", points: 16, threshold: 0.7, test: (profile) => specificTextScore(profile.ask, ["round", "grant", "pilot", "seed", "series", "funding", "partnership"]) },
+      { id: "funds-linked", label: "Use of funds links to a milestone", category: "quality", points: 16, threshold: 0.7, test: (profile) => milestoneLinkScore(profile.useOfFunds) },
+      { id: "next-step", label: "The next step is action-oriented", category: "quality", points: 16, threshold: 0.7, test: (profile) => actionOrientedScore(profile.nextStep) },
+      { id: "model-clear", label: "The business model is easy to explain", category: "coverage", points: 20, threshold: 0.7, test: (profile) => specificTextScore(profile.model, ["subscription", "licensing", "usage", "service", "contract", "hardware", "pilot", "recurring", "revenue"]) },
+    ],
+  },
+  diligence: {
+    label: "Diligence visibility",
+    note: "Risks and open questions are easy to inspect.",
+    checks: [
+      { id: "ip", label: "IP status is stated", category: "coverage", points: 20, threshold: 1, test: (profile) => basicPresenceScore(profile.ip) },
+      { id: "risks", label: "Risks are named", category: "coverage", points: 20, threshold: 1, test: (profile) => countList(profile.risks) > 0 },
+      { id: "missing", label: "Missing items are named", category: "coverage", points: 20, threshold: 1, test: (profile) => countList(profile.missing) > 0 },
+      { id: "regulatory-note", label: "Regulatory context is explained", category: "quality", points: 20, threshold: 0.7, test: (profile) => specificTextScore(profile.regulatory.note, ["demand", "burden", "access", "barrier", "defensibility", "timing", "approval", "compliance"]) },
+      { id: "transition-note", label: "Transition context is explained", category: "quality", points: 10, threshold: 0.7, test: (profile) => specificTextScore(profile.transition.note, ["demand", "burden", "access", "barrier", "defensibility", "timing", "tailwind", "resilience"]) },
+      { id: "ownership-path", label: "Ownership or commercialization path questions are visible", category: "quality", points: 10, threshold: 0.7, test: (profile) => ownershipPathScore(profile) },
+    ],
+  },
+  exposure: {
+    label: "Exposure framing",
+    note: "Regulatory and transition exposure are framed as context, not noise.",
+    checks: [
+      { id: "reg-level", label: "Regulatory exposure level is set", category: "coverage", points: 16, threshold: 1, test: (profile) => nonUnknownPresenceScore(profile.regulatory.level) },
+      { id: "transition-level", label: "Transition exposure level is set", category: "coverage", points: 16, threshold: 1, test: (profile) => nonUnknownPresenceScore(profile.transition.level) },
+      { id: "market", label: "Primary market is named", category: "coverage", points: 16, threshold: 1, test: (profile) => basicPresenceScore(profile.assessment.exposure.primaryJurisdiction) },
+      { id: "reg-framing", label: "Regulatory note frames the trade-off", category: "quality", points: 16, threshold: 0.7, test: (profile) => exposureFramingScore(profile.regulatory.note) },
+      { id: "transition-framing", label: "Transition note frames the trade-off", category: "quality", points: 16, threshold: 0.7, test: (profile) => exposureFramingScore(profile.transition.note) },
+      { id: "extra-context", label: "Approval or certification context is captured when relevant", category: "quality", points: 20, threshold: 0.7, test: (profile) => exposureContextScore(profile) },
+    ],
+  },
+};
+
 const app = document.querySelector("#app");
 const PROFILE_STORAGE_VERSION = 2;
 
@@ -895,72 +962,6 @@ function filteredProfiles() {
   });
 }
 
-const readinessBlueprint = {
-  completeness: {
-    label: "Profile completeness",
-    note: "Core company fields are in place.",
-    checks: [
-      { id: "one-liner", label: "The company has a one-line description", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.oneLiner) },
-      { id: "problem", label: "The problem is stated", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.problem) },
-      { id: "customer", label: "The customer or buyer is named", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.customer) },
-      { id: "model", label: "The business model is stated", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.model) },
-      { id: "ask", label: "The funding ask is filled in", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.ask) },
-      { id: "use-of-funds", label: "Use of funds is explained", category: "coverage", points: 10, threshold: 1, test: (profile) => specificTextScore(profile.useOfFunds, ["pilot", "hire", "validation", "commercial", "launch", "certification", "deployment", "repeatable"]) },
-      { id: "next-step", label: "The next preparation step is action-oriented", category: "quality", points: 10, threshold: 0.7, test: (profile) => actionOrientedScore(profile.nextStep) },
-      { id: "team", label: "The founding team is described", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.team.founders) },
-      { id: "metrics", label: "At least one operating metric is present", category: "coverage", points: 10, threshold: 1, test: (profile) => operatingMetricScore(profile) },
-      { id: "ip", label: "IP position is stated", category: "coverage", points: 10, threshold: 1, test: (profile) => basicPresenceScore(profile.ip) },
-    ],
-  },
-  evidence: {
-    label: "Evidence quality",
-    note: "Proof is specific and linked to an outcome.",
-    checks: [
-      { id: "has-evidence", label: "Evidence items are listed", category: "coverage", points: 16, threshold: 1, test: (profile) => countList(profile.evidence) > 0 },
-      { id: "customer-proof", label: "At least one customer-facing proof point is visible", category: "quality", points: 16, threshold: 0.7, test: (profile) => evidenceListScore(profile.evidence, ["pilot", "loi", "customer", "contract", "agreement", "paying", "buyer", "reference", "clinic", "factory", "utility", "partner"]) },
-      { id: "technical-proof", label: "At least one technical or operational proof point is visible", category: "quality", points: 16, threshold: 0.7, test: (profile) => evidenceListScore(profile.evidence, ["validation", "lab", "study", "tested", "deployed", "audit", "certified", "prototype", "pilot run", "evaluation"]) },
-      { id: "metric-linked", label: "Evidence links to a metric, milestone, or named outcome", category: "quality", points: 16, threshold: 0.7, test: (profile) => evidenceOutcomeScore(profile) },
-      { id: "specificity", label: "Evidence is more specific than generic claims", category: "quality", points: 20, threshold: 0.7, test: (profile) => evidenceSpecificityScore(profile.evidence) },
-      { id: "missing-proof", label: "Missing proof is named clearly", category: "coverage", points: 16, threshold: 1, test: (profile) => countList(profile.missing) > 0 },
-    ],
-  },
-  narrative: {
-    label: "Narrative clarity",
-    note: "The story is concrete and action-oriented.",
-    checks: [
-      { id: "problem-specific", label: "The problem is concrete", category: "coverage", points: 16, threshold: 0.7, test: (profile) => specificTextScore(profile.problem, ["customer", "market", "compliance", "deployment", "workflow", "cost", "risk", "pain"]) },
-      { id: "customer-specific", label: "The customer definition is specific", category: "coverage", points: 16, threshold: 0.7, test: (profile) => specificTextScore(profile.customer, ["buyer", "user", "clinic", "utility", "factory", "team", "operator", "procurement"]) },
-      { id: "ask-specific", label: "The ask is concrete", category: "coverage", points: 16, threshold: 0.7, test: (profile) => specificTextScore(profile.ask, ["round", "grant", "pilot", "seed", "series", "funding", "partnership"]) },
-      { id: "funds-linked", label: "Use of funds links to a milestone", category: "quality", points: 16, threshold: 0.7, test: (profile) => milestoneLinkScore(profile.useOfFunds) },
-      { id: "next-step", label: "The next step is action-oriented", category: "quality", points: 16, threshold: 0.7, test: (profile) => actionOrientedScore(profile.nextStep) },
-      { id: "model-clear", label: "The business model is easy to explain", category: "coverage", points: 20, threshold: 0.7, test: (profile) => specificTextScore(profile.model, ["subscription", "licensing", "usage", "service", "contract", "hardware", "pilot", "recurring", "revenue"]) },
-    ],
-  },
-  diligence: {
-    label: "Diligence visibility",
-    note: "Risks and open questions are easy to inspect.",
-    checks: [
-      { id: "ip", label: "IP status is stated", category: "coverage", points: 20, threshold: 1, test: (profile) => basicPresenceScore(profile.ip) },
-      { id: "risks", label: "Risks are named", category: "coverage", points: 20, threshold: 1, test: (profile) => countList(profile.risks) > 0 },
-      { id: "missing", label: "Missing items are named", category: "coverage", points: 20, threshold: 1, test: (profile) => countList(profile.missing) > 0 },
-      { id: "regulatory-note", label: "Regulatory context is explained", category: "quality", points: 20, threshold: 0.7, test: (profile) => specificTextScore(profile.regulatory.note, ["demand", "burden", "access", "barrier", "defensibility", "timing", "approval", "compliance"]) },
-      { id: "transition-note", label: "Transition context is explained", category: "quality", points: 10, threshold: 0.7, test: (profile) => specificTextScore(profile.transition.note, ["demand", "burden", "access", "barrier", "defensibility", "timing", "tailwind", "resilience"]) },
-      { id: "ownership-path", label: "Ownership or commercialization path questions are visible", category: "quality", points: 10, threshold: 0.7, test: (profile) => ownershipPathScore(profile) },
-    ],
-  },
-  exposure: {
-    label: "Exposure framing",
-    note: "Regulatory and transition exposure are framed as context, not noise.",
-    checks: [
-      { id: "reg-level", label: "Regulatory exposure level is set", category: "coverage", points: 16, threshold: 1, test: (profile) => nonUnknownPresenceScore(profile.regulatory.level) },
-      { id: "transition-level", label: "Transition exposure level is set", category: "coverage", points: 16, threshold: 1, test: (profile) => nonUnknownPresenceScore(profile.transition.level) },
-      { id: "market", label: "Primary market is named", category: "coverage", points: 16, threshold: 1, test: (profile) => basicPresenceScore(profile.assessment.exposure.primaryJurisdiction) },
-      { id: "reg-framing", label: "Regulatory note frames the trade-off", category: "quality", points: 16, threshold: 0.7, test: (profile) => exposureFramingScore(profile.regulatory.note) },
-      { id: "transition-framing", label: "Transition note frames the trade-off", category: "quality", points: 16, threshold: 0.7, test: (profile) => exposureFramingScore(profile.transition.note) },
-      { id: "extra-context", label: "Approval or certification context is captured when relevant", category: "quality", points: 20, threshold: 0.7, test: (profile) => exposureContextScore(profile) },
-    ],
-  },
-};
 
 function computeReadiness(profile, lensKey = state.lens) {
   const lens = lensConfig[lensKey];
