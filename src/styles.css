@@ -350,6 +350,12 @@ h3 {
   line-height: 1.65;
 }
 
+.hero-copy--subtle {
+  margin-top: var(--space-2xs);
+  color: oklch(78% 0.03 296);
+  font-size: 0.8rem;
+}
+
 .market-strip {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
