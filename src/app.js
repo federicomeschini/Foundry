@@ -583,6 +583,7 @@ const state = {
 };
 
 let searchRenderTimer = null;
+let pendingFieldNavigation = null;
 
 syncStateFromHash();
 
@@ -1169,10 +1170,12 @@ function buildCollectionStatus(fields, label, detail) {
 
 function render(options = {}) {
   const focusState = options.preserveFocus ? captureFocusState() : null;
+  if (options.navigateToField) pendingFieldNavigation = options.navigateToField;
   if (state.onboarding) {
     app.innerHTML = renderOnboarding();
     if (options.focusTab) focusTabButton(options.focusTab);
     if (focusState) restoreFocusState(focusState);
+    if (pendingFieldNavigation) applyFieldNavigation();
     return;
   }
 
@@ -1199,6 +1202,7 @@ function render(options = {}) {
 
   if (options.focusTab) focusTabButton(options.focusTab);
   if (focusState) restoreFocusState(focusState);
+  if (pendingFieldNavigation) applyFieldNavigation();
 }
 
 function scheduleRender(options = {}) {
@@ -1239,6 +1243,27 @@ function focusSelectorForElement(element) {
 function focusTabButton(tabKey) {
   const button = app.querySelector(`[data-action="set-tab"][data-tab="${tabKey}"]`);
   if (button) button.focus();
+}
+
+function applyFieldNavigation() {
+  const field = pendingFieldNavigation;
+  pendingFieldNavigation = null;
+  if (!field) return;
+  const selector = selectorForFieldNavigation(field);
+  if (!selector) return;
+  const target = app.querySelector(selector);
+  if (!target) return;
+  const section = target.closest(".section-block") || target.closest("label") || target;
+  section.scrollIntoView({ behavior: "smooth", block: "start" });
+  target.focus({ preventScroll: true });
+  if (typeof target.select === "function" && target.tagName === "INPUT") target.select();
+}
+
+function selectorForFieldNavigation(field) {
+  if (!field) return "";
+  if (field.startsWith("metrics.")) return `[data-metric="${field.split(".")[1]}"]`;
+  if (["evidence", "risks", "missing"].includes(field)) return `[data-list="${field}"]`;
+  return `[data-field="${field}"]`;
 }
 
 function renderOnboarding() {
@@ -2452,7 +2477,15 @@ function renderLensGuide(profile, lens) {
             </div>
             <div class="guide-step__footer">
               <span>${filled}/${total} fields already completed</span>
-              <button class="button button--small" type="button" data-action="set-tab" data-tab="${tab}">Go to ${tab === "evidence" ? "evidence" : "profile"}</button>
+              <button
+                class="button button--small"
+                type="button"
+                data-action="set-tab"
+                data-tab="${tab}"
+                data-target-field="${step.fields.find((field) => !hasGuideValue(readPath(profile, field))) || step.fields[0]}"
+              >
+                Go to ${tab === "evidence" ? "evidence" : "profile"}
+              </button>
             </div>
           </div>
         </article>
@@ -2472,7 +2505,15 @@ function renderLensFieldMap(profile, lens) {
           <span>${escapeHtml(fieldLabel(field))}</span>
           <strong>${filled ? "Complete" : "Missing"}</strong>
           <p>${escapeHtml(fieldPreview(value))}</p>
-          <button class="button button--small button--quiet" type="button" data-action="set-tab" data-tab="${fieldTab(field)}">${fieldTab(field) === "evidence" ? "Evidence" : "Edit"}</button>
+          <button
+            class="button button--small button--quiet"
+            type="button"
+            data-action="set-tab"
+            data-tab="${fieldTab(field)}"
+            data-target-field="${field}"
+          >
+            ${fieldTab(field) === "evidence" ? "Evidence" : "Edit"}
+          </button>
         </article>
       `;
     })
@@ -2767,7 +2808,7 @@ function handleClick(event) {
 
   if (action === "set-tab") {
     state.tab = target.dataset.tab;
-    render({ focusTab: state.tab });
+    render({ focusTab: state.tab, navigateToField: target.dataset.targetField || "" });
     return;
   }
 
