@@ -390,11 +390,28 @@ const tabs = [
   ["esg", "ESG"],
 ];
 
-const marketSignals = [
-  "Investors want to see real evidence, financial discipline, and a clear plan for how the money will be used.",
-  "Pilot partners want to know who owns implementation, how much work is involved, and what the expected return looks like.",
-  "Grant programs look for a clear commercialization plan, clean IP ownership, and measurable outcomes.",
-];
+const lensMarketSignals = {
+  fundraising: [
+    "Investors want to see real evidence, financial discipline, and a clear plan for how the money will be used.",
+    "The strongest fundraising submissions name their open questions before the investor does.",
+    "A credible use of funds shows what milestone this round unlocks — not just what it spends.",
+  ],
+  partner: [
+    "Pilot partners want to know who owns implementation, how much work is involved, and what the expected return looks like.",
+    "The clearest partner submissions show a before-and-after: what the baseline is, what the pilot proves.",
+    "Partners evaluate deployment risk as carefully as product quality.",
+  ],
+  commercialization: [
+    "Commercialization partners look for a specific first market, a clear IP position, and a realistic qualification path.",
+    "Spinouts that name their first target customer convert faster than those presenting a broad platform vision.",
+    "Technology readiness and IP clarity are table stakes — the story needs to go further.",
+  ],
+  grant: [
+    "Grant programs look for a clear commercialization plan, clean IP ownership, and measurable outcomes.",
+    "Impact claims need to be tied to specific, measurable beneficiary groups — not broad mission statements.",
+    "Delivery credibility matters as much as the idea — show who does the work and how it's tracked.",
+  ],
+};
 
 const stageOptions = ["Pre-seed", "Seed", "Series A", "Series B", "Growth"];
 const geographyOptions = ["Austria", "France", "Germany", "Greece", "Ireland", "Italy", "Netherlands", "Portugal", "Spain", "Switzerland", "United Kingdom", "European Union"];
@@ -408,7 +425,7 @@ const salesChannelOptions = ["Direct enterprise sales", "Product-led growth", "D
 const exitHorizonOptions = ["2–3 years", "3–5 years", "5–7 years", "7+ years", "Not decided yet"];
 const exitTypeOptions = ["Strategic acquisition", "Financial acquisition (PE / buy-out)", "IPO", "Management buyout", "Not decided yet"];
 const questionnaireStatusOptions = ["Not started", "In progress", "Ready for review", "Completed"];
-const esgQuestionOptions = ["Yes", "Working on it", "No"];
+const esgQuestionOptions = ["Yes", "Working on it", "No", "N/A"];
 const timeframeOptions = ["Unknown", "Less than 1 year", "1-3 years", "3-5 years", "More than 5 years"];
 const evidenceOptions = ["Unknown", "Founder estimate", "Internal data", "Third-party evidence"];
 
@@ -975,7 +992,7 @@ function computeReadiness(profile, lensKey = state.lens) {
       moduleByKey.exposure.value * lens.weights.exposure
   );
 
-  const overall = clamp(weighted, 18, 96);
+  const overall = clamp(weighted, 0, 96);
   const status = overall >= 80 ? "Ready to share" : overall >= 64 ? "Sharpen before outreach" : overall >= 48 ? "Needs more work" : "Too early to circulate";
   const strongestModule = [...moduleMap].sort((a, b) => b.value - a.value)[0];
   const weakestModule = [...moduleMap].sort((a, b) => a.value - b.value)[0];
@@ -1306,18 +1323,18 @@ function renderOnboarding() {
           <div class="onboarding-ask">
             <div>
               <p class="eyebrow">Start here</p>
-              <h2>How much are you raising?</h2>
-              <p>Your workspace is built around the ask. Start here and we'll guide you through the rest.</p>
+              <h2>What are you preparing for?</h2>
+              <p>Your workspace is built around your goal. Tell us what you're working towards and we'll guide you through the rest.</p>
             </div>
             <div class="form-grid">
-              ${makeSelect("roundType", "Round type", roundOptions, d.roundType)}
-              ${makeText("ask", "Target amount — e.g. €1.5M", d.ask)}
+              ${makeSelect("roundType", "Preparation goal", roundOptions, d.roundType)}
+              ${makeText("ask", "Target amount or ask — e.g. €1.5M", d.ask)}
             </div>
           </div>
           <div class="onboarding-form">
             <div class="section-heading">
               <p class="eyebrow">Your company</p>
-              <h3>A few details to personalise your workspace</h3>
+              <h3>A few details to personalize your workspace</h3>
             </div>
             <div class="form-grid">
               ${makeText("name", "Company name", d.name)}
@@ -1343,6 +1360,11 @@ function renderOnboarding() {
 
 function createProfileFromDraft(draft) {
   const id = `custom-${Date.now().toString(36)}`;
+  const lensFromRoundType = {
+    "Grant": "grant",
+    "Strategic partnership": "partner",
+  };
+  const preferredLens = lensFromRoundType[draft.roundType] || "fundraising";
   return normalizeProfileRecord(
     {
       id,
@@ -1368,7 +1390,7 @@ function createProfileFromDraft(draft) {
       transition: { level: "Low", character: "Minimal climate exposure", note: "" },
       tags: [],
       metrics: { revenue: "", runway: "", grossMargin: "", traction: "" },
-      preferredLens: state.lens,
+      preferredLens,
     },
     { source: "custom", templateId: null, now: new Date().toISOString() }
   );
@@ -1386,7 +1408,7 @@ function renderTopbar(profile, readiness) {
       `
       : `
         <button class="button button--ghost" type="button" data-action="reset-profile">Reset to template</button>
-        <button class="button button--ghost" type="button" data-action="duplicate-profile">Duplicate as custom</button>
+        <button class="button button--ghost" type="button" data-action="duplicate-profile">Duplicate</button>
       `;
   return `
     <header class="topbar">
@@ -1411,22 +1433,42 @@ function renderTopbar(profile, readiness) {
   `;
 }
 
+function heroHeadline(lensKey) {
+  const headlines = {
+    fundraising: "a serious investor conversation",
+    partner: "a credible pilot or partner conversation",
+    commercialization: "a commercialization or tech transfer conversation",
+    grant: "a grant or impact-led application",
+  };
+  return headlines[lensKey] || "a serious investor or partner conversation";
+}
+
+function heroCopyForLens(lensKey) {
+  const copy = {
+    fundraising: "Investors read for proof, not promise. The clearest submissions connect the ask to real evidence, name the open questions honestly, and show exactly what the round funds.",
+    partner: "Partners evaluate deployability as much as capability. The clearest submissions show who owns implementation, what the pilot proves, and what a successful first result looks like.",
+    commercialization: "Commercialization reviewers want a specific path from what you've built to who will pay for it. Technical validation matters — but only when it connects to a real first market.",
+    grant: "Grant programs evaluate evidence, impact clarity, and delivery credibility. The strongest applications tie measurable outcomes to a concrete commercialization plan.",
+  };
+  return copy[lensKey] || copy.fundraising;
+}
+
 function renderHero(profile, readiness, bestLens) {
   const insight = buildPreparationInsightV2(profile, readiness, bestLens);
+  const signals = lensMarketSignals[state.lens] || lensMarketSignals.fundraising;
   return `
     <section class="hero panel">
       <div class="hero__copy">
-        <p class="eyebrow">Submission room</p>
-        <h2>Get ${profile.name} ready for a serious investor or partner conversation.</h2>
+        <p class="eyebrow">Preparation workspace</p>
+        <h2>Get ${escapeHtml(profile.name)} ready for ${escapeHtml(heroHeadline(state.lens))}.</h2>
         <p class="hero-copy">
-          Founders rarely lack a story. What they often lack is a clean, readable proof path — what's being asked, why it matters now,
-          what evidence exists, what's still uncertain, and which open items should be resolved before outreach.
+          ${escapeHtml(heroCopyForLens(state.lens))}
         </p>
         <p class="hero-copy hero-copy--subtle">
-          This example is tuned for ${escapeHtml(profile.objective || bestLens.label)} and opens on the ${escapeHtml(bestLens.label)} path.
+          This profile is set to the ${escapeHtml(bestLens.label)} path. Switch paths from the left panel if your preparation goal has changed.
         </p>
         <div class="market-strip" aria-label="Market needs">
-          ${marketSignals.map((signal) => `<span>${escapeHtml(signal)}</span>`).join("")}
+          ${signals.map((signal) => `<span>${escapeHtml(signal)}</span>`).join("")}
         </div>
       </div>
       <div class="hero-ledger" aria-label="Readiness summary">
@@ -1446,9 +1488,9 @@ function renderHero(profile, readiness, bestLens) {
           <small>Flagged rather than hidden</small>
         </div>
         <div class="hero-ledger__item">
-          <strong>${bestLens.label}</strong>
-          <span>Submission path</span>
-          <small>Driven by the selected example</small>
+          <strong>${escapeHtml(bestLens.label)}</strong>
+          <span>Active preparation path</span>
+          <small>Change it from the left panel at any time</small>
         </div>
         <div class="hero-ledger__item hero-ledger__item--wide">
           <strong>${escapeHtml(insight.priorityLabel)}</strong>
@@ -1496,13 +1538,13 @@ function renderNavigator() {
       </div>
 
       <div class="panel-heading panel-heading--compact">
-        <p class="eyebrow">Example objective</p>
-        <h2>${escapeHtml(profile.objective || "Submission path")}</h2>
+        <p class="eyebrow">Preparation path</p>
+        <h2>${escapeHtml(currentLens.label)}</h2>
       </div>
 
       <p class="navigator-note">
-        ${escapeHtml(profile.name)} opens on the ${escapeHtml(currentLens.label.toLowerCase())} path.
-        Use the buttons below only if you want to inspect another framing.
+        ${escapeHtml(profile.name)} is set to the ${escapeHtml(currentLens.label.toLowerCase())} path.
+        Select a different path below to reframe the readiness score and guidance.
       </p>
 
       <div class="lens-list" role="group" aria-label="Submission lenses">
@@ -1525,7 +1567,7 @@ function renderNavigator() {
       </div>
 
       <div class="panel-heading panel-heading--compact">
-        <p class="eyebrow">Example companies</p>
+        <p class="eyebrow">Companies</p>
         <h2>${profiles.length} ${profiles.length === 1 ? "company" : "companies"}</h2>
       </div>
 
@@ -1547,7 +1589,6 @@ function renderNavigator() {
                 </span>
                 <span class="profile-item__meta">${escapeHtml(profile.sector)} / ${escapeHtml(profile.stage)} / TRL ${profile.trl}</span>
                 <span class="profile-item__meta">${profile.source === "custom" ? "Custom profile" : "Example profile"}</span>
-                <span class="profile-item__meta">Objective: ${escapeHtml(profile.objective || profileLens.label)}</span>
                 <span class="profile-item__meta">Path: ${escapeHtml(profileLens.label)}</span>
                 <span class="profile-item__body">${escapeHtml(profile.oneLiner)}</span>
               </button>
@@ -1630,7 +1671,7 @@ function renderTabGuide(profile) {
       detail: "Good evidence targets a specific question. Don't just add more — close the right gaps.",
     },
     memo: {
-      label: "Export a summary from this room.",
+      label: "Export a summary from this workspace.",
       detail: "The memo adapts to the selected lens and surfaces what's still uncertain.",
     },
     esg: {
@@ -1776,7 +1817,7 @@ function renderWorkspaceTab(profile, readiness) {
         <div class="assessment-grid">
           ${renderCollectionCard("Exposure", collections.exposure)}
           ${renderCollectionCard("ESG questionnaire", collections.esg)}
-          ${renderCollectionCard("SROI", collections.sroi)}
+          ${renderCollectionCard("Social return on investment (SROI)", collections.sroi)}
         </div>
         <p class="model-note">Exposure framing influences readiness. ESG and SROI inputs are stored for later memo and packaging work, but they do not change the readiness score directly.</p>
       </section>
@@ -1842,32 +1883,31 @@ function renderIntakeTabV2(profile) {
     fundraising: `
       ${renderTextField("Funding ask", "ask", profile.ask)}
       ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
-      ${renderMetricField("Revenue", "revenue", profile.metrics.revenue)}
+      ${renderTextField("Suggested next step", "nextStep", profile.nextStep, "textarea")}
       ${renderMetricField("Runway", "runway", profile.metrics.runway)}
       ${renderMetricField("Traction", "traction", profile.metrics.traction)}
-      ${renderTextField("Funding history", "funding.totalRaised", profile.funding.totalRaised)}
+      ${renderTextField("Total raised to date", "funding.totalRaised", profile.funding.totalRaised)}
     `,
     partner: `
-      ${renderTextField("Customer and buyer", "customer", profile.customer, "textarea")}
-      ${renderTextField("Problem statement", "problem", profile.problem, "textarea")}
       ${renderTextField("Deployment requirements", "assessment.exposure.note", profile.assessment.exposure.note, "textarea")}
-      ${renderTextareaField("Risks to acknowledge", "risks", profile.risks)}
       ${renderTextField("Expected pilot outcome", "nextStep", profile.nextStep, "textarea")}
-    `,
-    commercialization: `
-      ${renderTextField("One-liner", "oneLiner", profile.oneLiner)}
-      ${renderSelectField("TRL", "trl", String(profile.trl), trlOptions)}
-      ${renderTextField("IP position", "ip", profile.ip, "textarea")}
-      ${renderTextField("Business model", "model", profile.model, "textarea")}
-      ${renderTextField("First target customer", "customer", profile.customer, "textarea")}
+      ${renderTextField("Funding ask", "ask", profile.ask)}
       ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
     `,
+    commercialization: `
+      ${renderSelectField("TRL (Technology Readiness Level)", "trl", String(profile.trl), trlOptions)}
+      ${renderTextField("IP position", "ip", profile.ip, "textarea")}
+      ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
+      ${renderTextField("Funding ask", "ask", profile.ask)}
+      ${renderTextField("Suggested next step", "nextStep", profile.nextStep, "textarea")}
+    `,
     grant: `
-      ${renderTextField("Problem statement", "problem", profile.problem, "textarea")}
       ${renderTextField("Transition note", "transition.note", profile.transition.note, "textarea")}
       ${renderTextField("Beneficiary groups", "assessment.sroi.beneficiaryGroups", profile.assessment.sroi.beneficiaryGroups, "textarea")}
       ${renderTextField("Primary outcome to value", "assessment.sroi.primaryOutcome", profile.assessment.sroi.primaryOutcome, "textarea")}
       ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
+      ${renderTextField("Funding ask", "ask", profile.ask)}
+      ${renderTextField("Suggested next step", "nextStep", profile.nextStep, "textarea")}
     `,
   }[state.lens];
 
@@ -1961,12 +2001,10 @@ function renderIntakeTabV2(profile) {
 
       <section class="section-block">
         <div class="section-heading">
-          <p class="eyebrow">Funding and exit</p>
-          <h3>Where the company is going next</h3>
+          <p class="eyebrow">Funding history and exit</p>
+          <h3>Where the company has been and where it aims to go</h3>
         </div>
         <div class="form-grid">
-          ${renderTextField("Funding ask", "ask", profile.ask)}
-          ${renderTextField("Use of funds", "useOfFunds", profile.useOfFunds, "textarea")}
           ${renderTextField("Total raised to date", "funding.totalRaised", profile.funding.totalRaised)}
           ${renderTextField("Number of previous rounds", "funding.roundCount", profile.funding.roundCount)}
           ${renderTextField("Key existing investors", "funding.notableInvestors", profile.funding.notableInvestors)}
@@ -1974,7 +2012,6 @@ function renderIntakeTabV2(profile) {
           ${renderSelectField("Expected exit horizon", "exit.horizon", profile.exit.horizon, exitHorizonOptions)}
           ${renderSelectField("Preferred exit type", "exit.type", profile.exit.type, exitTypeOptions)}
           ${renderTextField("Potential acquirers or strategic partners", "exit.acquirers", profile.exit.acquirers, "textarea")}
-          ${renderTextField("Suggested next step", "nextStep", profile.nextStep, "textarea")}
         </div>
       </section>
 
@@ -1991,7 +2028,7 @@ function renderIntakeTabV2(profile) {
           ${renderSelectField("How much regulatory oversight does your activity face?", "regulatory.level", profile.regulatory.level, exposureLevelOptions)}
           ${renderSelectField("How exposed is your company to climate or sustainability regulations?", "transition.level", profile.transition.level, exposureLevelOptions)}
           ${renderSelectField("Primary market", "assessment.exposure.primaryJurisdiction", profile.assessment.exposure.primaryJurisdiction, geographyOptions)}
-          ${renderTextField("Anything else the founder should note?", "assessment.exposure.note", profile.assessment.exposure.note, "textarea")}
+          ${renderTextField("Regulatory or compliance context", "assessment.exposure.note", profile.assessment.exposure.note, "textarea")}
         </div>
       </section>
 
@@ -2013,7 +2050,7 @@ function renderIntakeTabV2(profile) {
           <h3>Optional impact inputs for later packaging</h3>
         </div>
         <div class="assessment-summary">
-          ${renderCollectionCard("SROI collection", sroi)}
+          ${renderCollectionCard("Social return on investment (SROI)", sroi)}
         </div>
         <p class="model-note">These inputs help later preparation and memo drafting. They do not change the readiness score directly.</p>
         <div class="form-grid">
@@ -2026,7 +2063,8 @@ function renderIntakeTabV2(profile) {
   `;
 }
 
-function getEsgQuestions(sector) {
+function getEsgQuestions(sector, stage) {
+  const isEarlyStage = ["Pre-seed", "Seed"].includes(stage);
   const base = [
     { key: "envTracking", group: "Environment", label: "Do you track your company's energy use or carbon footprint?" },
     { key: "envPolicy", group: "Environment", label: "Do you have a written environmental or sustainability policy?" },
@@ -2036,7 +2074,9 @@ function getEsgQuestions(sector) {
     { key: "socialOutcome", group: "Social", label: "Does your work create a measurable positive outcome for a specific community or group?" },
     { key: "hasBoard", group: "Governance", label: "Does the company have a board or advisory board?" },
     { key: "ethicsPolicy", group: "Governance", label: "Do you have written policies for ethics or conflicts of interest?" },
-    { key: "financialsReviewed", group: "Governance", label: "Are your financials reviewed by an external accountant or auditor?" },
+    ...(isEarlyStage
+      ? []
+      : [{ key: "financialsReviewed", group: "Governance", label: "Are your financials reviewed by an external accountant or auditor?" }]),
   ];
   const overrides = {
     "Climate tech": {
@@ -2092,7 +2132,7 @@ function getEsgQuestions(sector) {
 
 function renderEsgTabV2(profile) {
   const esg = computeEsgCollection(profile);
-  const questions = getEsgQuestions(profile.sector);
+  const questions = getEsgQuestions(profile.sector, profile.stage);
   const groups = ["Environment", "Social", "Governance"];
   return `
     <div class="content-grid">
@@ -2243,7 +2283,12 @@ function renderMemoTab(profile, readiness) {
       <div class="memo__body" id="memo-text">
         ${memo
           .split("\n")
-          .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+          .map((paragraph) => {
+            if (paragraph.startsWith("## ")) return `<h4 class="memo__section">${escapeHtml(paragraph.slice(3))}</h4>`;
+            if (paragraph === "---") return `<hr class="memo__divider" />`;
+            if (!paragraph.trim()) return "";
+            return `<p>${escapeHtml(paragraph)}</p>`;
+          })
           .join("")}
       </div>
       <p class="disclaimer">
@@ -2286,8 +2331,8 @@ function renderReadinessRail(profile, readiness, bestLens) {
       </div>
 
       <div class="rail-section">
-        <span>What changed the score</span>
-        <p>${escapeHtml(readiness.strongSignals[0] || "The strongest visible signal is still the overall profile coverage.")}</p>
+        <span>Strongest signal</span>
+        <p>${escapeHtml(readiness.strongSignals[0] || "Overall profile coverage is the strongest signal so far.")}</p>
       </div>
 
       <div class="rail-section">
@@ -2440,8 +2485,8 @@ function renderLensWeights(lens) {
     completeness: "Profile",
     evidence: "Evidence",
     narrative: "Narrative",
-    diligence: "Due diligence",
-    exposure: "Risk & reg.",
+    diligence: "Diligence",
+    exposure: "Exposure",
   };
   const maxWeight = Math.max(...Object.values(lens.weights));
   return Object.entries(lens.weights)
@@ -2591,14 +2636,23 @@ function generateMemoV2(profile, readiness) {
   const firstRisk = structuredRisks[0]?.title || "execution risk";
 
   return [
-    `Company snapshot: ${profile.name} is a ${profile.stage.toLowerCase()} ${profile.sector.toLowerCase()} company in ${profile.geography}. The current submission readiness based on the current profile is ${readiness.overall}/100, which reads as ${readiness.status.toLowerCase()}.`,
-    `Why this company matters now: ${insight.marketDetail} The best first audience is ${insight.audience.toLowerCase()} because ${insight.audienceReason.charAt(0).toLowerCase() + insight.audienceReason.slice(1)}`,
-    `Current evidence available: ${firstEvidence}${structuredEvidence.length > 1 ? `; ${structuredEvidence[1].title}` : ""}${structuredEvidence.length > 2 ? `; ${structuredEvidence[2].title}` : ""}. The strongest visible signal is ${readiness.strongSignals[0] || strongestModule.summary}.`,
-    `Open diligence items: ${structuredMissing.length ? structuredMissing.map((item) => item.title).join("; ") : "No named missing items yet."} The main unresolved item to address next is ${firstGap}.`,
-    `Readiness interpretation based on the current profile: ${weakestModule.label} is the weakest module at ${weakestModule.value}/100, while ${strongestModule.label} is the strongest at ${strongestModule.value}/100. ${weakestModule.detail}`,
-    `Suggested next preparation step: ${insight.priorityDetail} The next useful proof package is ${insight.proofTarget.toLowerCase()}: ${insight.proofDetail.charAt(0).toLowerCase() + insight.proofDetail.slice(1)}`,
-    `Risk framing: ${structuredRisks.length ? structuredRisks.map((item) => item.title).join("; ") : "No risks named yet."} The first risk to acknowledge is ${firstRisk}.`,
-    `Optional structured inputs: regulatory exposure ${collections.exposure.completed}/${collections.exposure.total}, ESG tracking ${collections.esg.completed}/${collections.esg.total}, SROI ${collections.sroi.completed}/${collections.sroi.total}. Exposure framing affects readiness; ESG and SROI are kept for later packaging work.`,
+    `## Company snapshot`,
+    `${profile.name} is a ${profile.stage.toLowerCase()} ${profile.sector.toLowerCase()} company in ${profile.geography}. Preparation readiness based on the current profile: ${readiness.overall}/100 — ${readiness.status.toLowerCase()}.`,
+    `## Why this matters now`,
+    `${insight.marketDetail} The best first audience is ${insight.audience.toLowerCase()} because ${insight.audienceReason.charAt(0).toLowerCase() + insight.audienceReason.slice(1)}`,
+    `## Evidence available`,
+    `${firstEvidence}${structuredEvidence.length > 1 ? `; ${structuredEvidence[1].title}` : ""}${structuredEvidence.length > 2 ? `; ${structuredEvidence[2].title}` : ""}. Strongest signal: ${readiness.strongSignals[0] || strongestModule.summary}.`,
+    `## Open diligence items`,
+    `${structuredMissing.length ? structuredMissing.map((item) => item.title).join("; ") : "No named missing items yet."} The main item to address next: ${firstGap}.`,
+    `## Readiness interpretation`,
+    `${weakestModule.label} is the weakest area at ${weakestModule.value}/100; ${strongestModule.label} is the strongest at ${strongestModule.value}/100. ${weakestModule.detail}`,
+    `## Suggested next step`,
+    `${insight.priorityDetail} Next useful proof package — ${insight.proofTarget.toLowerCase()}: ${insight.proofDetail.charAt(0).toLowerCase() + insight.proofDetail.slice(1)}`,
+    `## Risk framing`,
+    `${structuredRisks.length ? structuredRisks.map((item) => item.title).join("; ") : "No risks named yet."} First risk to acknowledge: ${firstRisk}.`,
+    `## Structured inputs`,
+    `Regulatory exposure ${collections.exposure.completed}/${collections.exposure.total} fields; ESG tracking ${collections.esg.completed}/${collections.esg.total} fields; SROI ${collections.sroi.completed}/${collections.sroi.total} fields. Exposure framing affects readiness; ESG and SROI are kept for later packaging work.`,
+    `---`,
     `This note is based on the current profile only and should be used as a founder-side preparation output before outreach, not as financing advice or a substitute for third-party diligence.`,
   ].join("\n");
 }
@@ -2838,6 +2892,7 @@ function handleClick(event) {
   }
 
   if (action === "clear-profile") {
+    if (!confirm("Clear all fields from this profile? This cannot be undone.")) return;
     clearActiveProfile();
     render({ focusTab: state.tab });
     return;
@@ -2850,6 +2905,8 @@ function handleClick(event) {
   }
 
   if (action === "delete-profile") {
+    const profileToDelete = activeProfile();
+    if (!confirm(`Delete "${profileToDelete?.name || "this profile"}"? This cannot be undone.`)) return;
     deleteActiveProfile();
     render({ focusTab: state.tab });
     return;

@@ -1519,6 +1519,28 @@ h3 {
   max-width: 74ch;
 }
 
+.memo__section {
+  margin: 0;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--line);
+  color: var(--bluette);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.memo__section:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.memo__divider {
+  border: none;
+  border-top: 1px solid var(--line-strong);
+  margin: var(--space-xs) 0 0;
+}
+
 .disclaimer {
   margin-bottom: 0;
   color: var(--muted);
