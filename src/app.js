@@ -1658,10 +1658,13 @@ function renderTabGuide(profile) {
   const guide = lens.guide;
   const focusedFields = unique(guide.flatMap((step) => step.fields));
   const filled = focusedFields.filter((field) => hasGuideValue(readPath(profile, field))).length;
+  const missingField = focusedFields.find((field) => !hasGuideValue(readPath(profile, field)));
+  const missingLabel = missingField ? fieldLabel(missingField) : "nothing critical";
+  const missingCount = Math.max(focusedFields.length - filled, 0);
   const tabCopy = {
     workspace: {
-      label: "Where you are now, and what matters next.",
-      detail: "Use the field map to jump to the highest-priority fields, then follow the next steps to close the main gaps.",
+      label: "What this path is for",
+      detail: `This path is for ${lens.label.toLowerCase()} preparation. ${missingCount ? `${missingCount} priority field${missingCount === 1 ? "" : "s"} are still open, starting with ${missingLabel}.` : "The priority fields are already filled."} Jump next to the field map, then use the compact next step to close the main gap.`,
     },
     intake: {
       label: "Edit the fields that matter for this submission path.",
@@ -1690,7 +1693,8 @@ function renderTabGuide(profile) {
       </div>
       <div class="tab-guide__status">
         <span>${filled}/${focusedFields.length}</span>
-        <p>Fields ready for this lens</p>
+        <p>${missingCount ? `${missingCount} field${missingCount === 1 ? "" : "s"} still need attention` : "All priority fields ready"}</p>
+        <small>Jump next: Field map</small>
       </div>
     </section>
   `;
@@ -1707,8 +1711,6 @@ function renderTabContent(profile, readiness) {
 function renderWorkspaceTab(profile, readiness) {
   const currentLens = lensConfig[state.lens];
   const insight = buildPreparationInsightV2(profile, readiness, currentLens);
-  const strongSignals = readiness.strongSignals.slice(0, 3);
-  const blockers = readiness.blockers.slice(0, 3);
   return `
     <div class="content-grid">
       <section class="section-block section-block--wide">
@@ -1736,39 +1738,15 @@ function renderWorkspaceTab(profile, readiness) {
 
       <section class="section-block section-block--wide">
         <div class="section-heading">
-          <p class="eyebrow">Preparation priority</p>
+          <p class="eyebrow">Next step</p>
           <h3>${escapeHtml(insight.priorityLabel)}</h3>
         </div>
-        <p class="model-note">${escapeHtml(insight.priorityDetail)}</p>
-        <div class="move-list">
-          ${insight.nextMoves
-            .map(
-              (move, index) => `
-                <article class="move-item">
-                  <span>0${index + 1}</span>
-                  <p>${escapeHtml(move)}</p>
-                </article>
-              `
-            )
-            .join("")}
-        </div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-heading">
-          <p class="eyebrow">Readiness signals</p>
-          <h3>What's working and what needs attention</h3>
-        </div>
-        <div class="two-column-list">
-          <div>
-            <span>What's working</span>
-            <ul class="clean-list">${strongSignals.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-          </div>
-          <div>
-            <span>Gaps to address</span>
-            <ul class="clean-list muted-list">${blockers.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-          </div>
-        </div>
+        <article class="lens-summary-card">
+          <span>${escapeHtml(insight.proofTarget)}</span>
+          <strong>${escapeHtml(insight.topMissing)}</strong>
+          <p>${escapeHtml(insight.priorityDetail)}</p>
+          <small>${escapeHtml(insight.nextMoves[0])}</small>
+        </article>
       </section>
     </div>
   `;
@@ -2152,12 +2130,17 @@ function renderReadinessRail(profile, readiness, bestLens) {
           <span>Suggested next step</span>
           <p>${escapeHtml(insight.priorityDetail)}</p>
         </div>
+
+        <div class="rail-section">
+          <span>Why this matters</span>
+          <p>${escapeHtml(`${insight.marketDetail} ${insight.audienceReason}`)}</p>
+        </div>
       </div>
 
       <div class="rail-counterparty">
-        <p class="eyebrow">Key questions</p>
+        <p class="eyebrow">Secondary questions</p>
         ${insight.counterpartyQuestions
-          .slice(0, 4)
+          .slice(0, 2)
           .map(
             (q) => `
               <article class="rail-qa">
@@ -2543,6 +2526,8 @@ function buildPreparationInsightV2(profile, readiness, bestLens) {
     audienceReason,
     proofTarget,
     proofDetail,
+    topMissing,
+    topSignal,
     priorityLabel,
     priorityDetail,
     openQuestion,

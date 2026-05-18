@@ -431,7 +431,7 @@ h3 {
 .workspace {
   display: grid;
   grid-template-columns: minmax(280px, 320px) minmax(0, 1fr) minmax(300px, 360px);
-  gap: var(--space-xl);
+  gap: clamp(var(--space-xl), 2.4vw, var(--space-2xl));
   align-items: start;
 }
 
@@ -440,20 +440,20 @@ h3 {
   position: sticky;
   top: 96px;
   display: grid;
-  gap: var(--space-md);
-  padding: var(--space-lg);
+  gap: var(--space-sm);
+  padding: var(--space-md);
   max-height: calc(100vh - 116px);
   overflow: auto;
 }
 
 .studio {
   display: grid;
-  gap: var(--space-xl);
+  gap: var(--space-2xl);
 }
 
 .studio__header,
 .tabs {
-  padding: var(--space-lg);
+  padding: var(--space-xl);
 }
 
 .studio__header {
@@ -727,7 +727,7 @@ h3 {
 
 .tabs {
   display: grid;
-  gap: var(--space-lg);
+  gap: var(--space-xl);
 }
 
 .tabs__bar {
@@ -756,18 +756,18 @@ h3 {
 
 .tabs__body {
   display: grid;
-  gap: var(--space-xl);
+  gap: var(--space-2xl);
 }
 
 .tabs__panel {
   display: grid;
-  gap: var(--space-lg);
+  gap: var(--space-xl);
 }
 
 .tab-guide {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  padding: var(--space-md);
+  padding: var(--space-lg);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   background:
@@ -816,8 +816,8 @@ h3 {
 
 .section-block {
   display: grid;
-  gap: var(--space-md);
-  padding: var(--space-lg);
+  gap: var(--space-lg);
+  padding: var(--space-xl);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   background: color-mix(in oklch, var(--paper) 82%, var(--surface));
@@ -832,7 +832,7 @@ h3 {
 
 .content-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-xl);
+  gap: clamp(var(--space-xl), 2vw, var(--space-2xl));
 }
 
 .section-block--wide {
@@ -951,17 +951,17 @@ h3 {
 }
 
 .guide-process {
-  gap: var(--space-md);
+  gap: var(--space-lg);
 }
 
 .guide-step {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: var(--space-md);
-  padding: var(--space-md);
-  border: 1px solid var(--line);
+  padding: var(--space-lg);
+  border: 1px solid color-mix(in oklch, var(--line) 80%, transparent);
   border-radius: var(--radius-md);
-  background: var(--paper);
+  background: color-mix(in oklch, var(--paper) 92%, var(--surface));
 }
 
 .guide-step__index {
@@ -1008,7 +1008,7 @@ h3 {
 .guide-step__detail {
   padding: var(--space-sm);
   border-radius: var(--radius-sm);
-  background: color-mix(in oklch, var(--paper-deep) 72%, var(--bluette-soft));
+  background: color-mix(in oklch, var(--paper-deep) 82%, var(--bluette-soft));
 }
 
 .guide-step__detail p,
@@ -1046,9 +1046,9 @@ h3 {
   display: grid;
   gap: var(--space-xs);
   padding: var(--space-md);
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in oklch, var(--line) 78%, transparent);
   border-radius: var(--radius-md);
-  background: var(--paper);
+  background: color-mix(in oklch, var(--paper) 94%, var(--surface));
 }
 
 .field-map-card.is-filled {
@@ -1069,9 +1069,9 @@ h3 {
   display: grid;
   gap: var(--space-xs);
   padding: var(--space-sm);
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in oklch, var(--line) 78%, transparent);
   border-radius: var(--radius-sm);
-  background: var(--paper);
+  background: color-mix(in oklch, var(--paper) 95%, var(--surface));
 }
 
 .lens-weight strong {
@@ -1093,9 +1093,9 @@ h3 {
   display: grid;
   gap: var(--space-xs);
   padding: var(--space-md);
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in oklch, var(--line) 78%, transparent);
   border-radius: var(--radius-md);
-  background: var(--paper);
+  background: color-mix(in oklch, var(--paper) 94%, var(--surface));
 }
 
 .cockpit-card--primary {
@@ -1214,9 +1214,9 @@ h3 {
   display: grid;
   gap: var(--space-sm);
   padding: var(--space-md);
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in oklch, var(--line) 78%, transparent);
   border-radius: var(--radius-md);
-  background: var(--paper);
+  background: color-mix(in oklch, var(--paper) 94%, var(--surface));
 }
 
 .structured-list {
@@ -1231,9 +1231,9 @@ h3 {
   display: grid;
   gap: var(--space-2xs);
   padding: var(--space-sm);
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in oklch, var(--line) 80%, transparent);
   border-radius: var(--radius-sm);
-  background: var(--paper-deep);
+  background: color-mix(in oklch, var(--paper-deep) 90%, var(--surface));
 }
 
 .structured-list strong {
@@ -1302,7 +1302,7 @@ h3 {
 .memo__body,
 .memo__header {
   padding: var(--space-md);
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in oklch, var(--line) 82%, transparent);
   border-radius: var(--radius-md);
   background: var(--paper);
 }
@@ -1344,6 +1344,7 @@ h3 {
 .exposure-card {
   display: grid;
   gap: var(--space-xs);
+  background: color-mix(in oklch, var(--paper) 94%, var(--surface));
 }
 
 .exposure-card strong {
@@ -1415,8 +1416,8 @@ h3 {
 
 .evidence-column .structured-card {
   flex: 1;
-  background: var(--paper-deep);
-  border-color: var(--line);
+  background: color-mix(in oklch, var(--paper-deep) 90%, var(--surface));
+  border-color: color-mix(in oklch, var(--line) 82%, transparent);
 }
 
 .evidence-checklist .prompt-list {
@@ -1523,16 +1524,16 @@ h3 {
 }
 
 .memo {
-  gap: var(--space-md);
+  gap: var(--space-lg);
 }
 
 .memo-prep {
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   align-items: start;
-  padding: var(--space-md);
-  border: 1px solid var(--line);
+  padding: var(--space-lg);
+  border: 1px solid color-mix(in oklch, var(--line) 80%, transparent);
   border-radius: var(--radius-md);
-  background: color-mix(in oklch, var(--paper) 84%, var(--bluette-soft));
+  background: color-mix(in oklch, var(--paper) 88%, var(--bluette-soft));
 }
 
 .memo-prep > div:first-child {
@@ -1559,7 +1560,7 @@ h3 {
 
 .memo__body {
   display: grid;
-  gap: var(--space-md);
+  gap: var(--space-lg);
 }
 
 .memo__body p {
@@ -1597,8 +1598,8 @@ h3 {
 .rail-score {
   display: grid;
   gap: var(--space-2xs);
-  padding: var(--space-md);
-  border: 1px solid var(--line);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid color-mix(in oklch, var(--line) 72%, transparent);
   border-radius: var(--radius-md);
   background: var(--bluette);
   color: var(--bluette-ink);
@@ -1627,9 +1628,9 @@ h3 {
 
 .bar-block {
   padding: var(--space-md);
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in oklch, var(--line) 80%, transparent);
   border-radius: var(--radius-md);
-  background: var(--paper);
+  background: color-mix(in oklch, var(--paper) 94%, var(--surface));
 }
 
 .bar-block__head {
@@ -1667,9 +1668,9 @@ h3 {
 
 .rail-section {
   display: grid;
-  gap: var(--space-xs);
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--line);
+  gap: var(--space-2xs);
+  padding-top: var(--space-sm);
+  border-top: 1px solid color-mix(in oklch, var(--line) 82%, transparent);
   /* Override box treatment inherited from compound selector */
   border-right: none;
   border-bottom: none;
@@ -1787,7 +1788,7 @@ h3 {
   display: grid;
   gap: var(--space-xs);
   padding: var(--space-lg);
-  border: 1px solid var(--lime);
+  border: 1px solid color-mix(in oklch, var(--lime) 58%, var(--line));
   border-radius: var(--radius-md);
   background: color-mix(in oklch, var(--lime) 6%, var(--paper));
 }
@@ -1820,13 +1821,23 @@ h3 {
 /* === IA-REDESIGN: Profile tab lens-priority section (Section B) === */
 
 .section-block--lens-priority {
-  border-color: color-mix(in oklch, var(--lime) 24%, var(--line));
-  background: color-mix(in oklch, var(--lime) 5%, var(--paper));
+  border-color: color-mix(in oklch, var(--lime) 36%, var(--line));
+  background:
+    linear-gradient(180deg, oklch(98% 0.018 96) 0%, color-mix(in oklch, var(--lime) 7%, var(--paper)) 100%);
+  box-shadow:
+    0 1px 0 color-mix(in oklch, var(--lime) 20%, transparent),
+    0 14px 34px oklch(18% 0.04 292 / 8%);
 }
 
 .section-block--lens-priority .section-heading {
-  background: color-mix(in oklch, var(--lime) 8%, var(--paper));
-  border-color: color-mix(in oklch, var(--lime) 20%, var(--line));
+  padding: var(--space-md) var(--space-lg);
+  background: color-mix(in oklch, var(--lime) 10%, var(--paper));
+  border: 1px solid color-mix(in oklch, var(--lime) 18%, var(--line));
+  border-radius: var(--radius-sm);
+}
+
+.section-block--lens-priority .section-heading h3 {
+  font-size: 1.18rem;
 }
 
 .section-block--lens-priority .model-note {
@@ -1917,8 +1928,8 @@ h3 {
   gap: var(--space-md);
   padding: var(--space-lg);
   padding-top: var(--space-md);
-  background: var(--paper-deep);
-  border-top: 1px solid var(--line);
+  background: color-mix(in oklch, var(--paper-deep) 92%, var(--surface));
+  border-top: 1px solid color-mix(in oklch, var(--line) 82%, transparent);
 }
 
 .extended-profile__sub {
@@ -1929,9 +1940,9 @@ h3 {
 
 .rail-counterparty {
   display: grid;
-  gap: var(--space-xs);
+  gap: var(--space-2xs);
   padding-top: var(--space-xs);
-  border-top: 1px solid var(--line);
+  border-top: 1px solid color-mix(in oklch, var(--line) 82%, transparent);
 }
 
 .rail-counterparty > .eyebrow {
@@ -1941,10 +1952,10 @@ h3 {
 .rail-qa {
   display: grid;
   gap: 3px;
-  padding: var(--space-sm);
-  border: 1px solid var(--line);
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid color-mix(in oklch, var(--line) 80%, transparent);
   border-radius: var(--radius-sm);
-  background: var(--paper-deep);
+  background: color-mix(in oklch, var(--paper-deep) 92%, var(--surface));
 }
 
 .rail-qa span {
@@ -1969,8 +1980,8 @@ h3 {
 .rail-decision {
   display: grid;
   gap: var(--space-xs);
-  padding: var(--space-md);
-  border: 1px solid var(--line);
+  padding: var(--space-sm);
+  border: 1px solid color-mix(in oklch, var(--line) 80%, transparent);
   border-radius: var(--radius-md);
   background: color-mix(in oklch, var(--paper) 84%, var(--bluette-soft));
 }
@@ -1999,7 +2010,7 @@ h3 {
 /* === IA-REDESIGN: Compact bar-block in rail (no note/detail text) === */
 
 .bar-list .bar-block {
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
   gap: var(--space-xs);
 }
 
